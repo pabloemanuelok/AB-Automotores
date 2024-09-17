@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --RojoAb: #B62E30;
+  --Negro: #000000;
+  --grisAb: #1E1E1E;
+  --grisBorde: #505050;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.scrollbar-hide {
+-ms-overflow-style: none; /* IE y Edge */
+scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+display: none; /* Safari y Chrome */
+}
