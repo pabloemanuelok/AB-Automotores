@@ -5,6 +5,9 @@ import { fetchGetConsultas, fetchDeleteConsulta } from '@/utils/FetchCon/FetchCo
 import { getAuthToken } from '@/utils/Auth/Auth'; // Asegúrate de que esta importación sea correcta
 import { IConsulta } from '@/Interfaces/Interface';
 
+// Función para convertir el enum Banco a un texto legible
+
+
 const ConsultasClient: React.FC = () => {
   const [inquiries, setInquiries] = useState<IConsulta[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -70,6 +73,10 @@ const ConsultasClient: React.FC = () => {
               </p>
               <p>
                 <strong>Teléfono:</strong> {inquiry.telefono}
+              </p>
+              {/* Mostrar el campo Banco si está presente */}
+              <p>
+                <strong>Banco:</strong> {inquiry.banco}
               </p>
             </div>
             <div className="bg-[#D9D9D9] p-3 rounded-lg relative text-gray-800" style={{ paddingBottom: '2.5rem' }}>

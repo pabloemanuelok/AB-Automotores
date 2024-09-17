@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/utils/FetchCon/FetchCon.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/utils/FetchCon/FetchCon.tsx", "src/Components/Financiacion/FinanciacionForm"],
   "exclude": ["node_modules"]
 }

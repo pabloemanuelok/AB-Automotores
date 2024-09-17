@@ -30,7 +30,7 @@ interface IProductCardProps {
 
 // Consulta
 
-enum Banco {
+export enum Banco {
   SANTANDER = "Santander",
   HSBC = "HSBC",
   SUPERVIELLE = "Supervielle",
@@ -42,7 +42,7 @@ interface IConsulta {
   nombre: string;
   email: string;
   telefono: string;
-  Banco: Banco;
+  banco: Banco;
   mensaje?: string;
 }
 

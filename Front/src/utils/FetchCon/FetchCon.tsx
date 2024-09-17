@@ -17,12 +17,13 @@ export const fetchGetConsultas = async (token: string): Promise<IConsulta[]> => 
 };
 
 // POST: Crear una nueva consulta
-export const fetchPostConsulta = async (consulta: IConsulta, token: string): Promise<IConsulta> => {
+// En la función fetchPostConsulta// Ajusta la ruta según tu estructura
+
+export const fetchPostConsulta = async (consulta: Omit<IConsulta, '_id' | 'banco'>): Promise<IConsulta> => {
   const response = await fetch(baseUrl, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}` // Incluye el token en los headers
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(consulta)
   });
@@ -31,6 +32,7 @@ export const fetchPostConsulta = async (consulta: IConsulta, token: string): Pro
   }
   return await response.json();
 };
+
 
 // DELETE: Eliminar una consulta por ID
 export const fetchDeleteConsulta = async (id: string, token: string): Promise<void> => {

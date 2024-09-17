@@ -1,12 +1,54 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import bancor from "@/Assets/BANCOR 1.png";
 import santander from "@/Assets/Santander.png";
 import hsbc from "@/Assets/HSBC.png";
 import superville from "@/Assets/Superville.png";
 import logo from "@/Assets/LogoRojo.png";
+import { fetchPostConsulta } from "@/utils/FetchCon/FetchCon"; // Ajusta la ruta según sea necesario
+import { IConsulta, Banco } from "@/Interfaces/Interface";
 
 const Financiacion = () => {
+  const [formData, setFormData] = useState<Omit<IConsulta, "_id">>({
+    nombre: "",
+    email: "",
+    telefono: "",
+    banco: Banco.SANTANDER, // Valor predeterminado
+    mensaje: "",
+  });
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      console.log(formData); // Verifica los datos enviados
+      await fetchPostConsulta(formData);
+      setSuccessMessage("Consulta enviada con éxito");
+      setErrorMessage(null);
+      setFormData({
+        nombre: "",
+        email: "",
+        telefono: "",
+        banco: Banco.SANTANDER,
+        mensaje: "",
+      });
+    } catch (error) {
+      setErrorMessage("Error al enviar la consulta");
+      setSuccessMessage(null);
+    }
+  };
+
   return (
     <div className="relative pb-20">
       {/* Título de la sección */}
@@ -67,7 +109,7 @@ const Financiacion = () => {
       </div>
 
       <div>
-        <div className="flex flex-col md:flex-row items-center justify-center  bg-black text-white py-10 px-10">
+        <div className="flex flex-col md:flex-row items-center justify-center bg-black text-white py-10 px-10">
           {/* Columna Izquierda */}
           <div className="md:w-1/3 flex flex-col justify-start gap-10 mb-8 md:mb-0 md:pr-10">
             <h2 className="text-2xl md:text-3xl font-light text-center text-white mb-2">
@@ -86,16 +128,18 @@ const Financiacion = () => {
               ¡Escríbenos un mensaje con el banco y el <br /> vehículo que te
               interese!
             </p>
-            {/* Logo */}
           </div>
 
           {/* Columna Derecha */}
           <div className="w-full md:w-1/3 bg-[#222222] p-6 rounded-md shadow-md">
-            <form className="flex flex-col space-y-4">
+            <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
               <label className="flex flex-col">
                 <span className="mb-1">Nombre Completo:</span>
                 <input
+                  name="nombre"
                   type="text"
+                  value={formData.nombre}
+                  onChange={handleChange}
                   placeholder="Ingrese su nombre completo"
                   className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
                 />
@@ -104,8 +148,11 @@ const Financiacion = () => {
               <label className="flex flex-col">
                 <span className="mb-1">Teléfono:</span>
                 <input
+                  name="telefono"
                   type="text"
-                  placeholder="Ingrese su numero de telefono"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  placeholder="Ingrese su número de teléfono"
                   className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
                 />
               </label>
@@ -113,7 +160,10 @@ const Financiacion = () => {
               <label className="flex flex-col">
                 <span className="mb-1">Email:</span>
                 <input
+                  name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="ejemplo@gmail.com"
                   className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
                 />
@@ -121,44 +171,49 @@ const Financiacion = () => {
 
               <label className="flex flex-col">
                 <span className="mb-1">Banco:</span>
-                <select className="p-2 rounded-md border border-white bg-[#2C2C2C] text-white">
-                  <option value="Seleccione el banco">
-                    Seleccione el banco
-                  </option>
-                  <option value="bancor" className="text-neutral-500">
-                    Bancor
-                  </option>
-                  <option value="santander" className="text-neutral-500">
-                    Santander
-                  </option>
-                  <option value="hsbc" className="text-neutral-500">
-                    HSBC
-                  </option>
-                  <option value="superville" className="text-neutral-500">
-                    Supervielle
-                  </option>
+                <select
+                  name="Banco"
+                  value={formData.banco}
+                  onChange={handleChange}
+                  className="p-2 rounded-md border border-white bg-[#2C2C2C] text-white"
+                >
+                  {Object.values(Banco).map(banco => (
+                    <option key={banco} value={banco}>
+                      {banco}
+                    </option>
+                  ))}
                 </select>
               </label>
 
               <label className="flex flex-col">
                 <span className="mb-1">Mensaje:</span>
                 <textarea
-                  placeholder="Descripción"
-                  className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
-                ></textarea>
+                  name="mensaje"
+                  value={formData.mensaje}
+                  onChange={handleChange}
+                  placeholder="Escribe tu mensaje aquí"
+                  className="p-2 rounded-md border border-white bg-[#2C2C2C] text-white"
+                />
               </label>
 
               <button
                 type="submit"
-                className="bg-[#D9D9D9] hover:bg-RojoAb hover:text-white text-black py-2 px-4 rounded-md"
+                className="w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300"
               >
                 Enviar
               </button>
             </form>
+            {successMessage && (
+              <p className="text-green-500 text-center mt-4">{successMessage}</p>
+            )}
+            {errorMessage && (
+              <p className="text-red-500 text-center mt-4">{errorMessage}</p>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default Financiacion;
