@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC, useState, useEffect, useContext } from "react";
 import { usePathname } from 'next/navigation'; // Importa usePathname
-import Logo from "@/assets/LogoSinFondo.png"; // Ajusta la ruta si es necesario
+import Logo from "@/Assets/LogoSinFondo.png"; // Ajusta la ruta si es necesario
 import { UserContext } from "@/Context/contextUser"; // Importa tu contexto de usuario
 
 const Navbar: FC = () => {
