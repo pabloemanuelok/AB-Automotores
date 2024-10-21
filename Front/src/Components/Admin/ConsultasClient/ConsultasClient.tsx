@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { fetchGetConsultas, fetchDeleteConsulta } from '@/utils/FetchCon/FetchCon'; // Asegúrate de que esta importación sea correcta
-import { getAuthToken } from '@/utils/Auth/Auth'; // Asegúrate de que esta importación sea correcta
-import { IConsulta } from '@/Interfaces/Interface';
+import {
+  fetchGetConsultas,
+  fetchDeleteConsulta,
+} from "@/utils/FetchCon/FetchCon"; // Asegúrate de que esta importación sea correcta
+import { getAuthToken } from "@/utils/Auth/Auth"; // Asegúrate de que esta importación sea correcta
+import { IConsulta } from "@/Interfaces/Interface";
 
 // Función para convertir el enum Banco a un texto legible
-
 
 const ConsultasClient: React.FC = () => {
   const [inquiries, setInquiries] = useState<IConsulta[]>([]);
@@ -58,39 +60,56 @@ const ConsultasClient: React.FC = () => {
       </h2>
 
       {/* Contenedor de lista con scroll vertical */}
-      <div className="w-full max-w-3xl overflow-y-auto" style={{ maxHeight: '500px' }}>
+      <div
+        className="w-full max-w-3xl overflow-y-auto"
+        style={{ maxHeight: "500px" }}
+      >
         {inquiries.map((inquiry) => (
           <div
-            key={inquiry._id}
-            className="bg-[#222222] p-4 rounded-lg shadow-md flex flex-col gap-2 border border-gray-800 mb-4"
-          >
-            <div className="text-white">
-              <p>
-                <strong>Nombre:</strong> {inquiry.nombre}
-              </p>
-              <p>
-                <strong>Email:</strong> {inquiry.email}
-              </p>
-              <p>
-                <strong>Teléfono:</strong> {inquiry.telefono}
-              </p>
-              {/* Mostrar el campo Banco si está presente */}
-              <p>
-                <strong>Banco:</strong> {inquiry.banco}
-              </p>
-            </div>
-            <div className="bg-[#D9D9D9] p-3 rounded-lg relative text-gray-800" style={{ paddingBottom: '2.5rem' }}>
-              {/* Asegúrate de que el mensaje se muestre incluso si es opcional */}
-              <p className="text-black">{inquiry.mensaje || "No hay mensaje"}</p>
-              {/* Botón de eliminar */}
-              <button
-                onClick={() => handleDeleteInquiry(inquiry._id)}
-                className="absolute bottom-2 right-2 p-2 bg-red-600 rounded-full text-white hover:opacity-80 transition-opacity"
-              >
-                🗑
-              </button>
-            </div>
+          key={inquiry._id}
+          className="bg-[#222222] p-4 shadow-md flex flex-col gap-2 border border-gray-800 mb-4 relative" // Añadí `relative` para controlar el posicionamiento de la fecha
+        >
+          <div className="text-white">
+            <p>
+              <strong>Nombre:</strong> {inquiry.nombre}
+            </p>
+            <p>
+              <strong>Email:</strong> {inquiry.email}
+            </p>
+            <p>
+              <strong>Teléfono:</strong> {inquiry.telefono}
+            </p>
+        
+            {/* Fecha posicionada en la esquina superior derecha */}
+            <p className="absolute top-2 right-2 text-sm text-yellow-500">
+              <strong>Fecha:</strong>{" "}
+              {inquiry.createdAt
+                ? new Date(inquiry.createdAt).toLocaleString("es-ES", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                : "Fecha no disponible"}
+            </p>
           </div>
+        
+          <div
+            className="bg-[#D9D9D9] p-3  relative text-gray-800"
+            style={{ paddingBottom: "2.5rem" }}
+          >
+            {/* Asegúrate de que el mensaje se muestre incluso si es opcional */}
+            <p className="text-black">{inquiry.mensaje || "No hay mensaje"}</p>
+            {/* Botón de eliminar */}
+            <button
+              onClick={() => handleDeleteInquiry(inquiry._id)}
+              className="absolute bottom-2 right-2 p-2 bg-red-600 rounded-md text-white hover:opacity-80 transition-opacity"
+            >
+              Borrar 🗑
+            </button>
+          </div>
+        </div>
         ))}
       </div>
     </div>

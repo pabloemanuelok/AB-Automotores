@@ -1,4 +1,4 @@
-// components/Card/Card.tsx
+"use client";
 import React, { useState, useEffect } from 'react';
 import { IProductCardProps } from '@/Interfaces/Interface';
 import Image from 'next/image';
@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { fetchDeleteId } from '@/utils/FetchCars/FetchCars';
 import { getAuthToken } from '@/utils/Auth/Auth'; // Importa la función getAuthToken
 
-const Card = ({ product, onDelete }: IProductCardProps & { onDelete: () => void }) => {
+const Card = ({ product, onDelete, onViewClick }: IProductCardProps & { onDelete: () => void; onViewClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -16,8 +16,12 @@ const Card = ({ product, onDelete }: IProductCardProps & { onDelete: () => void 
     setIsAuthenticated(!!token); // Verifica si hay un token
   }, []);
 
-  const handleHover = () => {
-    setIsHovered(!isHovered);
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   const handleDeleteClick = async () => {
@@ -30,16 +34,13 @@ const Card = ({ product, onDelete }: IProductCardProps & { onDelete: () => void 
 
   return (
     <div
-      className={`relative max-w-xs mx-auto bg-white shadow-2xl overflow-hidden transform transition-transform hover:scale-105 hover:shadow-3xl w-full h-full font-roboto group ${
-        isHovered ? 'scale-105 shadow-3xl' : ''
-      }`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={handleHover}
+      className={`relative max-w-xs mx-auto bg-white shadow-2xl overflow-hidden transform transition-transform hover:scale-105 hover:shadow-3xl w-full h-full font-roboto group`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="relative w-full h-[440px]">
         <Image
-          src={product.mainImgUrl}
+          src={product.images[0]}
           alt={product.name}
           fill
           style={{ objectFit: 'cover' }}
@@ -57,8 +58,8 @@ const Card = ({ product, onDelete }: IProductCardProps & { onDelete: () => void 
           <p className="text-xl font-light">{product.year}</p>
         </div>
         <div className="flex w-full justify-between px-4">
-          <Link href={`/views/details/${product._id}`}>
-            <button className="bg-RojoAb text-white text-lg px-8 mr-6 hover:bg-red-900">
+          <Link href={`/views/details/${product._id}`} onClick={onViewClick}>
+            <button className="bg-RojoAb text-white text-lg px-8 mr-2 hover:bg-red-900">
               Ver
             </button>
           </Link>

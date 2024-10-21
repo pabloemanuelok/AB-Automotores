@@ -1,12 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import bancor from "@/Assets/BANCOR 1.png";
-import santander from "@/Assets/Santander.png";
-import hsbc from "@/Assets/HSBC.png";
-import superville from "@/Assets/Superville.png";
-import logo from "@/Assets/LogoRojo.png";
 import { fetchPostConsulta } from "@/utils/FetchCon/FetchCon"; // Ajusta la ruta según sea necesario
 import { IConsulta, Banco } from "@/Interfaces/Interface";
 
@@ -21,9 +15,13 @@ const Financiacion = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -50,88 +48,47 @@ const Financiacion = () => {
   };
 
   return (
-    <div className="relative pb-20">
-      {/* Título de la sección */}
-      <h2 className="text-center text-3xl font-bold p-5">Financiación</h2>
-
+    <div className="relative pb-4 ">
       {/* Vista de escritorio */}
-      <div className="bg-Negro min-h-[300px] flex items-center p-4 ">
-        <div className="flex flex-col md:flex-row w-full">
+      <div className="bg-white flex items-center justify-between py-4 lg:px-[120px]">
+        <div className="flex flex-col md:justify-between pl-2 md:flex-row w-full ">
           {/* Contenedor de la izquierda */}
-          <div className="flex-1 flex items-center justify-center px-4 md:px-8 mb-4 md:mb-0">
-            <h2 className="text-white text-2xl md:text-4xl text-center md:text-left">
+          <div className="flex-1 flex items-center justify-center md:justify-start pr-10 md:mb-0">
+            <h2 className="text-black text-2xl font-semibold lg:text-3xl ml-8 pl-8 lg:pl-2 lg:ml-0 text-center md:text-left">
               Si no llegas con el efectivo <br />
               ¡Podés financiarlo!
             </h2>
           </div>
-
           {/* Contenedor de la derecha */}
-          <div className="flex-1 flex md:w-1/3 items-center justify-center px-4 md:px-8">
-            <p className="text-white text-base md:text-lg text-center md:text-left">
+          <div className="flex-1 flex px-6 items-center sm:justify-center ">
+            <p className="text-black font-semibold text-base lg:text-xl text-center md:text-left ">
+              {" "}
+              {/* Ahora es ml-16 para un mayor desplazamiento hacia la derecha */}
               Podemos ofrecerte una amplia línea de créditos: <br /> Créditos
               bancarios, personales ó prendarios, a través de Banco de Córdoba,
               Banco Santander o Banco HSBC. <br />
               También financiamos solo con el DNI y recibimos tarjetas de
-              crédito. <br /> Pedinos más información!
+              crédito. Pedinos más información!
             </p>
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center bg-white gap-8 w-full md:flex-row md:gap-28">
-        <Image
-          src={bancor}
-          alt="Logo Banco 1"
-          width={150}
-          height={100}
-          className="mx-2"
-        />
-        <Image
-          src={santander}
-          alt="Logo Banco 2"
-          width={150}
-          height={50}
-          className="mx-2"
-        />
-        <Image
-          src={hsbc}
-          alt="Logo Banco 3"
-          width={150}
-          height={100}
-          className="mx-2"
-        />
-        <Image
-          src={superville}
-          alt="Logo Banco 4"
-          width={150}
-          height={100}
-          className="mx-2"
-        />
-      </div>
 
       <div>
-        <div className="flex flex-col md:flex-row items-center justify-center bg-black text-white py-10 px-10">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-4 bg-white text-white px-0 lg:px-10 w-screen">
           {/* Columna Izquierda */}
-          <div className="md:w-1/3 flex flex-col justify-start gap-10 mb-8 md:mb-0 md:pr-10">
-            <h2 className="text-2xl md:text-3xl font-light text-center text-white mb-2">
-              ¿Quieres averiguar tu crédito <br /> disponible?
+          <div className="flex flex-col md:justify-start justify-center items-center md:items-start md:gap-10 mb-8 px-20 2xl:pl-24 md:mb-0 md:w-1/2 w-[100%]">
+            <h2 className="text-2xl md:text-4xl font-bold text-center md:text-start text-black mb-2">
+              ¿Quieres averiguar tu crédito disponible?
             </h2>
-            <div className="w-full flex justify-center">
-              <Image
-                src={logo} // Reemplaza con la ruta de tu imagen
-                alt="Logo"
-                width={150}
-                height={150}
-                className="rounded-full"
-              />
-            </div>
-            <p className="text-center text-xl mb-6">
-              ¡Escríbenos un mensaje con el banco y el <br /> vehículo que te
-              interese!
+            <p className="md:text-start w-[100%] text-black font-bold text-center text-base ">
+              Completá el formulario con tus datos y te contactamos para
+              brindarte toda la información!
             </p>
           </div>
 
           {/* Columna Derecha */}
-          <div className="w-full md:w-1/3 bg-[#222222] p-6 rounded-md shadow-md">
+          <div className="w-[90%] md:w-[40%] xl:w-[40%] 2xl:w-[42%] bg-[#222222] p-6 rounded-md shadow-md md:p-4 md:ml-2 ">
             <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
               <label className="flex flex-col">
                 <span className="mb-1">Nombre Completo:</span>
@@ -144,7 +101,6 @@ const Financiacion = () => {
                   className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
                 />
               </label>
-
               <label className="flex flex-col">
                 <span className="mb-1">Teléfono:</span>
                 <input
@@ -170,29 +126,13 @@ const Financiacion = () => {
               </label>
 
               <label className="flex flex-col">
-                <span className="mb-1">Banco:</span>
-                <select
-                  name="Banco"
-                  value={formData.banco}
-                  onChange={handleChange}
-                  className="p-2 rounded-md border border-white bg-[#2C2C2C] text-white"
-                >
-                  {Object.values(Banco).map(banco => (
-                    <option key={banco} value={banco}>
-                      {banco}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="flex flex-col">
                 <span className="mb-1">Mensaje:</span>
                 <textarea
                   name="mensaje"
                   value={formData.mensaje}
                   onChange={handleChange}
                   placeholder="Escribe tu mensaje aquí"
-                  className="p-2 rounded-md border border-white bg-[#2C2C2C] text-white"
+                  className="p-2 rounded-md placeholder:text-neutral-500 border border-white bg-[#2C2C2C] text-white"
                 />
               </label>
 
@@ -204,7 +144,9 @@ const Financiacion = () => {
               </button>
             </form>
             {successMessage && (
-              <p className="text-green-500 text-center mt-4">{successMessage}</p>
+              <p className="text-green-500 text-center mt-4">
+                {successMessage}
+              </p>
             )}
             {errorMessage && (
               <p className="text-red-500 text-center mt-4">{errorMessage}</p>

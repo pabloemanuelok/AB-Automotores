@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import Image from 'next/image';
-import logo from "@/Assets/LogoRojo.png";
 import { fetchPostConsulta } from '@/utils/FetchCon/FetchCon'; // Ajusta la ruta según tu estructura de carpetas
 
 interface IConsulta {
@@ -43,31 +41,21 @@ const Detail = () => {
   };
 
   return (
-    <div className="relative mb-20">
-      <h2 className="text-center text-3xl font-bold p-5">Detalles</h2>
-
-      <div className="flex flex-col md:flex-row items-center justify-center bg-black text-white py-10 px-10">
+    <div className="relative mb-4">
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-4 bg-white text-white py-8 px-0 lg:px-12 w-screen mt-4">
         {/* Columna Izquierda */}
-        <div className="md:w-1/3 flex flex-col justify-start gap-10 mb-8 md:mb-0 md:pr-10">
-          <h2 className="text-2xl md:text-3xl font-light text-center text-white mb-2">
-            ¿Te gustaría venir a verlo?
-          </h2>
-          <div className="w-full flex justify-center">
-            <Image
-              src={logo}
-              alt="Logo"
-              width={150}
-              height={150}
-              className="rounded-full"
-            />
+        <div className="flex flex-col md:justify-start justify-center items-center md:items-start gap-10 mb-8 px-20 2xl:pl-24 md:mb-0 md:w-1/2">
+            <h2 className="text-2xl md:text-4xl font-bold  text-center md:text-start text-black mb-2">
+              ¿Quieres comunicarte con nosotros?
+            </h2>
+            <p className="md:text-start text-center font-bold text-black text-xl mb-6">
+              Completá el formulario con tus datos y te contactamos para
+              brindarte toda la información!
+            </p>
           </div>
-          <p className="text-center text-xl mb-6">
-            ¡Escríbenos un mensaje con la fecha <br /> y un horario así te esperamos!
-          </p>
-        </div>
 
         {/* Columna Derecha */}
-        <div className="w-full md:w-1/3 bg-[#222222] p-6 rounded-md shadow-md">
+        <div className="w-[90%] xl:w-[40%] 2xl:w-[42%] bg-[#222222] p-6 rounded-md shadow-md md:pl-4  md:ml-2">
           <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
             <label className="flex flex-col">
               <span className="mb-1">Nombre Completo:</span>
@@ -111,20 +99,20 @@ const Detail = () => {
                 name="mensaje"
                 value={consulta.mensaje || ''}
                 onChange={handleChange}
-                placeholder="Descripción"
-                className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
+                placeholder="Escribe tu mensaje aquí"
+                className="p-2 rounded-md placeholder:text-neutral-500 border border-white bg-[#2C2C2C] text-white"
               ></textarea>
             </label>
 
             <button
               type="submit"
-              className="bg-[#D9D9D9] hover:bg-RojoAb hover:text-white text-black py-2 px-4 rounded-md"
+              className="w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300"
             >
               Enviar
             </button>
-
-            {message && <p className="text-center text-red-500">{message}</p>}
           </form>
+
+          {message && <p className="text-center text-green-500">{message}</p>}
         </div>
       </div>
     </div>

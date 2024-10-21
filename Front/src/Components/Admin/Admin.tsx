@@ -1,17 +1,73 @@
 "use client";
 
-import React, { useContext } from "react";
-import ClientInquiry from "./ConsultasClient/ConsultasClient";
+import React, { useContext, useState } from "react";
+import ConsultasClient from "./ConsultasClient/ConsultasClient";
 import { UserContext } from "@/Context/contextUser";
 import { useRouter } from "next/navigation";
+import { fetchPostProduct } from "@/utils/FetchCars/FetchCars"; // Asegúrate de que la ruta sea correcta
+
 
 const AdminAddVehicle: React.FC = () => {
-  const { logout } = useContext(UserContext);
+  const { logout, token } = useContext(UserContext); // Obtener el token desde el contexto
   const router = useRouter();
 
+  // Estado para el formulario
+  const [formData, setFormData] = useState({
+    name: "",
+    version: "",
+    year: "",
+    description: "",
+    files: [] as File[], // Cambiado a 'files'
+  });
+
   const handleLogout = async () => {
-    await logout(); // Ejecuta la función de logout
-    router.push("/"); // Redirige al home
+    await logout();
+    router.push("/");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files, value } = e.target;
+    if (name === "files") {
+      if (files) {
+        setFormData({
+          ...formData,
+          files: Array.from(files), // Convertir FileList a un array de File
+        });
+      }
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Crear un FormData para enviar los archivos
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('version', formData.version);
+    formDataToSend.append('year', formData.year);
+    formDataToSend.append('description', formData.description);
+
+    // Agregar los archivos al FormData
+    formData.files.forEach((file) => {
+      formDataToSend.append('files', file); // Cambia 'files' si tu backend espera otro nombre
+    });
+
+    const success = await fetchPostProduct(formDataToSend, token); // Pasa el token
+    if (success) {
+      alert("Vehículo agregado con éxito");
+      // Reinicia el formulario si lo deseas
+      setFormData({
+        name: "",
+        version: "",
+        year: "",
+        description: "",
+        files: [],
+      });
+    } else {
+      alert("Error al agregar el vehículo");
+    }
   };
 
   return (
@@ -23,16 +79,19 @@ const AdminAddVehicle: React.FC = () => {
       {/* Contenedor del formulario */}
       <div className="w-full max-w-md bg-[#222222] p-8 rounded-lg shadow-md">
         {/* Formulario */}
-        <form className="flex flex-col gap-2">
+        <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           {/* Campos de Entrada */}
           <label htmlFor="name" className="text-white">
             Nombre:
           </label>
           <input
             id="name"
+            name="name"
             type="text"
             autoComplete="off"
             placeholder="Toyota Corolla"
+            value={formData.name}
+            onChange={handleChange}
             className="w-full p-2 text-white bg-[#222222] placeholder:text-neutral-500 border border-gray-300 rounded focus:outline-none focus:bg-[#222222] focus:text-white"
           />
 
@@ -41,9 +100,12 @@ const AdminAddVehicle: React.FC = () => {
           </label>
           <input
             id="version"
+            name="version"
             type="text"
             autoComplete="off"
             placeholder="XLI CVT"
+            value={formData.version}
+            onChange={handleChange}
             className="w-full p-2 bg-[#222222] text-white placeholder:text-neutral-500 border border-gray-300 rounded focus:outline-none focus:bg-[#222222] focus:text-white"
           />
 
@@ -52,9 +114,12 @@ const AdminAddVehicle: React.FC = () => {
           </label>
           <input
             id="year"
-            type="number"
+            name="year"
+            type="text" // Cambiado a 'text' si el año es un string
             autoComplete="off"
             placeholder="2024"
+            value={formData.year}
+            onChange={handleChange}
             className="w-full p-2 bg-[#222222] text-white placeholder:text-neutral-500 border border-gray-300 rounded focus:outline-none focus:bg-[#222222] focus:text-white"
           />
 
@@ -63,30 +128,27 @@ const AdminAddVehicle: React.FC = () => {
           </label>
           <input
             id="description"
-            type="text"
+            name="description"
+            type="textarea"
             autoComplete="off"
-            placeholder="Descripcion de vehiculo"
+            placeholder="Descripción de vehículo"
+            value={formData.description}
+            onChange={handleChange}
             className="w-full p-2 bg-[#222222] text-white placeholder:text-neutral-500 border border-gray-300 rounded focus:outline-none focus:bg-[#222222] focus:text-white"
           />
 
-          {/* Campos para Subir Imágenes */}
-          <label htmlFor="mainImgUrl" className="text-white">
-            Imagen Principal:
+          {/* Campos para Subir Archivos */}
+          <label htmlFor="files" className="text-white">
+            Archivos:
           </label>
           <input
-            id="mainImgUrl"
+            id="files"
+            name="files"
             type="file"
-            className="w-full p-2 border text-white bg-[#222222] border-gray-300 rounded focus:outline-none focus:bg-[#222222] focus:text-white"
-          />
-
-          <label htmlFor="images" className="text-white">
-            Imágenes:
-          </label>
-          <input
-            id="images"
-            type="file"
-            className="w-full p-2 border text-white bg-[#222222] border-gray-300 rounded focus:outline-none focus:bg-[#222222] focus:text-white"
+            accept="*/*" // Aceptar cualquier tipo de archivo
+            onChange={handleChange}
             multiple
+            className="w-full p-2 border text-white bg-[#222222] border-gray-300 rounded focus:outline-none focus:bg-[#222222] focus:text-white"
           />
 
           {/* Botón de Envío */}
@@ -98,7 +160,7 @@ const AdminAddVehicle: React.FC = () => {
           </button>
         </form>
       </div>
-      <ClientInquiry/>
+      <ConsultasClient />
 
       {/* Botón de Cerrar Sesión */}
       <div className="mt-8 w-full flex justify-center">

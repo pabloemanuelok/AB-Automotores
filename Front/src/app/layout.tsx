@@ -4,6 +4,7 @@ import { Titillium_Web } from "next/font/google";
 import Navbar from "@/Components/Navbar/Navbar";
 import Footer from "@/Components/Footer/Footer"
 import { UserProvider } from "@/Context/contextUser";
+import FloatingWhatsApp from "@/Components/FloatingWsp/FloatingWsp";
 
 const titillium = Titillium_Web({
   subsets: ['latin'],
@@ -29,6 +30,7 @@ export default function RootLayout({
         <UserProvider>
         <Navbar/>
         {children}
+        <FloatingWhatsApp />
         <Footer/>
 
         </UserProvider>

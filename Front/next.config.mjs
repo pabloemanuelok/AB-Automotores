@@ -8,7 +8,8 @@ const nextConfig = {
       "www.centromotorsa.com.ar",
       "cdn.motor1.com",
       "acnews.blob.core.windows.net",
-      "cdn.autobild.es"
+      "cdn.autobild.es",
+      "res.cloudinary.com",
     ]
   },
 };

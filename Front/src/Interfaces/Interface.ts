@@ -4,7 +4,6 @@ interface IProduct {
     version: string;
     year: number;
     description: string;
-    mainImgUrl: string;
     images: string[];
   }
 
@@ -25,8 +24,8 @@ interface IProductCardProps {
   }
 
   interface IDetailsProps {
-    product: IProduct;
-  }
+    product: IProduct; // Asegúrate de que 'product' esté aquí
+  }  
 
 // Consulta
 
@@ -44,6 +43,7 @@ interface IConsulta {
   telefono: string;
   banco: Banco;
   mensaje?: string;
+  createdAt?: Date | undefined
 }
 
 
@@ -68,6 +68,8 @@ interface IUserContextType {
   logout: () => void; // Agregar la función logout
   token: string | null; // Mantener la propiedad token
 }
+
+
 
 
   export type {

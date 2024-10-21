@@ -50,23 +50,27 @@ export async function fetchDeleteId(_id: string): Promise<boolean> {
 }
 
 // Función para crear un nuevo producto
-export async function fetchPostProduct(newProduct: Omit<IProduct, "_id">): Promise<boolean> {
-  try {
-      const res = await fetch("http://localhost:3000/products", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newProduct),
-      });
+export async function fetchPostProduct(newProduct: FormData, token: string | null): Promise<boolean> {
+    try {
+        const res = await fetch("http://localhost:3000/products", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`, // Agrega el token aquí
+                // No se agrega 'Content-Type' porque se maneja automáticamente con FormData
+            },
+            body: newProduct, // Envía el FormData directamente
+        });
 
-      if (!res.ok) {
-          throw new Error("Failed to post product");
-      }
+        if (!res.ok) {
+            throw new Error("Failed to post product");
+        }
 
-      return true;
-  } catch (error) {
-      console.error("Error posting product:", error);
-      return false;
-  }
+        return true;
+    } catch (error) {
+        console.error("Error posting product:", error);
+        return false;
+    }
 }
+
+
+  
