@@ -10,13 +10,13 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        titillium: [`var(--font-titillium)`]
+        titillium: [`var(--font-titillium)`],
       },
       colors: {
         RojoAb: "var(--RojoAb)",  // Colores personalizados basados en variables CSS
         Negro: "var(--Negro)",
         grisAb: "var(--grisAb)",
-        grisBorde: "var(--grisBorde)"  // Corregido aquí
+        grisBorde: "var(--grisBorde)",  // Corregido aquí
       },
     },
   },
