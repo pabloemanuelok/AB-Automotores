@@ -18,7 +18,7 @@ export default async function fetchCars(): Promise<IProduct[]> {
 
 // Función para obtener un producto por su ID
 export async function fetchProductById(_id: string): Promise<IProduct> {
-    const res = await fetch(`http://localhost:3000/products/${_id}`);
+    const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${_id}`);
     if (!res.ok) {
         throw new Error("Failed to fetch product");
     }
@@ -30,7 +30,7 @@ export async function fetchProductById(_id: string): Promise<IProduct> {
 export async function fetchDeleteId(_id: string): Promise<boolean> {
     try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`http://localhost:3000/products/${_id}`, {
+        const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/${_id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
