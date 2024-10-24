@@ -21,12 +21,12 @@ export const fetchGetConsultas = async (token: string): Promise<IConsulta[]> => 
 };
 
 // POST: Crear una nueva consulta
-export const fetchPostConsulta = async (consulta: Omit<IConsulta, '_id' | 'banco'>, token: string): Promise<IConsulta> => {
+export const fetchPostConsulta = async (consulta: Omit<IConsulta, '_id' | 'banco'>): Promise<IConsulta> => {
   const response = await fetch(baseUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}` // Agrega el token aquí
+      // No se agrega 'Authorization' porque no es necesario
     },
     body: JSON.stringify(consulta)
   });
