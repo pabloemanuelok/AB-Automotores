@@ -18,7 +18,7 @@ const Footer = () => {
         {/* Contenedor de la derecha */}
         <div className="flex-1 flex flex-col w-full p-4 md:ml-8 md:p-6 lg:mr-[100px] xl:mr-[100px]">
           <Link target="_blank" href={"https://maps.app.goo.gl/SwaGpKmyq8RJGCAHA"}>
-            <div className="bg-RojoAb w-full max-w-[100%] p-2 flex items-center justify-center gap-3 md:gap-5 hover:bg-red-900 mx-auto">
+            <div className="bg-[#B62E30] w-full max-w-[100%] p-2 flex items-center justify-center gap-3 md:gap-5 hover:bg-red-900 mx-auto">
               <div className="relative flex-shrink-0">
                 <Image src={LogoUbi} alt="Ubicación" className="object-contain" />
               </div>
