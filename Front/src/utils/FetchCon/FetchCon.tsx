@@ -1,15 +1,15 @@
 import { IConsulta } from '@/Interfaces/Interface';
 
 // Utiliza la variable de entorno para la base URL
-const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/consultas`; // Asegúrate de que la variable sea pública
+const baseUrl = `${process.env.BACKEND_URL}/consultas`; // Asegúrate de que la variable esté definida en el entorno
 
 // GET: Obtener todas las consultas
 export const fetchGetConsultas = async (token: string): Promise<IConsulta[]> => {
   const response = await fetch(baseUrl, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${token}` // Incluye el token en los headers
-    }
+      "Authorization": `Bearer ${token}`, // Incluye el token en los headers
+    },
   });
 
   if (!response.ok) {
@@ -28,7 +28,7 @@ export const fetchPostConsulta = async (consulta: Omit<IConsulta, '_id' | 'banco
       "Content-Type": "application/json",
       // No se agrega 'Authorization' porque no es necesario
     },
-    body: JSON.stringify(consulta)
+    body: JSON.stringify(consulta),
   });
 
   if (!response.ok) {
@@ -44,8 +44,8 @@ export const fetchDeleteConsulta = async (id: string, token: string): Promise<vo
   const response = await fetch(`${baseUrl}/${id}`, {
     method: "DELETE",
     headers: {
-      "Authorization": `Bearer ${token}` // Incluye el token en los headers
-    }
+      "Authorization": `Bearer ${token}`, // Incluye el token en los headers
+    },
   });
 
   if (!response.ok) {

@@ -3,9 +3,20 @@ interface ICredentials {
   password: string;
 }
 
-export const postLogin = async (credentials: ICredentials) => {
+interface ILoginResponse {
+  // Define los campos esperados en la respuesta de login
+  token: string; // Ejemplo
+  // Otros campos según la respuesta de tu API
+}
+
+export const postLogin = async (credentials: ICredentials): Promise<ILoginResponse> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
+    // Verifica que BACKEND_URL esté definido
+    if (!process.env.BACKEND_URL) {
+      throw new Error("La URL del backend no está definida");
+    }
+
+    const response = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +30,7 @@ export const postLogin = async (credentials: ICredentials) => {
       throw new Error(`Error en la solicitud: ${errorText} (Código: ${response.status})`);
     }
 
-    const data = await response.json(); // Lee el cuerpo de la respuesta como JSON
+    const data: ILoginResponse = await response.json(); // Lee el cuerpo de la respuesta como JSON
     return data;
   } catch (error) {
     console.error("Error en la función de postLogin:", error);

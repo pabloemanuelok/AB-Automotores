@@ -1,7 +1,7 @@
 import { IProduct } from "@/Interfaces/Interface";
 
-// Asegúrate de que la variable de entorno sea pública
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL; 
+// Asegúrate de que la variable de entorno esté definida en Vercel
+const BACKEND_URL = process.env.BACKEND_URL; 
 
 // Función para obtener todos los productos
 export default async function fetchCars(): Promise<IProduct[]> {
