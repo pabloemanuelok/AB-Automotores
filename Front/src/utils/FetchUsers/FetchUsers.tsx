@@ -1,7 +1,7 @@
 // utils/FetchUsers/FetchUsers.ts
 export const postLogin = async (credentials: { name: string; password: string }) => {
   try {
-    const response = await fetch("http://localhost:3000/auth/login", {
+    const response = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -3,7 +3,7 @@ import { IProduct } from "@/Interfaces/Interface";
 // Función para obtener todos los productos
 export default async function fetchCars(): Promise<IProduct[]> {
     try {
-        const res = await fetch("http://localhost:3000/products", {
+        const res = await fetch(`${process.env.BACKEND_URL}/products`, {
             next: { revalidate: 0 },
         });
         if (!res.ok) {
@@ -18,7 +18,7 @@ export default async function fetchCars(): Promise<IProduct[]> {
 
 // Función para obtener un producto por su ID
 export async function fetchProductById(_id: string): Promise<IProduct> {
-    const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${_id}`);
+    const res = await fetch(`${process.env.BACKEND_URL}/${_id}`);
     if (!res.ok) {
         throw new Error("Failed to fetch product");
     }
@@ -30,7 +30,7 @@ export async function fetchProductById(_id: string): Promise<IProduct> {
 export async function fetchDeleteId(_id: string): Promise<boolean> {
     try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/${_id}`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/${_id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export async function fetchDeleteId(_id: string): Promise<boolean> {
 // Función para crear un nuevo producto
 export async function fetchPostProduct(newProduct: FormData, token: string | null): Promise<boolean> {
     try {
-        const res = await fetch("http://localhost:3000/products", {
+        const res = await fetch(`${process.env.BACKEND_URL}/products`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`, // Agrega el token aquí
@@ -71,6 +71,3 @@ export async function fetchPostProduct(newProduct: FormData, token: string | nul
         return false;
     }
 }
-
-
-  

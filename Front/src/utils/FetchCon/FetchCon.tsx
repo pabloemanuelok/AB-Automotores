@@ -1,6 +1,7 @@
 import { IConsulta } from '@/Interfaces/Interface';
 
-const baseUrl = "http://localhost:3000/consultas"; // Asegúrate de que la URL es correcta
+// Utiliza la variable de entorno para la base URL
+const baseUrl = `${process.env.BACKEND_URL}/consultas`;
 
 // GET: Obtener todas las consultas
 export const fetchGetConsultas = async (token: string): Promise<IConsulta[]> => {
@@ -17,8 +18,6 @@ export const fetchGetConsultas = async (token: string): Promise<IConsulta[]> => 
 };
 
 // POST: Crear una nueva consulta
-// En la función fetchPostConsulta// Ajusta la ruta según tu estructura
-
 export const fetchPostConsulta = async (consulta: Omit<IConsulta, '_id' | 'banco'>): Promise<IConsulta> => {
   const response = await fetch(baseUrl, {
     method: "POST",
@@ -32,7 +31,6 @@ export const fetchPostConsulta = async (consulta: Omit<IConsulta, '_id' | 'banco
   }
   return await response.json();
 };
-
 
 // DELETE: Eliminar una consulta por ID
 export const fetchDeleteConsulta = async (id: string, token: string): Promise<void> => {
