@@ -4,7 +4,6 @@ interface ICredentials {
 }
 
 interface ILoginResponse {
-  // Define los campos esperados en la respuesta de login
   token: string; // Ejemplo
   // Otros campos según la respuesta de tu API
 }
@@ -26,7 +25,7 @@ export const postLogin = async (credentials: ICredentials): Promise<ILoginRespon
 
     // Verifica si la respuesta es exitosa
     if (!response.ok) {
-      const errorText = await response.text(); // Obtén el texto de error una vez
+      const errorText = await response.text(); // Obtén el texto de error
       throw new Error(`Error en la solicitud: ${errorText} (Código: ${response.status})`);
     }
 
