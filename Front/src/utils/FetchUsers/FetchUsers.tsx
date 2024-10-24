@@ -1,21 +1,7 @@
-interface ICredentials {
-  name: string;
-  password: string;
-}
-
-interface ILoginResponse {
-  token: string; // Ejemplo
-  // Otros campos según la respuesta de tu API
-}
-
-export const postLogin = async (credentials: ICredentials): Promise<ILoginResponse> => {
+// utils/FetchUsers/FetchUsers.ts
+export const postLogin = async (credentials: { name: string; password: string }) => {
   try {
-    // Verifica que BACKEND_URL esté definido
-    if (!process.env.BACKEND_URL) {
-      throw new Error("La URL del backend no está definida");
-    }
-
-    const response = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
+    const response = await fetch("http://localhost:3000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,11 +11,11 @@ export const postLogin = async (credentials: ICredentials): Promise<ILoginRespon
 
     // Verifica si la respuesta es exitosa
     if (!response.ok) {
-      const errorText = await response.text(); // Obtén el texto de error
-      throw new Error(`Error en la solicitud: ${errorText} (Código: ${response.status})`);
+      const errorText = await response.text(); // Obtén el texto de error una vez
+      throw new Error(`Error en la solicitud: ${errorText}`);
     }
 
-    const data: ILoginResponse = await response.json(); // Lee el cuerpo de la respuesta como JSON
+    const data = await response.json(); // Lee el cuerpo de la respuesta como JSON
     return data;
   } catch (error) {
     console.error("Error en la función de postLogin:", error);
