@@ -1,7 +1,7 @@
 import { IConsulta } from '@/Interfaces/Interface';
 
 // Utiliza la variable de entorno para la base URL
-const baseUrl = `${process.env.BACKEND_URL}/consultas`;
+const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/consultas`; // Asegúrate de que la variable sea pública
 
 // GET: Obtener todas las consultas
 export const fetchGetConsultas = async (token: string): Promise<IConsulta[]> => {
@@ -11,24 +11,31 @@ export const fetchGetConsultas = async (token: string): Promise<IConsulta[]> => 
       "Authorization": `Bearer ${token}` // Incluye el token en los headers
     }
   });
+
   if (!response.ok) {
-    throw new Error("Error al obtener las consultas");
+    const errorMessage = await response.text(); // Obtiene el texto de error si lo hay
+    throw new Error(`Error al obtener las consultas: ${errorMessage}`);
   }
+
   return await response.json();
 };
 
 // POST: Crear una nueva consulta
-export const fetchPostConsulta = async (consulta: Omit<IConsulta, '_id' | 'banco'>): Promise<IConsulta> => {
+export const fetchPostConsulta = async (consulta: Omit<IConsulta, '_id' | 'banco'>, token: string): Promise<IConsulta> => {
   const response = await fetch(baseUrl, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}` // Agrega el token aquí
     },
     body: JSON.stringify(consulta)
   });
+
   if (!response.ok) {
-    throw new Error("Error al crear la consulta");
+    const errorMessage = await response.text(); // Obtiene el texto de error si lo hay
+    throw new Error(`Error al crear la consulta: ${errorMessage}`);
   }
+
   return await response.json();
 };
 
@@ -40,7 +47,9 @@ export const fetchDeleteConsulta = async (id: string, token: string): Promise<vo
       "Authorization": `Bearer ${token}` // Incluye el token en los headers
     }
   });
+
   if (!response.ok) {
-    throw new Error("Error al eliminar la consulta");
+    const errorMessage = await response.text(); // Obtiene el texto de error si lo hay
+    throw new Error(`Error al eliminar la consulta: ${errorMessage}`);
   }
 };

@@ -1,7 +1,11 @@
-// utils/FetchUsers/FetchUsers.ts
-export const postLogin = async (credentials: { name: string; password: string }) => {
+interface ICredentials {
+  name: string;
+  password: string;
+}
+
+export const postLogin = async (credentials: ICredentials) => {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -12,7 +16,7 @@ export const postLogin = async (credentials: { name: string; password: string })
     // Verifica si la respuesta es exitosa
     if (!response.ok) {
       const errorText = await response.text(); // Obtén el texto de error una vez
-      throw new Error(`Error en la solicitud: ${errorText}`);
+      throw new Error(`Error en la solicitud: ${errorText} (Código: ${response.status})`);
     }
 
     const data = await response.json(); // Lee el cuerpo de la respuesta como JSON
