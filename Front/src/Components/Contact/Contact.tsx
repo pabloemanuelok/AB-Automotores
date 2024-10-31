@@ -41,8 +41,8 @@ const Detail = () => {
   };
 
   return (
-    <div className="relative mb-4">
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-4 bg-white text-white py-8 px-0 lg:px-12 w-screen mt-4">
+    <div className="relative mb-4 ">
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-4 bg-white text-white py-8 px-0 lg:px-12  mt-4">
         {/* Columna Izquierda */}
         <div className="flex flex-col md:justify-start justify-center items-center md:items-start gap-10 mb-8 px-20 2xl:pl-24 md:mb-0 md:w-1/2">
             <h2 className="text-2xl md:text-4xl font-bold  text-center md:text-start text-black mb-2">

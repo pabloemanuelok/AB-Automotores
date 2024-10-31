@@ -6,7 +6,7 @@ import LogoPachas from "@/Assets/LogoPachas.png";
 
 const Footer = () => {
   return (
-    <div className="bg-black flex flex-col items-center w-full overflow-x-hidden">
+    <div className="bg-black flex flex-col items-center overflow-x-hidden">
       <div className="flex flex-col md:flex-row w-full md:p-5 py-5 md:py-0 w-screen-2xl">
         {/* Contenedor de la izquierda */}
         <div className="flex-1 flex items-end md:justify-start justify-center px-4 md:px-6 md:py-5 lg:pl-[100px] xl:pl-[100px]">
