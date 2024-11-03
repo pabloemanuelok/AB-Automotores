@@ -9,15 +9,15 @@ const Footer = () => {
     <div className="bg-black flex flex-col items-center overflow-x-hidden">
       <div className="flex flex-col md:flex-row w-full md:p-5 py-5 md:py-0 w-screen-2xl">
         {/* Contenedor de la izquierda */}
-        <div className="flex-1 flex items-end md:justify-start justify-center px-4 md:px-6 md:py-5 lg:pl-[100px] xl:pl-[100px]">
+        <div className="flex-1 flex items-center md:justify-start justify-center px-4 md:px-6 md:py-5 lg:pl-[100px] xl:pl-[100px]">
           <h2 className="text-white text-2xl md:text-2xl xl:text-3xl  text-center mt-0">
             ¡Vení a conocer nuestra agencia!
           </h2>
         </div>
 
         {/* Contenedor de la derecha */}
-        <div className="flex-1 flex flex-col w-full p-4 md:ml-8 md:p-6 lg:mr-[100px] xl:mr-[100px]">
-          <Link target="_blank" href={"https://maps.app.goo.gl/SwaGpKmyq8RJGCAHA"}>
+        <div className="flex-1 flex flex-col w-full p-4  md:ml-8 md:p-6 lg:mr-[100px] xl:mr-[100px]">
+          <Link target="_blank" href={"https://maps.app.goo.gl/SwaGpKmyq8RJGCAHA"} className="md:pt-10">
             <div className="bg-[#B62E30] w-full max-w-[100%] p-2 flex items-center justify-center gap-3 md:gap-5 hover:bg-red-900 mx-auto">
               <div className="relative flex-shrink-0">
                 <Image src={LogoUbi} alt="Ubicación" className="object-contain" />

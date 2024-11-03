@@ -1,6 +1,6 @@
 import { IConsulta } from '@/Interfaces/Interface';
 
-const baseUrl = "http://localhost:3000/consultas"; // Asegúrate de que la URL es correcta
+const baseUrl = "https://ab-backend-iznbqeqe7a-uc.a.run.app/consultas"; // Asegúrate de que la URL es correcta
 
 // GET: Obtener todas las consultas
 export const fetchGetConsultas = async (token: string): Promise<IConsulta[]> => {
