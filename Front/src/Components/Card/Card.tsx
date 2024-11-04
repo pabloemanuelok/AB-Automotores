@@ -59,14 +59,14 @@ const Card = ({ product, onDelete, onViewClick }: IProductCardProps & { onDelete
         </div>
         <div className="flex w-full justify-between px-4">
           <Link href={`/views/details/${product._id}`} onClick={onViewClick}>
-            <button className="bg-RojoAb text-white text-lg px-8 mr-2 hover:bg-red-900">
+            <button className="bg-[#B62E30] text-white text-lg px-8 mr-2 hover:bg-red-900">
               Ver
             </button>
           </Link>
           {isAuthenticated && (
             <button
               onClick={handleDeleteClick}
-              className="bg-RojoAb text-white text-lg px-8 mr-2 hover:bg-red-900"
+              className="bg-[#B62E30] text-white text-lg px-8 mr-2 hover:bg-red-900"
             >
               Borrar
             </button>
