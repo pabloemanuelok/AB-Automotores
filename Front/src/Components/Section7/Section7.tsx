@@ -2,8 +2,8 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Asegúrate de tener instalada la librería react-icons
-import image1 from "@/Assets/CronosFrente.png";
-import image2 from "@/Assets/CronosLado.png";
+import image1 from "@/Assets/2008Frente.jpeg";
+import image2 from "@/Assets/TableroCronos.png";
 
 const Section1 = () => {
   const scrollRef = useRef<HTMLDivElement>(null); // Crea una referencia para el contenedor de imágenes
@@ -42,7 +42,7 @@ const Section1 = () => {
             src={image2}
             alt="Image 2"
             layout="fill"
-            className="object-cover object-center"
+            className="object-cover object-[50%_15%]"
           />
         </div>
       </div>

@@ -3,20 +3,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FC, useState, useEffect, useContext } from "react";
-import { usePathname } from 'next/navigation'; // Importa usePathname
-import Logo from "@/Assets/LogoSinFondo.png"; // Ajusta la ruta si es necesario
-import { UserContext } from "@/Context/contextUser"; // Importa tu contexto de usuario
+import { usePathname } from 'next/navigation';
+import Logo from "@/Assets/LogoSinFondo.png";
+import { UserContext } from "@/Context/contextUser";
 
 const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isLogged } = useContext(UserContext); // Usa el contexto para verificar si el usuario está logueado
-  const pathname = usePathname(); // Obtén la ruta actual
+  const [bgOpacity, setBgOpacity] = useState(0.3); // Opacidad inicial en 0.3
+  const { isLogged } = useContext(UserContext);
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  // Cierra el menú cuando se hace clic fuera de él
+  useEffect(() => {
+    const handleScroll = () => {
+      // Cambia el valor de 300 según sea necesario
+      const newOpacity = Math.min(0.3 + window.scrollY / 200 * 0.2, 0.8); // Rango entre 0.3 y 0.7
+      setBgOpacity(newOpacity);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -33,16 +47,14 @@ const Navbar: FC = () => {
   }, [isOpen]);
 
   return (
-    <nav className="bg-black flex md:justify-center bg-opacity-70 text-white fixed top-0 w-full z-50">
+    <nav className={`flex md:justify-center text-white fixed top-0 w-full z-50 transition-opacity duration-300`} style={{ backgroundColor: `rgba(2, 2, 2, ${bgOpacity})` }}>
       <div className="flex xl:w-[96%] sm:w-[100%] w-[100%] md:w-[95%] justify-between px-4 sm:justify-between md:justify-around items-center lg:px-24 py-5">
-        {/* Logo en vista móvil y desktop */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
             <Image src={Logo} alt="Logo" width={80} />
           </Link>
         </div>
 
-        {/* Menú Hamburguesa (Solo en mobile) */}
         <div className="md:hidden flex items-center">
           <button
             className="text-white focus:outline-none menu-button"
@@ -65,7 +77,6 @@ const Navbar: FC = () => {
           </button>
         </div>
 
-        {/* Enlaces de Navegación (Desktop) */}
         <div className="hidden md:flex flex-grow md:justify-end md:space-x-6 lg:space-x-12 text-xl mr-4 border-b-2 mb-7">
           <div className="flex justify-between sm:gap-4 lg:w-[70%] xl:w-[51%]">
             <Link href="/" className={`hover:text-red-500 ${pathname === '/' ? 'text-red-500' : ''}`}>
@@ -84,7 +95,6 @@ const Navbar: FC = () => {
               Contacto
             </Link>
 
-            {/* Botón Admin (Solo visible si el usuario está logueado) */}
             {isLogged && (
               <Link href="/views/admin" className={`text-yellow-500 hover:text-yellow-400 ${pathname === '/views/admin' ? 'text-yellow-400' : ''}`}>
                 Admin
@@ -94,7 +104,6 @@ const Navbar: FC = () => {
         </div>
       </div>
 
-      {/* Menú de Navegación (Mobile) */}
       <div
         className={`md:hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 menu-container z-50`}
       >
@@ -121,7 +130,6 @@ const Navbar: FC = () => {
             Contacto
           </Link>
 
-          {/* Botón Admin para el menú móvil */}
           {isLogged && (
             <Link href="/views/admin" className={`text-yellow-500 hover:text-yellow-400 text-xl ${pathname === '/views/admin' ? 'text-yellow-400' : ''}`} onClick={toggleMenu}>
               Admin
