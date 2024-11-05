@@ -52,7 +52,7 @@ export async function fetchDeleteId(_id: string): Promise<boolean> {
 // Función para crear un nuevo producto
 export async function fetchPostProduct(newProduct: FormData, token: string | null): Promise<boolean> {
     try {
-        const res = await fetch("https://localhost:3000/products", {
+        const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products", {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`, // Agrega el token aquí
