@@ -2,9 +2,9 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Asegúrate de tener instalada la librería react-icons
-import image3 from "@/Assets/NivusDerecha.jpeg";
-import image2 from "@/Assets/NivusInterior.jpeg";
-import image1 from "@/Assets/NivusFrente.jpeg";
+import image3 from "@/Assets/208ColaDiag.png";
+import image1 from "@/Assets/208Interior.png";
+import image2 from "@/Assets/208Optica.png";
 
 const Section1 = () => {
   const scrollRef = useRef<HTMLDivElement>(null); // Crea una referencia para el contenedor de imágenes
@@ -32,7 +32,7 @@ const Section1 = () => {
             src={image1}
             alt="Image 1"
             layout="fill"
-            className="object-cover" // Ajuste de posición
+            className="object-cover object-top" // Ajuste de posición
           />
         </div>
         <div className="w-1/3 h-[300px] relative">
@@ -77,7 +77,7 @@ const Section1 = () => {
               src={image1}
               alt="Image 1"
               layout="fill"
-              className="object-cover" // Ajuste de posición
+              className="object-cover object-top" // Ajuste de posición
             />
           </div>
           {/* Imagen 2 */}
