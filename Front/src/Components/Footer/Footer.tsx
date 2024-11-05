@@ -27,7 +27,7 @@ const Footer = () => {
               </span>
             </div>
           </Link>
-          <span className="text-white text-base text-center md:text-start mt-4">
+          <span className="text-white text-base text-center md:text-center mt-4">
             Lun. a Vie. de 9:00 a 13:00 y 15:30 a 19:00 hs y Sáb. de
             9:00 a 13:00 hs
           </span>

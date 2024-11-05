@@ -8,7 +8,7 @@ import logoFacebook from "@/Assets/logoFacebook.png"
 
 const FloatingWhatsApp: React.FC = () => {
   return (
-    <div className="fixed md:bottom-4 bottom-16 right-4">
+    <div className="fixed md:bottom-2 bottom-10 right-4">
       <Link href="https://www.whatsapp.com/catalog/5493516129221/?app_absent=0" target="_blank">
         <Image
           src={logoWsp} // Cambia esta ruta a la ubicación de tu logo

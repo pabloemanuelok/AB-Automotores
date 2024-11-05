@@ -35,7 +35,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
               src={product.images[currentImageIndex]}
               alt={`Imagen de ${product.name}`}
               layout="fill"
-              objectFit="cover"
+              objectFit="contain"
             />
           ) : (
             <div className="flex items-center justify-center h-full bg-gray-200">
@@ -71,7 +71,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
             {product.name}
           </h2>
           <p className="text-white text-lg sm:text-xl">{product.version}</p>
-          <p className="text-white bg-RojoAb w-fit px-4 py-1 text-lg sm:text-xl">
+          <p className="text-white bg-[#B62E30] w-fit px-4 py-1 text-lg sm:text-xl">
             {product.year}
           </p>
           <p className="text-sm sm:text-base mt-4">{product.description}</p>
