@@ -6,7 +6,6 @@ import { UserContext } from "@/Context/contextUser";
 import { useRouter } from "next/navigation";
 import { fetchPostProduct } from "@/utils/FetchCars/FetchCars"; // Asegúrate de que la ruta sea correcta
 
-
 const AdminAddVehicle: React.FC = () => {
   const { logout, token } = useContext(UserContext); // Obtener el token desde el contexto
   const router = useRouter();
@@ -25,9 +24,12 @@ const AdminAddVehicle: React.FC = () => {
     router.push("/");
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files, value } = e.target;
-    if (name === "files") {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    
+    // Verifica si el 'target' es un input de tipo 'file'
+    if (name === "files" && e.target instanceof HTMLInputElement) {
+      const files = e.target.files;
       if (files) {
         setFormData({
           ...formData,
@@ -38,6 +40,8 @@ const AdminAddVehicle: React.FC = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
+  
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -126,15 +130,14 @@ const AdminAddVehicle: React.FC = () => {
           <label htmlFor="description" className="text-white">
             Descripción:
           </label>
-          <input
+          <textarea
             id="description"
             name="description"
-            type="textarea"
-            autoComplete="off"
             placeholder="Descripción de vehículo"
             value={formData.description}
             onChange={handleChange}
-            className="w-full p-2 bg-[#222222] text-white placeholder:text-neutral-500 border border-gray-300 rounded focus:outline-none focus:bg-[#222222] focus:text-white"
+            rows={4}  // Aumenta el número de filas para dar espacio
+            className="w-full p-2 bg-[#222222] text-white placeholder:text-neutral-500 border border-gray-300 rounded focus:outline-none focus:bg-[#222222] focus:text-white resize-none"
           />
 
           {/* Campos para Subir Archivos */}

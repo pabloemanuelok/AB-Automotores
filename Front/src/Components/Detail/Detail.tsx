@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { IDetailsProps } from "@/Interfaces/Interface";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Detail: React.FC<IDetailsProps> = ({ product }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleImageChange = (index: number) => {
     setCurrentImageIndex(index);
@@ -24,57 +26,67 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
     );
   };
 
+  // Ajusta el tamaño del textarea automáticamente
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "auto"; // Resetea la altura
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`; // Ajusta la altura según el contenido
+    }
+  }, [product.description]);
 
   return (
-    <div className="flex flex-col items-center justify-center mt-4 bg-white">
-      {/* Encabezado de detalles */}
-      <main className="max-w-5xl w-full flex flex-col lg:flex-row bg-[#1B1B1B] md:my-10 p-0 relative gap-0">
-        <div className="relative w-full lg:w-[70%] h-[500px] mb-0 overflow-hidden">
+    <div className="flex flex-col items-center justify-center mt-4 py-8">
+      {/* Contenedor principal */}
+      <main className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row bg-[#333333] p-4 shadow-lg">
+        
+        {/* Contenedor de imagen */}
+        <div className="relative w-full lg:w-1/2 h-[600px] bg-[#1B1B1B] overflow-hidden flex items-center justify-center mb-4 lg:mb-0">
           {product.images.length > 0 ? (
             <Image
               src={product.images[currentImageIndex]}
               alt={`Imagen de ${product.name}`}
-              layout="fill"
+              layout="intrinsic"
+              width={600}
+              height={600}
               objectFit="contain"
             />
           ) : (
-            <div className="flex items-center justify-center h-full bg-gray-200">
+            <div className="flex items-center justify-center w-full h-full bg-gray-600 text-white">
               <span>No hay imágenes disponibles</span>
             </div>
           )}
           <button
             onClick={handlePrevImage}
-            className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-gray-600"
+            className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-60 text-white p-2 hover:bg-gray-600"
           >
             <FaChevronLeft size={24} />
           </button>
           <button
             onClick={handleNextImage}
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-gray-600"
+            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-60 text-white p-2 hover:bg-gray-600"
           >
             <FaChevronRight size={24} />
           </button>
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            {product.images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => handleImageChange(index)}
-                className={`w-3 h-3 rounded-full ${
-                  currentImageIndex === index ? "bg-white" : "bg-gray-500"
-                }`}
-              ></button>
-            ))}
-          </div>
         </div>
-        <div className="p-6 bg-[#1B1B1B] bg-opacity-75 w-full lg:w-[50%] flex flex-col gap-2 text-white rounded-lg">
-          <h2 className="text-xl sm:text-2xl text-black bg-[#D9D9D9] py-2 pl-2 text-start w-full font-light">
+
+        {/* Contenedor de detalles */}
+        <div className="flex flex-col justify-between w-full lg:w-1/2 text-white p-6 bg-[#333333]">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-black bg-[#D9D9D9] py-2 px-4 mb-4">
             {product.name}
           </h2>
-          <p className="text-white text-lg sm:text-xl">{product.version}</p>
-          <p className="text-white bg-[#B62E30] w-fit px-4 py-1 text-lg sm:text-xl">
+          <p className="text-lg sm:text-xl font-light">{product.version}</p>
+          <p className="bg-[#B62E30] text-white w-fit px-4 py-1 mt-2 text-xl sm:text-2xl font-semibold">
             {product.year}
           </p>
-          <p className="text-sm sm:text-base mt-4">{product.description}</p>
+          
+          <div className="mt-6">
+            <textarea
+              ref={textAreaRef}
+              value={product.description}
+              readOnly
+              className="w-full mt-4 p-3 text-white bg-[#444444] placeholder:text-neutral-500 focus:outline-none focus:bg-[#222222] focus:text-white resize-none overflow-auto max-h-[300px] lg:max-h-none"
+            />
+          </div>
         </div>
       </main>
     </div>

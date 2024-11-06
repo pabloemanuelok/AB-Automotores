@@ -27,8 +27,7 @@ const Card = ({ product, onDelete, onViewClick }: IProductCardProps & { onDelete
   const handleDeleteClick = async () => {
     const success = await fetchDeleteId(product._id);
     if (success) {
-      onDelete();
-      window.location.reload(); // Recarga la página después de eliminar
+      onDelete(); 
     }
   };
 
