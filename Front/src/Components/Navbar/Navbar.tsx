@@ -9,6 +9,7 @@ import { UserContext } from "@/Context/contextUser";
 
 const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Estado de carga
   const [bgOpacity, setBgOpacity] = useState(0.3); // Opacidad inicial en 0.3
   const { isLogged } = useContext(UserContext);
   const pathname = usePathname();
@@ -17,10 +18,19 @@ const Navbar: FC = () => {
     setIsOpen(!isOpen);
   };
 
+  // Simula carga de datos y desactiva la vista de carga cuando estén listos
+  useEffect(() => {
+    const fetchData = async () => {
+      // Simula una llamada a API o una función que verifica si los datos están listos
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Cambia el tiempo según lo necesario
+      setIsLoading(false); // Oculta la vista de carga cuando todo esté listo
+    };
+    fetchData();
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
-      // Cambia el valor de 300 según sea necesario
-      const newOpacity = Math.min(0.3 + window.scrollY / 200 * 0.2, 0.8); // Rango entre 0.3 y 0.7
+      const newOpacity = Math.min(0.3 + window.scrollY / 200 * 0.2, 0.8);
       setBgOpacity(newOpacity);
     };
 
@@ -45,6 +55,15 @@ const Navbar: FC = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+  // Vista de carga
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black text-white z-50">
+        <p>Cargando...</p>
+      </div>
+    );
+  }
 
   return (
     <nav className={`flex md:justify-center text-white fixed top-0 w-full z-50 transition-opacity duration-300`} style={{ backgroundColor: `rgba(2, 2, 2, ${bgOpacity})` }}>

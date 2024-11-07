@@ -6,7 +6,7 @@ import { IProduct } from "@/Interfaces/Interface";
 const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsList, setProductsList] = useState<IProduct[]>(products);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const productsPerPage = 8;
 
   const cardsContainerRef = useRef<HTMLDivElement>(null);
