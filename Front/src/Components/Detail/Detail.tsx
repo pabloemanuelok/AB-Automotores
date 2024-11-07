@@ -10,10 +10,6 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
 
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleImageChange = (index: number) => {
-    setCurrentImageIndex(index);
-  };
-
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
