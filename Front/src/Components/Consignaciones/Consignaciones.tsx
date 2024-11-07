@@ -39,7 +39,7 @@ const Consignaciones = () => {
         <div className="bg-white w-full flex flex-col md:flex-row items-center justify-center py-4">
           <div className="w-full md:w-[47%] items-start text-center md:text-start">
             <h2 className="text-black text-2xl pb-4 md:text-3xl font-bold">
-              ¿Querés vender tu auto?
+              Querés vender tu auto?
             </h2>
           </div>
           <div className="flex justify-between gap-2 md:gap-4 w-full md:w-[45%]">
