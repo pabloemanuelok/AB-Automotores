@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useContext, useState } from "react";
+import Swal from "sweetalert2"; // Asegúrate de tener SweetAlert2 instalado
 import ConsultasClient from "./ConsultasClient/ConsultasClient";
 import { UserContext } from "@/Context/contextUser";
 import { useRouter } from "next/navigation";
@@ -10,7 +11,7 @@ const AdminAddVehicle: React.FC = () => {
   const { logout, token } = useContext(UserContext); // Obtener el token desde el contexto
   const router = useRouter();
 
-  // Estado para el formulario
+  // Estado para el formulario y para controlar el círculo de carga
   const [formData, setFormData] = useState({
     name: "",
     version: "",
@@ -18,6 +19,7 @@ const AdminAddVehicle: React.FC = () => {
     description: "",
     files: [] as File[], // Cambiado a 'files'
   });
+  const [loading, setLoading] = useState(false); // Estado para el círculo de carga
 
   const handleLogout = async () => {
     await logout();
@@ -26,7 +28,7 @@ const AdminAddVehicle: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    
+
     // Verifica si el 'target' es un input de tipo 'file'
     if (name === "files" && e.target instanceof HTMLInputElement) {
       const files = e.target.files;
@@ -40,11 +42,10 @@ const AdminAddVehicle: React.FC = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
-  
-  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true); // Activar el círculo de carga
 
     // Crear un FormData para enviar los archivos
     const formDataToSend = new FormData();
@@ -58,19 +59,44 @@ const AdminAddVehicle: React.FC = () => {
       formDataToSend.append('files', file); // Cambia 'files' si tu backend espera otro nombre
     });
 
-    const success = await fetchPostProduct(formDataToSend, token); // Pasa el token
-    if (success) {
-      alert("Vehículo agregado con éxito");
-      // Reinicia el formulario si lo deseas
-      setFormData({
-        name: "",
-        version: "",
-        year: "",
-        description: "",
-        files: [],
+    try {
+      // Llamar a la función para subir el producto
+      const success = await fetchPostProduct(formDataToSend, token); // Pasa el token
+      if (success) {
+        // Mostrar SweetAlert de éxito
+        Swal.fire({
+          icon: 'success',
+          title: 'Vehículo agregado',
+          text: 'El vehículo se ha subido correctamente.',
+          confirmButtonText: 'Aceptar',
+        });
+        // Reinicia el formulario si lo deseas
+        setFormData({
+          name: "",
+          version: "",
+          year: "",
+          description: "",
+          files: [],
+        });
+      } else {
+        // Mostrar SweetAlert de error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al agregar el vehículo',
+          text: 'Hubo un problema al agregar el vehículo. Intenta nuevamente.',
+          confirmButtonText: 'Aceptar',
+        });
+      }
+    } catch (error) {
+      // Mostrar SweetAlert de error si ocurre una excepción
+      Swal.fire({
+        icon: 'error',
+        title: 'Error inesperado',
+        text: 'Hubo un problema al agregar el vehículo. Intenta nuevamente.',
+        confirmButtonText: 'Aceptar',
       });
-    } else {
-      alert("Error al agregar el vehículo");
+    } finally {
+      setLoading(false); // Terminar el círculo de carga
     }
   };
 
@@ -158,8 +184,9 @@ const AdminAddVehicle: React.FC = () => {
           <button
             type="submit"
             className="w-full py-3 mt-4 bg-[#D9D9D9] text-black rounded hover:bg-gray-300 transition-colors"
+            disabled={loading} // Desactiva el botón mientras se está cargando
           >
-            Agregar
+            {loading ? "Cargando..." : "Agregar"}
           </button>
         </form>
       </div>

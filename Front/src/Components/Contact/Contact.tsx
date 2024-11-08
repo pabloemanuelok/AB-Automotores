@@ -49,7 +49,7 @@ const Detail = () => {
               ¿Quieres comunicarte con nosotros?
             </h2>
             <p className="md:text-start text-center font-bold text-black text-xl mb-6">
-              Completá el formulario con tus datos y te contactamos para
+              Completá el formulario con tus datos y nos comunicamos para
               brindarte toda la información!
             </p>
           </div>
