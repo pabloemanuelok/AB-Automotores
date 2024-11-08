@@ -2,26 +2,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import Card from "../Card/Card";
 import { IProduct } from "@/Interfaces/Interface";
+import { motion } from "framer-motion";
 
 const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsList, setProductsList] = useState<IProduct[]>(products);
-<<<<<<< HEAD
-  const [loading, setLoading] = useState(false);
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); // Estado para ordenar
-=======
-  const [loading] = useState(false);
->>>>>>> 356118a2a2cd95f96918dc16effee8a1a79d71bf
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [loading, setLoading] = useState(true);
   const productsPerPage = 8;
 
   const cardsContainerRef = useRef<HTMLDivElement>(null);
 
-  // Calcular los índices de los productos en la página actual
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = productsList.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  // Calcular el número total de páginas
   const totalPages = Math.ceil(productsList.length / productsPerPage);
 
   useEffect(() => {
@@ -29,29 +24,26 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   }, [products]);
 
   useEffect(() => {
-    sortProductsByYear(); // Llamamos a la función de ordenación cuando cambie el estado de sortOrder
-    setCurrentPage(1); // Volver a la página 1 cuando cambie el filtro
+    sortProductsByYear(); 
+    setCurrentPage(1); 
   }, [sortOrder]);
 
-  // Función para ordenar los productos por año
   const sortProductsByYear = () => {
     const sortedProducts = [...productsList].sort((a, b) => {
       if (sortOrder === 'asc') {
-        return a.year - b.year; // Orden ascendente
+        return a.year - b.year;
       } else {
-        return b.year - a.year; // Orden descendente
+        return b.year - a.year;
       }
     });
     setProductsList(sortedProducts);
   };
 
   const handleDelete = (id: string) => {
-    // Crea una nueva lista de productos sin el producto eliminado
     const updatedProducts = productsList.filter((product) => product._id !== id);
     setProductsList(updatedProducts);
   };
 
-  // Función para precargar imágenes
   const preloadImages = (images: string[]) => {
     images.forEach((src) => {
       const img = new Image();
@@ -59,29 +51,41 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     });
   };
 
-  // Función para manejar clic en el botón "Ver"
   const handleViewClick = (product: IProduct) => {
-    preloadImages(product.images); // Precarga las imágenes del producto
+    preloadImages(product.images);
   };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    // Desplazar al inicio de la lista (no al inicio de la página)
+    if (cardsContainerRef.current) {
+      cardsContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   const toggleSortOrder = () => {
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc'); // Alternar entre ascendente y descendente
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div>
       {/* Botón para cambiar el orden por año */}
       <div className="text-center mx-auto mt-8 flex justify-center">
-        <button
+        <motion.button
           onClick={toggleSortOrder}
           className="px-6 py-2 bg-[#B62E30] text-white square-btn hover:bg-red-900 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+          whileHover={{ scale: 1.1 }} 
+          whileTap={{ scale: 0.95 }}  
         >
           <span className="mr-2">Ordenar por Año</span>
-          {/* Flecha con animación */}
           <svg
             className={`w-6 h-6 transform transition-transform duration-300 ${sortOrder === 'desc' ? 'rotate-180' : ''}`}
             xmlns="http://www.w3.org/2000/svg"
@@ -95,27 +99,55 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
               clipRule="evenodd"
             />
           </svg>
-        </button>
+        </motion.button>
       </div>
 
-      {/* Contenedor de tarjetas */}
-      <div
-        ref={cardsContainerRef}
-        className="grid mt-8 bg-white grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-5 md:m-8 gap-4"
-      >
-        {loading ? (
-          <div className="col-span-full text-center">Cargando...</div> // Mostrar loader si se está cargando
-        ) : (
-          currentProducts.map((product: IProduct) => (
-            <Card
-              product={product}
+      {/* Vista de carga con animación */}
+      {loading ? (
+        <div className="flex justify-center items-center my-8">
+          <div className="flex justify-center ">
+            {/* Barra de carga animada */}
+            <div className="w-64 bg-gray-300 rounded-full relative">
+              <motion.div
+                className="absolute left-0 top-0 h-full bg-gradient-to-r from-red-500 to-red-900 animate-load-bar rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 3, ease: "easeInOut", loop: Infinity }}
+              />
+            </div> 
+            <motion.h2
+              className="text-xl mb-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+            > 
+            </motion.h2>    
+          </div>
+        </div>
+      ) : (
+        <motion.div
+          ref={cardsContainerRef}
+          className="grid mt-8 bg-white grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-5 md:m-8 gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          {currentProducts.map((product: IProduct) => (
+            <motion.div
               key={product._id}
-              onDelete={() => handleDelete(product._id)}
-              onViewClick={() => handleViewClick(product)} // Pasa la función onViewClick
-            />
-          ))
-        )}
-      </div>
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Card
+                product={product}
+                onDelete={() => handleDelete(product._id)}
+                onViewClick={() => handleViewClick(product)} 
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
 
       {/* Paginación */}
       <div className="flex justify-center mb-4">
@@ -123,14 +155,15 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
           <ul className="flex space-x-2">
             {Array.from({ length: totalPages }, (_, index) => (
               <li key={index + 1}>
-                <button
+                <motion.button
                   onClick={() => handlePageChange(index + 1)}
                   className={`px-4 py-2 border rounded ${
-                    currentPage === index + 1 ? 'bg-red-600 text-white' : 'bg-white text-black'
+                    currentPage === index + 1 ? "bg-red-600 text-white" : "bg-white text-black"
                   }`}
+                  whileHover={{ scale: 1.1 }} 
                 >
                   {index + 1}
-                </button>
+                </motion.button>
               </li>
             ))}
           </ul>

@@ -22,3 +22,17 @@ scrollbar-width: none; /* Firefox */
 .scrollbar-hide::-webkit-scrollbar {
 display: none; /* Safari y Chrome */
 }
+
+@keyframes loadBarAnimation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-load-bar {
+  animation: loadBarAnimation 2s ease-in-out infinite;
+}
+
