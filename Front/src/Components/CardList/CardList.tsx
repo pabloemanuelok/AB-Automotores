@@ -6,8 +6,12 @@ import { IProduct } from "@/Interfaces/Interface";
 const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsList, setProductsList] = useState<IProduct[]>(products);
+<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); // Estado para ordenar
+=======
+  const [loading] = useState(false);
+>>>>>>> 356118a2a2cd95f96918dc16effee8a1a79d71bf
   const productsPerPage = 8;
 
   const cardsContainerRef = useRef<HTMLDivElement>(null);
