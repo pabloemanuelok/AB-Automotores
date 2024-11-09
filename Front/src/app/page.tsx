@@ -1,28 +1,34 @@
-import Section0 from '@/Components/Section0/Section0'
-import Section1 from '@/Components/Section1/Section1'
-import Section2 from '@/Components/Section2/Section2'
-// import Section3 from '@/Components/Section3/Section3'
-import Section4y5 from '@/Components/Section4y5/Section4y5'
-// import Section6 from '@/Components/Section6/Section6'
-import Section7 from '@/Components/Section7/Section7'
-// import Section8 from '@/Components/Section8/Section8'
-import Section9 from '@/Components/Section9/Section9'
-import React from 'react'
+import dynamic from 'next/dynamic';
+import Section4y5 from '@/Components/Section4y5/Section4y5';
+import React from 'react';
+
+const Section0 = dynamic(() => import('@/Components/Section0/Section0'), {
+  loading: () => <p>Loading Section0...</p>, // Muestra algo mientras carga
+});
+const Section1 = dynamic(() => import('@/Components/Section1/Section1'), {
+  loading: () => <p>Loading Section1...</p>,
+});
+const Section2 = dynamic(() => import('@/Components/Section2/Section2'), {
+  loading: () => <p>Loading Section2...</p>,
+});
+const Section7 = dynamic(() => import('@/Components/Section7/Section7'), {
+  loading: () => <p>Loading Section7...</p>,
+});
+const Section9 = dynamic(() => import('@/Components/Section9/Section9'), {
+  loading: () => <p>Loading Section9...</p>,
+});
 
 const page = () => {
   return (
     <div>
-      <Section0/>
-      <Section1/>
-      <Section2/>
-      {/* <Section3/> */}
-      <Section7/>
-      <Section4y5/>
-      {/* <Section6/> */}
-      {/* <Section8/> */}
-      <Section9/>
+      <Section0 />
+      <Section1 />
+      <Section2 />
+      <Section7 />
+      <Section4y5 />
+      <Section9 />
     </div>
-  )
+  );
 }
 
-export default page
+export default page;

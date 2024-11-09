@@ -15,12 +15,12 @@ body {
 }
 
 .scrollbar-hide {
--ms-overflow-style: none; /* IE y Edge */
-scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-display: none; /* Safari y Chrome */
+  display: none; /* Safari y Chrome */
 }
 
 @keyframes loadBarAnimation {
@@ -36,3 +36,9 @@ display: none; /* Safari y Chrome */
   animation: loadBarAnimation 2s ease-in-out infinite;
 }
 
+/* Añadir font-display para evitar FOIT */
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('/fonts/titillium-web.woff2') format('woff2');
+  font-display: swap;
+}

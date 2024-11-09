@@ -26,15 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Script de Tailwind CDN reemplazado por el componente Script */}
+        {/* Cargar Tailwind de forma diferida */}
         <Script 
           src="https://cdn.tailwindcss.com"
           strategy="afterInteractive" // Carga el script después de que la página esté interactiva
         />
       </head>
-      <body
-        className={`${titillium.className} flex flex-col min-h-screen antialiased`}
-      >
+      <body className={`${titillium.className} flex flex-col min-h-screen antialiased`}>
         <UserProvider>
           <Navbar />
           {children}
