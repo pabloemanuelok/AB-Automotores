@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import Image from "next/image";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Asegúrate de tener instalada la librería react-icons
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; 
 import image3 from "@/Assets/NivusDerecha.webp";
 import image2 from "@/Assets/NivusInterior.webp";
 import image1 from "@/Assets/NivusFrente.webp";
@@ -31,24 +31,30 @@ const Section1 = () => {
           <Image
             src={image1}
             alt="Image 1"
-            layout="fill"
-            className="object-cover w-full h-[300px]" // Ajuste de posición
+            width={600} // Definir tamaño fijo
+            height={300}
+            className="object-cover w-full h-[300px]"
+            priority // Carga prioritaria para la imagen visible
           />
         </div>
         <div className="w-1/3 h-[300px] relative">
           <Image
             src={image2}
             alt="Image 2"
-            layout="fill"
-            className="object-cover w-full h-[300px] object-[50%_55%]"
+            width={600} // Definir tamaño fijo
+            height={300}
+            className="object-cover w-full h-[300px]"
+            priority // Carga prioritaria
           />
         </div>
         <div className="w-1/3 h-[300px] relative">
           <Image
             src={image3}
             alt="Image 3"
-            layout="fill"
+            width={600} // Definir tamaño fijo
+            height={300}
             className="object-cover w-full h-[300px]"
+            priority // Carga prioritaria
           />
         </div>
       </div>
@@ -57,13 +63,13 @@ const Section1 = () => {
       <div className="md:hidden relative mt-4">
         {/* Botones de navegación */}
         <button
-          onClick={handlePrevImage} // Usa la función para desplazarse a la izquierda
+          onClick={handlePrevImage}
           className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-gray-600 z-10"
         >
           <FaChevronLeft size={24} />
         </button>
         <button
-          onClick={handleNextImage} // Usa la función para desplazarse a la derecha
+          onClick={handleNextImage}
           className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-gray-600 z-10"
         >
           <FaChevronRight size={24} />
@@ -76,8 +82,9 @@ const Section1 = () => {
             <Image
               src={image1}
               alt="Image 1"
-              layout="fill"
-              className="object-cover w-full h-[300px]" // Ajuste de posición
+              width={600} // Definir tamaño fijo
+              height={300}
+              className="object-cover w-full h-[300px]"
             />
           </div>
           {/* Imagen 2 */}
@@ -85,7 +92,8 @@ const Section1 = () => {
             <Image
               src={image2}
               alt="Image 2"
-              layout="fill"
+              width={600} // Definir tamaño fijo
+              height={300}
               className="object-cover w-full h-[300px]"
             />
           </div>
@@ -94,7 +102,8 @@ const Section1 = () => {
             <Image
               src={image3}
               alt="Image 3"
-              layout="fill"
+              width={600} // Definir tamaño fijo
+              height={300}
               className="object-cover w-full h-[300px]"
             />
           </div>
