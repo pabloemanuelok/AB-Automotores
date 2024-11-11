@@ -32,7 +32,7 @@ const Section1 = () => {
             src={image1}
             alt="Image 1"
             layout="fill"
-            className="object-cover" // Ajuste de posición
+            className="object-cover w-full h-[300px]" // Ajuste de posición
           />
         </div>
         <div className="w-1/3 h-[300px] relative">
@@ -40,7 +40,7 @@ const Section1 = () => {
             src={image2}
             alt="Image 2"
             layout="fill"
-            className="object-cover object-[50%_55%]"
+            className="object-cover w-full h-[300px] object-[50%_55%]"
           />
         </div>
         <div className="w-1/3 h-[300px] relative">
@@ -48,7 +48,7 @@ const Section1 = () => {
             src={image3}
             alt="Image 3"
             layout="fill"
-            className="object-cover"
+            className="object-cover w-full h-[300px]"
           />
         </div>
       </div>
@@ -77,7 +77,7 @@ const Section1 = () => {
               src={image1}
               alt="Image 1"
               layout="fill"
-              className="object-cover" // Ajuste de posición
+              className="object-cover w-full h-[300px]" // Ajuste de posición
             />
           </div>
           {/* Imagen 2 */}
@@ -86,7 +86,7 @@ const Section1 = () => {
               src={image2}
               alt="Image 2"
               layout="fill"
-              className="object-cover"
+              className="object-cover w-full h-[300px]"
             />
           </div>
           {/* Imagen 3 */}
@@ -95,7 +95,7 @@ const Section1 = () => {
               src={image3}
               alt="Image 3"
               layout="fill"
-              className="object-cover"
+              className="object-cover w-full h-[300px]"
             />
           </div>
         </div>

@@ -32,17 +32,17 @@ const Section1 = () => {
             src={image1}
             alt="Image 1"
             layout="fill"
-            className="object-cover"
+            className="object-cover w-full h-[300px]"
           />
         </div>
 
         {/* Imagen 2 ocupa el espacio de las columnas 2 y 3 */}
-        <div className="col-span-2 h-[300px] relative">
+        <div className="col-span-2 h-[300px]  relative">
           <Image
             src={image2}
             alt="Image 2"
             layout="fill"
-            className="object-cover object-[50%_15%]"
+            className="object-cover h-[300px] object-[50%_15%]"
           />
         </div>
       </div>
@@ -71,7 +71,7 @@ const Section1 = () => {
               src={image1}
               alt="Image 1"
               layout="fill"
-              className="object-cover" // Ajuste de posición
+              className="object-cove " // Ajuste de posición
             />
           </div>
           {/* Imagen 2 */}
