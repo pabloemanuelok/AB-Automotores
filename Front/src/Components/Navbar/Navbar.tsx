@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC, useState, useEffect, useContext } from "react";
 import { usePathname } from 'next/navigation';
-import Logo from "@/Assets/LogoSinFondo.png";
+import Logo from "@/Assets/LogoSinFondo.webp";
 import { UserContext } from "@/Context/contextUser";
 
 const Navbar: FC = () => {

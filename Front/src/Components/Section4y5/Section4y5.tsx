@@ -2,11 +2,11 @@ import React from "react";
 import Image from "next/image";
 
 // Importa los logos desde tu carpeta de assets
-import logo1 from "@/Assets/VehiculosSeleccionados.png";
-import logo2 from "@/Assets/EntregaInmediata.png";
-import logo3 from "@/Assets/financiacion51.png";
-import logo4 from "@/Assets/permutas mayor y menor 3 1.png";
-import logo5 from "@/Assets/ServiciosDeGestoria.png";
+import logo1 from "@/Assets/VehiculosSeleccionados.webp";
+import logo2 from "@/Assets/EntregaInmediata.webp";
+import logo3 from "@/Assets/financiacion51.webp";
+import logo4 from "@/Assets/permutas mayor y menor 3 1.webp";
+import logo5 from "@/Assets/ServiciosDeGestoria.webp";
 
 const SectionUnified = () => {
   return (

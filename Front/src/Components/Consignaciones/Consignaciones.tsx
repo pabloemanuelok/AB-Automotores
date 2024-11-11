@@ -7,9 +7,9 @@ import logo2 from "@/Assets/pagoinstantaneo.png";
 import logo3 from "@/Assets/vendeSeguro.png";
 import logo4 from "@/Assets/gestoria.png";
 import logo5 from "@/Assets/evitaEstafas.png";
-import car1 from "@/Assets/C4Interior.png";
-import car2 from "@/Assets/C4Interior.png";
-import car3 from "@/Assets/C4Interior.png";
+import car1 from "@/Assets/2008Frente.webp";
+import car2 from "@/Assets/2008Frente.webp";
+import car3 from "@/Assets/2008Frente.webp";
 
 const Consignaciones = () => {
   const scrollRef = useRef<HTMLDivElement>(null);

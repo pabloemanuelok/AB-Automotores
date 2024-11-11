@@ -2,8 +2,8 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Asegúrate de tener instalada la librería react-icons
-import image1 from "@/Assets/2008Frente.jpeg";
-import image2 from "@/Assets/TableroCronos.png";
+import image1 from "@/Assets/2008Frente.webp";
+import image2 from "@/Assets/TableroCronos.webp";
 
 const Section1 = () => {
   const scrollRef = useRef<HTMLDivElement>(null); // Crea una referencia para el contenedor de imágenes

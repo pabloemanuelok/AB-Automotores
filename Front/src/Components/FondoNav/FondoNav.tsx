@@ -1,5 +1,5 @@
 "use client";
-import FondoImage from "@/Assets/TableroCronos.png";
+import FondoImage from "@/Assets/TableroCronos.webp";
 import React from 'react';
 import Image from 'next/image';
 

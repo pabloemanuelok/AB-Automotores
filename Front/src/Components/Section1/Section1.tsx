@@ -2,9 +2,9 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Asegúrate de tener instalada la librería react-icons
-import image3 from "@/Assets/NivusDerecha.jpeg";
-import image2 from "@/Assets/NivusInterior.jpeg";
-import image1 from "@/Assets/NivusFrente.jpeg";
+import image3 from "@/Assets/NivusDerecha.webp";
+import image2 from "@/Assets/NivusInterior.webp";
+import image1 from "@/Assets/NivusFrente.webp";
 
 const Section1 = () => {
   const scrollRef = useRef<HTMLDivElement>(null); // Crea una referencia para el contenedor de imágenes

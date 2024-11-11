@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image"; 
-import LogoUbi from "@/Assets/LogoUbicacion.png";
-import LogoPachas from "@/Assets/LogoPachas.png";
+import LogoUbi from "@/Assets/LogoUbicacion.webp";
+import LogoPachas from "@/Assets/LogoPachas.webp";
 
 const Footer = () => {
   return (
