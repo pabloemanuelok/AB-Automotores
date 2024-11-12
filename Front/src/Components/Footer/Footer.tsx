@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image"; 
+import Image from "next/image";
 import LogoUbi from "@/Assets/LogoUbicacion.webp";
 import LogoPachas from "@/Assets/LogoPachas.webp";
 
@@ -38,11 +38,12 @@ const Footer = () => {
       <Link href="mailto:pachasdevelopment@gmail.com" target="_blank" className="w-full flex items-center justify-center text-center">
         <div className="flex justify-center items-center pt-9">
           <span className="text-white text-sm">Created by Pachas Development</span>
-          <div className="relative w-10 h-10">
+          <div className="relative w-10 h-10 flex-shrink-0">
             <Image
               src={LogoPachas}
               alt="Pacha's Development"
-              layout="fill"
+              width={40} // Ancho fijo
+              height={40} // Alto fijo
               className="object-contain"
             />
           </div>
