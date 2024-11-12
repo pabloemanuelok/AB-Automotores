@@ -19,19 +19,25 @@ const SectionUnified = () => {
       </div>
 
       {/* Logos */}
-      <div className="flex md:justify-between justify-center gap-2 w-full lg:pr-[100px]">
+      <div className="flex md:justify-between justify-center gap-6 w-full lg:pr-[100px]">
         {[logo1, logo2, logo3, logo4, logo5].map((logo, index) => (
           <div
             key={index}
-            className="flex flex-col items-center h-24 min-w-[60px] max-w-[60px] md:min-w-[80px] md:max-w-[80px] min-h-[100px]"
+            className="flex flex-col items-center h-24 min-w-[80px] max-w-[80px] md:min-w-[100px] md:max-w-[100px] min-h-[100px]"
           >
-            <div className="flex items-center justify-center h-12 mb-1 min-h-[50px]">
+            <div className="flex items-center justify-center h-12 mb-2 min-h-[60px]">
               <Image
                 src={logo}
-                alt={`Logo ${index + 1}`}
-                width={40}
-                height={40}
-                className="object-contain md:w-[50px] md:h-[50px]"
+                alt={`Logo ${index + 1} - ${[
+                  "Vehículos Seleccionados",
+                  "Entrega inmediata",
+                  "Líneas de créditos",
+                  "Compras y permutas",
+                  "Servicios de gestoría",
+                ][index]}`}
+                width={50}
+                height={50}
+                className="object-contain md:w-[60px] md:h-[60px]"
               />
             </div>
             <span className="text-black text-center font-semibold text-xs md:text-sm leading-tight">
@@ -41,7 +47,7 @@ const SectionUnified = () => {
                 "Entrega inmediata",
                 "Líneas de créditos",
                 "Compras y permutas",
-                "Servicios de gestoría"
+                "Servicios de gestoría",
               ][index]}
             </span>
           </div>

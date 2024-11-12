@@ -30,25 +30,31 @@ const Section9 = () => {
         <div className="w-1/3 h-[300px] relative">
           <Image
             src={image1}
-            alt="Image 1"
-            layout="fill"
-            className="object-cover" // Ajuste de posición
+            alt="Interior del vehículo 1"
+            width={600}
+            height={300}
+            className="object-cover w-full h-[300px]"
+            priority
           />
         </div>
         <div className="w-1/3 h-[300px] relative">
           <Image
             src={image2}
-            alt="Image 2"
-            layout="fill"
-            className="object-cover"
+            alt="Interior del vehículo 2"
+            width={600}
+            height={300}
+            className="object-cover w-full h-[300px]"
+            priority
           />
         </div>
         <div className="w-1/3 h-[300px] relative">
           <Image
             src={image3}
-            alt="Image 3"
-            layout="fill"
-            className="object-cover "
+            alt="Interior del vehículo 3"
+            width={600}
+            height={300}
+            className="object-cover w-full h-[300px]"
+            priority
           />
         </div>
       </div>
@@ -70,32 +76,35 @@ const Section9 = () => {
         </button>
 
         {/* Contenedor de imágenes deslizables */}
-        <div className="flex overflow-x-auto h-[300px]" ref={scrollRef}>
+        <div className="flex overflow-x-auto h-[300px] transition-transform ease-in-out" ref={scrollRef}>
           {/* Imagen 1 */}
           <div className="flex-none w-screen h-full relative">
             <Image
               src={image1}
-              alt="Image 1"
-              layout="fill"
-              className="object-cover w-1/3 h-[300px]" // Ajuste de posición
+              alt="Interior del vehículo 1"
+              width={600}
+              height={300}
+              className="object-cover w-full h-[300px]"
             />
           </div>
           {/* Imagen 2 */}
           <div className="flex-none w-screen h-full relative">
             <Image
               src={image2}
-              alt="Image 2"
-              layout="fill"
-              className="object-cover w-1/3 h-[300px]"
+              alt="Interior del vehículo 2"
+              width={600}
+              height={300}
+              className="object-cover w-full h-[300px]"
             />
           </div>
           {/* Imagen 3 */}
           <div className="flex-none w-screen h-full relative">
             <Image
               src={image3}
-              alt="Image 3"
-              layout="fill"
-              className="object-cover w-1/3 h-[300px]"
+              alt="Interior del vehículo 3"
+              width={600}
+              height={300}
+              className="object-cover w-full h-[300px]"
             />
           </div>
         </div>

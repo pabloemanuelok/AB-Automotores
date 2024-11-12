@@ -41,10 +41,11 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
             <Image
               src={product.images[currentImageIndex]}
               alt={`Imagen de ${product.name}`}
-              layout="intrinsic"
+              layout="responsive"
               width={600}
               height={600}
               objectFit="contain"
+              priority // Carga rápida de la imagen principal
             />
           ) : (
             <div className="flex items-center justify-center w-full h-full bg-gray-600 text-white">
@@ -53,12 +54,14 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
           )}
           <button
             onClick={handlePrevImage}
+            aria-label="Imagen anterior"
             className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-60 text-white p-2 hover:bg-gray-600"
           >
             <FaChevronLeft size={24} />
           </button>
           <button
             onClick={handleNextImage}
+            aria-label="Siguiente imagen"
             className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-60 text-white p-2 hover:bg-gray-600"
           >
             <FaChevronRight size={24} />

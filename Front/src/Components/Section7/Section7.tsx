@@ -3,9 +3,10 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Asegúrate de tener instalada la librería react-icons
 import image1 from "@/Assets/2008Frente.webp";
-import image2 from "@/Assets/TableroCronos.webp";
+import image2 from "@/Assets/NivusDerecha.webp";
+import image3 from "@/Assets/208Interior.webp";
 
-const Section1 = () => {
+const Section7 = () => {
   const scrollRef = useRef<HTMLDivElement>(null); // Crea una referencia para el contenedor de imágenes
 
   // Función para desplazarse a la imagen anterior
@@ -25,24 +26,35 @@ const Section1 = () => {
   return (
     <div className="relative">
       {/* Vista de escritorio */}
-      <div className="hidden md:grid md:grid-cols-3 gap-4 px-4">
-        {/* Imagen 1 ocupa la primera columna */}
-        <div className="col-span-1 h-[300px] relative ">
+      <div className="hidden md:flex justify-between gap-4 px-4 my-4">
+        <div className="w-1/3 h-[300px] relative">
           <Image
             src={image1}
-            alt="Image 1"
-            layout="fill"
+            alt="Interior del vehículo 1"
+            width={600}
+            height={300}
             className="object-cover w-full h-[300px]"
+            priority
           />
         </div>
-
-        {/* Imagen 2 ocupa el espacio de las columnas 2 y 3 */}
-        <div className="col-span-2 h-[300px]  relative">
+        <div className="w-1/3 h-[300px] relative">
           <Image
             src={image2}
-            alt="Image 2"
-            layout="fill"
-            className="object-cover h-[300px] object-[50%_15%]"
+            alt="Interior del vehículo 2"
+            width={600}
+            height={300}
+            className="object-cover w-full h-[300px]"
+            priority
+          />
+        </div>
+        <div className="w-1/3 h-[300px] relative">
+          <Image
+            src={image3}
+            alt="Interior del vehículo 3"
+            width={600}
+            height={300}
+            className="object-cover w-full h-[300px]"
+            priority
           />
         </div>
       </div>
@@ -64,29 +76,41 @@ const Section1 = () => {
         </button>
 
         {/* Contenedor de imágenes deslizables */}
-        <div className="flex overflow-x-auto h-[300px]" ref={scrollRef}>
+        <div className="flex overflow-x-auto h-[300px] transition-transform ease-in-out" ref={scrollRef}>
           {/* Imagen 1 */}
           <div className="flex-none w-screen h-full relative">
             <Image
               src={image1}
-              alt="Image 1"
-              layout="fill"
-              className="object-cove " // Ajuste de posición
+              alt="Interior del vehículo 1"
+              width={600}
+              height={300}
+              className="object-cover w-full h-[300px]"
             />
           </div>
           {/* Imagen 2 */}
           <div className="flex-none w-screen h-full relative">
             <Image
               src={image2}
-              alt="Image 2"
-              layout="fill"
-              className="object-cover"
+              alt="Interior del vehículo 2"
+              width={600}
+              height={300}
+              className="object-cover w-full h-[300px]"
             />
-          </div>       
+          </div>
+          {/* Imagen 3 */}
+          <div className="flex-none w-screen h-full relative">
+            <Image
+              src={image3}
+              alt="Interior del vehículo 3"
+              width={600}
+              height={300}
+              className="object-cover w-full h-[300px]"
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Section1;
+export default Section7;

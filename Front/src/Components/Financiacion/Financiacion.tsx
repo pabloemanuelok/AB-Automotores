@@ -14,11 +14,10 @@ const Financiacion = () => {
   });
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false); // Estado para manejar el estado de carga
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -29,6 +28,15 @@ const Financiacion = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Validación simple
+    if (!formData.nombre || !formData.email || !formData.telefono || !formData.mensaje) {
+      setErrorMessage("Todos los campos son obligatorios.");
+      setSuccessMessage(null);
+      return;
+    }
+
+    setIsLoading(true);
     try {
       console.log(formData); // Verifica los datos enviados
       await fetchPostConsulta(formData);
@@ -44,6 +52,8 @@ const Financiacion = () => {
     } catch (error) {
       setErrorMessage("Error al enviar la consulta");
       setSuccessMessage(null);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -81,6 +91,7 @@ const Financiacion = () => {
                 onChange={handleChange}
                 placeholder="Ingrese su nombre completo"
                 className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
+                required
               />
             </label>
             <label className="flex flex-col text-white">
@@ -92,6 +103,7 @@ const Financiacion = () => {
                 onChange={handleChange}
                 placeholder="Ingrese su número de teléfono"
                 className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
+                required
               />
             </label>
 
@@ -104,6 +116,7 @@ const Financiacion = () => {
                 onChange={handleChange}
                 placeholder="ejemplo@gmail.com"
                 className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
+                required
               />
             </label>
 
@@ -115,14 +128,16 @@ const Financiacion = () => {
                 onChange={handleChange}
                 placeholder="Escribe tu mensaje aquí"
                 className="p-2 rounded-md placeholder:text-neutral-500 border border-white bg-[#2C2C2C] text-white"
+                required
               />
             </label>
 
             <button
               type="submit"
               className="w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300"
+              disabled={isLoading}
             >
-              Enviar
+              {isLoading ? "Enviando..." : "Enviar"}
             </button>
           </form>
           {successMessage && (

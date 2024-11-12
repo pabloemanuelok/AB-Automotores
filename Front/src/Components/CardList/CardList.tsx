@@ -44,15 +44,16 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     setProductsList(updatedProducts);
   };
 
+  // Corregido: Definimos el tipo de imagen como HTMLImageElement
   const preloadImages = (images: string[]) => {
     images.forEach((src) => {
-      const img = new Image();
+      const img: HTMLImageElement = new Image();
       img.src = src;
     });
   };
 
   const handleViewClick = (product: IProduct) => {
-    preloadImages(product.images);
+    preloadImages(product.images); // Pasamos el parámetro correctamente
   };
 
   const handlePageChange = (page: number) => {

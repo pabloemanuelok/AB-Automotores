@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Para los íconos de flecha
-import logo1 from "@/Assets/tasacion .png";
+import logo1 from "@/Assets/tasacion.png";
 import logo2 from "@/Assets/pagoinstantaneo.png";
 import logo3 from "@/Assets/vendeSeguro.png";
 import logo4 from "@/Assets/gestoria.png";
@@ -33,13 +33,13 @@ const Consignaciones = () => {
   };
 
   return (
-    <div className="w-[100%]">
+    <div className="w-full">
       <div className="relative flex flex-col items-center px-4 md:px-10 lg:px-20 mb-4">
         {/* Sección de logos */}
         <div className="bg-white w-full flex flex-col md:flex-row items-center justify-center py-4">
           <div className="w-full md:w-[47%] items-start text-center md:text-start">
             <h2 className="text-black text-2xl pb-4 md:text-3xl font-bold">
-              Querés vender tu auto?
+              ¿Querés vender tu auto?
             </h2>
           </div>
           <div className="flex justify-between gap-2 md:gap-4 w-full md:w-[45%]">
@@ -55,6 +55,7 @@ const Consignaciones = () => {
                     width={150}
                     height={150}
                     className="object-contain h-[40px]"
+                    priority={index < 2}  // Asegura que las primeras dos imágenes se carguen rápido
                   />
                 </div>
                 <span className="text-black text-center font-semibold text-xs md:text-sm leading-tight">
@@ -123,25 +124,28 @@ const Consignaciones = () => {
           <div className="flex-none w-full h-full relative">
             <Image
               src={car1}
-              alt="Imagen 1"
+              alt="Auto 1 en consignment"
               layout="fill"
               className="object-cover object-top"
+              priority
             />
           </div>
           <div className="flex-none w-full h-full relative">
             <Image
               src={car2}
-              alt="Imagen 2"
+              alt="Auto 2 en consignment"
               layout="fill"
               className="object-cover"
+              priority
             />
           </div>
           <div className="flex-none w-full h-full relative">
             <Image
               src={car3}
-              alt="Imagen 3"
+              alt="Auto 3 en consignment"
               layout="fill"
               className="object-cover"
+              priority
             />
           </div>
         </div>
@@ -155,6 +159,7 @@ const Consignaciones = () => {
             alt="Imagen 1"
             layout="fill"
             className="object-cover object-top"
+            priority
           />
         </div>
         <div className="flex-grow h-[300px] w-[20%] relative">
@@ -163,6 +168,7 @@ const Consignaciones = () => {
             alt="Imagen 2"
             layout="fill"
             className="object-cover"
+            priority
           />
         </div>
         <div className="flex-grow h-[300px] w-[20%] relative">
@@ -171,6 +177,7 @@ const Consignaciones = () => {
             alt="Imagen 3"
             layout="fill"
             className="object-cover"
+            priority
           />
         </div>
       </div>

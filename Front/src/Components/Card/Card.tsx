@@ -33,7 +33,7 @@ const Card = ({ product, onDelete, onViewClick }: IProductCardProps & { onDelete
 
   return (
     <div
-      className={`relative max-w-xs mx-auto bg-white shadow-2xl overflow-hidden transform transition-transform hover:scale-105 hover:shadow-3xl w-full h-full font-roboto group`}
+      className="relative max-w-xs mx-auto bg-white shadow-2xl overflow-hidden transform transition-transform hover:scale-105 hover:shadow-3xl w-full h-full font-roboto group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -41,15 +41,15 @@ const Card = ({ product, onDelete, onViewClick }: IProductCardProps & { onDelete
         <Image
           src={product.images[0]}
           alt={product.name}
-          fill
-          style={{ objectFit: 'cover' }}
+          width={600} // Tamaño fijo para evitar cambios de diseño
+          height={440} // Usar un tamaño constante
+          className="object-cover w-full h-full"
+          priority // Carga prioritaria si esta imagen es relevante
           sizes="(max-width: 640px) 100vw, 50vw"
         />
       </div>
       <div
-        className={`absolute inset-x-0 bottom-0 bg-black bg-opacity-65 flex flex-col justify-center items-end text-white transition-opacity h-1/2 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`absolute inset-x-0 bottom-0 bg-black bg-opacity-65 flex flex-col justify-center items-end text-white transition-opacity h-1/2 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="text-start p-5 w-full mb-4">
           <h2 className="text-xl font-light mb-2">{product.name}</h2>
