@@ -77,7 +77,7 @@ const Section9 = () => {
               src={image1}
               alt="Image 1"
               layout="fill"
-              className="object-cover object-top" // Ajuste de posición
+              className="object-cover w-1/3 h-[300px]" // Ajuste de posición
             />
           </div>
           {/* Imagen 2 */}
@@ -86,7 +86,7 @@ const Section9 = () => {
               src={image2}
               alt="Image 2"
               layout="fill"
-              className="object-cover"
+              className="object-cover w-1/3 h-[300px]"
             />
           </div>
           {/* Imagen 3 */}
@@ -95,7 +95,7 @@ const Section9 = () => {
               src={image3}
               alt="Image 3"
               layout="fill"
-              className="object-cover"
+              className="object-cover w-1/3 h-[300px]"
             />
           </div>
         </div>

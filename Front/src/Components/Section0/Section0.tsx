@@ -5,7 +5,7 @@ const Section0: React.FC = () => {
   return (
     <section className="relative md:h-[450px] h-[260px] md:mx-4">
       <video
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover w-full md:h-[450px] h-[260px]"
         src="https://video.wixstatic.com/video/0816f9_1028adbd69f046f38d06fbd6265fc008/1080p/mp4/file.mp4"
         autoPlay
         muted
