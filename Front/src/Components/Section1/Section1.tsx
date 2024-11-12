@@ -7,16 +7,14 @@ import image2 from "@/Assets/NivusInterior.webp";
 import image1 from "@/Assets/NivusFrente.webp";
 
 const Section1 = () => {
-  const scrollRef = useRef<HTMLDivElement>(null); // Crea una referencia para el contenedor de imágenes
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Función para desplazarse a la imagen anterior
   const handlePrevImage = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: -scrollRef.current.clientWidth, behavior: 'smooth' });
     }
   };
 
-  // Función para desplazarse a la imagen siguiente
   const handleNextImage = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: scrollRef.current.clientWidth, behavior: 'smooth' });
@@ -31,37 +29,36 @@ const Section1 = () => {
           <Image
             src={image1}
             alt="Image 1"
-            width={600} // Definir tamaño fijo
+            width={600}
             height={300}
             className="object-cover w-full h-[300px]"
-            priority // Carga prioritaria para la imagen visible
+            priority
           />
         </div>
         <div className="w-1/3 h-[300px] relative">
           <Image
             src={image2}
             alt="Image 2"
-            width={600} // Definir tamaño fijo
+            width={600}
             height={300}
             className="object-cover w-full h-[300px]"
-            priority // Carga prioritaria
+            priority
           />
         </div>
         <div className="w-1/3 h-[300px] relative">
           <Image
             src={image3}
             alt="Image 3"
-            width={600} // Definir tamaño fijo
+            width={600}
             height={300}
             className="object-cover w-full h-[300px]"
-            priority // Carga prioritaria
+            priority
           />
         </div>
       </div>
 
       {/* Vista móvil con carrusel */}
       <div className="md:hidden relative mt-4">
-        {/* Botones de navegación */}
         <button
           onClick={handlePrevImage}
           className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-gray-600 z-10"
@@ -75,34 +72,30 @@ const Section1 = () => {
           <FaChevronRight size={24} />
         </button>
 
-        {/* Contenedor de imágenes deslizables */}
         <div className="flex overflow-x-auto h-[300px]" ref={scrollRef}>
-          {/* Imagen 1 */}
           <div className="flex-none w-screen h-full relative">
             <Image
               src={image1}
               alt="Image 1"
-              width={600} // Definir tamaño fijo
+              width={600}
               height={300}
               className="object-cover w-full h-[300px]"
             />
           </div>
-          {/* Imagen 2 */}
           <div className="flex-none w-screen h-full relative">
             <Image
               src={image2}
               alt="Image 2"
-              width={600} // Definir tamaño fijo
+              width={600}
               height={300}
               className="object-cover w-full h-[300px]"
             />
           </div>
-          {/* Imagen 3 */}
           <div className="flex-none w-screen h-full relative">
             <Image
               src={image3}
               alt="Image 3"
-              width={600} // Definir tamaño fijo
+              width={600}
               height={300}
               className="object-cover w-full h-[300px]"
             />
