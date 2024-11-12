@@ -2,9 +2,9 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; 
-import image3 from "@/Assets/MondeoFrenteDetalle.webp";
-import image2 from "@/Assets/MondeoFrenteDetalle.webp";
-import image1 from "@/Assets/MondeoFrenteDetalle.webp";
+import image3 from "@/Assets/NivusDerecha.webp";
+import image2 from "@/Assets/NivusInterior.webp";
+import image1 from "@/Assets/NivusFrente.webp";
 
 const Section1 = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
