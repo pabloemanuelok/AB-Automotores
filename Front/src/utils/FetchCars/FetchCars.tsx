@@ -3,9 +3,7 @@ import { IProduct } from "@/Interfaces/Interface";
 // Función para obtener todos los productos
 export default async function fetchCars(): Promise<IProduct[]> {
     try {
-        const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products", {
-            next: { revalidate: 0 },
-        });
+        const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products")
         if (!res.ok) {
             throw new Error("Failed to fetch");
         }
