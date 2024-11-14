@@ -26,7 +26,7 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt })
   };
 
   return (
-    <div className="relative w-full h-[300px] mt-4 md:mt-0 bg-gray-200">
+    <div className="relative w-full h-[300px] my-4 md:mt-0 bg-gray-200">
       <Image
         src={src}
         alt={alt}
