@@ -60,7 +60,7 @@ const ImageGallery: React.FC = () => {
           },
         }}
       >
-        {["/source/NivusFrente.webp", "/source/NivusInterior.webp", "/source/NivusDerecha.webp"].map((src, index) => (
+        {["/source/DetailMondeo1.webp", "/source/DetailMondeo2.webp", "/source/DetailMondeo3.webp"].map((src, index) => (
           <SwiperSlide key={index}>
             <ImageWithPlaceholder src={src} alt={`Image ${index + 1}`} />
           </SwiperSlide>
