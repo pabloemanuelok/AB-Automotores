@@ -9,12 +9,26 @@ import Link from "next/link";
 const HomeCounter: React.FC = () => {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); // Estado para detectar si es móvil
+
+  // Detectar si el dispositivo es móvil
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Ajusta el valor de acuerdo a tu breakpoint
+    };
+
+    handleResize(); // Verificar el tamaño de la pantalla al cargar
+
+    window.addEventListener("resize", handleResize); // Escuchar cambios en el tamaño de la ventana
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Detectar visibilidad al hacer scroll
   const handleScroll = () => {
     const componentPosition = document.getElementById("home-counter")?.getBoundingClientRect().top || 0;
     const windowHeight = window.innerHeight;
-    if (componentPosition <= windowHeight * 0.8) { // El 80% de la pantalla
+    if (componentPosition <= windowHeight * (isMobile ? 0.9 : 0.8)) { // Para móvil, ajustamos el valor a 0.9
       setIsVisible(true);
     }
   };
@@ -27,7 +41,7 @@ const HomeCounter: React.FC = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll); // Limpiar evento al desmontar
     };
-  }, []);
+  }, [isMobile]); // Aseguramos que la lógica de scroll esté actualizada si cambiamos de tamaño
 
   // Animación para el contador
   useEffect(() => {
@@ -57,9 +71,9 @@ const HomeCounter: React.FC = () => {
         initial={{ opacity: 0, scale: 0.7 }}
         animate={isVisible ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 1.5 }}
-        className="text-8xl md:text-10xl font-bold text-white tracking-wide drop-shadow-xl"
+        className="text-8xl md:text-10xl font-extrabold text-white tracking-wide drop-shadow-xl"
       >
-        Más de {count}
+        +<span className="font-bold text-yellow-400">{count}</span>
       </motion.div>
       
       {/* Texto de trayectoria */}
@@ -67,7 +81,7 @@ const HomeCounter: React.FC = () => {
         initial={{ opacity: 0, x: -100 }}
         animate={isVisible ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 1, delay: 0.5 }}
-        className="mt-4 text-4xl md:text-6xl text-white font-semibold tracking-wide"
+        className="mt-4 text-4xl md:text-6xl text-center text-white font-semibold tracking-wide"
       >
         años de trayectoria en el rubro
       </motion.p>
@@ -82,12 +96,12 @@ const HomeCounter: React.FC = () => {
         Ya hay más de 5,000 clientes que confiaron en nosotros
       </motion.p>
 
-      {/* Logo de Google desplazado a la derecha */}
+      {/* Logo de Google desplazado a la derecha (en escritorio) y más pequeño en móvil */}
       <motion.div
         initial={{ opacity: 0, x: 300 }}
         animate={isVisible ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute right-6 bottom-4 transform hover:scale-110 transition-transform"
+        className="absolute transform hover:scale-110 transition-transform md:right-6 md:bottom-4 md:top-auto md:left-auto bottom-4 left-0.5 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:top-auto sm:bottom-0 sm:mt-4"
       >
         <Link
           href="https://www.google.com/maps/place/AB+Automotores/@-31.4346103,-64.1320892,15z/data=!4m8!3m7!1s0x9432bd24e9ecd915:0xa32ee5da0ccf6d8f!8m2!3d-31.4346103!4d-64.1320892!9m1!1b1!16s%2Fg%2F11bw4rvkx6?entry=ttu&g_ep=EgoyMDI0MTExMi4wIKXMDSoJLDEwMjExMjMzSAFQAw%3D%3D"
@@ -97,8 +111,8 @@ const HomeCounter: React.FC = () => {
           <Image
             src="/source/GoogleReview.webp"
             alt="Logo de Google Reviews"
-            width={220}
-            height={80}
+            width={150} // Reducción del tamaño del logo para móvil
+            height={54} // Reducción del tamaño del logo para móvil
             className="cursor-pointer"
             priority
           />
