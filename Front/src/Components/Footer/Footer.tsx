@@ -11,7 +11,7 @@ const Footer = () => {
         {/* Contenedor de la izquierda */}
         <div className="flex-1 flex items-center md:justify-start justify-center px-4 md:px-6 md:py-5 lg:pl-[100px] xl:pl-[100px]">
           <h2 className="text-white text-2xl md:text-2xl xl:text-3xl text-center mt-0">
-            ¡Vení a conocer nuestra agencia!
+            ¡Vení a conocer nuestros autos!
           </h2>
         </div>
 

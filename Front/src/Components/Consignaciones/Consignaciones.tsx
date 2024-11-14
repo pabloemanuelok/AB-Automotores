@@ -1,7 +1,10 @@
 "use client";
+
 import Image from "next/image";
-import { useRef } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Para los íconos de flecha
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/autoplay";
+import { Autoplay } from "swiper/modules";
 import logo1 from "@/Assets/tasacion.png";
 import logo2 from "@/Assets/pagoinstantaneo.png";
 import logo3 from "@/Assets/vendeSeguro.png";
@@ -12,41 +15,22 @@ import car2 from "@/Assets/2008Frente.webp";
 import car3 from "@/Assets/2008Frente.webp";
 
 const Consignaciones = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const handlePrevImage = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: -scrollRef.current.clientWidth,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const handleNextImage = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: scrollRef.current.clientWidth,
-        behavior: "smooth",
-      });
-    }
-  };
-
   return (
-    <div className="w-full">
-      <div className="relative flex flex-col items-center px-4 md:px-10 lg:px-20 mb-4">
+    <div className="relative">
+      {/* Contenedor con líneas rojas y borde */}
+      <div className="flex flex-col items-center px-0 md:px-4 lg:px-4 mb-8">
         {/* Sección de logos */}
-        <div className="bg-white w-full flex flex-col md:flex-row items-center justify-center py-4">
-          <div className="w-full md:w-[47%] items-start text-center md:text-start">
-            <h2 className="text-black text-2xl pb-4 md:text-3xl font-bold">
+        <div className="bg-white w-full flex flex-col md:flex-row items-center justify-center mb-6 py-6 shadow-lg border-t-2 border-red-500">
+          <div className="w-full md:w-[47%] text-center md:text-start mb-4 md:mb-0">
+            <h2 className="text-primary text-3xl md:text-4xl font-extrabold">
               ¿Querés vender tu auto?
             </h2>
           </div>
-          <div className="flex justify-between gap-2 md:gap-4 w-full md:w-[45%]">
+          <div className="flex justify-around gap-2 md:gap-4 w-[90%] md:w-[45%]">
             {[logo1, logo2, logo3, logo4, logo5].map((logo, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center h-24 max-w-[120px]"
+                className="flex flex-col items-center h-24 max-w-[120px] transition-transform hover:scale-105"
               >
                 <div className="flex items-center justify-center h-12 mb-1">
                   <Image
@@ -55,10 +39,10 @@ const Consignaciones = () => {
                     width={150}
                     height={150}
                     className="object-contain h-[40px]"
-                    priority={index < 2}  // Asegura que las primeras dos imágenes se carguen rápido
+                    priority={index < 2}
                   />
                 </div>
-                <span className="text-black text-center font-semibold text-xs md:text-sm leading-tight">
+                <span className="text-secondary font-medium text-center text-xs md:text-sm leading-tight">
                   {
                     [
                       "Tasación en el acto",
@@ -75,12 +59,12 @@ const Consignaciones = () => {
         </div>
 
         {/* Sección de información adicional */}
-        <div className="flex flex-col mb-4 md:mx-6 items-center justify-center gap-4">
-          <div className="flex flex-col md:flex-row w-full md:w-[96%] items-center md:gap-10">
-            <h3 className="text-black md:w-[50%] text-2xl md:text-3xl font-bold">
+        <div className="flex flex-col mb-6 md:mx-6 items-center justify-center gap-6">
+          <div className="flex flex-col md:flex-row w-[90%] md:w-[96%] items-center md:gap-10">
+            <h3 className="text-primary md:w-[50%] text-2xl md:text-3xl font-bold border-l-4 border-red-500 pl-3">
               Compra directa
             </h3>
-            <p className="text-black md:w-[49%] text-center md:text-start text-lg font-semibold">
+            <p className="text-secondary w-[90%] md:w-[49%] text-center md:text-start text-base md:text-lg font-medium">
               Si necesitas vender tu auto de manera inmediata, te lo tasamos y
               te lo pagamos de contado, nos encargamos de todos los trámites de
               gestoría y te aseguramos la transferencia.
@@ -88,10 +72,10 @@ const Consignaciones = () => {
           </div>
 
           <div className="flex flex-col md:flex-row w-full md:w-[96%] items-center justify-center md:gap-10">
-            <h3 className="text-black md:w-[50%] text-2xl md:text-3xl font-bold mb-2">
+            <h3 className="text-primary md:w-[50%] text-2xl md:text-3xl font-bold border-l-4 border-red-500 pl-3">
               Consignaciones
             </h3>
-            <p className="text-black md:w-[49%] text-center md:text-start text-lg font-semibold">
+            <p className="text-secondary  w-[90%] md:w-[49%] text-center md:text-start text-base md:text-lg font-medium">
               Te gestionamos la venta, dejá tu auto en nuestra agencia, lo
               publicamos en todos los portales de venta online y buscamos
               comprador. Una vez concretada la operación nos encargamos de todos
@@ -101,85 +85,35 @@ const Consignaciones = () => {
         </div>
       </div>
 
-      {/* Carrusel para Mobile */}
-      <div className="relative md:hidden mt-4">
-        {/* Botones para navegación */}
-        <button
-          onClick={handlePrevImage}
-          className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-gray-600 z-10"
+      {/* Carrusel para Mobile y Desktop */}
+      <div className=" md:mx-4 my-4 ">
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={10}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{ delay: 3000 }}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            1024: { slidesPerView: 2 },
+            1280: { slidesPerView: 3 },
+          }}
+          className="shadow-md"
         >
-          <FaChevronLeft size={24} />
-        </button>
-        <button
-          onClick={handleNextImage}
-          className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-gray-600 z-10"
-        >
-          <FaChevronRight size={24} />
-        </button>
-
-        <div
-          className="flex overflow-x-auto gap-0 h-[300px] w-full"
-          ref={scrollRef}
-        >
-          <div className="flex-none w-full h-full relative">
-            <Image
-              src={car1}
-              alt="Auto 1 en consignment"
-              layout="fill"
-              className="object-cover object-top"
-              priority
-            />
-          </div>
-          <div className="flex-none w-full h-full relative">
-            <Image
-              src={car2}
-              alt="Auto 2 en consignment"
-              layout="fill"
-              className="object-cover"
-              priority
-            />
-          </div>
-          <div className="flex-none w-full h-full relative">
-            <Image
-              src={car3}
-              alt="Auto 3 en consignment"
-              layout="fill"
-              className="object-cover"
-              priority
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Vista Desktop sin cambios */}
-      <div className="hidden md:flex justify-between w-[100%] gap-4 my-4 px-4">
-        <div className="flex-grow h-[300px] w-[20%] relative">
-          <Image
-            src={car1}
-            alt="Imagen 1"
-            layout="fill"
-            className="object-cover object-top"
-            priority
-          />
-        </div>
-        <div className="flex-grow h-[300px] w-[20%] relative">
-          <Image
-            src={car2}
-            alt="Imagen 2"
-            layout="fill"
-            className="object-cover"
-            priority
-          />
-        </div>
-        <div className="flex-grow h-[300px] w-[20%] relative">
-          <Image
-            src={car3}
-            alt="Imagen 3"
-            layout="fill"
-            className="object-cover"
-            priority
-          />
-        </div>
+          {[car1, car2, car3].map((car, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative h-[300px]">
+                <Image
+                  src={car}
+                  alt={`Imagen ${index + 1}`}
+                  layout="fill"
+                  className="object-cover object-top"
+                  priority={index === 0}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </div>
   );

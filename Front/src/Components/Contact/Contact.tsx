@@ -18,7 +18,8 @@ const Detail = () => {
     mensaje: ''
   });
 
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -36,95 +37,80 @@ const Detail = () => {
     try {
       await fetchPostConsulta(consulta);
       setMessage('Consulta enviada exitosamente.');
+      setError(null);
       setConsulta({ nombre: '', telefono: '', email: '', mensaje: '' }); // Limpiar formulario
     } catch (error) {
-      setMessage('Error al enviar la consulta.');
+      setError('Error al enviar la consulta.');
+      setMessage(null);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="relative mb-4">
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-4 bg-white text-white py-8 px-0 lg:px-12 mt-4">
-        {/* Columna Izquierda */}
-        <div className="flex flex-col md:justify-start justify-center items-center md:items-start gap-10 mb-8 px-20 2xl:pl-24 md:mb-0 md:w-1/2">
-          <h2 className="text-2xl md:text-4xl font-bold text-center md:text-start text-black mb-2">
-            ¿Quieres comunicarte con nosotros?
-          </h2>
-          <p className="md:text-start text-center font-bold text-black text-xl mb-6">
-            Completá el formulario con tus datos y nos comunicamos para
-            brindarte toda la información!
-          </p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gray-100">
+      <div className="w-full max-w-6xl p-6 rounded-lg shadow-lg bg-white">
+        <div className="lg:flex lg:justify-between gap-8 animate-fade-in">
+          {/* Columna Izquierda */}
+          <div className="flex-1 mb-6 lg:mb-0">
+            <div className="border-l-4 border-red-500 pl-4 mb-4">
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                ¿Quieres comunicarte con nosotros?
+              </h2>
+              <p className="text-gray-600">
+                Completá el formulario con tus datos y nos comunicamos para brindarte toda la información!
+              </p>
+            </div>
+          </div>
 
-        {/* Columna Derecha */}
-        <div className="w-[90%] xl:w-[40%] 2xl:w-[42%] bg-[#222222] p-6 rounded-md shadow-md md:pl-4 md:ml-2">
-          <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
-            <label className="flex flex-col">
-              <span className="mb-1">Nombre Completo:</span>
-              <input
-                type="text"
-                name="nombre"
-                value={consulta.nombre}
-                onChange={handleChange}
-                placeholder="Ingrese su nombre completo"
-                className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
-                required
-              />
-            </label>
+          {/* Columna Derecha */}
+          <div className="flex-1 bg-gray-900 text-white p-6 rounded-md shadow-md animate-slide-up">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {['nombre', 'telefono', 'email'].map((field) => (
+                <label key={field} className="flex flex-col">
+                  <span className="mb-1 capitalize">{field}:</span>
+                  <input
+                    type={field === 'email' ? 'email' : 'text'}
+                    name={field}
+                    value={consulta[field as keyof IConsulta] || ''}
+                    onChange={handleChange}
+                    placeholder={`Ingrese su ${field}`}
+                    className="p-2 rounded-md border border-gray-700 bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                    required
+                  />
+                </label>
+              ))}
+              <label className="flex flex-col">
+                <span className="mb-1">Mensaje:</span>
+                <textarea
+                  name="mensaje"
+                  value={consulta.mensaje || ''}
+                  onChange={handleChange}
+                  placeholder="Escribe tu mensaje aquí"
+                  className="p-2 rounded-md border border-gray-700 bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                ></textarea>
+              </label>
 
-            <label className="flex flex-col">
-              <span className="mb-1">Teléfono:</span>
-              <input
-                type="text"
-                name="telefono"
-                value={consulta.telefono}
-                onChange={handleChange}
-                placeholder="Ingrese su número de teléfono"
-                className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
-                required
-              />
-            </label>
+              <button
+                type="submit"
+                className="w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300 shadow-lg disabled:opacity-50"
+                disabled={loading}
+              >
+                {loading ? 'Enviando...' : 'Enviar'}
+              </button>
+            </form>
 
-            <label className="flex flex-col">
-              <span className="mb-1">Email:</span>
-              <input
-                type="email"
-                name="email"
-                value={consulta.email}
-                onChange={handleChange}
-                placeholder="ejemplo@gmail.com"
-                className="p-2 rounded-md border placeholder:text-neutral-500 border-white bg-[#2C2C2C] text-white"
-                required
-              />
-            </label>
-
-            <label className="flex flex-col">
-              <span className="mb-1">Mensaje:</span>
-              <textarea
-                name="mensaje"
-                value={consulta.mensaje || ''}
-                onChange={handleChange}
-                placeholder="Escribe tu mensaje aquí"
-                className="p-2 rounded-md placeholder:text-neutral-500 border border-white bg-[#2C2C2C] text-white"
-              ></textarea>
-            </label>
-
-            <button
-              type="submit"
-              className={`w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300 ${loading ? 'bg-gray-500' : ''}`}
-              disabled={loading}
-            >
-              {loading ? 'Enviando...' : 'Enviar'}
-            </button>
-          </form>
-
-          {message && <p className="text-center text-green-500">{message}</p>}
+            {message && (
+              <p className="text-green-400 text-center mt-4" aria-live="polite">{message}</p>
+            )}
+            {error && (
+              <p className="text-red-400 text-center mt-4" aria-live="assertive">{error}</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Detail;

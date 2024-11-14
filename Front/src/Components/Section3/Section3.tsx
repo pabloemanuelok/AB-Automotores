@@ -16,10 +16,10 @@ const Section3: React.FC = () => {
         <div className="flex justify-around mx-6 w-full flex-wrap">
           {[  // Reemplaza con tus imágenes
             "/source/VehiculosSeleccionados.webp", 
-            "/source/VehiculosSeleccionados.webp",
-            "/source/VehiculosSeleccionados.webp",
-            "/source/VehiculosSeleccionados.webp",
-            "/source/VehiculosSeleccionados.webp"
+            "/source/Financiacion.webp",
+            "/source/Gestoria.webp",
+            "/source/EntregaInmediata.webp",
+            "/source/Permutas.webp"
           ].map((src, index) => (
             <div
               key={index}

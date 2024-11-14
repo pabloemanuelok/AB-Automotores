@@ -18,7 +18,7 @@ const FloatingWhatsApp: React.FC = () => {
           className="transition-transform transform md:w-[40px] w-[40px] hover:scale-110 cursor-pointer"
         />
       </Link>
-      <Link href="https://www.whatsapp.com/catalog/5493516129221/?app_absent=0" target="_blank">
+      <Link href="https://www.instagram.com/automotoresab/?hl=es" target="_blank">
         <Image
           src={logoInstagram} // Cambia esta ruta a la ubicación de tu logo
           alt="Instagram"
@@ -27,7 +27,7 @@ const FloatingWhatsApp: React.FC = () => {
           className="transition-transform transform md:w-[40px] w-[40px] hover:scale-110 cursor-pointer"
         />
       </Link>
-      <Link href="https://www.whatsapp.com/catalog/5493516129221/?app_absent=0" target="_blank">
+      <Link href="https://www.facebook.com/profile.php?id=100001582968005" target="_blank">
         <Image
           src={logoFacebook} // Cambia esta ruta a la ubicación de tu logo
           alt="Facebook"
