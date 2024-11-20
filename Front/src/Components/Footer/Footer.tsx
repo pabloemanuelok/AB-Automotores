@@ -65,7 +65,7 @@ const Footer = () => {
         <div>
           <Link
             href="mailto:abautomotores@hotmail.com"
-            className="text-base text-center"
+            className="text-base"
           >
             abautomotores@hotmail.com
           </Link>

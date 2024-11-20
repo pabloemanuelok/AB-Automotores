@@ -21,7 +21,6 @@ const AdminAddVehicle: React.FC = () => {
   });
   const [loading, setLoading] = useState(false);
   const [inquiries, setInquiries] = useState<IConsulta[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   const handleLogout = async () => {
     await logout();
@@ -98,7 +97,7 @@ const AdminAddVehicle: React.FC = () => {
     };
 
     fetchConsultas();
-  }, [token]);
+  }, [token]); // Aseguramos que token esté en el array de dependencias
 
   // Manejar la eliminación de consultas
   const handleDeleteInquiry = async (id: string) => {
@@ -240,11 +239,11 @@ const AdminAddVehicle: React.FC = () => {
                   >
                     <div>
                       <p className="text-sm font-semibold">{inquiry.nombre}</p>
-                      <p className="text-sm text-gray-600">{inquiry.email}</p>
+                      <p className="text-sm text-gray-500">{inquiry.email}</p>
                     </div>
                     <button
-                      onClick={() => handleDeleteInquiry(inquiry._id)} // Llamar a la función para eliminar
-                      className="text-red-600 hover:text-red-700"
+                      onClick={() => handleDeleteInquiry(inquiry._id)}
+                      className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg focus:outline-none"
                     >
                       Eliminar
                     </button>
@@ -253,6 +252,16 @@ const AdminAddVehicle: React.FC = () => {
               </ul>
             </div>
           </div>
+        </div>
+
+        {/* Botón de Cerrar sesión */}
+        <div className="mt-12 text-center">
+          <button
+            onClick={handleLogout}
+            className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500"
+          >
+            Cerrar sesión
+          </button>
         </div>
       </div>
     </div>
