@@ -13,7 +13,7 @@ const Section3: React.FC = () => {
       {/* Contenido de la sección */}
       <div className="relative z-10 flex flex-col py-8 px-4 items-center text-white">
         {/* Logos en la parte superior */}
-        <div className="flex justify-around mx-6 w-full flex-wrap">
+        <div className="flex justify-between w-[92%] pr-2 flex-wrap">
           {[  // Reemplaza con tus imágenes
             "/source/VehiculosSeleccionados.webp", 
             "/source/Financiacion.webp",
@@ -39,9 +39,9 @@ const Section3: React.FC = () => {
         </div>
 
         {/* Texto en la parte inferior */}
-        <div className="text-center bg-opacity-70 py-4 md:p-6 w-full">
-          <h2 className="text-white backdrop-blur-sm text-base xl:text-lg text-center md:text-left w-full">
-            Vehículos seleccionados, entrega inmediata, líneas de crédito accesibles, opciones de compras y permutas, y servicios de gestoría para hacer todos los trámites sin complicaciones.
+        <div className="text-center flex justify-center bg-opacity-70 py-4 md:py-6 w-[92%] pr-2">
+          <h2 className="text-white backdrop-blur-sm text-base xl:text-lg text-center md:text-left">
+            Vehículos seleccionados, entrega inmediata, créditos accesibles, compras y permutas, y servicios de gestoría para hacer todos los trámites sin complicaciones.
           </h2>
         </div>
       </div>

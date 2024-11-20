@@ -8,10 +8,10 @@ import logoFacebook from "@/Assets/logoFacebook.png"
 
 const FloatingWhatsApp: React.FC = () => {
   return (
-    <div className="fixed md:bottom-2 bottom-10 right-4">
+    <div className="fixed md:bottom-2 bottom-10 right-4 z-50 space-y-3"> {/* Añadido z-50 para asegurar que esté encima de otros elementos */}
       <Link href="https://www.whatsapp.com/catalog/5493516129221/?app_absent=0" target="_blank">
         <Image
-          src={logoWsp} // Cambia esta ruta a la ubicación de tu logo
+          src={logoWsp}
           alt="WhatsApp"
           width={80}
           height={80}
@@ -20,7 +20,7 @@ const FloatingWhatsApp: React.FC = () => {
       </Link>
       <Link href="https://www.instagram.com/automotoresab/?hl=es" target="_blank">
         <Image
-          src={logoInstagram} // Cambia esta ruta a la ubicación de tu logo
+          src={logoInstagram}
           alt="Instagram"
           width={80}
           height={80}
@@ -29,7 +29,7 @@ const FloatingWhatsApp: React.FC = () => {
       </Link>
       <Link href="https://www.facebook.com/profile.php?id=100001582968005" target="_blank">
         <Image
-          src={logoFacebook} // Cambia esta ruta a la ubicación de tu logo
+          src={logoFacebook}
           alt="Facebook"
           width={80}
           height={80}

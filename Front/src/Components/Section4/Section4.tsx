@@ -36,7 +36,7 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt, i
       />
       {isMiddleImage && (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <Link href="/views/Catalogo">
+          <Link href="/views/catalogo">
             <button className="relative px-2  bg-[#B62E30] text-white font-bold text-lg transition-all duration-300 ease-in-out transform hover:bg-red-900 shadow-lg hover:scale-105">
               Catálogo!
             </button>
@@ -49,7 +49,7 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt, i
 
 const ImageGallery: React.FC = () => {
   const images = [
-    { src: '/source/AsientosToro.webp', alt: 'Image 1' },
+    { src: '/source/DetailMondeo3.webp', alt: 'Image 1' },
     { src: '/source/ManijaYaris.webp', alt: 'Image 2', isMiddleImage: true }, // Imagen con el botón
     { src: '/source/Central208.webp', alt: 'Image 3' }
   ];

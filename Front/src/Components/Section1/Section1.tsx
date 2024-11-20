@@ -43,7 +43,7 @@ const ImageGallery: React.FC = () => {
   return (
     <div className="mt-4 md:m-4">
       <Swiper
-        spaceBetween={10} // Espacio entre las imágenes
+        spaceBetween={16} // Espacio entre las imágenes
         slidesPerView={"auto"} // Muestra tantas imágenes como sea posible en el ancho de la pantalla
         loop={true} // Habilita el loop del carrusel
         autoplay={{ delay: 3000 }} // Autoplay con 3 segundos
@@ -60,7 +60,7 @@ const ImageGallery: React.FC = () => {
           },
         }}
       >
-        {["/source/NivusFrente.webp", "/source/NivusInterior.webp", "/source/NivusDerecha.webp"].map((src, index) => (
+        {["/source/NivusFrente.webp", "/source/NivusInterior.webp", "/source/NivusIzquierda.webp"].map((src, index) => (
           <SwiperSlide key={index}>
             <ImageWithPlaceholder src={src} alt={`Image ${index + 1}`} />
           </SwiperSlide>
