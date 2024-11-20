@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FaPhoneAlt, FaEnvelope } from "react-icons/fa"; // Importa los iconos de teléfono y correo
 import LogoUbi from "@/Assets/LogoUbicacion.webp";
 import LogoPachas from "@/Assets/LogoPachas.webp";
 
@@ -11,7 +12,7 @@ const Footer = () => {
         {/* Contenedor de la izquierda */}
         <div className="flex-1 flex items-center md:justify-start justify-center px-4 md:px-6 md:py-5 lg:pl-[100px] xl:pl-[100px]">
           <h2 className="text-white text-2xl md:text-2xl xl:text-3xl text-center mt-0">
-            ¡Vení a conocer nuestros autos!
+            ¡Vení a ver nuestros autos!
           </h2>
         </div>
 
@@ -41,6 +42,33 @@ const Footer = () => {
             Lun. a Vie. de 9:00 a 13:00 y 15:30 a 19:00 hs y Sáb. de
             9:00 a 13:00 hs
           </span>
+        </div>
+      </div>
+
+      {/* Línea divisoria */}
+      <hr className="w-full border-t-2 border-white my-6" />
+
+      {/* Información de contacto horizontal */}
+      <div className="flex flex-wrap justify-center items-center text-white space-x-8">
+        <div className="flex items-center text-base text-center">
+          <p className="">Telefonos:</p>
+        </div>
+        <div className="flex items-center text-base text-center">
+          <FaPhoneAlt className="mr-2" /> 351 6129221
+        </div>
+        <div className="flex items-center text-base text-center">
+          <FaPhoneAlt className="mr-2" /> 351 5088602
+        </div>
+        <div className="flex items-center text-base text-center mt-4 md:mt-0">
+          <FaEnvelope className="mr-2" /> Correo:
+        </div>
+        <div>
+          <Link
+            href="mailto:abautomotores@hotmail.com"
+            className="text-base text-center"
+          >
+            abautomotores@hotmail.com
+          </Link>
         </div>
       </div>
 
