@@ -1,14 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-  fetchGetConsultas,
-  fetchDeleteConsulta,
-} from "@/utils/FetchCon/FetchCon"; // Asegúrate de que esta importación sea correcta
-import { getAuthToken } from "@/utils/Auth/Auth"; // Asegúrate de que esta importación sea correcta
+import { fetchGetConsultas, fetchDeleteConsulta } from "@/utils/FetchCon/FetchCon";
+import { getAuthToken } from "@/utils/Auth/Auth";
 import { IConsulta } from "@/Interfaces/Interface";
-
-// Función para convertir el enum Banco a un texto legible
 
 const ConsultasClient: React.FC = () => {
   const [inquiries, setInquiries] = useState<IConsulta[]>([]);
@@ -22,12 +17,12 @@ const ConsultasClient: React.FC = () => {
   const fetchInquiries = async () => {
     setLoading(true);
     try {
-      const token = getAuthToken(); // Obtén el token aquí
+      const token = getAuthToken();
       if (!token) {
         throw new Error("Token no encontrado");
       }
-      const data = await fetchGetConsultas(token); // Petición con token
-      setInquiries(data); // Asigna los datos obtenidos
+      const data = await fetchGetConsultas(token);
+      setInquiries(data);
     } catch (err) {
       setError("Error al obtener las consultas.");
     } finally {
@@ -42,75 +37,44 @@ const ConsultasClient: React.FC = () => {
       return;
     }
     try {
-      await fetchDeleteConsulta(_id, token); // Elimina la consulta en la base de datos
-      // Filtra la consulta que se ha eliminado
+      await fetchDeleteConsulta(_id, token);
       setInquiries(inquiries.filter((inquiry) => inquiry._id !== _id));
     } catch (err) {
       setError("Error al eliminar la consulta.");
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <p className="text-center text-white">Cargando...</p>;
+  if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
-    <div className="flex flex-col items-center justify-center w-full mt-6 bg-black">
-      <h2 className="text-2xl md:text-4xl text-center font-semibold bg-white p-5 text-black w-full mb-6">
-        Consulta de clientes
+    <div className="flex flex-col items-center justify-start w-full bg-[#222222] p-9 rounded-lg shadow-xl border border-gray-800 min-h-full">
+      <h2 className="text-3xl text-center font-semibold text-yellow-400 p-5 mb-6 bg-opacity-20 border-b-2 border-yellow-400 w-full">
+        Consultas de clientes
       </h2>
 
-      {/* Contenedor de lista con scroll vertical */}
-      <div
-        className="w-full max-w-3xl overflow-y-auto"
-        style={{ maxHeight: "500px" }}
-      >
-        {inquiries.map((inquiry) => (
-          <div
-          key={inquiry._id}
-          className="bg-[#222222] p-4 shadow-md flex flex-col gap-2 border border-gray-800 mb-4 relative" // Añadí `relative` para controlar el posicionamiento de la fecha
-        >
-          <div className="text-white">
-            <p>
-              <strong>Nombre:</strong> {inquiry.nombre}
-            </p>
-            <p>
-              <strong>Email:</strong> {inquiry.email}
-            </p>
-            <p>
-              <strong>Teléfono:</strong> {inquiry.telefono}
-            </p>
-        
-            {/* Fecha posicionada en la esquina superior derecha */}
-            <p className="absolute top-2 right-2 text-sm text-yellow-500">
-              <strong>Fecha:</strong>{" "}
-              {inquiry.createdAt
-                ? new Date(inquiry.createdAt).toLocaleString("es-ES", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-                : "Fecha no disponible"}
-            </p>
-          </div>
-        
-          <div
-            className="bg-[#D9D9D9] p-3  relative text-gray-800"
-            style={{ paddingBottom: "2.5rem" }}
-          >
-            {/* Asegúrate de que el mensaje se muestre incluso si es opcional */}
-            <p className="text-black">{inquiry.mensaje || "No hay mensaje"}</p>
-            {/* Botón de eliminar */}
-            <button
-              onClick={() => handleDeleteInquiry(inquiry._id)}
-              className="absolute bottom-2 right-2 p-2 bg-red-600 rounded-md text-white hover:opacity-80 transition-opacity"
+      {/* Barra lateral que permite hacer scroll solo en las consultas */}
+      <div className="w-full max-w-4xl bg-[#222222] p-8 rounded-lg shadow-lg border border-gray-700">
+        <div className="overflow-y-auto max-h-96">
+          {inquiries.map((inquiry) => (
+            <div
+              key={inquiry._id}
+              className="flex flex-col gap-6 mb-6 p-6 bg-[#333333] rounded-lg shadow-lg"
             >
-              Borrar 🗑
-            </button>
-          </div>
+              <div className="flex justify-between items-center">
+                <h3 className="text-white text-xl font-semibold">{inquiry.nombre}</h3>
+                <button
+                  onClick={() => handleDeleteInquiry(inquiry._id)}
+                  className="bg-red-600 hover:bg-red-500 text-white py-1 px-4 rounded-lg"
+                >
+                  Eliminar
+                </button>
+              </div>
+              <p className="text-white">{inquiry.email}</p>
+              <p className="text-white">{inquiry.mensaje}</p>
+            </div>
+          ))}
         </div>
-        ))}
       </div>
     </div>
   );

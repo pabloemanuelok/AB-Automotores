@@ -41,7 +41,7 @@ const Section3: React.FC = () => {
         {/* Texto en la parte inferior */}
         <div className="text-center flex justify-center bg-opacity-70 py-4 md:py-6 w-[92%] pr-2">
           <h2 className="text-white backdrop-blur-sm text-base xl:text-lg text-center md:text-left">
-            Vehículos seleccionados, entrega inmediata, créditos accesibles, compras y permutas, y servicios de gestoría para hacer todos los trámites sin complicaciones.
+            Vehículos seleccionados, entrega inmediata, lineas de créditos accesibles, compras y permutas, y servicios de gestoría para hacer todos los trámites sin complicaciones.
           </h2>
         </div>
       </div>
