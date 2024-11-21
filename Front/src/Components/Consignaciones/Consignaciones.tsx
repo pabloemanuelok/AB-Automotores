@@ -16,11 +16,11 @@ import car3 from "@/Assets/2008Frente.webp";
 
 const Consignaciones = () => {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {/* Contenedor con líneas rojas y borde */}
-      <div className="flex flex-col items-center px-0 md:px-4 lg:px-4 mb-8">
+      <div className="flex flex-col items-center px-0 md:px-4 lg:px-4 mb-8 ">
         {/* Sección de logos */}
-        <div className="bg-white w-full flex flex-col md:flex-row items-center justify-center mb-6 py-6 shadow-lg border-t-2 border-red-500">
+        <div className="bg-white w-[92%] flex flex-col md:flex-row items-center justify-center mb-6 py-6 shadow-lg border-t-2 border-red-500">
           <div className="w-full md:w-[47%] text-center md:text-start mb-4 md:mb-0">
             <h2 className="text-primary text-3xl md:text-4xl font-extrabold">
               ¿Querés vender tu auto?
@@ -47,8 +47,8 @@ const Consignaciones = () => {
                     [
                       "Tasación en el acto",
                       "Cobro instantáneo",
-                      "Vendé de manera segura",
-                      "Servicio de gestoría",
+                      "Vendé seguro",
+                      "Gestoría propia",
                       "Evitá estafas",
                     ][index]
                   }
@@ -59,7 +59,7 @@ const Consignaciones = () => {
         </div>
 
         {/* Sección de información adicional */}
-        <div className="flex flex-col mb-6 md:mx-6 items-center justify-center gap-6">
+        <div className="flex flex-col mb-6 md:mx-6 items-center justify-center gap-6 w-[87%]">
           <div className="flex flex-col md:flex-row w-[90%] md:w-[96%] items-center md:gap-10">
             <h3 className="text-primary md:w-[50%] text-2xl md:text-3xl font-bold border-l-4 border-red-500 pl-3">
               Compra directa

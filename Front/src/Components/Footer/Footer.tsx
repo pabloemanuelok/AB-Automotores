@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaPhoneAlt, FaEnvelope } from "react-icons/fa"; // Importa los iconos de teléfono y correo
+import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import LogoUbi from "@/Assets/LogoUbicacion.webp";
 import LogoPachas from "@/Assets/LogoPachas.webp";
 
@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row w-full md:p-5 py-5 md:py-0 w-screen-2xl">
         {/* Contenedor de la izquierda */}
         <div className="flex-1 flex items-center md:justify-start justify-center px-4 md:px-6 md:py-5 lg:pl-[100px] xl:pl-[100px]">
-          <h2 className="text-white text-2xl md:text-2xl xl:text-3xl text-center mt-0">
+          <h2 className="text-white text-2xl md:text-2xl xl:text-3xl text-center  md:pb-10 mt-0">
             ¡Vení a ver nuestros autos!
           </h2>
         </div>
@@ -29,8 +29,8 @@ const Footer = () => {
                   src={LogoUbi}
                   alt="Ubicación de la agencia en Córdoba, Argentina"
                   className="object-contain"
-                  width={30} // Ajusta el tamaño de la imagen si es necesario
-                  height={30}
+                  width={20}
+                  height={20}
                 />
               </div>
               <span className="text-white text-base md:text-lg text-center">
@@ -38,37 +38,33 @@ const Footer = () => {
               </span>
             </div>
           </Link>
-          <span className="text-white text-base text-center md:text-center mt-4">
-            Lun. a Vie. de 9:00 a 13:00 y 15:30 a 19:00 hs y Sáb. de
-            9:00 a 13:00 hs
+          <span className="text-white text-base text-center md:text-lg md:text-center mt-4">
+            Lun. a Vie. de 9:00 a 13:00 y 15:30 a 19:00 hs y Sáb. de 9:00 a 13:00 hs
           </span>
-        </div>
-      </div>
 
-      {/* Línea divisoria */}
-      <hr className="w-full border-t-2 border-white my-6" />
-
-      {/* Información de contacto horizontal */}
-      <div className="flex flex-wrap justify-center items-center text-white space-x-8">
-        <div className="flex items-center text-base text-center">
-          <p className="">Telefonos:</p>
-        </div>
-        <div className="flex items-center text-base text-center">
-          <FaPhoneAlt className="mr-2" /> 351 6129221
-        </div>
-        <div className="flex items-center text-base text-center">
-          <FaPhoneAlt className="mr-2" /> 351 5088602
-        </div>
-        <div className="flex items-center text-base text-center mt-4 md:mt-0">
-          <FaEnvelope className="mr-2" /> Correo:
-        </div>
-        <div>
-          <Link
-            href="mailto:abautomotores@hotmail.com"
-            className="text-base"
-          >
-            abautomotores@hotmail.com
-          </Link>
+          {/* Información de contacto horizontal en pantallas grandes */}
+          <div className="mt-3 flex flex-wrap md:flex-nowrap items-center justify-center md:justify-center gap-4 text-white text-base md:text-lg">
+            {/* Teléfono 1 */}
+            <div className="flex items-center gap-2">
+              <FaPhoneAlt className="text-white" />
+              <span>351 6129221</span>
+            </div>
+            {/* Teléfono 2 */}
+            <div className="flex items-center gap-2">
+              <FaPhoneAlt className="text-white" />
+              <span>351 5088602</span>
+            </div>
+            {/* Correo electrónico */}
+            <div className="flex items-center gap-2">
+              <FaEnvelope className="text-white" />
+              <Link
+                href="mailto:abautomotores@hotmail.com"
+                className="underline hover:text-red-300"
+              >
+                abautomotores@hotmail.com
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -77,18 +73,18 @@ const Footer = () => {
         href="mailto:pachasdevelopment@gmail.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="w-full flex items-center justify-center text-center"
+        className="w-full flex items-center justify-center md:justify-start md:pl-32 text-center"
       >
-        <div className="flex justify-center items-center pt-9">
+        <div className="flex justify-center items-center">
           <span className="text-white text-sm">Created by Pachas Development</span>
           <div className="relative w-10 h-10 flex-shrink-0">
             <Image
               src={LogoPachas}
               alt="Logo de Pacha's Development"
-              width={40} // Ancho fijo
-              height={40} // Alto fijo
+              width={40}
+              height={40}
               className="object-contain"
-              priority // Carga prioritaria de la imagen
+              priority
             />
           </div>
         </div>

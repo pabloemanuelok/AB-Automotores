@@ -128,7 +128,7 @@ const AdminAddVehicle: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-indigo-500 to-purple-600 p-12 text-white">
+    <div className="min-h-screen bg-gradient-to-r from-gray-500 to-gray-800 p-12 text-white mt-4">
       <div className="max-w-screen-xl mx-auto">
         {/* Cabecera */}
         <div className="text-center mb-12">
@@ -219,7 +219,7 @@ const AdminAddVehicle: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full py-3 bg-red-600 hover:bg-red-800 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 disabled={loading}
               >
                 {loading ? "Cargando..." : "Agregar Vehículo"}

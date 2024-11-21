@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import Section4y5 from '@/Components/Section3/Section3';
+import VehDestacados from "@/Components/VehDestacados/VehDestacados"
 import React from 'react';
 
 const Section0 = dynamic(() => import('@/Components/Section0/Section0'), {
@@ -25,11 +26,12 @@ const page = () => {
   return (
     <div>
       <Section0 />
-      <Section1 />
       <Section2 />
+      <Section1 />
       <SectionAnim />
       <Section7 />
       <Section4y5 />
+      <VehDestacados />
       <Section9 />
     </div>
   );

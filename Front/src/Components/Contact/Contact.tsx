@@ -48,8 +48,8 @@ const Detail = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gray-100">
-      <div className="w-full max-w-6xl p-6 rounded-lg shadow-lg bg-white">
+    <div className="my-4 flex items-center justify-center px-4 ">
+      <div className="w-[83%] p-6 rounded-lg shadow-2xl bg-white">
         <div className="lg:flex lg:justify-between gap-8 animate-fade-in">
           {/* Columna Izquierda */}
           <div className="flex-1 mb-6 lg:mb-0">

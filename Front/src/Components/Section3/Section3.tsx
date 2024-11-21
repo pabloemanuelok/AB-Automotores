@@ -23,7 +23,7 @@ const Section3: React.FC = () => {
           ].map((src, index) => (
             <div
               key={index}
-              className="flex items-center justify-center h-16 w-16 md:h-20 md:w-20 lg:h-28 lg:w-28 xl:h-32 xl:w-32"
+              className="flex items-center justify-center h-16 w-12 md:h-20 md:w-20 lg:h-28 lg:w-28 xl:h-32 xl:w-32"
             >
               <Image
                 src={src} // Usamos la ruta directamente de la carpeta public
@@ -40,7 +40,7 @@ const Section3: React.FC = () => {
 
         {/* Texto en la parte inferior */}
         <div className="text-center flex justify-center bg-opacity-70 py-4 md:py-6 w-[92%] pr-2">
-          <h2 className="text-white backdrop-blur-sm text-base xl:text-lg text-center md:text-left">
+          <h2 className="text-white text-base xl:text-lg text-center md:text-left">
             Vehículos seleccionados, entrega inmediata, lineas de créditos accesibles, compras y permutas, y servicios de gestoría para hacer todos los trámites sin complicaciones.
           </h2>
         </div>
