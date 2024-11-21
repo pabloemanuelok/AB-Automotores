@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import { motion } from "framer-motion";
 
 const Financiacion = () => {
   return (
@@ -38,15 +38,34 @@ const Financiacion = () => {
 
           {/* Imagen de financiación */}
           <div className="flex-1 flex items-center justify-center">
-            <div className="relative w-full md:w-[60%] h-64 lg:h-80 rounded-md overflow-hidden shadow-md">
-              <Image
-                src="/source/Negociacion.webp" // Ruta desde la carpeta public
-                alt="Imagen representativa de financiación"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-md"
-                priority
-              />
+            <div className="relative w-full md:w-[60%] h-64 gap-10 lg:h-80 rounded-md overflow-hidden shadow-md">
+              {/* Animación del primer auto (superior) */}
+              <motion.div
+                className="absolute top-0 left-0 w-full h-full"
+                initial={{ x: "100%" }} // Inicialmente fuera de la pantalla a la derecha
+                animate={{ x: 0 }} // Animación hacia la izquierda (posición final)
+                transition={{ type: "spring", stiffness: 100, duration: 2 }}
+              >
+                <img
+                  src="/source/ToroCostado.webp" // Ruta de imagen del primer auto
+                  alt="Auto 1"
+                  className="w-full h-100 object-cover"
+                />
+              </motion.div>
+
+              {/* Animación del segundo auto (inferior) */}
+              <motion.div
+                className="absolute top-32 left-0 w-full h-full"
+                initial={{ x: "100%" }} // Inicialmente fuera de la pantalla a la derecha
+                animate={{ x: 0 }} // Animación hacia la izquierda (posición final)
+                transition={{ type: "spring", stiffness: 100, duration: 2, delay: 0.5 }}
+              >
+                <img
+                  src="/source/ToroCostado.webp" // Ruta de imagen del segundo auto
+                  alt="Auto 2"
+                  className="w-full h-100 object-cover transform scale-x-[-1]" // Invertir el segundo auto para marcha atrás
+                />
+              </motion.div>
             </div>
           </div>
         </div>
