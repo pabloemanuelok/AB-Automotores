@@ -9,7 +9,7 @@ const autosDestacados = [
   { id: 2, name: "Peugeot 2008", image: "/source/2008Frente.webp", link: "/details/2" },
   { id: 3, name: "Chevrolet Tracker", image: "/source/TrackerFrente.webp", link: "/details/3" },
   { id: 4, name: "Chevrolet S10 Z71", image: "/source/S10Frente.webp", link: "/details/4" },
-  { id: 5, name: "Audi A7", image: "/source/NivusFrente.webp", link: "/details/5" },
+  { id: 5, name: "Toyota Hilux", image: "/source/HiluxFrente.webp", link: "/details/5" },
   { id: 6, name: "Tesla Model S", image: "/source/NivusFrente.webp", link: "/details/6" },
 ];
 

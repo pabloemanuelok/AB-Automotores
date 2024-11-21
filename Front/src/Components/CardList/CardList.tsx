@@ -19,33 +19,32 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
 
   const totalPages = Math.ceil(productsList.length / productsPerPage);
 
-  const sortProductsByYear = (productsList: IProduct[], sortOrder: 'asc' | 'desc') => {
-    return [...productsList].sort((a, b) => {
+  useEffect(() => {
+    setProductsList(products);
+  }, [products]);
+
+  const sortProductsByYear = () => {
+    const sortedProducts = [...productsList].sort((a, b) => {
       if (sortOrder === 'asc') {
         return a.year - b.year;
       } else {
         return b.year - a.year;
       }
     });
+    setProductsList(sortedProducts);
   };
 
   useEffect(() => {
-    if (products && products.length) {
-      setProductsList(products);
-    }
-  }, [products]);
-
-  useEffect(() => {
-    const sortedProducts = sortProductsByYear(productsList, sortOrder);
-    setProductsList(sortedProducts);
-    setCurrentPage(1);  // Reset page on sorting change
-  }, [sortOrder, productsList]);
+    sortProductsByYear(); // Now this works correctly
+    setCurrentPage(1); 
+  }, [sortOrder]);
 
   const handleDelete = (id: string) => {
     const updatedProducts = productsList.filter((product) => product._id !== id);
     setProductsList(updatedProducts);
   };
 
+  // Corregido: Definimos el tipo de imagen como HTMLImageElement
   const preloadImages = (images: string[]) => {
     images.forEach((src) => {
       const img: HTMLImageElement = new Image();
@@ -59,6 +58,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    // Desplazar al inicio de la lista (no al inicio de la página)
     if (cardsContainerRef.current) {
       cardsContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -78,6 +78,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
 
   return (
     <div>
+      {/* Botón para cambiar el orden por año */}
       <div className="text-center mx-auto mt-8 flex justify-center">
         <motion.button
           onClick={toggleSortOrder}
@@ -102,9 +103,11 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
         </motion.button>
       </div>
 
+      {/* Vista de carga con animación */}
       {loading ? (
         <div className="flex justify-center items-center my-8">
           <div className="flex justify-center ">
+            {/* Barra de carga animada */}
             <div className="w-64 bg-gray-300 rounded-full relative">
               <motion.div
                 className="absolute left-0 top-0 h-full bg-gradient-to-r from-red-500 to-red-900 animate-load-bar rounded-full"
@@ -147,6 +150,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
         </motion.div>
       )}
 
+      {/* Paginación */}
       <div className="flex justify-center mb-4">
         <nav>
           <ul className="flex space-x-2">
