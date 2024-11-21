@@ -38,15 +38,40 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
         {/* Contenedor de imagen */}
         <div className="relative w-full lg:w-1/2 h-[600px] bg-[#1B1B1B] overflow-hidden flex items-center justify-center mb-4 lg:mb-0">
           {product.images.length > 0 ? (
-            <Image
-              src={product.images[currentImageIndex]}
-              alt={`Imagen de ${product.name}`}
-              layout="responsive"
-              width={600}
-              height={600}
-              objectFit="contain"
-              priority // Carga rápida de la imagen principal
-            />
+            <div className="relative w-full h-full">
+              {/* Imagen actual con prioridad */}
+              <Image
+                src={product.images[currentImageIndex]}
+                alt={`Imagen de ${product.name}`}
+                layout="fill"
+                objectFit="contain"
+                priority // Carga rápida de la imagen principal
+              />
+
+              {/* Cargar imagen siguiente con lazy loading */}
+              {product.images[currentImageIndex + 1] && (
+                <Image
+                  src={product.images[currentImageIndex + 1]}
+                  alt="Imagen siguiente"
+                  layout="fill"
+                  objectFit="contain"
+                  className="hidden"
+                  loading="lazy" // Lazy load de la siguiente imagen
+                />
+              )}
+              
+              {/* Cargar imagen anterior con lazy loading */}
+              {product.images[currentImageIndex - 1] && (
+                <Image
+                  src={product.images[currentImageIndex - 1]}
+                  alt="Imagen anterior"
+                  layout="fill"
+                  objectFit="contain"
+                  className="hidden"
+                  loading="lazy" // Lazy load de la imagen anterior
+                />
+              )}
+            </div>
           ) : (
             <div className="flex items-center justify-center w-full h-full bg-gray-600 text-white">
               <span>No hay imágenes disponibles</span>

@@ -38,7 +38,7 @@ const Financiacion = () => {
 
           {/* Imagen de financiación */}
           <div className="flex-1 flex items-center justify-center">
-            <div className="relative w-full md:w-[60%] h-64 gap-10 lg:h-80 rounded-md overflow-hidden shadow-md">
+            <div className="relative w-full md:w-[60%] h-64 gap-10 lg:h-80 rounded-md overflow-hidden ">
               {/* Animación del primer auto (superior) */}
               <motion.div
                 className="absolute top-0 left-0 w-full h-full"
