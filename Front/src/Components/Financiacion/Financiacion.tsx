@@ -15,8 +15,7 @@ const Financiacion = () => {
                 Si no llegas con el efectivo <br /> ¡Podés financiarlo!
               </h2>
               <p className="text-gray-600">
-                Créditos bancarios, personales ó prendarios, a través de Banco de Córdoba, Banco Santander o Banco HSBC. <br />
-                También financiamos solo con el DNI y recibimos tarjetas de crédito. Pedinos más información!
+                Trabajamos con las mejores lineas de créditos, prendarios y personales, con demostracion de ingresos o solo con DNI. Todos nuestros creditos son con entrega inmediata.
               </p>
             </div>
             <div className="border-l-4 border-red-500 pl-4">
@@ -25,6 +24,14 @@ const Financiacion = () => {
               </h2>
               <p className="text-gray-600">
                 Contáctanos para brindarte toda la información y ayudarte a financiar tu próximo auto.
+              </p>
+            </div>
+            <div className="border-l-4 border-red-500 pl-4 mt-4">
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                Entidades financieras
+              </h2>
+              <p className="text-gray-600">
+                Financiamos a traves de Banco de Cordoba, Banco Santander, Banco Supervielle y Banco HSBC. Tambien recibimos tarjetas de creditos
               </p>
             </div>
           </div>

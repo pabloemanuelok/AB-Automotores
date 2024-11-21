@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 const autosDestacados = [
   { id: 1, name: "Volkswagen Nivus", image: "/source/NivusFrente.webp", link: "/details/1" },
-  { id: 2, name: "Ford Mustang", image: "/source/NivusFrente.webp", link: "/details/2" },
-  { id: 3, name: "Chevrolet Camaro", image: "/source/NivusFrente.webp", link: "/details/3" },
-  { id: 4, name: "BMW M4", image: "/source/NivusFrente.webp", link: "/details/4" },
+  { id: 2, name: "Peugeot 2008", image: "/source/2008Frente.webp", link: "/details/2" },
+  { id: 3, name: "Chevrolet Tracker", image: "/source/TrackerFrente.webp", link: "/details/3" },
+  { id: 4, name: "Chevrolet S10 Z71", image: "/source/S10Frente.webp", link: "/details/4" },
   { id: 5, name: "Audi A7", image: "/source/NivusFrente.webp", link: "/details/5" },
   { id: 6, name: "Tesla Model S", image: "/source/NivusFrente.webp", link: "/details/6" },
 ];
@@ -31,9 +31,7 @@ const CarruselDestacados = () => {
   };
 
   return (
-    <section className="bg-black m-4 px-4">
-      <h2 className="font-extrabold text-start p-4 text-white text-2xl lg:text-2xl xl:text-3xl">Vehículos Destacados</h2>
-
+    <section className="bg-black m-4 p-4">
       <div className="relative pb-4">
         {/* Contenedor principal sin barra de desplazamiento y sin animación */}
         <div
@@ -51,7 +49,7 @@ const CarruselDestacados = () => {
               className="relative flex-shrink-0 w-[300px] h-[250px] sm:w-[350px] sm:h-[280px] md:w-[400px] md:h-[320px] rounded-xl overflow-hidden bg-gray-800 shadow-lg cursor-pointer"
             >
               <Link href={auto.link} passHref>
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-full hover:scale-110">
                   <Image
                     src={auto.image}
                     alt={auto.name}
