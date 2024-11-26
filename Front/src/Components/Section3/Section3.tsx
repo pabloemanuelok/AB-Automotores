@@ -1,11 +1,12 @@
 import React from "react";
 import Image from "next/image";
+import VehDestacados from "@/Components/VehDestacados/VehDestacados"
 
 const Section3: React.FC = () => {
   return (
     <div
       className="relative md:m-4 md:p-8 bg-black bg-cover bg-center" // Imagen de fondo
-      style={{ backgroundImage: "url('/source/Central208.webp')" }} // Ruta de la imagen de fondo
+      style={{ backgroundImage: "url('/source/EspejoHilux.webp')" }} // Ruta de la imagen de fondo
     >
       {/* Fondo oscuro con un filtro */}
       <div className="absolute inset-0 bg-black opacity-60"></div> {/* Filtro oscuro */}
@@ -45,6 +46,7 @@ const Section3: React.FC = () => {
           </h2>
         </div>
       </div>
+      <VehDestacados/>
     </div>
   );
 };

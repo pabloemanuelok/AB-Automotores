@@ -88,7 +88,7 @@ const Navbar: FC = () => {
         </div>
 
         {/* Menú en escritorio */}
-        <div className="hidden md:flex flex-grow md:justify-end md:space-x-6 lg:space-x-12 text-xl mr-4 border-b-2 mb-7">
+        <div className="hidden md:flex flex-grow md:justify-end md:space-x-6 lg:space-x-8 text-xl mr-4 border-b-2 mb-7">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}

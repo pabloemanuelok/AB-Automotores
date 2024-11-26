@@ -26,7 +26,7 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt })
   };
 
   return (
-    <div className="relative w-full h-[300px] bg-gray-200">
+    <div className="relative w-full h-[600px] bg-gray-200">
       <Image
         src={src}
         alt={alt}
@@ -60,7 +60,7 @@ const ImageGallery: React.FC = () => {
           },
         }}
       >
-        {["/source/NivusFrente.webp", "/source/NivusInterior.webp", "/source/NivusIzquierda.webp"].map((src, index) => (
+        {["/source/InteriorTaos.webp", "/source/MondeoLuz.webp", "/source/EspejoHilux.webp"].map((src, index) => (
           <SwiperSlide key={index}>
             <ImageWithPlaceholder src={src} alt={`Image ${index + 1}`} />
           </SwiperSlide>

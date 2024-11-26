@@ -42,3 +42,8 @@ body {
   src: url('/fonts/titillium-web.woff2') format('woff2');
   font-display: swap;
 }
+
+.motion-blur {
+  filter: blur(0px); /* Sin desenfoque inicialmente */
+  will-change: filter; /* Mejora el rendimiento del desenfoque */
+}

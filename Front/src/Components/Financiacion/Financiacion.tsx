@@ -1,73 +1,113 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 const Financiacion = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true }); // Solo se activa la animación una vez
+
   return (
     <div className="my-4 flex items-center justify-center md:px-4">
-      <div className="w-[83%] p-6 rounded-lg shadow-2xl bg-white">
-        {/* Sección de texto con animación */}
-        <div className="lg:flex lg:justify-between gap-8 animate-fade-in">
-          <div className="flex-1 mb-6 lg:mb-0">
-            <div className="border-l-4 border-red-500 pl-4 mb-4">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                Si no llegas con el efectivo <br /> ¡Podés financiarlo!
-              </h2>
-              <p className="text-gray-600">
-                Trabajamos con las mejores lineas de créditos, prendarios y personales, con demostracion de ingresos o solo con DNI. Todos nuestros creditos son con entrega inmediata.
-              </p>
-            </div>
-            <div className="border-l-4 border-red-500 pl-4">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2 mt-4">
-                ¿Quieres averiguar tu crédito disponible?
-              </h2>
-              <p className="text-gray-600">
-                Contáctanos para brindarte toda la información y ayudarte a financiar tu próximo auto.
-              </p>
-            </div>
-            <div className="border-l-4 border-red-500 pl-4 mt-4">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                Entidades financieras
-              </h2>
-              <p className="text-gray-600">
-                Financiamos a traves de Banco de Cordoba, Banco Santander, Banco Supervielle y Banco HSBC. Tambien recibimos tarjetas de creditos
-              </p>
-            </div>
-          </div>
+      <div className="w-[84%] p- rounded-lg shadow-2xl bg-white mr-2">
+        <div
+          className="relative lg:flex lg:items-center lg:gap-8"
+          ref={ref}
+        >
+          {/* Contenedor de texto a la izquierda */}
+          {isInView && (
+            <motion.div
+              className="flex-1 pl-8"
+              initial={{ x: "-100vw" }} // Empieza fuera del borde izquierdo de la pantalla
+              animate={{ x: "0%" }} // Llega a su posición final
+              transition={{
+                type: "spring",
+                stiffness: 22,
+                duration: 2,
+                delay: 0.05, // Retardo para que las camionetas se animen primero
+              }}
+            >
+              <div className="border-l-4 border-red-500 pl-4 mb-4">
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                  Si no llegas con el efectivo ¡Podés financiarlo!
+                </h2>
+                <p className="text-gray-600">
+                  Trabajamos con las mejores líneas de créditos, prendarios y
+                  personales, con demostración de ingresos o solo con DNI. Todos
+                  nuestros créditos son con entrega inmediata.
+                </p>
+              </div>
+              <div className="border-l-4 border-red-500 pl-4 mt-4">
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                  Entidades financieras
+                </h2>
+                <p className="text-gray-600">
+                  Fininanciamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Santander, Banco
+                  Supervielle y Banco HSBC. También recibimos tarjetas de crédito.
+                </p>
+              </div>
+              <div className="border-l-4 border-red-500 pl-4 mt-4">
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                  ¿Quieres averiguar tu crédito disponible?
+                </h2>
+                <p className="text-gray-600">
+                  Podes financiar hasta un 100% del vehículo que elijas. Contáctanos para brindarte toda la información y ayudarte a
+                  financiar tu próximo auto.
+                </p>
+              </div>
+            </motion.div>
+          )}
 
-          {/* Imagen de financiación */}
-          <div className="flex-1 flex items-center justify-center">
-            <div className="relative w-full md:w-[60%] h-64 gap-10 lg:h-80 rounded-md overflow-hidden ">
-              {/* Animación del primer auto (superior) */}
-              <motion.div
-                className="absolute top-0 left-0 w-full h-full"
-                initial={{ x: "100%" }} // Inicialmente fuera de la pantalla a la derecha
-                animate={{ x: 0 }} // Animación hacia la izquierda (posición final)
-                transition={{ type: "spring", stiffness: 100, duration: 2 }}
-              >
-                <img
-                  src="/source/ToroCostado.webp" // Ruta de imagen del primer auto
-                  alt="Auto 1"
-                  className="w-full h-100 object-cover"
+          {/* Camionetas que acompañan el contenido a la derecha */}
+          {isInView && (
+            <motion.div
+              className="relative w-[30%] md:w-[20%] flex-shrink-0"
+              initial={{ x: "-100vw" }} // Empieza fuera del borde izquierdo de la pantalla
+              animate={{ x: "0%" }} // Llega a su posición final al mismo tiempo que el texto
+              transition={{
+                type: "spring",
+                stiffness: 22,
+                duration: 2,
+              }}
+            >
+              <div className="space-y-[-10px]">
+                {/* Imagen con efecto de movimiento */}
+                <motion.img
+                  src="/source/HiluxCostado.webp"
+                  alt="Camioneta"
+                  className="w-full h-auto object-contain transform scale-x-[-1] motion-blur" // Añadimos la clase de desenfoque
+                  animate={{
+                    filter: ["blur(5px)", "blur(0px)"], // Desenfoque durante la animación
+                  }}
+                  transition={{
+                    duration: 1, // Desenfoque desaparece al llegar al destino
+                  }}
                 />
-              </motion.div>
-
-              {/* Animación del segundo auto (inferior) */}
-              <motion.div
-                className="absolute top-32 left-0 w-full h-full"
-                initial={{ x: "100%" }} // Inicialmente fuera de la pantalla a la derecha
-                animate={{ x: 0 }} // Animación hacia la izquierda (posición final)
-                transition={{ type: "spring", stiffness: 100, duration: 2, delay: 0.5 }}
-              >
-                <img
-                  src="/source/ToroCostado.webp" // Ruta de imagen del segundo auto
-                  alt="Auto 2"
-                  className="w-full h-100 object-cover transform scale-x-[-1]" // Invertir el segundo auto para marcha atrás
+                <motion.img
+                  src="/source/TiguanCostado.webp"
+                  alt="Camioneta"
+                  className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
+                  animate={{
+                    filter: ["blur(5px)", "blur(0px)"],
+                  }}
+                  transition={{
+                    duration: 1,
+                  }}
                 />
-              </motion.div>
-            </div>
-          </div>
+                <motion.img
+                  src="/source/NivusCostado.webp"
+                  alt="Camioneta"
+                  className="w-[110%] h-auto object-contain transform scale-x-[-1] motion-blur"
+                  animate={{
+                    filter: ["blur(5px)", "blur(0px)"],
+                  }}
+                  transition={{
+                    duration: 1,
+                  }}
+                />
+              </div>
+            </motion.div>
+          )}
         </div>
       </div>
     </div>

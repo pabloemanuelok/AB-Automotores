@@ -23,7 +23,7 @@ const Footer = () => {
             href={"https://maps.app.goo.gl/SwaGpKmyq8RJGCAHA"}
             className="md:pt-10"
           >
-            <div className="bg-[#B62E30] w-full max-w-[100%] p-2 flex items-center justify-center gap-3 md:gap-5 hover:bg-red-900 mx-auto">
+            <div className="bg-[#B62E30] w-full max-w-[90%] p-2 flex items-center justify-center gap-3 md:gap-5 hover:bg-red-900 mx-auto">
               <div className="relative flex-shrink-0">
                 <Image
                   src={LogoUbi}
@@ -43,7 +43,7 @@ const Footer = () => {
           </span>
 
           {/* Información de contacto horizontal en pantallas grandes */}
-          <div className="mt-3 flex flex-wrap md:flex-nowrap items-center justify-center md:justify-center gap-4 text-white text-base md:text-lg">
+          <div className=" flex flex-wrap md:flex-nowrap items-center justify-center md:justify-center gap-4 text-white text-base md:text-lg">
             {/* Teléfono 1 */}
             <div className="flex items-center gap-2">
               <FaPhoneAlt className="text-white" />

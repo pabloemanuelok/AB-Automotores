@@ -49,7 +49,7 @@ const Detail = () => {
 
   return (
     <div className="my-4 flex items-center justify-center px-4 ">
-      <div className="w-[83%] p-6 rounded-lg shadow-2xl bg-white">
+      <div className="w-[84%] p-6 rounded-lg shadow-2xl bg-white mr-2">
         <div className="lg:flex lg:justify-between gap-8 animate-fade-in">
           {/* Columna Izquierda */}
           <div className="flex-1 mb-6 lg:mb-0">

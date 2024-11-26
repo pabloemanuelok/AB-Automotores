@@ -29,7 +29,7 @@ const CarruselDestacados = () => {
   };
 
   return (
-    <section className="bg-black px-4 md:m-4 p-4">
+    <section className="bg-black bg-opacity-0 px-4 md:m-4 p-4">
       <div className="relative pb-4">
         {/* Contenedor principal sin barra de desplazamiento visible */}
         <div
@@ -42,22 +42,22 @@ const CarruselDestacados = () => {
           {autosDestacados.map((auto) => (
             <div
               key={auto.id}
-              className="relative flex-shrink-0 w-full h-[250px] sm:w-[350px] sm:h-[280px] md:w-[400px] md:h-[320px] lg:w-[400px] lg:h-[320px] rounded-xl overflow-hidden bg-gray-800 shadow-lg cursor-pointer snap-start"
+              className="relative flex-shrink-0 w-full h-[250px] rounded-2xl sm:w-[350px] sm:h-[280px] md:w-[400px] md:h-[320px] lg:w-[400px] lg:h-[320px]  overflow-hidden bg-gray-800 shadow-lg cursor-pointer snap-start"
             >
               <Link href={auto.link} passHref>
-                <div className="relative w-full h-full hover:scale-110 flex justify-center items-center">
+                <div className="relative w-full h-full hover:scale-110 flex justify-center items-center ">
                   <Image
                     src={auto.image}
                     alt={auto.name}
                     layout="fill"
                     objectFit="cover"
-                    className="transition-transform duration-300"
+                    className="transition-transform duration-300 rounded-2xl"
                     priority
                   />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 opacity-100">
-                  <h3 className="text-xl font-semibold text-white">{auto.name}</h3>
-                  <p className="text-sm text-gray-200">Descubre más sobre este modelo</p>
+                  <h3 className="text-base font-semibold text-white">Destacados: {auto.name}</h3>
+                  <p className="text-sm text-gray-200"> + Informacion</p>
                 </div>
               </Link>
             </div>
@@ -67,13 +67,13 @@ const CarruselDestacados = () => {
         {/* Flechas para navegación */}
         <button
           onClick={handlePrev}
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-300 transition-all"
+          className="absolute top-1/2 left-4 text-white transform -translate-y-1/2 z-10 bg-opacity-40 bg-black p-3 rounded-full shadow-lg over:bg-white hover:text-black hover:opacity-40 transition-all"
         >
           &lt;
         </button>
         <button
           onClick={handleNext}
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-300 transition-all"
+          className="absolute top-1/2 right-4  text-white transform -translate-y-1/2 z-10 bg-opacity-40 bg-black p-3 rounded-full shadow-lg hover:bg-white hover:text-black hover:opacity-40 transition-all"
         >
           &gt;
         </button>
