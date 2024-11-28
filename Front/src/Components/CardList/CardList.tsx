@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Card from "../Card/Card";
 import { IProduct } from "@/Interfaces/Interface";
 import { motion } from "framer-motion";
+import { fetchDeleteId } from "@/utils/FetchCars/FetchCars";
 
 const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,9 +40,22 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     setCurrentPage(1); 
   }, [sortOrder]);
 
-  const handleDelete = (id: string) => {
-    const updatedProducts = productsList.filter((product) => product._id !== id);
-    setProductsList(updatedProducts);
+  const handleDelete = async (id: string) => {
+    try {
+      // Llamada al backend para eliminar el producto
+      const success = await fetchDeleteId(id);
+      if (success) {
+        // Si la eliminación es exitosa, actualiza la lista de productos localmente
+        const updatedProducts = productsList.filter((product) => product._id !== id);
+        setProductsList(updatedProducts);
+      } else {
+        console.error('No se pudo eliminar el producto en el servidor.');
+        alert('Hubo un error al eliminar el producto. Por favor, intenta nuevamente.');
+      }
+    } catch (error) {
+      console.error('Error al intentar eliminar el producto:', error);
+      alert('Hubo un error inesperado. Por favor, intenta nuevamente.');
+    }
   };
 
   // Corregido: Definimos el tipo de imagen como HTMLImageElement

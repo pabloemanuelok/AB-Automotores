@@ -29,10 +29,9 @@ const page = () => {
       <Section2 />
       <Section1 />
       <SectionAnim />
-      <Section7 />
       <Section4y5 />
+      <Section7 />
       <VehDestacados />
-      <Section9 />
     </div>
   );
 }

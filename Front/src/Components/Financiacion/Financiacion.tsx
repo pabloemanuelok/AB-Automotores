@@ -73,7 +73,7 @@ const Financiacion = () => {
               <div className="space-y-[-10px]">
                 {/* Imagen con efecto de movimiento */}
                 <motion.img
-                  src="/source/HiluxCostado.webp"
+                  src="/source/TCrossCostado.webp"
                   alt="Camioneta"
                   className="w-full h-auto object-contain transform scale-x-[-1] motion-blur" // Añadimos la clase de desenfoque
                   animate={{
@@ -97,7 +97,7 @@ const Financiacion = () => {
                 <motion.img
                   src="/source/NivusCostado.webp"
                   alt="Camioneta"
-                  className="w-[110%] h-auto object-contain transform scale-x-[-1] motion-blur"
+                  className="w-[100%] h-auto object-contain transform scale-x-[-1] motion-blur"
                   animate={{
                     filter: ["blur(5px)", "blur(0px)"],
                   }}
