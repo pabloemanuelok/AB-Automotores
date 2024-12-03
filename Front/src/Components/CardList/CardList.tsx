@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Card from "../Card/Card";
 import { IProduct } from "@/Interfaces/Interface";
 import { motion } from "framer-motion";
@@ -8,7 +8,7 @@ import { fetchDeleteId } from "@/utils/FetchCars/FetchCars";
 const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsList, setProductsList] = useState<IProduct[]>(products);
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [loading, setLoading] = useState(true);
   const productsPerPage = 8;
 
@@ -16,7 +16,10 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = productsList.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = productsList.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const totalPages = Math.ceil(productsList.length / productsPerPage);
 
@@ -24,41 +27,41 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     setProductsList(products);
   }, [products]);
 
-  const sortProductsByYear = () => {
+  // Utilizar useCallback para estabilizar la función
+  const sortProductsByYear = useCallback(() => {
     const sortedProducts = [...productsList].sort((a, b) => {
-      if (sortOrder === 'asc') {
+      if (sortOrder === "asc") {
         return a.year - b.year;
       } else {
         return b.year - a.year;
       }
     });
     setProductsList(sortedProducts);
-  };
+  }, [productsList, sortOrder]);
 
   useEffect(() => {
-    sortProductsByYear(); // Now this works correctly
-    setCurrentPage(1); 
-  }, [sortOrder]);
+    sortProductsByYear();
+    setCurrentPage(1);
+  }, [sortProductsByYear]);
 
   const handleDelete = async (id: string) => {
     try {
-      // Llamada al backend para eliminar el producto
       const success = await fetchDeleteId(id);
       if (success) {
-        // Si la eliminación es exitosa, actualiza la lista de productos localmente
-        const updatedProducts = productsList.filter((product) => product._id !== id);
+        const updatedProducts = productsList.filter(
+          (product) => product._id !== id
+        );
         setProductsList(updatedProducts);
       } else {
-        console.error('No se pudo eliminar el producto en el servidor.');
-        alert('Hubo un error al eliminar el producto. Por favor, intenta nuevamente.');
+        console.error("No se pudo eliminar el producto en el servidor.");
+        alert("Hubo un error al eliminar el producto. Por favor, intenta nuevamente.");
       }
     } catch (error) {
-      console.error('Error al intentar eliminar el producto:', error);
-      alert('Hubo un error inesperado. Por favor, intenta nuevamente.');
+      console.error("Error al intentar eliminar el producto:", error);
+      alert("Hubo un error inesperado. Por favor, intenta nuevamente.");
     }
   };
 
-  // Corregido: Definimos el tipo de imagen como HTMLImageElement
   const preloadImages = (images: string[]) => {
     images.forEach((src) => {
       const img: HTMLImageElement = new Image();
@@ -67,19 +70,18 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   };
 
   const handleViewClick = (product: IProduct) => {
-    preloadImages(product.images); // Pasamos el parámetro correctamente
+    preloadImages(product.images);
   };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // Desplazar al inicio de la lista (no al inicio de la página)
     if (cardsContainerRef.current) {
-      cardsContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      cardsContainerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
   const toggleSortOrder = () => {
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
   useEffect(() => {
@@ -92,17 +94,18 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
 
   return (
     <div>
-      {/* Botón para cambiar el orden por año */}
       <div className="text-center mx-auto mt-8 flex justify-center">
         <motion.button
           onClick={toggleSortOrder}
           className="px-6 py-2 bg-[#B62E30] text-white square-btn hover:bg-red-900 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
-          whileHover={{ scale: 1.1 }} 
-          whileTap={{ scale: 0.95 }}  
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
         >
           <span className="mr-2">Ordenar por Año</span>
           <svg
-            className={`w-6 h-6 transform transition-transform duration-300 ${sortOrder === 'desc' ? 'rotate-180' : ''}`}
+            className={`w-6 h-6 transform transition-transform duration-300 ${
+              sortOrder === "desc" ? "rotate-180" : ""
+            }`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -117,11 +120,9 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
         </motion.button>
       </div>
 
-      {/* Vista de carga con animación */}
       {loading ? (
         <div className="flex justify-center items-center my-8">
           <div className="flex justify-center ">
-            {/* Barra de carga animada */}
             <div className="w-64 bg-gray-300 rounded-full relative">
               <motion.div
                 className="absolute left-0 top-0 h-full bg-gradient-to-r from-red-500 to-red-900 animate-load-bar rounded-full"
@@ -129,14 +130,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
                 animate={{ width: "100%" }}
                 transition={{ duration: 3, ease: "easeInOut", loop: Infinity }}
               />
-            </div> 
-            <motion.h2
-              className="text-xl mb-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-            > 
-            </motion.h2>    
+            </div>
           </div>
         </div>
       ) : (
@@ -157,14 +151,13 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
               <Card
                 product={product}
                 onDelete={() => handleDelete(product._id)}
-                onViewClick={() => handleViewClick(product)} 
+                onViewClick={() => handleViewClick(product)}
               />
             </motion.div>
           ))}
         </motion.div>
       )}
 
-      {/* Paginación */}
       <div className="flex justify-center mb-4">
         <nav>
           <ul className="flex space-x-2">
@@ -173,9 +166,11 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
                 <motion.button
                   onClick={() => handlePageChange(index + 1)}
                   className={`px-4 py-2 border rounded ${
-                    currentPage === index + 1 ? "bg-red-600 text-white" : "bg-white text-black"
+                    currentPage === index + 1
+                      ? "bg-red-600 text-white"
+                      : "bg-white text-black"
                   }`}
-                  whileHover={{ scale: 1.1 }} 
+                  whileHover={{ scale: 1.1 }}
                 >
                   {index + 1}
                 </motion.button>

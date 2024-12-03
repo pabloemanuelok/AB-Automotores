@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import VehDestacados from "@/Components/VehDestacados/VehDestacados"
 
 const Section3: React.FC = () => {
   return (

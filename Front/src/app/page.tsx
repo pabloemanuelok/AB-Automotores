@@ -1,39 +1,49 @@
-import dynamic from 'next/dynamic';
-import Section4y5 from '@/Components/Section3/Section3';
-import VehDestacados from "@/Components/VehDestacados/VehDestacados"
-import React from 'react';
+import dynamic from "next/dynamic";
+import React from "react";
+import VehDestacados from "@/Components/VehDestacados/VehDestacados";
+import Section4y5 from "@/Components/Section3/Section3";
 
-const Section0 = dynamic(() => import('@/Components/Section0/Section0'), {
-  loading: () => <p>Loading Section0...</p>, // Muestra algo mientras carga
+// Componente Loading reutilizable
+const Loading = ({ section }: { section: string }) => (
+  <p>Cargando {section}...</p>
+);
+
+// Importaciones dinámicas con componente Loading reutilizable
+const Section0 = dynamic(() => import("@/Components/Section0/Section0"), {
+  loading: () => <Loading section="Section0" />,
 });
-const Section1 = dynamic(() => import('@/Components/Section1/Section1'), {
-  loading: () => <p>Loading Section1...</p>,
+const Section1 = dynamic(() => import("@/Components/Section1/Section1"), {
+  loading: () => <Loading section="Section1" />,
 });
-const Section2 = dynamic(() => import('@/Components/Section2/Section2'), {
-  loading: () => <p>Loading Section2...</p>,
+const Section2 = dynamic(() => import("@/Components/Section2/Section2"), {
+  loading: () => <Loading section="Section2" />,
 });
-const Section7 = dynamic(() => import('@/Components/Section4/Section4'), {
-  loading: () => <p>Loading Section7...</p>,
+const Section7 = dynamic(() => import("@/Components/Section4/Section4"), {
+  loading: () => <Loading section="Section7" />,
 });
-const Section9 = dynamic(() => import('@/Components/Section5/Section5'), {
-  loading: () => <p>Loading Section9...</p>,
-});
-const SectionAnim = dynamic(() => import('@/Components/SectionAnim/SectionAnim'), {
-  loading: () => <p>Loading Section9...</p>,
+const SectionAnim = dynamic(() => import("@/Components/SectionAnim/SectionAnim"), {
+  loading: () => <Loading section="SectionAnim" />,
 });
 
-const page = () => {
+const Page = () => {
   return (
     <div>
-      <Section0 />
-      <Section2 />
-      <Section1 />
-      <SectionAnim />
-      <Section4y5 />
-      <Section7 />
-      <VehDestacados />
+      {/* Agrupación de secciones principales */}
+      <section>
+        <Section0 />
+        <Section2 />
+        <Section1 />
+        <SectionAnim />
+      </section>
+
+      {/* Sección secundaria */}
+      <section>
+        <Section4y5 />
+        <Section7 />
+        <VehDestacados />
+      </section>
     </div>
   );
-}
+};
 
-export default page;
+export default Page;
