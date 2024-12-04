@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build:css": "postcss src/styles/globals.css -o public/styles.css",
     "build": "next build && npx tailwindcss -i ./src/app/globals.css -o ./src/output.css --minify",
     "start": "next start",
     "lint": "next lint"

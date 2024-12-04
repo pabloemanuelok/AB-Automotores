@@ -5,7 +5,7 @@ import Navbar from "@/Components/Navbar/Navbar";
 import Footer from "@/Components/Footer/Footer";
 import { UserProvider } from "@/Context/contextUser";
 import FloatingWhatsApp from "@/Components/FloatingWsp/FloatingWsp";
-import Script from 'next/script'; // Importa el componente Script
+import TailwindInitializer from "@/Components/TailwindInitializer/TailwindInitializer";
 
 const titillium = Titillium_Web({
   subsets: ["latin"],
@@ -25,15 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Cargar Tailwind de forma diferida */}
-        <Script 
-          src="https://cdn.tailwindcss.com"
-          strategy="afterInteractive" // Carga el script después de que la página esté interactiva
-        />
-      </head>
-      <body className={`${titillium.className} flex flex-col min-h-screen antialiased`}>
+      <body
+        className={`invisible ${titillium.className} flex flex-col min-h-screen antialiased`}
+      >
         <UserProvider>
+          {/* Componente que maneja el hook */}
+          <TailwindInitializer />
           <Navbar />
           {children}
           <FloatingWhatsApp />
