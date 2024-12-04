@@ -60,7 +60,7 @@ const ImageGallery: React.FC = () => {
           },
         }}
       >
-        {["/source/InteriorTaos.webp", "/source/MondeoLuz.webp", "/source/EspejoHilux.webp"].map((src, index) => (
+        {["/source/SaveiroCola.webp", "/source/SaveiroCaja.webp", "/source/SaveiroDiag.webp"].map((src, index) => (
           <SwiperSlide key={index}>
             <ImageWithPlaceholder src={src} alt={`Image ${index + 1}`} />
           </SwiperSlide>

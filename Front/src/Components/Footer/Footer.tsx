@@ -4,10 +4,12 @@ import Image from "next/image";
 import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import LogoUbi from "@/Assets/LogoUbicacion.webp";
 import LogoPachas from "@/Assets/LogoPachas.webp";
+import VehDestacados from "@/Components/VehDestacados/VehDestacados";
 
 const Footer = () => {
   return (
-    <div className="bg-black flex flex-col items-center overflow-x-hidden">
+    <div className="bg-black w-full flex flex-col items-center overflow-x-hidden">
+      <VehDestacados />
       <div className="flex flex-col md:flex-row w-full md:p-5 py-5 md:py-0 w-screen-2xl">
         {/* Contenedor de la izquierda */}
         <div className="flex-1 flex items-center md:justify-start justify-center px-4 md:px-6 md:py-5 lg:pl-[100px] xl:pl-[100px]">

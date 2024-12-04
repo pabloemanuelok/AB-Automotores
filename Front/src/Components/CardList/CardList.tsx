@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef } from "react";
 import Card from "../Card/Card";
 import { IProduct } from "@/Interfaces/Interface";
 import { motion } from "framer-motion";
@@ -23,26 +23,6 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
 
   const totalPages = Math.ceil(productsList.length / productsPerPage);
 
-  useEffect(() => {
-    setProductsList(products);
-  }, [products]);
-
-  // Utilizar useCallback para estabilizar la función
-  const sortProductsByYear = useCallback(() => {
-    const sortedProducts = [...productsList].sort((a, b) => {
-      if (sortOrder === "asc") {
-        return a.year - b.year;
-      } else {
-        return b.year - a.year;
-      }
-    });
-    setProductsList(sortedProducts);
-  }, [productsList, sortOrder]);
-
-  useEffect(() => {
-    sortProductsByYear();
-    setCurrentPage(1);
-  }, [sortProductsByYear]);
 
   const handleDelete = async (id: string) => {
     try {
@@ -84,13 +64,8 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // Simulamos el cambio del estado de loading después de 2 segundos
+  setTimeout(() => setLoading(false), 2000);
 
   return (
     <div>
@@ -122,15 +97,13 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
 
       {loading ? (
         <div className="flex justify-center items-center my-8">
-          <div className="flex justify-center ">
-            <div className="w-64 bg-gray-300 rounded-full relative">
-              <motion.div
-                className="absolute left-0 top-0 h-full bg-gradient-to-r from-red-500 to-red-900 animate-load-bar rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 3, ease: "easeInOut", loop: Infinity }}
-              />
-            </div>
+          <div className="relative w-full h-96">
+            <motion.div
+              className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-red-500 to-red-900 rounded-xl opacity-60"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+            />
+            <div className="absolute top-0 left-0 w-full h-1/3 bg-gray-200 rounded-xl animate-pulse" />
           </div>
         </div>
       ) : (

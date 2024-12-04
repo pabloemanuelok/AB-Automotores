@@ -19,7 +19,7 @@ const autosDestacados = [
 
 const CarruselDestacados = () => {
   return (
-    <section className="bg-black mb-4 mx-4 p-4">
+    <section className="bg-black w-full mb-4 mx-4 p-4">
 
       <Swiper
         modules={[Navigation]}
@@ -35,22 +35,22 @@ const CarruselDestacados = () => {
             slidesPerView: 2, // En tablets
           },
           1024: {
-            slidesPerView: 3, // En escritorio
+            slidesPerView: 5, // En escritorio
           },
         }}
         className="relative"
       >
         {autosDestacados.map((auto) => (
           <SwiperSlide key={auto.id}>
-            <div className="relative flex-shrink-0 overflow-hidden bg-gray-800 shadow-lg cursor-pointer rounded-lg">
+            <div className="relative flex-shrink-0 overflow-hidden bg-gray-800 shadow-lg cursor-pointer ">
               <Link href={auto.link} passHref>
-                <div className="relative w-full h-64 hover:scale-110 flex justify-center items-center">
+                <div className="relative w-full h-80 hover:scale-110 flex justify-center items-center">
                   <Image
                     src={auto.image}
                     alt={auto.name}
                     layout="fill"
                     objectFit="cover"
-                    className="transition-transform duration-300 rounded-lg"
+                    className="transition-transform duration-300"
                     priority
                   />
                 </div>
