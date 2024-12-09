@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { UserContext } from "@/Context/contextUser";
 import { fetchPostProduct } from "@/utils/FetchCars/FetchCars";
 import { IConsulta } from "@/Interfaces/Interface";
-import { fetchGetConsultas, fetchDeleteConsulta } from "@/utils/FetchCon/FetchCon"; // Asegúrate de que la ruta es correcta
+import { fetchGetConsultas, fetchDeleteConsulta } from "@/utils/FetchCon/FetchCon"; 
 
 const AdminAddVehicle: React.FC = () => {
   const { logout, token } = useContext(UserContext);
@@ -49,9 +49,7 @@ const AdminAddVehicle: React.FC = () => {
     formDataToSend.append("year", formData.year);
     formDataToSend.append("description", formData.description);
 
-    formData.files.forEach((file) => {
-      formDataToSend.append("files", file);
-    });
+    formData.files.forEach((file) => formDataToSend.append("files", file));
 
     try {
       const success = await fetchPostProduct(formDataToSend, token);
@@ -64,12 +62,7 @@ const AdminAddVehicle: React.FC = () => {
         });
         setFormData({ name: "", version: "", year: "", description: "", files: [] });
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error al agregar el vehículo",
-          text: "Hubo un problema al agregar el vehículo. Intenta nuevamente.",
-          confirmButtonText: "Aceptar",
-        });
+        throw new Error("Error al agregar el vehículo");
       }
     } catch (error) {
       Swal.fire({
@@ -83,7 +76,6 @@ const AdminAddVehicle: React.FC = () => {
     }
   };
 
-  // Cargar las consultas al montar el componente
   useEffect(() => {
     const fetchConsultas = async () => {
       if (token) {
@@ -97,9 +89,8 @@ const AdminAddVehicle: React.FC = () => {
     };
 
     fetchConsultas();
-  }, [token]); // Aseguramos que token esté en el array de dependencias
+  }, [token]);
 
-  // Manejar la eliminación de consultas
   const handleDeleteInquiry = async (id: string) => {
     if (!token) {
       Swal.fire("Error", "No se ha encontrado el token de autenticación", "error");
@@ -116,9 +107,8 @@ const AdminAddVehicle: React.FC = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          // Llamamos a la función para eliminar la consulta
           await fetchDeleteConsulta(id, token);
-          setInquiries(inquiries.filter((inquiry) => inquiry._id !== id)); // Actualizamos el estado
+          setInquiries((prevInquiries) => prevInquiries.filter((inquiry) => inquiry._id !== id));
           Swal.fire("Eliminado!", "La consulta ha sido eliminada.", "success");
         } catch (error) {
           Swal.fire("Error", "Hubo un error al eliminar la consulta.", "error");
@@ -130,22 +120,18 @@ const AdminAddVehicle: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-500 to-gray-800 p-12 text-white mt-4">
       <div className="max-w-screen-xl mx-auto">
-        {/* Cabecera */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold">Panel de Administración</h1>
           <p className="mt-2 text-lg">Gestiona vehículos, consultas y más.</p>
         </div>
 
-        {/* Contenedor principal */}
         <div className="grid md:grid-cols-2 gap-12">
           {/* Formulario Agregar Vehículo */}
           <div className="bg-white p-8 rounded-lg shadow-lg text-black">
             <h2 className="text-2xl font-semibold mb-6">Agregar Vehículo</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Nombre del vehículo
-                </label>
+                <label htmlFor="name" className="block text-sm font-medium mb-2">Nombre del vehículo</label>
                 <input
                   type="text"
                   id="name"
@@ -158,9 +144,7 @@ const AdminAddVehicle: React.FC = () => {
               </div>
 
               <div>
-                <label htmlFor="version" className="block text-sm font-medium mb-2">
-                  Versión
-                </label>
+                <label htmlFor="version" className="block text-sm font-medium mb-2">Versión</label>
                 <input
                   type="text"
                   id="version"
@@ -173,9 +157,7 @@ const AdminAddVehicle: React.FC = () => {
               </div>
 
               <div>
-                <label htmlFor="year" className="block text-sm font-medium mb-2">
-                  Año
-                </label>
+                <label htmlFor="year" className="block text-sm font-medium mb-2">Año</label>
                 <input
                   type="text"
                   id="year"
@@ -188,9 +170,7 @@ const AdminAddVehicle: React.FC = () => {
               </div>
 
               <div>
-                <label htmlFor="description" className="block text-sm font-medium mb-2">
-                  Descripción
-                </label>
+                <label htmlFor="description" className="block text-sm font-medium mb-2">Descripción</label>
                 <textarea
                   id="description"
                   name="description"
@@ -203,9 +183,7 @@ const AdminAddVehicle: React.FC = () => {
               </div>
 
               <div>
-                <label htmlFor="files" className="block text-sm font-medium mb-2">
-                  Imágenes del vehículo
-                </label>
+                <label htmlFor="files" className="block text-sm font-medium mb-2">Imágenes del vehículo</label>
                 <input
                   type="file"
                   id="files"
@@ -254,7 +232,6 @@ const AdminAddVehicle: React.FC = () => {
           </div>
         </div>
 
-        {/* Botón de Cerrar sesión */}
         <div className="mt-12 text-center">
           <button
             onClick={handleLogout}
