@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import React from "react";
+import VehDestacados from "@/Components/VehDestacados/VehDestacados";
 import Section4y5 from "@/Components/Section3/Section3";
 
 // Componente Loading reutilizable
@@ -39,6 +40,7 @@ const Page = () => {
       <section>
         <Section4y5 />
         <Section7 />
+        <VehDestacados />
       </section>
     </div>
   );

@@ -47,7 +47,3 @@ body {
   filter: blur(0px); /* Sin desenfoque inicialmente */
   will-change: filter; /* Mejora el rendimiento del desenfoque */
 }
-
-body.invisible {
-  visibility: hidden;
-}

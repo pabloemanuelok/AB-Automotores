@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import "./globals.css";
 import { Titillium_Web } from "next/font/google";
 import Navbar from "@/Components/Navbar/Navbar";
 import Footer from "@/Components/Footer/Footer";
 import { UserProvider } from "@/Context/contextUser";
 import FloatingWhatsApp from "@/Components/FloatingWsp/FloatingWsp";
+import Script from 'next/script'; // Importa el componente Script
 
 const titillium = Titillium_Web({
   subsets: ["latin"],
@@ -24,16 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Añade el CDN de Tailwind */}
-        <link
-          href="https://cdn.tailwindcss.com"
-          rel="stylesheet"
+        {/* Cargar Tailwind de forma diferida */}
+        <Script 
+          src="https://cdn.tailwindcss.com"
+          strategy="afterInteractive" // Carga el script después de que la página esté interactiva
         />
-        <link rel="stylesheet" href="/output.css" />
       </head>
-      <body
-        className={`invisible ${titillium.className} flex flex-col min-h-screen antialiased`}
-      >
+      <body className={`${titillium.className} flex flex-col min-h-screen antialiased`}>
         <UserProvider>
           <Navbar />
           {children}
