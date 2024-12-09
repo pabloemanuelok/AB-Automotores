@@ -1,7 +1,7 @@
 [build]
   base = "Front"  # Esto está bien ya que todo tu código está en la carpeta Front
   command = "npm run build"  # El comando de build predeterminado de Next.js
-  publish = "Front/.next"  # Esta es la carpeta que Netlify debe servir
+  publish = ".next"  # Esta es la carpeta que Netlify debe servir
 
 [functions]
   directory = "Front/netlify/functions"  # Si usas funciones Lambda, sino puedes omitirlo
