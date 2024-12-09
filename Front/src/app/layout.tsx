@@ -29,6 +29,7 @@ export default function RootLayout({
           href="https://cdn.tailwindcss.com"
           rel="stylesheet"
         />
+        <link rel="stylesheet" href="/output.css" />
       </head>
       <body
         className={`invisible ${titillium.className} flex flex-col min-h-screen antialiased`}
