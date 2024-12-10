@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, Suspense } from "react";
 import { motion, useInView } from "framer-motion";
 
 const Consignacion = () => {
@@ -13,16 +13,73 @@ const Consignacion = () => {
   };
 
   return (
-    <div className="my-4 flex items-center justify-center md:px-4">
-      <div className="w-full sm:w-[84%] p-6 rounded-lg shadow-2xl bg-white">
-        <div className="relative lg:flex lg:items-center lg:gap-8" ref={ref}>
-          {/* Contenedor de texto a la izquierda */}
+    <div className="m-4 my-4 flex items-center justify-center">
+      <div className="w-full flex justify-center sm:w-[100%] p-6 rounded-lg shadow-2xl bg-white">
+        <div className=" w-[88%] relative lg:flex items-center lg:gap-8" ref={ref}>
+          {/* Imágenes a la izquierda */}
+          {isInView && (
+            <motion.div
+              className="relative w-full sm:w-[30%] md:w-[20%] flex-shrink-0 hidden md:block"
+              initial={{ x: "-100vw" }}
+              animate={{ x: "0%" }}
+              transition={{
+                ...animationSettings,
+                delay: 0.1, // Ligeramente después del texto
+              }}
+            >
+              <div className="space-y-[-105px]">
+                <Suspense fallback={<div>Loading images...</div>}>
+                  <motion.img
+                    src="/source/VentoCostado.webp"
+                    alt="Volkswagen Vento"
+                    className="w-full h-auto object-contain transform scale-x-[1] motion-blur"
+                    animate={{
+                      filter: ["blur(5px)", "blur(0px)"],
+                    }}
+                    transition={{
+                      duration: 1,
+                    }}
+                    loading="lazy"
+                  />
+                  <motion.img
+                    src="/source/MustangCostado.webp"
+                    alt="Ford Mustang"
+                    className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
+                    animate={{
+                      filter: ["blur(5px)", "blur(0px)"],
+                    }}
+                    transition={{
+                      duration: 1,
+                    }}
+                    loading="lazy"
+                  />
+                  <motion.img
+                    src="/source/ToroCostado.webp"
+                    alt="Fiat Toro"
+                    className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
+                    animate={{
+                      filter: ["blur(5px)", "blur(0px)"],
+                    }}
+                    transition={{
+                      duration: 1,
+                    }}
+                    loading="lazy"
+                  />
+                </Suspense>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Texto a la derecha */}
           {isInView && (
             <motion.div
               className="flex-1 pl-8"
-              initial={{ x: "-100vw" }} // Fuera del borde izquierdo
-              animate={{ x: "0%" }} // Llega a su posición final
-              transition={{ ...animationSettings, delay: 0.05 }} // Retraso para que entren primero las imágenes
+              initial={{ x: "-100vw" }}
+              animate={{ x: "0%" }}
+              transition={{
+                ...animationSettings,
+                delay: 0.1, // Apenas antes de las imágenes
+              }}
             >
               <div className="border-l-4 border-red-500 pl-4 mb-4">
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">
@@ -47,52 +104,6 @@ const Consignacion = () => {
                 <p className="text-gray-600">
                   Te gestionamos la venta: dejá tu auto en nuestra agencia, lo publicamos en todos los portales de venta online y buscamos comprador. Una vez encontrado, lo cobrás en el acto.
                 </p>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Camionetas a la derecha (solo en pantallas grandes) */}
-          {isInView && (
-            <motion.div
-              className="relative w-full sm:w-[30%] md:w-[20%] flex-shrink-0 hidden md:block"
-              initial={{ x: "-100vw" }}
-              animate={{ x: "0%" }}
-              transition={animationSettings}
-            >
-              <div className="space-y-[-105px]">
-                <motion.img
-                  src="/source/VentoCostado.webp"
-                  alt="Volkswagen Vento"
-                  className="w-full h-auto object-contain transform scale-x-[1] motion-blur"
-                  animate={{
-                    filter: ["blur(5px)", "blur(0px)"], // Desenfoque durante la animación
-                  }}
-                  transition={{
-                    duration: 1, // Desenfoque desaparece al llegar al destino
-                  }}
-                />
-                <motion.img
-                  src="/source/MustangCostado.webp"
-                  alt="Ford Mustang"
-                  className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
-                  animate={{
-                    filter: ["blur(5px)", "blur(0px)"],
-                  }}
-                  transition={{
-                    duration: 1,
-                  }}
-                />
-                <motion.img
-                  src="/source/ToroCostado.webp"
-                  alt="Fiat Toro"
-                  className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
-                  animate={{
-                    filter: ["blur(5px)", "blur(0px)"],
-                  }}
-                  transition={{
-                    duration: 1,
-                  }}
-                />
               </div>
             </motion.div>
           )}

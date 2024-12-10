@@ -3,7 +3,11 @@ import { IProduct } from "@/Interfaces/Interface";
 // Función para obtener todos los productos
 export default async function fetchCars(): Promise<IProduct[]> {
     try {
-        const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products");
+        const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products", {
+            headers: {
+                'Cache-Control': 'no-store',  // No usar caché
+            },
+        });
         if (!res.ok) {
             throw new Error("No se pudieron obtener los vehículos");
         }
@@ -49,6 +53,9 @@ export async function fetchDeleteId(_id: string): Promise<boolean> {
             console.error('Error al eliminar el vehículo');
             return false;
         }
+
+        // Llamar a fetchCars después de eliminar para obtener los productos actualizados
+        await fetchCars(); // Llamada para asegurarte de obtener la lista actualizada
         return true;
     } catch (error) {
         console.error('Error de red:', error);
@@ -75,6 +82,9 @@ export async function fetchPostProduct(newProduct: FormData, token: string | nul
         if (!res.ok) {
             throw new Error("No se pudo crear el producto");
         }
+
+        // Llamar a fetchCars para obtener la lista actualizada
+        await fetchCars(); // Llamada para asegurarte de obtener la lista actualizada
         return true;
     } catch (error) {
         console.error("Error al crear el producto:", error);

@@ -48,7 +48,7 @@ const CarruselDestacados = () => {
       >
         {autosDestacados.map((auto) => (
           <SwiperSlide key={auto.id}>
-            <div className="relative flex-shrink-0 overflow-hidden bg-gray-800 shadow-lg cursor-pointer rounded-lg">
+            <div className="relative flex-shrink-0 overflow-hidden bg-gray-800 shadow-lg cursor-pointer ">
               <Link href={auto.link} passHref>
                 <div className="relative w-full h-64 md:h-80 hover:scale-110 flex justify-center items-center transition-transform duration-300">
                   <Image
@@ -62,7 +62,7 @@ const CarruselDestacados = () => {
                     priority
                   />
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 rounded-b-lg">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
                   <h3 className="text-base font-semibold text-white">{auto.name}</h3>
                   <p className="text-sm text-gray-200">+ Información</p>
                 </div>

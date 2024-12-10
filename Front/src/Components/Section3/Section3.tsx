@@ -4,15 +4,12 @@ import Image from "next/image";
 const Section3: React.FC = () => {
   return (
     <div
-      className="relative md:mx-4 md:px-8 bg-black bg-cover bg-center mt-2"
+      className="relative md:mx-4 md:px-8 bg-white bg-cover bg-center mt-2"
     >
-      {/* Fondo oscuro con filtro */}
-      <div className="absolute inset-0 bg-white"></div> {/* Filtro oscuro */}
-
       {/* Contenido de la sección */}
       <div className="relative z-10 flex flex-col px-4 items-center text-white">
         {/* Logos en la parte superior */}
-        <div className="flex justify-between w-full flex-wrap mb-4">
+        <div className="flex gap-14 justify-around w-full flex-wrap mb-4">
           {[
             "/source/VehiculosSeleccionados.webp",
             "/source/Financiacion.webp",
@@ -22,7 +19,7 @@ const Section3: React.FC = () => {
           ].map((src, index) => (
             <div
               key={index}
-              className="flex items-center justify-center h-16 w-12 md:h-20 md:w-20 lg:h-28 lg:w-28 xl:h-32 xl:w-32 mb-4"
+              className="flex items-center justify-center h-16 w-12 md:h-20 md:w-20 lg:h-28 lg:w-28 xl:h-32 xl:w-32 "
             >
               <Image
                 src={src}
