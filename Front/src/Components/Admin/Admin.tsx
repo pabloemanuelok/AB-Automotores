@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { UserContext } from "@/Context/contextUser";
 import { fetchPostProduct } from "@/utils/FetchCars/FetchCars";
-import { IConsulta } from "@/Interfaces/Interface";
-import { fetchGetConsultas, fetchDeleteConsulta } from "@/utils/FetchCon/FetchCon"; 
+import ConsultasClient from "./ConsultasClient/ConsultasClient";
 
 const AdminAddVehicle: React.FC = () => {
   const { logout, token } = useContext(UserContext);
@@ -20,7 +19,6 @@ const AdminAddVehicle: React.FC = () => {
     files: [] as File[],
   });
   const [loading, setLoading] = useState(false);
-  const [inquiries, setInquiries] = useState<IConsulta[]>([]);
 
   const handleLogout = async () => {
     await logout();
@@ -74,47 +72,6 @@ const AdminAddVehicle: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    const fetchConsultas = async () => {
-      if (token) {
-        try {
-          const data = await fetchGetConsultas(token);
-          setInquiries(data);
-        } catch (error) {
-          console.error("Error al obtener las consultas:", error);
-        }
-      }
-    };
-
-    fetchConsultas();
-  }, [token]);
-
-  const handleDeleteInquiry = async (id: string) => {
-    if (!token) {
-      Swal.fire("Error", "No se ha encontrado el token de autenticación", "error");
-      return;
-    }
-
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción eliminará la consulta permanentemente.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await fetchDeleteConsulta(id, token);
-          setInquiries((prevInquiries) => prevInquiries.filter((inquiry) => inquiry._id !== id));
-          Swal.fire("Eliminado!", "La consulta ha sido eliminada.", "success");
-        } catch (error) {
-          Swal.fire("Error", "Hubo un error al eliminar la consulta.", "error");
-        }
-      }
-    });
   };
 
   return (
@@ -205,31 +162,8 @@ const AdminAddVehicle: React.FC = () => {
             </form>
           </div>
 
-          {/* Consultas */}
-          <div className="bg-white p-8 rounded-lg shadow-lg text-black">
-            <h2 className="text-2xl font-semibold mb-6">Consultas de Clientes</h2>
-            <div className="overflow-y-auto max-h-80">
-              <ul>
-                {inquiries.map((inquiry) => (
-                  <li
-                    key={inquiry._id}
-                    className="flex justify-between items-center border-b py-4 px-6 mb-4 bg-gray-50 rounded-lg shadow-sm"
-                  >
-                    <div>
-                      <p className="text-sm font-semibold">{inquiry.nombre}</p>
-                      <p className="text-sm text-gray-500">{inquiry.email}</p>
-                    </div>
-                    <button
-                      onClick={() => handleDeleteInquiry(inquiry._id)}
-                      className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg focus:outline-none"
-                    >
-                      Eliminar
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          {/* Usamos el componente ConsultasClient para mostrar las consultas */}
+          <ConsultasClient />
         </div>
 
         <div className="mt-12 text-center">

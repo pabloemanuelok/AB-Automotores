@@ -34,6 +34,8 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt })
         objectFit="cover"
         onLoadingComplete={handleLoadingComplete}
         className={`transition-opacity duration-500 ease-in-out ${isLoading ? "opacity-0" : "opacity-100"}`}
+        priority={true} // Marca la imagen como prioritaria
+        loading="lazy" // Habilita lazy loading para la imagen
       />
     </div>
   );
@@ -61,7 +63,7 @@ const ImageGallery: React.FC = () => {
         }}
       >
         {["/source/DetailMondeo1.webp", "/source/DetailMondeo2.webp", "/source/DetailMondeo3.webp"].map((src, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} lazy>
             <ImageWithPlaceholder src={src} alt={`Image ${index + 1}`} />
           </SwiperSlide>
         ))}

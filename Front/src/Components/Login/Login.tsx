@@ -15,41 +15,42 @@ const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false); // Estado para manejar la carga
   const router = useRouter();
 
+  // Función reutilizable para mostrar alertas
+  const showAlert = (icon: "success" | "error", title: string, text: string) => {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      confirmButtonColor: "#B62E30",
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true); // Activamos la carga
-  
+
+    if (!name || !password) {
+      setError("Por favor, complete todos los campos.");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const success = await login({ name, password });
       setIsLoading(false); // Desactivamos la carga después de la respuesta
       if (success) {
-        Swal.fire({
-          icon: 'success',
-          title: '¡Bienvenido!',
-          text: 'Has iniciado sesión correctamente.',
-          confirmButtonColor: '#B62E30',
-        });
+        showAlert("success", "¡Bienvenido!", "Has iniciado sesión correctamente.");
         router.push("/");
       } else {
         setError("Nombre o contraseña incorrectos.");
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Nombre o contraseña incorrectos.',
-          confirmButtonColor: '#B62E30',
-        });
+        showAlert("error", "Error", "Nombre o contraseña incorrectos.");
       }
     } catch (err) {
       console.error("Error al iniciar sesión:", err);
       setError("Error al iniciar sesión. Por favor, intente de nuevo.");
       setIsLoading(false);
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Error al iniciar sesión. Por favor, intente de nuevo.',
-        confirmButtonColor: '#B62E30',
-      });
+      showAlert("error", "Error", "Error al iniciar sesión. Por favor, intente de nuevo.");
     }
   };
 
@@ -58,10 +59,10 @@ const Login: React.FC = () => {
       <h2 className="text-3xl md:text-4xl text-center font-semibold text-white mb-8">
         Iniciar Sesión
       </h2>
-      
+
       <div className="w-full max-w-md bg-[#222222] p-8 rounded-lg shadow-lg">
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           {/* Campo de Nombre */}
           <label htmlFor="name" className="text-white text-sm font-medium">

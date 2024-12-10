@@ -6,7 +6,7 @@ import FondoNav from "@/Components/FondoNav/FondoNav";
 const AdminPage: React.FC = () => {
   return (
     <ProtectedPage>
-      <FondoNav/>
+      <FondoNav />
       <AdminAddVehicle />
     </ProtectedPage>
   );

@@ -1,14 +1,17 @@
-import Login from '@/Components/Login/Login'
-import React from 'react'
-import FondoNav from '@/Components/FondoNav/FondoNav'
+import React from 'react';
+import Login from '@/Components/Login/Login';
+import Head from 'next/head';
 
-const login = () => {
+const LoginPage = () => {
   return (
     <div>
-      <FondoNav/>
-        <Login/>
+      <Head>
+        <title>Login - AB Automotores</title>
+        <meta name="description" content="Inicia sesión para acceder a tu cuenta de AB Automotores" />
+      </Head>
+      <Login />
     </div>
-  )
+  );
 }
 
-export default login
+export default LoginPage;

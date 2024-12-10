@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { IProductCardProps } from "@/Interfaces/Interface";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchDeleteId } from "@/utils/FetchCars/FetchCars";
-import { getAuthToken } from "@/utils/Auth/Auth"; // Función para obtener el token de autenticación
+import { getAuthToken } from "@/utils/Auth/Auth";
 
 const Card = ({
   product,
@@ -32,14 +32,11 @@ const Card = ({
     };
   }, []);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
+  // Funciones de hover optimizadas
+  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
+  // Función para manejar la eliminación
   const handleDeleteClick = async () => {
     try {
       const success = await fetchDeleteId(product._id);
@@ -63,15 +60,15 @@ const Card = ({
     >
       {/* Imagen del producto */}
       <div className="relative w-full h-[440px]">
-        <Image
-          src={product.images[0]}
-          alt={product.name}
-          width={600} // Tamaño fijo para evitar cambios de diseño
-          height={440} // Usar un tamaño constante
-          className="object-cover w-full h-full"
-          priority // Carga prioritaria si esta imagen es relevante
-          sizes="(max-width: 640px) 100vw, 50vw"
-        />
+      <Image
+  src={product.images[0]}
+  alt={product.name}
+  width={600}
+  height={440}
+  className="object-cover w-full h-full"
+  priority // Usa priority para la carga inmediata
+  sizes="(max-width: 640px) 100vw, 50vw"
+/>
       </div>
 
       {/* Información al pasar el mouse */}

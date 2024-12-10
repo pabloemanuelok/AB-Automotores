@@ -1,20 +1,19 @@
-import CardsList from '@/Components/CardList/CardList'
-import FondoNav from '@/Components/FondoNav/FondoNav'
-import fetchCars from '@/utils/FetchCars/FetchCars'
-import Loader from '@/Components/Loader/Loader'
-import React from 'react'
+// catalogo/page.tsx
 
+import React from 'react';
+import CardsList from '@/Components/CardList/CardList';
+import FondoNav from '@/Components/FondoNav/FondoNav';
+import fetchCars from '@/utils/FetchCars/FetchCars';
 
+// Componente Server Component
 export default async function CatalogoPage() {
-  // Cargar productos
-  const products = await fetchCars();
+  // Obtener productos directamente en el servidor
+  const products = await fetchCars(); // Este código se ejecuta en el servidor
 
   return (
     <div>
       <FondoNav />
-      <React.Suspense fallback={<Loader />}>
-        <CardsList products={products} />
-      </React.Suspense>
+      <CardsList products={products} />
     </div>
   );
 }

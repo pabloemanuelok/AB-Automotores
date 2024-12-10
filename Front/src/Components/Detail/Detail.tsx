@@ -7,9 +7,9 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Detail: React.FC<IDetailsProps> = ({ product }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
+  // Lógica de imágenes anteriores y siguientes
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
@@ -22,17 +22,20 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
     );
   };
 
-  // Ajusta el tamaño del textarea automáticamente
+  // Ajuste automático de tamaño de textarea
   useEffect(() => {
-    if (textAreaRef.current) {
-      textAreaRef.current.style.height = "auto"; // Resetea la altura
-      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`; // Ajusta la altura según el contenido
-    }
-  }, [product.description]);
+    const adjustTextAreaHeight = () => {
+      if (textAreaRef.current) {
+        textAreaRef.current.style.height = "auto"; // Resetea la altura
+        textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`; // Ajusta la altura según el contenido
+      }
+    };
+
+    adjustTextAreaHeight(); // Ajusta la altura inicialmente
+  }, [product.description]); // Solo se ejecuta cuando cambia la descripción
 
   return (
     <div className="flex flex-col items-center justify-center mt-4 py-8">
-      {/* Contenedor principal */}
       <main className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row bg-[#333333] p-4 shadow-lg">
         
         {/* Contenedor de imagen */}
@@ -46,9 +49,10 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                 layout="fill"
                 objectFit="contain"
                 priority // Carga rápida de la imagen principal
+                quality={75} // Ajusta la calidad de la imagen
               />
 
-              {/* Cargar imagen siguiente con lazy loading */}
+              {/* Cargar imagen siguiente sin lazy loading */}
               {product.images[currentImageIndex + 1] && (
                 <Image
                   src={product.images[currentImageIndex + 1]}
@@ -56,11 +60,12 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                   layout="fill"
                   objectFit="contain"
                   className="hidden"
-                  loading="lazy" // Lazy load de la siguiente imagen
+                  priority // Esto asegura que se cargue de inmediato
+                  quality={75}
                 />
               )}
               
-              {/* Cargar imagen anterior con lazy loading */}
+              {/* Cargar imagen anterior sin lazy loading */}
               {product.images[currentImageIndex - 1] && (
                 <Image
                   src={product.images[currentImageIndex - 1]}
@@ -68,7 +73,8 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                   layout="fill"
                   objectFit="contain"
                   className="hidden"
-                  loading="lazy" // Lazy load de la imagen anterior
+                  priority // Esto asegura que se cargue de inmediato
+                  quality={75}
                 />
               )}
             </div>

@@ -7,11 +7,17 @@
   --Negro: #000000;
   --grisAb: #1E1E1E;
   --grisBorde: #505050;
+  --font-titillium: 'Titillium Web', sans-serif; /* Define la variable con la fuente */
+}
+
+body {
+  font-family: 'Titillium Web', sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
+  font-family: var(--font-titillium); /* Usa la variable para aplicar la fuente */
 }
 
 .scrollbar-hide {
@@ -34,13 +40,6 @@ body {
 
 .animate-load-bar {
   animation: loadBarAnimation 2s ease-in-out infinite;
-}
-
-/* Añadir font-display para evitar FOIT */
-@font-face {
-  font-family: 'Titillium Web';
-  src: url('/fonts/titillium-web.woff2') format('woff2');
-  font-display: swap;
 }
 
 .motion-blur {

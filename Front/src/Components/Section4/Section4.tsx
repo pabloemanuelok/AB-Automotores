@@ -14,18 +14,18 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt, i
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (sessionStorage.getItem(src)) {
+    if (localStorage.getItem(src)) {
       setIsLoading(false);
     }
   }, [src]);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
-    sessionStorage.setItem(src, 'loaded');
+    localStorage.setItem(src, 'loaded'); // Cambié sessionStorage por localStorage
   };
 
   return (
-    <div className="relative w-full mb-4 md:mb-0 h-[300px] bg-gray-200 ">
+    <div className="relative w-full mb-4 md:mb-0 h-[300px] bg-gray-200">
       <Image
         src={src}
         alt={alt}
@@ -33,12 +33,13 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt, i
         objectFit="cover"
         onLoadingComplete={handleLoadingComplete}
         className={`transition-opacity duration-500 ease-in-out ${isLoading ? 'opacity-0' : 'opacity-100'} ${isMiddleImage ? 'filter brightness-50' : ''}`}
+        priority={isMiddleImage} // Priorizar la carga de imágenes importantes
       />
       {isMiddleImage && (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <Link href="/views/catalogo">
-            <button className="relative px-2  bg-[#B62E30] text-white font-bold text-lg transition-all duration-300 ease-in-out transform hover:bg-red-900 shadow-lg hover:scale-105">
-              Catálogo!
+            <button className="relative px-4 py-2 bg-[#B62E30] text-white font-bold text-lg transition-all duration-300 ease-in-out transform hover:bg-red-900 shadow-lg hover:scale-105">
+              Catálogo
             </button>
           </Link>
         </div>
@@ -56,9 +57,8 @@ const ImageGallery: React.FC = () => {
 
   return (
     <div className="flex flex-col sm:grid sm:grid-cols-3 gap-4 md:m-4">
-      {/* Mostrar solo la imagen con el botón en la versión móvil */}
       {images.map((image, index) => (
-        <div key={index} className={`${image.isMiddleImage ? '' : 'hidden sm:flex'} flex justify-center`}>
+        <div key={index} className={`flex justify-center ${image.isMiddleImage ? 'sm:block' : 'hidden sm:flex'}`}>
           <ImageWithPlaceholder 
             src={image.src} 
             alt={image.alt} 

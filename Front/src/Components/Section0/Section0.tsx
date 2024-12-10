@@ -1,4 +1,3 @@
-// components/VideoSection/VideoSection.tsx
 import React from 'react';
 
 const Section0: React.FC = () => {
@@ -10,9 +9,10 @@ const Section0: React.FC = () => {
         autoPlay
         muted
         loop
-        playsInline // <-- Atributo agregado
+        playsInline
         poster="https://example.com/path/to/your/poster-image.jpg" // Imagen de respaldo mientras se carga el video
-        aria-label="Video de fondo" // Accesibilidad mejorada
+        aria-label="Video de fondo"
+        preload="metadata" // Cargar solo los metadatos inicialmente
       >
         <p>Tu navegador no soporta el elemento de video.</p>
       </video>

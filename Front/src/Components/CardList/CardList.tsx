@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Card from "../Card/Card";
 import { IProduct } from "@/Interfaces/Interface";
 import { motion } from "framer-motion";
@@ -9,28 +9,23 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsList, setProductsList] = useState<IProduct[]>(products);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Cargar productos de manera eficiente
   const productsPerPage = 8;
 
   const cardsContainerRef = useRef<HTMLDivElement>(null);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = productsList.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  const currentProducts = productsList.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const totalPages = Math.ceil(productsList.length / productsPerPage);
 
-
+  // Manejar la eliminación de productos
   const handleDelete = async (id: string) => {
     try {
       const success = await fetchDeleteId(id);
       if (success) {
-        const updatedProducts = productsList.filter(
-          (product) => product._id !== id
-        );
+        const updatedProducts = productsList.filter((product) => product._id !== id);
         setProductsList(updatedProducts);
       } else {
         console.error("No se pudo eliminar el producto en el servidor.");
@@ -42,6 +37,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     }
   };
 
+  // Pre-cargar imágenes
   const preloadImages = (images: string[]) => {
     images.forEach((src) => {
       const img: HTMLImageElement = new Image();
@@ -49,6 +45,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     });
   };
 
+  // Cargar imágenes cuando se hace click en "Ver"
   const handleViewClick = (product: IProduct) => {
     preloadImages(product.images);
   };
@@ -60,12 +57,15 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     }
   };
 
+  // Alternar orden de productos
   const toggleSortOrder = () => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
-  // Simulamos el cambio del estado de loading después de 2 segundos
-  setTimeout(() => setLoading(false), 2000);
+  useEffect(() => {
+    // Simula el cambio de estado de loading al cargar los productos
+    setLoading(false); // Cambia el estado de loading solo cuando los datos están listos
+  }, [productsList]);
 
   return (
     <div>
@@ -78,9 +78,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
         >
           <span className="mr-2">Ordenar por Año</span>
           <svg
-            className={`w-6 h-6 transform transition-transform duration-300 ${
-              sortOrder === "desc" ? "rotate-180" : ""
-            }`}
+            className={`w-6 h-6 transform transition-transform duration-300 ${sortOrder === "desc" ? "rotate-180" : ""}`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -139,9 +137,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
                 <motion.button
                   onClick={() => handlePageChange(index + 1)}
                   className={`px-4 py-2 border rounded ${
-                    currentPage === index + 1
-                      ? "bg-red-600 text-white"
-                      : "bg-white text-black"
+                    currentPage === index + 1 ? "bg-red-600 text-white" : "bg-white text-black"
                   }`}
                   whileHover={{ scale: 1.1 }}
                 >

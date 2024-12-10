@@ -34,6 +34,7 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt })
         objectFit="cover"
         onLoadingComplete={handleLoadingComplete}
         className={`transition-opacity duration-500 ease-in-out ${isLoading ? "opacity-0" : "opacity-100"}`}
+        priority={true} // Prioriza la carga de esta imagen (si es una imagen crítica)
       />
     </div>
   );
@@ -48,7 +49,6 @@ const ImageGallery: React.FC = () => {
         loop={true} // Habilita el loop del carrusel
         autoplay={{ delay: 3000 }} // Autoplay con 3 segundos
         breakpoints={{
-          // Asegura que en pantallas pequeñas se vea bien el carrusel
           640: {
             slidesPerView: 1, // En pantallas pequeñas una sola imagen a la vez
           },

@@ -1,13 +1,13 @@
 import dynamic from "next/dynamic";
 import React from "react";
-import Section4y5 from "@/Components/Section3/Section3";
+import Section3 from "@/Components/Section3/Section3";
 
-// Componente Loading reutilizable
 const Loading = ({ section }: { section: string }) => (
-  <p>Cargando {section}...</p>
+  <div className="h-[400px] w-full flex items-center justify-center">
+    <p>Cargando {section}...</p>
+  </div>
 );
 
-// Importaciones dinámicas con componente Loading reutilizable
 const Section0 = dynamic(() => import("@/Components/Section0/Section0"), {
   loading: () => <Loading section="Section0" />,
 });
@@ -26,21 +26,21 @@ const SectionAnim = dynamic(() => import("@/Components/SectionAnim/SectionAnim")
 
 const Page = () => {
   return (
-    <div>
-      {/* Agrupación de secciones principales */}
-      <section>
+    <>
+      {/* Secciones principales */}
+      <>
         <Section0 />
         <Section2 />
         <Section1 />
         <SectionAnim />
-      </section>
+      </>
 
       {/* Sección secundaria */}
-      <section>
-        <Section4y5 />
+      <>
+        <Section3 />
         <Section7 />
-      </section>
-    </div>
+      </>
+    </>
   );
 };
 

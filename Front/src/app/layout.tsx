@@ -5,12 +5,11 @@ import Navbar from "@/Components/Navbar/Navbar";
 import Footer from "@/Components/Footer/Footer";
 import { UserProvider } from "@/Context/contextUser";
 import FloatingWhatsApp from "@/Components/FloatingWsp/FloatingWsp";
-import Script from 'next/script'; // Importa el componente Script
 
 const titillium = Titillium_Web({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-titillium",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,17 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Cargar Tailwind de forma diferida */}
-        <Script 
-          src="https://cdn.tailwindcss.com"
-          strategy="afterInteractive" // Carga el script después de que la página esté interactiva
-        />
-      </head>
       <body className={`${titillium.className} flex flex-col min-h-screen antialiased`}>
         <UserProvider>
           <Navbar />
-          {children}
+          <main className="flex-grow">{children}</main>
           <FloatingWhatsApp />
           <Footer />
         </UserProvider>

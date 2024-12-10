@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, Suspense } from "react";
 import { motion, useInView } from "framer-motion";
 
 const Financiacion = () => {
@@ -9,11 +9,8 @@ const Financiacion = () => {
 
   return (
     <div className="my-4 flex items-center justify-center md:px-4">
-      <div className="w-[84%] p- rounded-lg shadow-2xl bg-white mr-2">
-        <div
-          className="relative lg:flex lg:items-center lg:gap-8"
-          ref={ref}
-        >
+      <div className="w-full sm:w-[84%] p- rounded-lg shadow-2xl bg-white mr-2">
+        <div className="relative lg:flex lg:items-center lg:gap-8" ref={ref}>
           {/* Contenedor de texto a la izquierda */}
           {isInView && (
             <motion.div
@@ -24,7 +21,7 @@ const Financiacion = () => {
                 type: "spring",
                 stiffness: 22,
                 duration: 2,
-                delay: 0.05, // Retardo para que las camionetas se animen primero
+                delay: 0.05,
               }}
             >
               <div className="border-l-4 border-red-500 pl-4 mb-4">
@@ -42,7 +39,7 @@ const Financiacion = () => {
                   Entidades financieras
                 </h2>
                 <p className="text-gray-600">
-                  Fininanciamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Santander, Banco
+                  Financiamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Santander, Banco
                   Supervielle y Banco HSBC. También recibimos tarjetas de crédito.
                 </p>
               </div>
@@ -58,12 +55,12 @@ const Financiacion = () => {
             </motion.div>
           )}
 
-          {/* Camionetas que acompañan el contenido a la derecha */}
+          {/* Camionetas que acompañan el contenido a la derecha (solo en pantallas grandes) */}
           {isInView && (
             <motion.div
-              className="relative w-[30%] md:w-[20%] flex-shrink-0"
-              initial={{ x: "-100vw" }} // Empieza fuera del borde izquierdo de la pantalla
-              animate={{ x: "0%" }} // Llega a su posición final al mismo tiempo que el texto
+              className="relative w-full sm:w-[30%] md:w-[20%] flex-shrink-0 hidden md:block"
+              initial={{ x: "-100vw" }}
+              animate={{ x: "0%" }}
               transition={{
                 type: "spring",
                 stiffness: 22,
@@ -71,40 +68,45 @@ const Financiacion = () => {
               }}
             >
               <div className="space-y-[-10px]">
-                {/* Imagen con efecto de movimiento */}
-                <motion.img
-                  src="/source/TCrossCostado.webp"
-                  alt="Camioneta"
-                  className="w-full h-auto object-contain transform scale-x-[-1] motion-blur" // Añadimos la clase de desenfoque
-                  animate={{
-                    filter: ["blur(5px)", "blur(0px)"], // Desenfoque durante la animación
-                  }}
-                  transition={{
-                    duration: 1, // Desenfoque desaparece al llegar al destino
-                  }}
-                />
-                <motion.img
-                  src="/source/TiguanCostado.webp"
-                  alt="Camioneta"
-                  className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
-                  animate={{
-                    filter: ["blur(5px)", "blur(0px)"],
-                  }}
-                  transition={{
-                    duration: 1,
-                  }}
-                />
-                <motion.img
-                  src="/source/NivusCostado.webp"
-                  alt="Camioneta"
-                  className="w-[100%] h-auto object-contain transform scale-x-[-1] motion-blur"
-                  animate={{
-                    filter: ["blur(5px)", "blur(0px)"],
-                  }}
-                  transition={{
-                    duration: 1,
-                  }}
-                />
+                <Suspense fallback={<div>Loading images...</div>}>
+                  {/* Lazy loading de imágenes */}
+                  <motion.img
+                    src="/source/TCrossCostado.webp"
+                    alt="Camioneta"
+                    className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
+                    animate={{
+                      filter: ["blur(5px)", "blur(0px)"],
+                    }}
+                    transition={{
+                      duration: 1,
+                    }}
+                    loading="lazy" // Carga perezosa para optimizar
+                  />
+                  <motion.img
+                    src="/source/TiguanCostado.webp"
+                    alt="Camioneta"
+                    className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
+                    animate={{
+                      filter: ["blur(5px)", "blur(0px)"],
+                    }}
+                    transition={{
+                      duration: 1,
+                    }}
+                    loading="lazy" // Carga perezosa para optimizar
+                  />
+                  <motion.img
+                    src="/source/NivusCostado.webp"
+                    alt="Camioneta"
+                    className="w-[100%] h-auto object-contain transform scale-x-[-1] motion-blur"
+                    animate={{
+                      filter: ["blur(5px)", "blur(0px)"],
+                    }}
+                    transition={{
+                      duration: 1,
+                    }}
+                    loading="lazy" // Carga perezosa para optimizar
+                  />
+                </Suspense>
               </div>
             </motion.div>
           )}

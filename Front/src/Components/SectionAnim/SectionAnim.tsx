@@ -1,30 +1,36 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-const HomeCounter: React.FC = () => {
+// Define el componente con displayName
+const HomeCounter: React.FC = React.memo(() => {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const componentPosition =
-        document.getElementById("home-counter")?.getBoundingClientRect().top || 0;
-      const windowHeight = window.innerHeight;
+  // Usa una función de tipo más específico en lugar de Function
+  const handleScroll = useCallback(() => {
+    const componentPosition =
+      document.getElementById("home-counter")?.getBoundingClientRect().top || 0;
+    const windowHeight = window.innerHeight;
 
-      if (componentPosition <= windowHeight * 0.8) {
-        setIsVisible(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-
-    return () => window.removeEventListener("scroll", handleScroll);
+    if (componentPosition <= windowHeight * 0.8) {
+      setIsVisible(true);
+    }
   }, []);
+
+  useEffect(() => {
+    // Utiliza la función debounce con un tipo adecuado
+    const debouncedScroll = debounce(handleScroll, 50);
+    window.addEventListener("scroll", debouncedScroll);
+    handleScroll(); // Verificación inicial
+
+    return () => {
+      window.removeEventListener("scroll", debouncedScroll);
+    };
+  }, [handleScroll]);
 
   useEffect(() => {
     if (isVisible) {
@@ -42,6 +48,15 @@ const HomeCounter: React.FC = () => {
       }, 16);
     }
   }, [isVisible]);
+
+  // Debounce function para limitar la frecuencia del manejador de scroll
+  const debounce = (func: (...args: unknown[]) => void, wait: number) => {
+    let timeout: NodeJS.Timeout;
+    return function (...args: unknown[]) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
 
   return (
     <section
@@ -86,14 +101,17 @@ const HomeCounter: React.FC = () => {
             alt="Logo de Google Reviews"
             width={60}
             height={40}
-            className="cursor-pointer hover:scale-110 "
+            className="cursor-pointer hover:scale-110"
             priority
           />
         </Link>
-      <p className="text-sm">⭐⭐⭐⭐⭐</p>
+        <p className="text-sm">⭐⭐⭐⭐⭐</p>
       </motion.div>
     </section>
   );
-};
+});
+
+// Asigna un nombre explícito al componente
+HomeCounter.displayName = 'HomeCounter';
 
 export default HomeCounter;

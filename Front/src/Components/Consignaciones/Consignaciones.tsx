@@ -2,7 +2,6 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 
 const Consignacion = () => {
   const ref = useRef(null);
@@ -15,7 +14,7 @@ const Consignacion = () => {
 
   return (
     <div className="my-4 flex items-center justify-center md:px-4">
-      <div className="w-[84%] p-6 rounded-lg shadow-2xl bg-white">
+      <div className="w-full sm:w-[84%] p-6 rounded-lg shadow-2xl bg-white">
         <div className="relative lg:flex lg:items-center lg:gap-8" ref={ref}>
           {/* Contenedor de texto a la izquierda */}
           {isInView && (
@@ -52,38 +51,47 @@ const Consignacion = () => {
             </motion.div>
           )}
 
-          {/* Camionetas a la derecha */}
+          {/* Camionetas a la derecha (solo en pantallas grandes) */}
           {isInView && (
             <motion.div
-              className="relative w-[30%] md:w-[20%] flex-shrink-0"
+              className="relative w-full sm:w-[30%] md:w-[20%] flex-shrink-0 hidden md:block"
               initial={{ x: "-100vw" }}
               animate={{ x: "0%" }}
               transition={animationSettings}
             >
-              <div className="space-y-[-35px]">
-                <Image
+              <div className="space-y-[-105px]">
+                <motion.img
                   src="/source/VentoCostado.webp"
                   alt="Volkswagen Vento"
-                  className="w-full h-auto object-contain transform scale-x-[1]"
-                  width={500}
-                  height={300}
-                  priority
+                  className="w-full h-auto object-contain transform scale-x-[1] motion-blur"
+                  animate={{
+                    filter: ["blur(5px)", "blur(0px)"], // Desenfoque durante la animación
+                  }}
+                  transition={{
+                    duration: 1, // Desenfoque desaparece al llegar al destino
+                  }}
                 />
-                <Image
+                <motion.img
                   src="/source/MustangCostado.webp"
                   alt="Ford Mustang"
-                  className="w-full h-auto object-contain transform scale-x-[-1]"
-                  width={500}
-                  height={300}
-                  priority
+                  className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
+                  animate={{
+                    filter: ["blur(5px)", "blur(0px)"],
+                  }}
+                  transition={{
+                    duration: 1,
+                  }}
                 />
-                <Image
+                <motion.img
                   src="/source/ToroCostado.webp"
                   alt="Fiat Toro"
-                  className="w-full h-auto object-contain transform scale-x-[-1]"
-                  width={500}
-                  height={300}
-                  priority
+                  className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
+                  animate={{
+                    filter: ["blur(5px)", "blur(0px)"],
+                  }}
+                  transition={{
+                    duration: 1,
+                  }}
                 />
               </div>
             </motion.div>
