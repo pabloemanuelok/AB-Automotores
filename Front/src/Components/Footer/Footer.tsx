@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import LogoUbi from "@/Assets/LogoUbicacion.webp";
 import LogoPachas from "@/Assets/LogoPachas.webp";
-import VehDestacados from "@/Components/VehDestacados/VehDestacados";
+
 
 const Footer = () => {
   return (
