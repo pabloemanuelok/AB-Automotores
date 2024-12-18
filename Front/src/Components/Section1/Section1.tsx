@@ -42,7 +42,7 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt })
 
 const ImageGallery: React.FC = () => {
   return (
-    <div className="mt-4 md:m-4">
+    <div className="mt-1 md:m-4">
       <Swiper
         spaceBetween={16} // Espacio entre las imágenes
         slidesPerView={"auto"} // Muestra tantas imágenes como sea posible en el ancho de la pantalla

@@ -2,7 +2,7 @@ import React from "react";
 
 const Section2 = () => {
   return (
-    <div className="bg-black flex items-center mb-4 md:mx-4 p-6">
+    <div className="bg-black flex items-center md:mb-4 md:mx-4 p-6">
       <div className="flex flex-col gap-4 md:gap-0 md:flex-row w-full">
         {/* Contenedor de la izquierda */}
         <div className="flex-1 flex items-center justify-center md:justify-start lg:pl-[100px]">
