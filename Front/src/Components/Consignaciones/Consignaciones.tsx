@@ -13,13 +13,13 @@ const Consignacion = () => {
   };
 
   return (
-    <div className="m-4 my-4 flex items-center justify-center">
+    <div className="md:m-4 my-4 w-full flex items-center justify-center">
       <div className="w-full flex justify-center sm:w-[100%] p-6 rounded-lg shadow-2xl bg-white">
-        <div className=" w-[88%] relative lg:flex items-center lg:gap-8" ref={ref}>
+        <div className=" md:w-[88%] relative lg:flex items-center lg:gap-8" ref={ref}>
           {/* Imágenes a la izquierda */}
           {isInView && (
             <motion.div
-              className="relative w-full sm:w-[30%] md:w-[20%] flex-shrink-0 hidden md:block"
+              className="relative w-full sm:w-[40%] md:w-[30%] lg:w-[20%] flex-shrink-0 hidden md:block"
               initial={{ x: "-100vw" }}
               animate={{ x: "0%" }}
               transition={{
@@ -73,7 +73,7 @@ const Consignacion = () => {
           {/* Texto a la derecha */}
           {isInView && (
             <motion.div
-              className="flex-1 pl-8"
+              className="flex-1  sm:pl-4"
               initial={{ x: "-100vw" }}
               animate={{ x: "0%" }}
               transition={{

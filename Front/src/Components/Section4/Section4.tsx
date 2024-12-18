@@ -25,7 +25,7 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt, i
   };
 
   return (
-    <div className="relative w-full mb-4 md:mb-0 h-[300px] bg-gray-200">
+    <div className="relative w-full mb-1 md:mb-0 h-[200px] md:h-[300px]">
       <Image
         src={src}
         alt={alt}
@@ -38,7 +38,7 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt, i
       {isMiddleImage && (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <Link href="/views/catalogo">
-            <button className="relative px-4 py-2 bg-[#B62E30] text-white font-bold text-lg transition-all duration-300 ease-in-out transform hover:bg-red-900 shadow-lg hover:scale-105">
+            <button className="relative px-4 py-1 bg-[#B62E30] text-white font-bold text-lg transition-all duration-300 ease-in-out transform hover:bg-red-900 shadow-lg hover:scale-105">
               Catálogo
             </button>
           </Link>

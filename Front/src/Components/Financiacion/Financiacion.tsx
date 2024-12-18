@@ -13,9 +13,9 @@ const Financiacion = () => {
   };
 
   return (
-    <div className="m-4 my-4 flex items-center justify-center">
+    <div className=" C">
       <div className="w-full flex justify-center sm:w-[100%] p-6 rounded-lg shadow-2xl bg-white">
-        <div className="w-[88%] relative lg:flex items-center lg:gap-8" ref={ref}>
+        <div className="md:w-[88%] relative lg:flex items-center lg:gap-8" ref={ref}>
           {/* Imágenes a la izquierda */}
           {isInView && (
             <motion.div
@@ -73,7 +73,7 @@ const Financiacion = () => {
           {/* Texto a la derecha */}
           {isInView && (
             <motion.div
-              className="flex-1 pl-8 sm:pl-4"
+              className="flex-1 sm:pl-4"
               initial={{ x: "-100vw" }}
               animate={{ x: "0%" }}
               transition={{
@@ -81,7 +81,7 @@ const Financiacion = () => {
                 delay: 0.1, // Apenas antes de las imágenes
               }}
             >
-              <div className="border-l-4 border-red-500 h-auto pl-4 mb-4 inline-block">
+              <div className="border-l-4 border-red-500 h-auto pl-4 md:mb-4 inline-block">
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">
                   Si no llegas con el efectivo ¡Podés financiarlo!
                 </h2>
@@ -89,9 +89,9 @@ const Financiacion = () => {
                   Trabajamos con las mejores líneas de créditos, prendarios y personales, con demostración de ingresos o solo con DNI. Todos nuestros créditos son con entrega inmediata.
                 </p>
               </div>
-              <div className="border-l-4 border-red-500 pl-4 mt-4 inline-block">
+              <div className="border-l-4 border-red-500 pl-4 my-4 inline-block">
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                  Entidades financieras
+                  Distintas entidades financieras
                 </h2>
                 <p className="text-gray-600">
                   Financiamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Santander, Banco Supervielle y Banco HSBC. También recibimos tarjetas de crédito.

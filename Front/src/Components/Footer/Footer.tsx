@@ -9,7 +9,7 @@ import VehDestacados from "@/Components/VehDestacados/VehDestacados";
 const Footer = () => {
   return (
     <div className="bg-black w-full flex flex-col items-center overflow-x-hidden">
-      <VehDestacados />
+      {/* <VehDestacados /> */}
       
       {/* Contenedor principal */}
       <div className="flex flex-col md:flex-row w-full md:p-5 py-5 md:py-0 w-screen-2xl">
@@ -54,12 +54,7 @@ const Footer = () => {
             {/* Teléfono 1 */}
             <div className="flex items-center gap-2">
               <FaPhoneAlt className="text-white" />
-              <span>351 6129221</span>
-            </div>
-            {/* Teléfono 2 */}
-            <div className="flex items-center gap-2">
-              <FaPhoneAlt className="text-white" />
-              <span>351 5088602</span>
+              <span>351 6129221 / 351 5088602</span>
             </div>
             {/* Correo electrónico */}
             <div className="flex items-center gap-2">

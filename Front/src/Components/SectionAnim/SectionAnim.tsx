@@ -61,7 +61,7 @@ const HomeCounter: React.FC = React.memo(() => {
   return (
     <section
       id="home-counter"
-      className="relative flex flex-col items-center justify-center py-6 bg-red-700 shadow-xl md:mx-4 my-4 overflow-hidden sm:px-4"
+      className="relative flex flex-col items-center justify-center py-6 bg-red-700 shadow-xl md:mx-4 mt-1 overflow-hidden sm:px-4"
     >
       {/* Contador */}
       <motion.div
@@ -78,7 +78,7 @@ const HomeCounter: React.FC = React.memo(() => {
         initial={{ opacity: 0, x: -100 }}
         animate={isVisible ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 1, delay: 0.5 }}
-        className="mt-4 text-2xl lg:text-xl xl:text-4xl text-center text-white font-semibold tracking-wide"
+        className="mt-4 text-3xl lg:text-xl xl:text-4xl text-center text-white font-semibold tracking-wide"
       >
         años de trayectoria
       </motion.p>
@@ -88,7 +88,7 @@ const HomeCounter: React.FC = React.memo(() => {
         initial={{ opacity: 0, y: 100 }}
         animate={isVisible ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 1, delay: 1 }}
-        className="mt-4 flex items-center justify-center space-x-3 text-base xl:text-lg text-center text-white opacity-80"
+        className="mt-4 flex items-center justify-center space-x-1 text-base xl:text-lg text-center text-white opacity-80"
       >
         <p>+ 5,000 clientes</p>
         <Link

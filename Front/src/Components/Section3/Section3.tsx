@@ -4,12 +4,12 @@ import Image from "next/image";
 const Section3: React.FC = () => {
   return (
     <div
-      className="relative md:mx-4 md:px-8 bg-white bg-cover bg-center mt-2"
+      className="relative m-0 md:mx-4 md:px-8 bg-white bg-cover bg-center mt-2"
     >
       {/* Contenido de la sección */}
       <div className="relative z-10 flex flex-col px-4 items-center text-white">
         {/* Logos en la parte superior */}
-        <div className="flex gap-14 justify-around w-full flex-wrap mb-4">
+        <div className="flex md:gap-14 justify-around w-full flex-wrap mb-4">
           {[
             "/source/VehiculosSeleccionados.webp",
             "/source/Financiacion.webp",
@@ -36,7 +36,7 @@ const Section3: React.FC = () => {
 
         {/* Texto en la parte inferior */}
         <div className="text-center flex justify-center bg-opacity-70 pb-4 w-[92%] pr-2">
-          <h2 className="text-black text-base xl:text-lg md:text-left">
+          <h2 className="text-black text-base text-justify xl:text-lg md:text-left">
             Vehículos seleccionados, entrega inmediata, líneas de créditos accesibles, compras y permutas, y servicios de gestoría para hacer todos los trámites sin complicaciones.
           </h2>
         </div>
