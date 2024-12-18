@@ -14,9 +14,6 @@ const Section0 = dynamic(() => import("@/Components/Section0/Section0"), {
 const Section1 = dynamic(() => import("@/Components/Section1/Section1"), {
   loading: () => <Loading section="Section1" />,
 });
-const Section2 = dynamic(() => import("@/Components/Section2/Section2"), {
-  loading: () => <Loading section="Section2" />,
-});
 const Section7 = dynamic(() => import("@/Components/Section4/Section4"), {
   loading: () => <Loading section="Section7" />,
 });
@@ -33,7 +30,6 @@ const Page = () => {
       {/* Secciones principales */}
       <>
         <Section0 />
-        <Section2 />
         <Section1 />
         <SectionAnim />
       </>

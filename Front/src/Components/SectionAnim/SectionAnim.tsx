@@ -78,7 +78,7 @@ const HomeCounter: React.FC = React.memo(() => {
         initial={{ opacity: 0, x: -100 }}
         animate={isVisible ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 1, delay: 0.5 }}
-        className="mt-4 text-3xl lg:text-xl xl:text-4xl text-center text-white font-semibold tracking-wide"
+        className="mt-4 text-2xl lg:text-xl xl:text-4xl text-center text-white font-semibold tracking-wide"
       >
         años de trayectoria
       </motion.p>

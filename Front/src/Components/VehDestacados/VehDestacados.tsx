@@ -9,17 +9,17 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 
 const autosDestacados = [
-  { id: 1, name: "Volkswagen Nivus", image: "/source/NivusFrente.webp", link: "https://automotoresab.netlify.app/views/details/672e7710781c010ab663e397" },
-  { id: 2, name: "Peugeot 2008", image: "/source/2008Frente.webp", link: "https://automotoresab.netlify.app/views/details/672d2873bbb61b9150c2c32a" },
-  { id: 3, name: "Chevrolet Tracker", image: "/source/TrackerFrente.webp", link: "https://automotoresab.netlify.app/views/details/672be43d9032a5452b332251" },
-  { id: 4, name: "Chevrolet S10 Z71", image: "/source/S10Frente.webp", link: "https://automotoresab.netlify.app/views/details/672d119b7ddb5bea93b30916" },
-  { id: 5, name: "Toyota Hilux", image: "/source/HiluxFrente.webp", link: "/details/5" },
-  { id: 6, name: "Ford Mondeo", image: "/source/MondeoFrente.webp", link: "https://automotoresab.netlify.app/views/details/672d1f9bc80004605ddffb50" },
+  { id: 1, name: "Volkswagen Nivus", image: "/source/NivusFrente.webp", link: "https://ab-automotores.vercel.app/views/details/6761b3da7c18494e3a625bc8" },
+  { id: 2, name: "Peugeot 2008", image: "/source/2008Frente.webp", link: "https://ab-automotores.vercel.app/views/details/6761b28e7c18494e3a625bbb" },
+  { id: 3, name: "Chevrolet Tracker", image: "/source/TrackerFrente.webp", link: "https://ab-automotores.vercel.app/views/details/6761af537c18494e3a625b98" },
+  { id: 4, name: "Chevrolet S10 Z71", image: "/source/S10Frente.webp", link: "https://ab-automotores.vercel.app/views/details/6761b0aa7c18494e3a625ba5" },
+  { id: 5, name: "Toyota Hilux", image: "/source/HiluxFrente.webp", link: "https://ab-automotores.vercel.app/views/details/6761b3257c18494e3a625bc1" },
+  { id: 6, name: "Volkswagen Taos", image: "/source/TaosFrente.webp", link: "https://automotoresab.netlify.app/views/details/672d1f9bc80004605ddffb50" },
 ];
 
 const CarruselDestacados = () => {
   return (
-    <section className="bg-black w-full mb-4 mx-4 p-4">
+    <section className="bg-black mb-4 mx-4 p-4">
       <Swiper
         modules={[Navigation]}
         navigation
