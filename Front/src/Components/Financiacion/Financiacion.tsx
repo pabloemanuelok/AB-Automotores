@@ -19,7 +19,7 @@ const Financiacion = () => {
           {/* Imágenes a la izquierda */}
           {isInView && (
             <motion.div
-              className="relative w-full sm:w-[30%] md:w-[20%] flex-shrink-0 hidden md:block"
+              className="relative w-full sm:w-[40%] md:w-[30%] lg:w-[20%] flex-shrink-0 hidden md:block"
               initial={{ x: "-100vw" }}
               animate={{ x: "0%" }}
               transition={{
@@ -73,7 +73,7 @@ const Financiacion = () => {
           {/* Texto a la derecha */}
           {isInView && (
             <motion.div
-              className="flex-1 pl-8"
+              className="flex-1 pl-8 sm:pl-4"
               initial={{ x: "-100vw" }}
               animate={{ x: "0%" }}
               transition={{
@@ -81,7 +81,7 @@ const Financiacion = () => {
                 delay: 0.1, // Apenas antes de las imágenes
               }}
             >
-              <div className="border-l-4 border-red-500 pl-4 mb-4">
+              <div className="border-l-4 border-red-500 h-auto pl-4 mb-4 inline-block">
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">
                   Si no llegas con el efectivo ¡Podés financiarlo!
                 </h2>
@@ -89,7 +89,7 @@ const Financiacion = () => {
                   Trabajamos con las mejores líneas de créditos, prendarios y personales, con demostración de ingresos o solo con DNI. Todos nuestros créditos son con entrega inmediata.
                 </p>
               </div>
-              <div className="border-l-4 border-red-500 pl-4 mt-4">
+              <div className="border-l-4 border-red-500 pl-4 mt-4 inline-block">
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">
                   Entidades financieras
                 </h2>
@@ -97,7 +97,7 @@ const Financiacion = () => {
                   Financiamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Santander, Banco Supervielle y Banco HSBC. También recibimos tarjetas de crédito.
                 </p>
               </div>
-              <div className="border-l-4 border-red-500 pl-4 mt-4">
+              <div className="border-l-4 border-red-500 pl-4 mt-4 inline-block">
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">
                   ¿Quieres averiguar tu crédito disponible?
                 </h2>

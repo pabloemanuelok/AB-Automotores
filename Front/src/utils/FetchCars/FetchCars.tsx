@@ -4,13 +4,13 @@ import { IProduct } from "@/Interfaces/Interface";
 export default async function fetchCars(): Promise<IProduct[]> {
     try {
         const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products", {
-            headers: {
-                'Cache-Control': 'no-store',  // No usar caché
-            },
+            cache: 'no-store', // Deshabilita el cache del lado del cliente y servidor
         });
+
         if (!res.ok) {
             throw new Error("No se pudieron obtener los vehículos");
         }
+
         return await res.json();
     } catch (error) {
         console.error("Error al obtener los vehículos:", error);
