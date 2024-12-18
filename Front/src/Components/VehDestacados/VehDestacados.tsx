@@ -19,7 +19,7 @@ const autosDestacados = [
 
 const CarruselDestacados = () => {
   return (
-    <section className="bg-black mb-4 mx-4 p-4">
+    <section className="bg-black p-4">
       <Swiper
         modules={[Navigation]}
         navigation

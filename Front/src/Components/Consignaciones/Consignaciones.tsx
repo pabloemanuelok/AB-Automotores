@@ -14,7 +14,7 @@ const Consignacion = () => {
 
   return (
     <div className="md:m-4 my-4 w-full flex items-center justify-center">
-      <div className="w-full flex justify-center sm:w-[100%] p-6 rounded-lg shadow-2xl bg-white">
+      <div className="w-full flex justify-center sm:w-[100%] p-6 rounded-lg bg-white">
         <div className=" md:w-[88%] relative lg:flex items-center lg:gap-8" ref={ref}>
           {/* Imágenes a la izquierda */}
           {isInView && (

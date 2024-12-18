@@ -57,7 +57,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="my-4 flex items-center justify-center px-4">
+    <div className="my-4 flex items-center justify-center">
       <div className="w-full sm:w-[84%] p-6 rounded-lg shadow-2xl bg-white">
         <div className="lg:flex lg:justify-between gap-8">
           {/* Columna Izquierda */}
