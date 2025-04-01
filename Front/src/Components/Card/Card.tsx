@@ -73,19 +73,18 @@ const Card = ({
 
       {/* Información al pasar el mouse */}
       <div
-        className={`absolute inset-x-0 bottom-0 bg-black bg-opacity-65 flex flex-col justify-center items-end text-white transition-opacity h-1/2 ${
+        className={`absolute inset-x-0 bottom-0 gap-1 bg-black bg-opacity-65 flex flex-col justify-around py-2.5  items-end text-white transition-opacity h-[110px] ${
           isHovered ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="text-start p-5 w-full mb-4">
-          <h2 className="text-xl font-light mb-2">{product.name}</h2>
-          <p className="text-xl font-light mb-2">{product.version}</p>
-          <p className="text-xl font-light">{product.year}</p>
+        <div className=" w-full pl-3.5 flex flex-col">
+          <h2 className="text-sm font-light ">{product.name}</h2>
+          <p className="text-sm font-light">{product.year}</p>
         </div>
-        <div className="flex w-full justify-between px-4">
+        <div className="flex w-full justify-between ">
           {/* Botón para ver detalles */}
           <Link href={`/views/details/${product._id}`} onClick={onViewClick}>
-            <button className="bg-[#B62E30] text-white text-lg px-8 mr-2 hover:bg-red-900">
+            <button className="bg-[#B62E30] text-white text-lg ml-3.5 px-8 mr-2 hover:bg-red-900">
               Ver
             </button>
           </Link>

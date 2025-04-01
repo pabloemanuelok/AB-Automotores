@@ -35,11 +35,11 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
   }, [product.description]); // Solo se ejecuta cuando cambia la descripción
 
   return (
-    <div className="flex flex-col items-center justify-center mt-4 py-8">
+    <div className="flex flex-col items-center justify-center py-4">
       <main className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row bg-[#333333] p-4 shadow-lg">
         
         {/* Contenedor de imagen */}
-        <div className="relative w-full lg:w-1/2 h-[600px] bg-[#1B1B1B] overflow-hidden flex items-center justify-center mb-4 lg:mb-0">
+        <div className="relative w-full lg:w-1/2 h-[500px] bg-[#1B1B1B] overflow-hidden flex items-center justify-center mb-4 lg:mb-0">
           {product.images.length > 0 ? (
             <div className="relative w-full h-full">
               {/* Imagen actual con prioridad */}
@@ -47,7 +47,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                 src={product.images[currentImageIndex]}
                 alt={`Imagen de ${product.name}`}
                 layout="fill"
-                objectFit="contain"
+                objectFit="cover"
                 priority // Carga rápida de la imagen principal
                 quality={75} // Ajusta la calidad de la imagen
               />
@@ -100,22 +100,23 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
         </div>
 
         {/* Contenedor de detalles */}
-        <div className="flex flex-col justify-between w-full lg:w-1/2 text-white p-6 bg-[#333333]">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-black bg-[#D9D9D9] py-2 px-4 mb-4">
+        <div className="flex flex-col gap-3 w-full lg:w-1/2 text-white pl-4 bg-[#333333]">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-black bg-[#D9D9D9] py-2 px-4 ">
             {product.name}
           </h2>
           <p className="text-lg sm:text-xl font-light">{product.version}</p>
-          <p className="bg-[#B62E30] text-white w-fit px-4 py-1 mt-2 text-xl sm:text-2xl font-semibold">
+          <p className="bg-[#B62E30] text-white w-fit px-4 py-1 text-xl sm:text-2xl font-semibold">
             {product.year}
           </p>
-          
-          <div className="mt-6">
+          <div className="w-full  flex flex-col ">
+          <div className="mt-6 w-full">
             <textarea
               ref={textAreaRef}
               value={product.description}
               readOnly
-              className="w-full mt-4 p-3 text-white bg-[#444444] placeholder:text-neutral-500 focus:outline-none focus:bg-[#222222] focus:text-white resize-none overflow-auto max-h-[300px] lg:max-h-none"
+              className="w-full text-white bg-[#333333] placeholder:text-neutral-500 focus:outline-none focus:bg-[#222222] focus:text-white resize-none overflow-auto lg:max-h-none"
             />
+          </div>
           </div>
         </div>
       </main>
