@@ -69,14 +69,14 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
 
   return (
     <div>
-      <div className="text-center mx-auto mt-8 flex justify-center">
+      <div className="text-center rounded-xl mx-auto mt-8 flex justify-center">
         <motion.button
           onClick={toggleSortOrder}
-          className="px-6 py-2 bg-[#B62E30] text-white square-btn hover:bg-red-900 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+          className="px-6 py-2 rounded-xl bg-[#B62E30] text-white square-btn hover:bg-red-900 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span className="mr-2">Ordenar por Año</span>
+          <span className="mr-2 ">Ordenar por Año</span>
           <svg
             className={`w-6 h-6 transform transition-transform duration-300 ${sortOrder === "desc" ? "rotate-180" : ""}`}
             xmlns="http://www.w3.org/2000/svg"

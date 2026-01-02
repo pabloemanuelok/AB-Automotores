@@ -32,13 +32,13 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt, i
         layout="fill"
         objectFit="cover"
         onLoadingComplete={handleLoadingComplete}
-        className={`transition-opacity duration-500 ease-in-out ${isLoading ? 'opacity-0' : 'opacity-100'} ${isMiddleImage ? 'filter brightness-50' : ''}`}
+        className={`transition-opacity duration-500 rounded-xl ease-in-out ${isLoading ? 'opacity-0' : 'opacity-100'} ${isMiddleImage ? 'filter brightness-50' : ''}`}
         priority={isMiddleImage} // Priorizar la carga de imágenes importantes
       />
       {isMiddleImage && (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <Link href="/views/catalogo">
-            <button className="relative px-4 py-1 bg-[#B62E30] text-white font-bold text-lg transition-all duration-300 ease-in-out transform hover:bg-red-900 shadow-lg hover:scale-105">
+            <button className="relative px-4 py-1 rounded-xl bg-[#B62E30] text-white font-bold text-lg transition-all duration-300 ease-in-out transform hover:bg-red-900 shadow-lg hover:scale-105">
               Catálogo
             </button>
           </Link>

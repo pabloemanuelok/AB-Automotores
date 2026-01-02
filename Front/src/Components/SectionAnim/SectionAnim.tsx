@@ -61,7 +61,7 @@ const HomeCounter: React.FC = React.memo(() => {
   return (
     <section
       id="home-counter"
-      className="relative flex flex-col items-center justify-center py-6 bg-red-700 md:mx-4 mt-1 overflow-hidden sm:px-4"
+      className="relative rounded-xl flex flex-col items-center justify-center py-6 bg-red-700 md:mx-4 mt-1 overflow-hidden sm:px-4"
     >
       {/* Contador */}
       <motion.div

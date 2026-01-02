@@ -28,7 +28,7 @@ const Footer = () => {
             className="md:pt-10"
             aria-label="Ver ubicación en Google Maps"
           >
-            <div className="bg-[#B62E30] w-full max-w-[90%] p-2 flex items-center justify-center gap-3 md:gap-5 hover:bg-red-900 mx-auto">
+            <div className="bg-[#B62E30] rounded-xl w-full max-w-[90%] p-2 flex items-center justify-center gap-3 md:gap-5 hover:bg-red-900 mx-auto">
               <div className="relative flex-shrink-0">
                 <Image
                   src={LogoUbi}
@@ -44,11 +44,6 @@ const Footer = () => {
               </span>
             </div>
           </Link>
-          
-          <span className="text-white text-base text-center md:text-lg mt-4">
-            Lun. a Vie. de 9:00 a 13:00 y 15:30 a 19:00 hs y Sáb. de 9:00 a 13:00 hs
-          </span>
-
           {/* Información de contacto */}
           <div className="flex flex-wrap md:flex-nowrap items-center justify-center md:justify-center gap-4 text-white text-base md:text-lg mt-4">
             {/* Teléfono 1 */}

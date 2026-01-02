@@ -19,7 +19,7 @@ const autosDestacados = [
 
 const CarruselDestacados = () => {
   return (
-    <section className="bg-black p-4">
+    <section className="bg-black  p-4">
       <Swiper
         modules={[Navigation]}
         navigation
@@ -48,7 +48,7 @@ const CarruselDestacados = () => {
       >
         {autosDestacados.map((auto) => (
           <SwiperSlide key={auto.id}>
-            <div className="relative flex-shrink-0 overflow-hidden bg-gray-800 shadow-lg cursor-pointer ">
+            <div className="relative flex-shrink-0 overflow-hidden rounded-xl bg-gray-800 shadow-lg cursor-pointer ">
               <Link href={auto.link} passHref>
                 <div className="relative w-full h-64 md:h-80 hover:scale-110 flex justify-center items-center transition-transform duration-300">
                   <Image

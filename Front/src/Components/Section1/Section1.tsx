@@ -26,14 +26,14 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt })
   };
 
   return (
-    <div className="relative w-full h-[600px] bg-gray-200">
+    <div className="relative w-full rounded-xlh-[600px] bg-gray-200">
       <Image
         src={src}
         alt={alt}
         layout="fill"
         objectFit="cover"
         onLoadingComplete={handleLoadingComplete}
-        className={`transition-opacity duration-500 ease-in-out ${isLoading ? "opacity-0" : "opacity-100"}`}
+        className={`transition-opacity duration-500 rounded-xl ease-in-out ${isLoading ? "opacity-0" : "opacity-100"}`}
         priority={true} // Prioriza la carga de esta imagen (si es una imagen crítica)
       />
     </div>
@@ -42,7 +42,7 @@ const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt })
 
 const ImageGallery: React.FC = () => {
   return (
-    <div className="mt-1 md:m-4">
+    <div className="mt-1 md:m-4 ">
       <Swiper
         spaceBetween={16} // Espacio entre las imágenes
         slidesPerView={"auto"} // Muestra tantas imágenes como sea posible en el ancho de la pantalla
@@ -60,7 +60,7 @@ const ImageGallery: React.FC = () => {
           },
         }}
       >
-        {["/source/SaveiroCola.webp", "/source/SaveiroCaja.webp", "/source/SaveiroDiag.webp"].map((src, index) => (
+        {["/source/Frente20081.svg", "/source/InteriorJeep2.svg", "/source/ColaNivus3.svg"].map((src, index) => (
           <SwiperSlide key={index}>
             <ImageWithPlaceholder src={src} alt={`Image ${index + 1}`} />
           </SwiperSlide>

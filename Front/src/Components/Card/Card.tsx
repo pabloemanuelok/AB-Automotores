@@ -54,7 +54,7 @@ const Card = ({
 
   return (
     <div
-      className="relative max-w-xs mx-auto bg-white shadow-2xl overflow-hidden transform transition-transform hover:scale-105 hover:shadow-3xl w-full h-full font-roboto group"
+      className="relative max-w-xs rounded-xl mx-auto bg-white shadow-2xl overflow-hidden transform transition-transform hover:scale-105 hover:shadow-3xl w-full h-full font-roboto group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
