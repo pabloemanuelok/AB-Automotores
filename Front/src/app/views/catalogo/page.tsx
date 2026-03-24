@@ -9,7 +9,7 @@ export default async function CatalogoPage() {
   const products = await fetchCars();
 
   return (
-    <div>
+    <div className="bg-[#0a0a0a]">
       <FondoNav />
       <CardsList products={products} />
     </div>

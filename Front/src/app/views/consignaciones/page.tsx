@@ -4,9 +4,13 @@ import FondoNav from '@/Components/FondoNav/FondoNav'
 
 const page = () => {
   return (
-    <div> 
-      <FondoNav/>
-       <Consignaciones/> 
+    <div className="bg-[#0a0a0a]">
+      <FondoNav
+        eyebrow="Vendé tu vehículo"
+        title="Consignaciones"
+        description="Te gestionamos la venta y nos encargamos de todos los trámites para que vos no te preocupes de nada."
+      />
+      <Consignaciones />
     </div>
   )
 }

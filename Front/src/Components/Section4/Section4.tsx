@@ -1,73 +1,55 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
-interface ImageWithPlaceholderProps {
-  src: string;
-  alt: string;
-  isMiddleImage?: boolean;
-}
+const images = [
+  { src: "/source/DetailMondeo3.webp", alt: "Detalle interior de vehículo" },
+  { src: "/source/ManijaYaris.webp", alt: "Manija Yaris", isMiddle: true },
+  { src: "/source/Central208.webp", alt: "Central multimedia 208" },
+];
 
-const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt, isMiddleImage = false }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (localStorage.getItem(src)) {
-      setIsLoading(false);
-    }
-  }, [src]);
-
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-    localStorage.setItem(src, 'loaded'); // Cambié sessionStorage por localStorage
-  };
-
+const Section4: React.FC = () => {
   return (
-    <div className="relative w-full mb-1 md:mb-0 h-[200px] md:h-[300px]">
-      <Image
-        src={src}
-        alt={alt}
-        layout="fill"
-        objectFit="cover"
-        onLoadingComplete={handleLoadingComplete}
-        className={`transition-opacity duration-500 rounded-xl ease-in-out ${isLoading ? 'opacity-0' : 'opacity-100'} ${isMiddleImage ? 'filter brightness-50' : ''}`}
-        priority={isMiddleImage} // Priorizar la carga de imágenes importantes
-      />
-      {isMiddleImage && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <Link href="/views/catalogo">
-            <button className="relative px-4 py-1 rounded-xl bg-[#B62E30] text-white font-bold text-lg transition-all duration-300 ease-in-out transform hover:bg-red-900 shadow-lg hover:scale-105">
-              Catálogo
-            </button>
-          </Link>
-        </div>
-      )}
-    </div>
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="page-container py-6 md:py-10"
+    >
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+        {images.map((image, index) => (
+          <div key={index} className="relative h-[200px] md:h-[300px] rounded-xl overflow-hidden group">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(max-width: 640px) 100vw, 33vw"
+              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
+                image.isMiddle ? "brightness-50" : ""
+              }`}
+            />
+            {image.isMiddle && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Link href="/views/catalogo">
+                  <motion.button
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="px-8 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-bold text-lg rounded-lg shadow-xl transition-colors duration-200 ring-2 ring-white/20 hover:ring-white/40"
+                  >
+                    Ver Catálogo
+                  </motion.button>
+                </Link>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </motion.section>
   );
 };
 
-const ImageGallery: React.FC = () => {
-  const images = [
-    { src: '/source/DetailMondeo3.webp', alt: 'Image 1' },
-    { src: '/source/ManijaYaris.webp', alt: 'Image 2', isMiddleImage: true }, // Imagen con el botón
-    { src: '/source/Central208.webp', alt: 'Image 3' }
-  ];
-
-  return (
-    <div className="flex flex-col sm:grid sm:grid-cols-3 gap-4 md:m-4">
-      {images.map((image, index) => (
-        <div key={index} className={`flex justify-center ${image.isMiddleImage ? 'sm:block' : 'hidden sm:flex'}`}>
-          <ImageWithPlaceholder 
-            src={image.src} 
-            alt={image.alt} 
-            isMiddleImage={image.isMiddleImage} 
-          />
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default ImageGallery;
+export default Section4;

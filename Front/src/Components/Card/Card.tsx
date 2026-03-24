@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { IProductCardProps } from "@/Interfaces/Interface";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchDeleteId } from "@/utils/FetchCars/FetchCars";
+import { motion } from "framer-motion";
 import { getAuthToken } from "@/utils/Auth/Auth";
 
 const Card = ({
@@ -11,19 +11,15 @@ const Card = ({
   onDelete,
   onViewClick,
 }: IProductCardProps & { onDelete: () => void; onViewClick: () => void }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Verificar autenticación
   useEffect(() => {
     const checkAuth = () => {
       const token = getAuthToken();
-      setIsAuthenticated(!!token); // Actualiza si hay un token válido
+      setIsAuthenticated(!!token);
     };
 
     checkAuth();
-
-    // Opcional: Revalidar autenticación en cambios de localStorage
     const handleStorageChange = () => checkAuth();
     window.addEventListener("storage", handleStorageChange);
 
@@ -32,70 +28,50 @@ const Card = ({
     };
   }, []);
 
-  // Funciones de hover optimizadas
-  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
-  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
-
-  // Función para manejar la eliminación
-  const handleDeleteClick = async () => {
-    try {
-      const success = await fetchDeleteId(product._id);
-      if (success) {
-        console.log(`Producto eliminado: ${product._id}`);
-        onDelete();
-      } else {
-        alert("No se pudo eliminar el producto. Verifica tu conexión o permisos.");
-      }
-    } catch (error) {
-      console.error("Error al eliminar el producto:", error);
-      alert("Hubo un problema al eliminar el producto.");
-    }
-  };
-
   return (
-    <div
-      className="relative max-w-xs rounded-xl mx-auto bg-white shadow-2xl overflow-hidden transform transition-transform hover:scale-105 hover:shadow-3xl w-full h-full font-roboto group"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* Imagen del producto */}
-      <div className="relative w-full h-[440px]">
-      <Image
-  src={product.images[0]}
-  alt={product.name}
-  width={600}
-  height={440}
-  className="object-cover w-full h-full"
-  priority // Usa priority para la carga inmediata
-  sizes="(max-width: 640px) 100vw, 50vw"
-/>
+    <div className="relative rounded-xl mx-auto bg-[#1E1E1E] border border-[#505050] overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-[0_8px_30px_rgba(182,46,48,0.25)] w-full group">
+      {/* Imagen */}
+      <div className="relative w-full h-[240px] overflow-hidden">
+        <Image
+          src={product.images[0]}
+          alt={product.name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          priority
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        />
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#1E1E1E] to-transparent" />
       </div>
 
-      {/* Información al pasar el mouse */}
-      <div
-        className={`absolute inset-x-0 bottom-0 gap-1 bg-black bg-opacity-65 flex flex-col justify-around py-2.5  items-end text-white transition-opacity h-[110px] ${
-          isHovered ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <div className=" w-full pl-3.5 flex flex-col">
-          <h2 className="text-sm font-light ">{product.name}</h2>
-          <p className="text-sm font-light">{product.year}</p>
-        </div>
-        <div className="flex w-full justify-between ">
-          {/* Botón para ver detalles */}
-          <Link href={`/views/details/${product._id}`} onClick={onViewClick}>
-            <button className="bg-[#B62E30] text-white text-lg ml-3.5 px-8 mr-2 hover:bg-red-900">
-              Ver
-            </button>
+      {/* Panel de info siempre visible */}
+      <div className="px-4 pt-3 pb-4 flex flex-col gap-1">
+        <h2 className="text-white font-bold text-base leading-tight truncate">
+          {product.name}
+        </h2>
+        <p className="text-gray-400 text-sm truncate">{product.version}</p>
+        <p className="text-[#B62E30] text-sm font-semibold">{product.year}</p>
+
+        {/* Botones */}
+        <div className="flex items-center gap-2 mt-3">
+          <Link href={`/views/details/${product._id}`} onClick={onViewClick} className="flex-1">
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="w-full px-4 py-2 bg-[#B62E30] hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors duration-200"
+            >
+              Ver detalles
+            </motion.button>
           </Link>
-          {/* Botón para borrar (solo si está autenticado) */}
+
           {isAuthenticated && (
-            <button
-              onClick={handleDeleteClick}
-              className="bg-[#B62E30] text-white text-lg px-8 mr-2 hover:bg-red-900"
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={onDelete}
+              className="px-4 py-2 border border-[#505050] hover:border-red-600 text-gray-400 hover:text-red-500 text-sm font-semibold rounded-lg transition-colors duration-200"
             >
               Borrar
-            </button>
+            </motion.button>
           )}
         </div>
       </div>

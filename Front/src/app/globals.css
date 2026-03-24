@@ -2,6 +2,12 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@layer components {
+  .page-container {
+    @apply max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8;
+  }
+}
+
 :root {
   --RojoAb: #B62E30;
   --Negro: #000000;

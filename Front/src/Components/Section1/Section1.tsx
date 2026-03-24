@@ -1,72 +1,56 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css"; // Estilos básicos de Swiper
+import { Autoplay, Navigation } from "swiper/modules";
+import { motion } from "framer-motion";
+import "swiper/css";
+import "swiper/css/navigation";
 
-interface ImageWithPlaceholderProps {
-  src: string;
-  alt: string;
-}
-
-const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = ({ src, alt }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Verificar si la imagen ya se ha cargado en el pasado
-    if (sessionStorage.getItem(src)) {
-      setIsLoading(false);
-    }
-  }, [src]);
-
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-    sessionStorage.setItem(src, "loaded"); // Guardar en sessionStorage que la imagen ha cargado
-  };
-
-  return (
-    <div className="relative w-full rounded-xlh-[600px] bg-gray-200">
-      <Image
-        src={src}
-        alt={alt}
-        layout="fill"
-        objectFit="cover"
-        onLoadingComplete={handleLoadingComplete}
-        className={`transition-opacity duration-500 rounded-xl ease-in-out ${isLoading ? "opacity-0" : "opacity-100"}`}
-        priority={true} // Prioriza la carga de esta imagen (si es una imagen crítica)
-      />
-    </div>
-  );
-};
+const images = [
+  { src: "/source/Frente20081.svg", alt: "Frente del vehículo" },
+  { src: "/source/InteriorJeep2.svg", alt: "Interior del Jeep" },
+  { src: "/source/ColaNivus3.svg", alt: "Cola del Nivus" },
+];
 
 const ImageGallery: React.FC = () => {
   return (
-    <div className="mt-1 md:m-4 ">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="page-container py-6 md:py-10"
+    >
       <Swiper
-        spaceBetween={16} // Espacio entre las imágenes
-        slidesPerView={"auto"} // Muestra tantas imágenes como sea posible en el ancho de la pantalla
-        loop={true} // Habilita el loop del carrusel
-        autoplay={{ delay: 3000 }} // Autoplay con 3 segundos
+        modules={[Autoplay, Navigation]}
+        spaceBetween={16}
+        loop={true}
+        autoplay={{ delay: 3500, disableOnInteraction: false }}
+        navigation
         breakpoints={{
-          640: {
-            slidesPerView: 1, // En pantallas pequeñas una sola imagen a la vez
-          },
-          1024: {
-            slidesPerView: 2, // En pantallas medianas, dos imágenes a la vez
-          },
-          1280: {
-            slidesPerView: 3, // En pantallas grandes, tres imágenes a la vez
-          },
+          0: { slidesPerView: 1 },
+          1024: { slidesPerView: 2 },
+          1280: { slidesPerView: 3 },
         }}
       >
-        {["/source/Frente20081.svg", "/source/InteriorJeep2.svg", "/source/ColaNivus3.svg"].map((src, index) => (
+        {images.map((img, index) => (
           <SwiperSlide key={index}>
-            <ImageWithPlaceholder src={src} alt={`Image ${index + 1}`} />
+            <div className="relative w-full h-[240px] md:h-[360px] rounded-xl overflow-hidden bg-gray-900">
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                className="object-cover transition-transform duration-500 hover:scale-105"
+                priority={index === 0}
+              />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </motion.div>
   );
 };
 

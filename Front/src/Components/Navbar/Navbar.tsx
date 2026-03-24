@@ -2,171 +2,166 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FC, useState, useEffect, useContext } from "react";
+import { FC, useState, useEffect, useContext, useCallback } from "react";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/Assets/LogoSinFondo.webp";
 import { UserContext } from "@/Context/contextUser";
 
+const navLinks = [
+  { href: "/", label: "Inicio" },
+  { href: "/views/catalogo", label: "Catálogo" },
+  { href: "/views/financiacion", label: "Financiación" },
+  { href: "/views/consignaciones", label: "Consignaciones" },
+  { href: "/views/contacto", label: "Contacto" },
+];
+
 const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [bgOpacity, setBgOpacity] = useState(0.55); // MÁS OSCURO
+  const [bgOpacity, setBgOpacity] = useState(0.6);
   const { isLogged } = useContext(UserContext);
   const pathname = usePathname();
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => setIsOpen((prev) => !prev);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      setIsLoading(false);
-    };
-    fetchData();
+  const handleScroll = useCallback(() => {
+    const newOpacity = Math.min(0.6 + (window.scrollY / 200) * 0.3, 0.95);
+    setBgOpacity(newOpacity);
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const newOpacity = Math.min(
-        0.55 + (window.scrollY / 200) * 0.25,
-        0.9
-      );
-      setBgOpacity(newOpacity);
+    let timeout: ReturnType<typeof setTimeout>;
+    const debounced = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(handleScroll, 50);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", debounced);
+    return () => window.removeEventListener("scroll", debounced);
+  }, [handleScroll]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      if (
-        isOpen &&
-        !target.closest(".menu-container") &&
-        !target.closest(".menu-button")
-      ) {
+      if (isOpen && !target.closest(".menu-container") && !target.closest(".menu-button")) {
         setIsOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  if (isLoading) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-black text-white z-50">
-        <p>Cargando...</p>
-      </div>
-    );
-  }
-
-  const navLinks = [
-    { href: "/", label: "Inicio" },
-    { href: "/views/catalogo", label: "Catálogo" },
-    { href: "/views/financiacion", label: "Financiación" },
-    { href: "/views/consignaciones", label: "Consignaciones" },
-    { href: "/views/contacto", label: "Contacto" },
-  ];
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <nav
-      className="flex md:justify-center text-white fixed top-0 w-full z-50 transition-opacity duration-300"
+      className="fixed top-0 w-full z-50 transition-colors duration-300 text-white"
       style={{ backgroundColor: `rgba(2, 2, 2, ${bgOpacity})` }}
     >
-      <div className="flex xl:w-[96%] sm:w-[100%] w-[100%] md:w-[100%] justify-between sm:justify-between md:justify-around items-end lg:mx-24 pt-5 pb-0 border-white">
-        <div className="flex items-end">
-          <Link href="/" className="flex items-end">
-            <Image src={Logo} alt="Logo" width={80} />
+      <div className="page-container">
+        <div className="flex items-center justify-between py-4">
+          {/* Logo */}
+          <Link href="/" className="flex-shrink-0">
+            <Image src={Logo} alt="AB Automotores" width={70} priority />
           </Link>
-        </div>
 
-        <div className="md:hidden flex items-end">
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-6 lg:gap-8 text-base lg:text-lg">
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`relative transition-colors duration-200 hover:text-red-500 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-red-500 after:transition-all after:duration-200 ${
+                  pathname === href
+                    ? "text-red-500 after:w-full"
+                    : "after:w-0 hover:after:w-full"
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
+            {isLogged && (
+              <Link
+                href="/views/admin"
+                className={`relative text-yellow-400 transition-colors duration-200 hover:text-yellow-300 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-yellow-400 after:transition-all after:duration-200 ${
+                  pathname === "/views/admin" ? "after:w-full" : "after:w-0 hover:after:w-full"
+                }`}
+              >
+                Admin
+              </Link>
+            )}
+          </div>
+
+          {/* Hamburger button */}
           <button
-            className="text-white focus:outline-none menu-button"
+            className="md:hidden menu-button text-white p-2 rounded-md focus:outline-none"
             onClick={toggleMenu}
-            aria-label="Abrir menú"
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+            <motion.div
+              animate={isOpen ? "open" : "closed"}
+              className="flex flex-col justify-center items-center w-6 h-5 gap-1.5"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16m-7 6h7"
+              <motion.span
+                variants={{ open: { rotate: 45, y: 7 }, closed: { rotate: 0, y: 0 } }}
+                transition={{ duration: 0.2 }}
+                className="block w-6 h-0.5 bg-white rounded-full origin-center"
               />
-            </svg>
+              <motion.span
+                variants={{ open: { opacity: 0, scaleX: 0 }, closed: { opacity: 1, scaleX: 1 } }}
+                transition={{ duration: 0.2 }}
+                className="block w-6 h-0.5 bg-white rounded-full"
+              />
+              <motion.span
+                variants={{ open: { rotate: -45, y: -7 }, closed: { rotate: 0, y: 0 } }}
+                transition={{ duration: 0.2 }}
+                className="block w-6 h-0.5 bg-white rounded-full origin-center"
+              />
+            </motion.div>
           </button>
-        </div>
-
-        <div className="hidden md:flex flex-grow md:justify-end md:space-x-6 lg:space-x-8 text-xl">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`hover:text-red-500 ${
-                pathname === href ? "text-red-500" : ""
-              }`}
-            >
-              {label}
-            </Link>
-          ))}
-          {isLogged && (
-            <Link
-              href="/views/admin"
-              className={`text-yellow-500 hover:text-yellow-400 ${
-                pathname === "/views/admin" ? "text-yellow-400" : ""
-              }`}
-            >
-              Admin
-            </Link>
-          )}
         </div>
       </div>
 
-      <div
-        className={`md:hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 text-white transform ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        } transition-transform duration-300 menu-container z-50`}
-      >
-        <div className="flex flex-col items-center mt-16 space-y-6">
-          <button
-            className="absolute top-4 right-4 bg-RojoAb text-white px-4 py-2 border border-transparent hover:bg-red-600"
-            onClick={toggleMenu}
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="menu-container md:hidden overflow-hidden bg-black/95 border-t border-white/10"
           >
-            Cerrar
-          </button>
-
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`hover:text-red-500 text-xl ${
-                pathname === href ? "text-red-500" : ""
-              }`}
-              onClick={toggleMenu}
-            >
-              {label}
-            </Link>
-          ))}
-
-          {isLogged && (
-            <Link
-              href="/views/admin"
-              className={`text-yellow-500 hover:text-yellow-400 text-xl ${
-                pathname === "/views/admin" ? "text-yellow-400" : ""
-              }`}
-              onClick={toggleMenu}
-            >
-              Admin
-            </Link>
-          )}
-        </div>
-      </div>
+            <div className="page-container py-6 flex flex-col gap-5">
+              {navLinks.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={toggleMenu}
+                  className={`text-lg font-medium transition-colors duration-200 ${
+                    pathname === href ? "text-red-500" : "text-white hover:text-red-400"
+                  }`}
+                >
+                  {label}
+                </Link>
+              ))}
+              {isLogged && (
+                <Link
+                  href="/views/admin"
+                  onClick={toggleMenu}
+                  className={`text-lg font-medium transition-colors duration-200 ${
+                    pathname === "/views/admin" ? "text-yellow-300" : "text-yellow-400 hover:text-yellow-300"
+                  }`}
+                >
+                  Admin
+                </Link>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

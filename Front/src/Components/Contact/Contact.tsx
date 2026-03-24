@@ -1,24 +1,55 @@
 "use client";
 
-import React, { useState } from 'react';
-import { fetchPostConsulta } from '@/utils/FetchCon/FetchCon'; // Ajusta la ruta según tu estructura de carpetas
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { fetchPostConsulta } from "@/utils/FetchCon/FetchCon";
 
 interface IConsulta {
   nombre: string;
   telefono: string;
   email: string;
   mensaje?: string;
-  // Campo honeypot para detectar bots
   _honeyPot: string;
 }
 
+const contactItems = [
+  {
+    label: "Teléfono",
+    value: "+54 9 351 XXX-XXXX",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Dirección",
+    value: "Córdoba, Argentina",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Horario",
+    value: "Lun–Sáb, 9 a 18 hs",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+];
+
 const Contact = () => {
   const [consulta, setConsulta] = useState<IConsulta>({
-    nombre: '',
-    telefono: '',
-    email: '',
-    mensaje: '',
-    _honeyPot: '' // Este campo siempre debe estar vacío si es un usuario legítimo
+    nombre: "",
+    telefono: "",
+    email: "",
+    mensaje: "",
+    _honeyPot: "",
   });
 
   const [message, setMessage] = useState<string | null>(null);
@@ -27,109 +58,147 @@ const Contact = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setConsulta(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setConsulta((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Si el campo honeypot no está vacío, es un bot
     if (consulta._honeyPot) {
-      setError('¡Vas a tener que hacer algo más para pasar!');
+      setError("¡Vas a tener que hacer algo más para pasar!");
       return;
     }
 
     setLoading(true);
     try {
       await fetchPostConsulta(consulta);
-      setMessage('Consulta enviada exitosamente.');
+      setMessage("Consulta enviada exitosamente.");
       setError(null);
-      setConsulta({ nombre: '', telefono: '', email: '', mensaje: '', _honeyPot: '' }); // Limpiar formulario
-    } catch (error) {
-      setError('Error al enviar la consulta.');
+      setConsulta({ nombre: "", telefono: "", email: "", mensaje: "", _honeyPot: "" });
+    } catch {
+      setError("Error al enviar la consulta.");
       setMessage(null);
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="my-4 flex items-center justify-center">
-      <div className="w-full sm:w-[84%] p-6 rounded-lg shadow-2xl bg-white">
-        <div className="lg:flex lg:justify-between gap-8">
-          {/* Columna Izquierda */}
-          <div className="flex-1 mb-6 lg:mb-0 animate-fade-in">
-            <div className="border-l-4 border-red-500 pl-4 mb-4">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                ¿Quieres comunicarte con nosotros?
-              </h2>
-              <p className="text-gray-600">
-                Completá el formulario con tus datos y nos comunicamos para brindarte toda la información!
-              </p>
-            </div>
-          </div>
+  const inputClass =
+    "w-full bg-[#0a0a0a] border border-[#505050] text-white placeholder-gray-600 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#B62E30] focus:border-transparent transition";
 
-          {/* Columna Derecha (Formulario) */}
-          <div className="flex-1 bg-gray-900 text-white p-6 rounded-md shadow-md animate-slide-up">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {['nombre', 'telefono', 'email'].map((field) => (
-                <label key={field} className="flex flex-col">
-                  <span className="mb-1 capitalize">{field}:</span>
-                  <input
-                    type={field === 'email' ? 'email' : 'text'}
-                    name={field}
-                    value={consulta[field as keyof IConsulta] || ''}
+  return (
+    <div className="bg-[#0a0a0a] py-16">
+      <div className="page-container">
+        <div className="lg:flex gap-12 items-start">
+
+          {/* Columna izquierda — info */}
+          <motion.div
+            className="lg:w-[40%] flex-shrink-0 mb-10 lg:mb-0"
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-2">
+              Estamos para ayudarte
+            </p>
+            <h2 className="text-white text-3xl md:text-4xl font-bold">
+              Ponete en contacto
+            </h2>
+            <div className="w-12 h-[3px] bg-[#B62E30] rounded-full mt-3 mb-6" />
+            <p className="text-gray-400 text-sm leading-relaxed mb-8">
+              Completá el formulario con tus datos y nos comunicamos para brindarte toda la información que necesitás.
+            </p>
+
+            <div className="flex flex-col gap-5">
+              {contactItems.map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  className="flex items-center gap-4"
+                  initial={{ opacity: 0, x: -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 + i * 0.1 }}
+                >
+                  <div className="w-10 h-10 rounded-lg bg-[#1E1E1E] border border-[#505050] flex items-center justify-center text-[#B62E30] flex-shrink-0">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <p className="text-gray-500 text-xs uppercase tracking-wider">{item.label}</p>
+                    <p className="text-white text-sm font-medium">{item.value}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Columna derecha — formulario */}
+          <motion.div
+            className="flex-1"
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+          >
+            <div className="bg-[#1E1E1E] border border-[#505050] rounded-xl p-8">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {(["nombre", "telefono", "email"] as const).map((field) => (
+                  <label key={field} className="flex flex-col gap-1">
+                    <span className="text-gray-300 text-sm capitalize">{field}:</span>
+                    <input
+                      type={field === "email" ? "email" : "text"}
+                      name={field}
+                      value={consulta[field]}
+                      onChange={handleChange}
+                      placeholder={`Ingresá tu ${field}`}
+                      className={inputClass}
+                      required
+                    />
+                  </label>
+                ))}
+
+                <label className="flex flex-col gap-1">
+                  <span className="text-gray-300 text-sm">Mensaje:</span>
+                  <textarea
+                    name="mensaje"
+                    value={consulta.mensaje || ""}
                     onChange={handleChange}
-                    placeholder={`Ingrese su ${field}`}
-                    className="p-2 rounded-md border border-gray-700 bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
-                    required
+                    placeholder="Escribí tu mensaje aquí"
+                    rows={4}
+                    className={inputClass}
                   />
                 </label>
-              ))}
-              <label className="flex flex-col">
-                <span className="mb-1">Mensaje:</span>
-                <textarea
-                  name="mensaje"
-                  value={consulta.mensaje || ''}
-                  onChange={handleChange}
-                  placeholder="Escribe tu mensaje aquí"
-                  className="p-2 rounded-md border border-gray-700 bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
-                ></textarea>
-              </label>
 
-              {/* Honeypot field: Campo oculto para detectar bots */}
-              <div className="hidden">
-                <label className="flex flex-col">
-                  <span className="mb-1">No rellene este campo:</span>
+                {/* Honeypot */}
+                <div className="hidden">
                   <input
                     type="text"
                     name="_honeyPot"
                     value={consulta._honeyPot}
                     onChange={handleChange}
-                    className="p-2 rounded-md border border-gray-700 bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
                   />
-                </label>
-              </div>
+                </div>
 
-              <button
-                type="submit"
-                className="w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300 shadow-lg disabled:opacity-50"
-                disabled={loading}
-              >
-                {loading ? 'Enviando...' : 'Enviar'}
-              </button>
-            </form>
+                <motion.button
+                  type="submit"
+                  disabled={loading}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="w-full py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 disabled:opacity-50"
+                >
+                  {loading ? "Enviando..." : "Enviar consulta"}
+                </motion.button>
+              </form>
 
-            {message && (
-              <p className="text-green-400 text-center mt-4" aria-live="polite">{message}</p>
-            )}
-            {error && (
-              <p className="text-red-400 text-center mt-4" aria-live="assertive">{error}</p>
-            )}
-          </div>
+              {message && (
+                <p className="text-green-400 text-center mt-4 text-sm" aria-live="polite">{message}</p>
+              )}
+              {error && (
+                <p className="text-red-400 text-center mt-4 text-sm" aria-live="assertive">{error}</p>
+              )}
+            </div>
+          </motion.div>
+
         </div>
       </div>
     </div>

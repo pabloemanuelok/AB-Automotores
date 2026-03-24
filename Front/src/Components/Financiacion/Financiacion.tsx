@@ -1,114 +1,140 @@
 "use client";
 
-import React, { useRef, Suspense } from "react";
-import { motion, useInView } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+
+const banks = ["Bco. Córdoba", "Santander", "Supervielle", "HSBC", "Tarjetas de crédito"];
+
+const infoBlocks = [
+  {
+    title: "Si no llegás con el efectivo, ¡podés financiarlo!",
+    text: "Trabajamos con las mejores líneas de créditos, prendarios y personales, con demostración de ingresos o solo con DNI. Todos nuestros créditos son con entrega inmediata.",
+  },
+  {
+    title: "Distintas entidades financieras",
+    text: "Financiamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Santander, Banco Supervielle y Banco HSBC. También recibimos tarjetas de crédito.",
+    pills: banks,
+  },
+  {
+    title: "¿Querés averiguar tu crédito disponible?",
+    text: "Podés financiar hasta un 100% del vehículo que elijas. Contáctanos para brindarte toda la información y ayudarte a financiar tu próximo auto.",
+  },
+];
+
+const vehicles = [
+  { src: "/source/TCrossCostado.webp", alt: "Volkswagen T-Cross", delay: 0 },
+  { src: "/source/TiguanCostado.webp", alt: "Volkswagen Tiguan", delay: 0.15 },
+  { src: "/source/NivusCostado.webp", alt: "Volkswagen Nivus", delay: 0.3 },
+];
 
 const Financiacion = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true }); // Animación activada solo una vez
-  const animationSettings = {
-    type: "spring",
-    stiffness: 22,
-    duration: 2,
-  };
-
   return (
-    <div className=" C">
-      <div className="w-full flex justify-center sm:w-[100%] p-6 rounded-lg bg-white">
-        <div className="md:w-[88%] relative lg:flex items-center lg:gap-8" ref={ref}>
-          {/* Imágenes a la izquierda */}
-          {isInView && (
-            <motion.div
-              className="relative w-full sm:w-[40%] md:w-[30%] lg:w-[20%] flex-shrink-0 hidden md:block"
-              initial={{ x: "-100vw" }}
-              animate={{ x: "0%" }}
-              transition={{
-                ...animationSettings,
-                delay: 0.1, // Ligeramente después del texto
-              }}
-            >
-              <div className="space-y-[-15px]">
-                <Suspense fallback={<div>Loading images...</div>}>
-                  <motion.img
-                    src="/source/TCrossCostado.webp"
-                    alt="Volkswagen T-Cross"
-                    className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
-                    animate={{
-                      filter: ["blur(5px)", "blur(0px)"],
-                    }}
-                    transition={{
-                      duration: 1,
-                    }}
-                    loading="lazy"
-                  />
-                  <motion.img
-                    src="/source/TiguanCostado.webp"
-                    alt="Volkswagen Tiguan"
-                    className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
-                    animate={{
-                      filter: ["blur(5px)", "blur(0px)"],
-                    }}
-                    transition={{
-                      duration: 1,
-                    }}
-                    loading="lazy"
-                  />
-                  <motion.img
-                    src="/source/NivusCostado.webp"
-                    alt="Volkswagen Nivus"
-                    className="w-full h-auto object-contain transform scale-x-[-1] motion-blur"
-                    animate={{
-                      filter: ["blur(5px)", "blur(0px)"],
-                    }}
-                    transition={{
-                      duration: 1,
-                    }}
-                    loading="lazy"
-                  />
-                </Suspense>
-              </div>
-            </motion.div>
-          )}
+    <div className="bg-[#0a0a0a]">
+      {/* Sección principal */}
+      <section className="py-16">
+        <div className="page-container">
+          <div className="lg:flex items-center gap-12">
 
-          {/* Texto a la derecha */}
-          {isInView && (
-            <motion.div
-              className="flex-1 sm:pl-4"
-              initial={{ x: "-100vw" }}
-              animate={{ x: "0%" }}
-              transition={{
-                ...animationSettings,
-                delay: 0.1, // Apenas antes de las imágenes
-              }}
-            >
-              <div className="border-l-4 border-red-500 h-auto pl-4 md:mb-4 inline-block">
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                  Si no llegas con el efectivo ¡Podés financiarlo!
-                </h2>
-                <p className="text-gray-600">
-                  Trabajamos con las mejores líneas de créditos, prendarios y personales, con demostración de ingresos o solo con DNI. Todos nuestros créditos son con entrega inmediata.
-                </p>
+            {/* Columna de vehículos */}
+            <div className="hidden md:block lg:w-[22%] flex-shrink-0">
+              <div className="space-y-[-30px]">
+                {vehicles.map((vehicle) => (
+                  <motion.img
+                    key={vehicle.src}
+                    src={vehicle.src}
+                    alt={vehicle.alt}
+                    className="w-full h-auto object-contain drop-shadow-[0_4px_20px_rgba(182,46,48,0.3)]"
+                    initial={{ x: -220, filter: "blur(8px)", opacity: 0, scaleX: -1 }}
+                    whileInView={{ x: 0, filter: "blur(0px)", opacity: 1, scaleX: -1 }}
+                    viewport={{ once: true }}
+                    transition={{ type: "spring", stiffness: 40, delay: vehicle.delay }}
+                    loading="lazy"
+                  />
+                ))}
               </div>
-              <div className="border-l-4 border-red-500 pl-4 my-4 inline-block">
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                  Distintas entidades financieras
-                </h2>
-                <p className="text-gray-600">
-                  Financiamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Santander, Banco Supervielle y Banco HSBC. También recibimos tarjetas de crédito.
+            </div>
+
+            {/* Columna de texto — entra desde la izquierda como si la trajeran los autos */}
+            <div className="flex-1">
+              <motion.div
+                initial={{ opacity: 0, x: -80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+              >
+                <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-2">
+                  Opciones flexibles
                 </p>
-              </div>
-              <div className="border-l-4 border-red-500 pl-4 mt-4 inline-block">
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                  ¿Quieres averiguar tu crédito disponible?
+                <h2 className="text-white text-3xl md:text-4xl font-bold">
+                  Financiá tu próximo auto
                 </h2>
-                <p className="text-gray-600">
-                  Podes financiar hasta un 100% del vehículo que elijas. Contáctanos para brindarte toda la información y ayudarte a financiar tu próximo auto.
-                </p>
+                <div className="w-12 h-[3px] bg-[#B62E30] rounded-full mt-3 mb-8" />
+              </motion.div>
+
+              <div className="flex flex-col gap-6">
+                {infoBlocks.map((block, index) => (
+                  <motion.div
+                    key={index}
+                    className="border-l-2 border-[#B62E30] pl-5"
+                    initial={{ opacity: 0, x: -60 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.35 + index * 0.12 }}
+                  >
+                    <h3 className="text-white font-bold text-xl mb-1">{block.title}</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">{block.text}</p>
+                    {block.pills && (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {block.pills.map((pill) => (
+                          <span
+                            key={pill}
+                            className="px-3 py-1 text-xs border border-[#505050] text-gray-300 rounded-full"
+                          >
+                            {pill}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
               </div>
-            </motion.div>
-          )}
+            </div>
+
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Banner CTA */}
+      <section className="bg-[#1E1E1E] border-t border-[#505050] py-14">
+        <div className="page-container text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-2">
+              Consultá sin compromiso
+            </p>
+            <h2 className="text-white text-2xl md:text-3xl font-bold mb-4">
+              ¿Querés conocer tu crédito disponible?
+            </h2>
+            <p className="text-gray-400 mb-8 max-w-md mx-auto">
+              Contactanos y te asesoramos para encontrar la mejor opción de financiamiento para vos.
+            </p>
+            <Link href="/views/contacto">
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="px-8 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200"
+              >
+                Contactanos
+              </motion.button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 };

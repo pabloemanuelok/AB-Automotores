@@ -14,32 +14,25 @@ const Section0 = dynamic(() => import("@/Components/Section0/Section0"), {
 const Section1 = dynamic(() => import("@/Components/Section1/Section1"), {
   loading: () => <Loading section="Section1" />,
 });
-const Section7 = dynamic(() => import("@/Components/Section4/Section4"), {
-  loading: () => <Loading section="Section7" />,
-});
 const SectionAnim = dynamic(() => import("@/Components/SectionAnim/SectionAnim"), {
   loading: () => <Loading section="SectionAnim" />,
 });
+const Section4 = dynamic(() => import("@/Components/Section4/Section4"), {
+  loading: () => <Loading section="Section4" />,
+});
 const VehDestacados = dynamic(() => import("@/Components/VehDestacados/VehDestacados"), {
-  loading: () => <Loading section="SectionAnim" />,
+  loading: () => <Loading section="VehDestacados" />,
 });
 
 const Page = () => {
   return (
     <>
-      {/* Secciones principales */}
-      <>
-        <Section0 />
-        <Section1 />
-        <SectionAnim />
-      </>
-
-      {/* Sección secundaria */}
-      <>
-        <Section3 />
-        <Section7 />
-        <VehDestacados/>
-      </>
+      <Section0 />
+      <Section1 />
+      <SectionAnim />
+      <Section3 />
+      <Section4 />
+      <VehDestacados />
     </>
   );
 };
