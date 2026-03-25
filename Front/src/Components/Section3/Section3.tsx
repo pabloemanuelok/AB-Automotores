@@ -1,15 +1,16 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { FaCar, FaMoneyBillWave, FaClipboardList, FaKey, FaExchangeAlt, FaHandshake } from "react-icons/fa";
 
 const services = [
-  { src: "/source/VehiculosSeleccionados.webp", label: "Vehículos\nSeleccionados" },
-  { src: "/source/Financiacion.webp", label: "Financiación" },
-  { src: "/source/Gestoria.webp", label: "Gestoría" },
-  { src: "/source/EntregaInmediata.webp", label: "Entrega\nInmediata" },
-  { src: "/source/Permutas.webp", label: "Permutas" },
+  { icon: FaCar,            label: "Vehículos\nSeleccionados" },
+  { icon: FaMoneyBillWave,  label: "Financiación" },
+  { icon: FaClipboardList,  label: "Gestoría" },
+  { icon: FaKey,            label: "Entrega\nInmediata" },
+  { icon: FaExchangeAlt,    label: "Permutas" },
+  { icon: FaHandshake,      label: "Consignaciones" },
 ];
 
 const Section3: React.FC = () => {
@@ -28,14 +29,11 @@ const Section3: React.FC = () => {
             Nuestros Servicios
           </h2>
           <div className="mt-2 mx-auto w-12 h-[3px] bg-[#B62E30] rounded-full" />
-          <p className="mt-4 text-gray-600 text-sm md:text-base max-w-2xl mx-auto">
-            Vehículos seleccionados, entrega inmediata, líneas de crédito accesibles, compras, permutas y gestoría completa.
-          </p>
         </motion.div>
 
         {/* Íconos de servicios */}
-        <div className="flex flex-wrap justify-center gap-8 md:gap-12 lg:gap-16">
-          {services.map((service, index) => (
+        <div className="flex flex-wrap justify-center gap-8 md:gap-12 lg:gap-14">
+          {services.map(({ icon: Icon, label }, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -44,19 +42,11 @@ const Section3: React.FC = () => {
               transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.08 }}
               className="flex flex-col items-center gap-3 group cursor-default"
             >
-              <div className="flex items-center justify-center w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 transition-transform duration-300 group-hover:scale-110">
-                <Image
-                  src={service.src}
-                  alt={service.label}
-                  width={96}
-                  height={96}
-                  className="object-contain"
-                  priority={index === 0}
-                  quality={80}
-                />
+              <div className="flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full border border-gray-300 text-gray-900 transition-all duration-300 group-hover:border-[#B62E30] group-hover:text-[#B62E30] group-hover:shadow-md group-hover:scale-110">
+                <Icon className="w-7 h-7 md:w-8 md:h-8" />
               </div>
-              <span className="text-xs md:text-sm font-medium text-gray-700 text-center leading-tight whitespace-pre-line">
-                {service.label}
+              <span className="text-xs md:text-sm font-semibold text-gray-900 text-center leading-tight whitespace-pre-line group-hover:text-[#B62E30] transition-colors duration-300">
+                {label}
               </span>
             </motion.div>
           ))}
