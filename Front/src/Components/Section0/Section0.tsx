@@ -35,15 +35,15 @@ const Section0: React.FC = () => {
           >
             {/* Título y descripción */}
             <div className="flex flex-col gap-3 max-w-xl">
-              <p className="text-red-500 text-sm font-semibold tracking-widest uppercase">
+              <p className="text-white text-sm font-semibold tracking-widest uppercase">
                 Agencia Automotriz
               </p>
               <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
                 Bienvenido a<br />
-                <span className="text-red-500">AB Automotores</span>
+                <span className="text-red-500">Automotores AB</span>
               </h1>
               <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-md hidden md:block">
-                Empresa familiar con más de 23 años en el rubro automotriz. Trato personal, responsabilidad y compromiso en cada operación.
+                Vehículos seleccionados, entrega inmediata, las mejores líneas de créditos, compras y permutas, y servicios de gestoría para hacer todos los trámites sin complicaciones.
               </p>
             </div>
 

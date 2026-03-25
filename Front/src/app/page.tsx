@@ -20,6 +20,9 @@ const SectionAnim = dynamic(() => import("@/Components/SectionAnim/SectionAnim")
 const Section4 = dynamic(() => import("@/Components/Section4/Section4"), {
   loading: () => <Loading section="Section4" />,
 });
+const SobreNosotros = dynamic(() => import("@/Components/SobreNosotros/SobreNosotros"), {
+  loading: () => <Loading section="SobreNosotros" />,
+});
 const VehDestacados = dynamic(() => import("@/Components/VehDestacados/VehDestacados"), {
   loading: () => <Loading section="VehDestacados" />,
 });
@@ -30,6 +33,7 @@ const Page = () => {
       <Section0 />
       <Section1 />
       <SectionAnim />
+      <SobreNosotros />
       <Section3 />
       <Section4 />
       <VehDestacados />
