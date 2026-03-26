@@ -65,8 +65,10 @@ interface IUserContextType {
   isLogged: boolean;
   setIsLogged: (isLogged: boolean) => void;
   login: (credential: ILogin) => Promise<boolean>;
-  logout: () => void; // Agregar la función logout
-  token: string | null; // Mantener la propiedad token
+  logout: () => void;
+  token: string | null;
+  sessionExpired: boolean;
+  handleSessionExpired: () => void;
 }
 
 

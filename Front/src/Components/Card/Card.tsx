@@ -30,7 +30,7 @@ const Card = ({
   }, []);
 
   return (
-    <div className="relative rounded-xl mx-auto bg-[#1E1E1E] border border-[#505050] overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-[0_8px_30px_rgba(182,46,48,0.25)] w-full group">
+    <div className="relative rounded-xl mx-auto bg-[#1E1E1E] border border-[#505050] hover:border-[#B62E30] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_30px_rgba(182,46,48,0.35)] w-full group">
       {/* Acento rojo superior */}
       <div className="h-[3px] w-full bg-[#B62E30]" />
       {/* Imagen */}

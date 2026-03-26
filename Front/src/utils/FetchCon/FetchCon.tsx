@@ -10,6 +10,7 @@ export const fetchGetConsultas = async (token: string): Promise<IConsulta[]> => 
       "Authorization": `Bearer ${token}` // Incluye el token en los headers
     }
   });
+  if (response.status === 401) throw new Error("UNAUTHORIZED");
   if (!response.ok) {
     throw new Error("Error al obtener las consultas");
   }
@@ -42,6 +43,7 @@ export const fetchDeleteConsulta = async (id: string, token: string): Promise<vo
       "Authorization": `Bearer ${token}` // Incluye el token en los headers
     }
   });
+  if (response.status === 401) throw new Error("UNAUTHORIZED");
   if (!response.ok) {
     throw new Error("Error al eliminar la consulta");
   }

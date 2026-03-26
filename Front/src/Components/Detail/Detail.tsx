@@ -66,7 +66,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                   src={product.images[currentImageIndex]}
                   alt={`Imagen de ${product.name}`}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   priority
                   quality={80}
                   sizes="(max-width: 1024px) 100vw, 50vw"

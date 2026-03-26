@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { fetchGetConsultas, fetchDeleteConsulta } from "@/utils/FetchCon/FetchCon";
 import { getAuthToken } from "@/utils/Auth/Auth";
 import { IConsulta } from "@/Interfaces/Interface";
+import { UserContext } from "@/Context/contextUser";
 
 const formatDate = (date: Date | undefined) => {
   if (!date) return "Fecha no disponible";
@@ -17,6 +18,7 @@ const formatDate = (date: Date | undefined) => {
 };
 
 const ConsultasClient: React.FC = () => {
+  const { handleSessionExpired } = useContext(UserContext);
   const [inquiries, setInquiries] = useState<IConsulta[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,11 @@ const ConsultasClient: React.FC = () => {
       if (!token) throw new Error("Token no encontrado");
       const data = await fetchGetConsultas(token);
       setInquiries(data);
-    } catch {
+    } catch (err) {
+      if (err instanceof Error && err.message === "UNAUTHORIZED") {
+        handleSessionExpired();
+        return;
+      }
       setError("Error al obtener las consultas.");
     } finally {
       setLoading(false);
@@ -49,7 +55,11 @@ const ConsultasClient: React.FC = () => {
       await fetchDeleteConsulta(_id, token);
       setInquiries((prev) => prev.filter((i) => i._id !== _id));
       if (selectedInquiry?._id === _id) setSelectedInquiry(null);
-    } catch {
+    } catch (err) {
+      if (err instanceof Error && err.message === "UNAUTHORIZED") {
+        handleSessionExpired();
+        return;
+      }
       setError("Error al eliminar la consulta.");
     } finally {
       setDeleting(null);

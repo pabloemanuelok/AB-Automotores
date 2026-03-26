@@ -1,6 +1,7 @@
 "use client";
 import { IUserContextType, ILogin, IUser } from "@/Interfaces/Interface";
 import { postLogin } from "@/utils/FetchUsers/FetchUsers";
+import { isTokenExpired } from "@/utils/Auth/Auth";
 import { createContext, useEffect, useState } from "react";
 
 export const UserContext = createContext<IUserContextType>({
@@ -9,14 +10,17 @@ export const UserContext = createContext<IUserContextType>({
   isLogged: false,
   setIsLogged: () => {},
   login: async () => false,
-  logout: () => {}, // Función de logout inicializada
+  logout: () => {},
   token: null,
+  sessionExpired: false,
+  handleSessionExpired: () => {},
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<Partial<IUser> | null>(null);
   const [isLogged, setIsLogged] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+  const [sessionExpired, setSessionExpired] = useState(false);
 
   const login = async (credentials: ILogin) => {
     try {
@@ -32,17 +36,29 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = () => {
-    setToken(null); // Eliminar el token del estado
-    setIsLogged(false); // Cambiar el estado de sesión
-    setUser(null); // Restablecer el usuario
-    localStorage.removeItem("token"); // Eliminar el token de localStorage
+    setToken(null);
+    setIsLogged(false);
+    setUser(null);
+    localStorage.removeItem("token");
+  };
+
+  const handleSessionExpired = () => {
+    setSessionExpired(true);
+    setToken(null);
+    setIsLogged(false);
+    setUser(null);
+    localStorage.removeItem("token");
   };
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-      setIsLogged(true);
-      setToken(storedToken);
+      if (isTokenExpired(storedToken)) {
+        handleSessionExpired();
+      } else {
+        setIsLogged(true);
+        setToken(storedToken);
+      }
     }
   }, []);
 
@@ -54,8 +70,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         isLogged,
         setIsLogged,
         login,
-        logout, // Agregar la función logout al valor del contexto
+        logout,
         token,
+        sessionExpired,
+        handleSessionExpired,
       }}
     >
       {children}
