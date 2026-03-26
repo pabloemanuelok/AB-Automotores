@@ -5,6 +5,7 @@ import Navbar from "@/Components/Navbar/Navbar";
 import Footer from "@/Components/Footer/Footer";
 import { UserProvider } from "@/Context/contextUser";
 import FloatingWhatsApp from "@/Components/FloatingWsp/FloatingWsp";
+import PageviewTracker from "@/Components/PageviewTracker/PageviewTracker";
 
 const titillium = Titillium_Web({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${titillium.className} flex flex-col min-h-screen antialiased`}>
         <UserProvider>
+          <PageviewTracker />
           <Navbar />
           <main className="flex-grow">{children}</main>
           <FloatingWhatsApp />

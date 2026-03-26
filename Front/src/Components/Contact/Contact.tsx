@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { fetchPostConsulta } from "@/utils/FetchCon/FetchCon";
+import { trackEvent } from "@/utils/analytics";
 
 interface IConsulta {
   nombre: string;
@@ -15,7 +16,7 @@ interface IConsulta {
 const contactItems = [
   {
     label: "Teléfono",
-    value: "+54 9 351 XXX-XXXX",
+    value: "+54 9 351 612-9221",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
@@ -24,7 +25,7 @@ const contactItems = [
   },
   {
     label: "Dirección",
-    value: "Córdoba, Argentina",
+    value: "Av. Sabattini 4260, Cordoba, Argentina",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -34,7 +35,12 @@ const contactItems = [
   },
   {
     label: "Horario",
-    value: "Lun–Sáb, 9 a 18 hs",
+    value: (
+      <>
+        <span className="block">Lun a Vie: 9 a 13 hs y 15 a 19 hs</span>
+        <span className="block">Sábados: 9 a 13 hs</span>
+      </>
+    ),
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -72,6 +78,7 @@ const Contact = () => {
     setLoading(true);
     try {
       await fetchPostConsulta(consulta);
+      trackEvent("contacto");
       setMessage("Consulta enviada exitosamente.");
       setError(null);
       setConsulta({ nombre: "", telefono: "", email: "", mensaje: "", _honeyPot: "" });

@@ -1,125 +1,206 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { IDetailsProps } from "@/Interfaces/Interface";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Detail: React.FC<IDetailsProps> = ({ product }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  // Lógica de imágenes anteriores y siguientes
   const handleNextImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
+    setCurrentImageIndex((prev) =>
+      prev === product.images.length - 1 ? 0 : prev + 1
     );
   };
 
   const handlePrevImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? product.images.length - 1 : prev - 1
     );
   };
 
-  // Ajuste automático de tamaño de textarea
+  // Preload imágenes adyacentes
   useEffect(() => {
-    const adjustTextAreaHeight = () => {
-      if (textAreaRef.current) {
-        textAreaRef.current.style.height = "auto"; // Resetea la altura
-        textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`; // Ajusta la altura según el contenido
-      }
+    const preload = (src: string) => {
+      const img = new window.Image();
+      img.src = src;
     };
-
-    adjustTextAreaHeight(); // Ajusta la altura inicialmente
-  }, [product.description]); // Solo se ejecuta cuando cambia la descripción
+    if (product.images[currentImageIndex + 1])
+      preload(product.images[currentImageIndex + 1]);
+    if (product.images[currentImageIndex - 1])
+      preload(product.images[currentImageIndex - 1]);
+  }, [currentImageIndex, product.images]);
 
   return (
-    <div className="flex flex-col items-center justify-center py-4">
-      <main className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row bg-[#333333] p-4 shadow-lg">
-        
-        {/* Contenedor de imagen */}
-        <div className="relative w-full lg:w-1/2 h-[500px] bg-[#1B1B1B] overflow-hidden flex items-center justify-center mb-4 lg:mb-0">
-          {product.images.length > 0 ? (
-            <div className="relative w-full h-full">
-              {/* Imagen actual con prioridad */}
-              <Image
-                src={product.images[currentImageIndex]}
-                alt={`Imagen de ${product.name}`}
-                layout="fill"
-                objectFit="cover"
-                priority // Carga rápida de la imagen principal
-                quality={75} // Ajusta la calidad de la imagen
-              />
+    <div className="bg-[#0a0a0a] py-10 md:py-16">
+      <div className="page-container">
 
-              {/* Cargar imagen siguiente sin lazy loading */}
-              {product.images[currentImageIndex + 1] && (
+        {/* Back button */}
+        <Link href="/views/catalogo">
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center gap-2 mb-6 text-sm text-gray-400 hover:text-white transition-colors duration-200"
+          >
+            <FaChevronLeft size={12} />
+            Volver al catálogo
+          </motion.button>
+        </Link>
+
+        {/* Card principal */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="bg-[#1E1E1E] border border-[#505050] rounded-xl overflow-hidden flex flex-col lg:flex-row shadow-lg"
+        >
+          {/* Columna izquierda: imagen */}
+          <div className="flex flex-col w-full lg:w-1/2">
+            {/* Imagen principal */}
+            <div className="relative w-full h-[320px] md:h-[420px] lg:h-[480px] bg-[#1B1B1B]">
+              {product.images.length > 0 ? (
                 <Image
-                  src={product.images[currentImageIndex + 1]}
-                  alt="Imagen siguiente"
-                  layout="fill"
-                  objectFit="contain"
-                  className="hidden"
-                  priority // Esto asegura que se cargue de inmediato
-                  quality={75}
+                  src={product.images[currentImageIndex]}
+                  alt={`Imagen de ${product.name}`}
+                  fill
+                  className="object-cover"
+                  priority
+                  quality={80}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
+              ) : (
+                <div className="flex items-center justify-center w-full h-full text-gray-500 text-sm">
+                  No hay imágenes disponibles
+                </div>
               )}
-              
-              {/* Cargar imagen anterior sin lazy loading */}
-              {product.images[currentImageIndex - 1] && (
-                <Image
-                  src={product.images[currentImageIndex - 1]}
-                  alt="Imagen anterior"
-                  layout="fill"
-                  objectFit="contain"
-                  className="hidden"
-                  priority // Esto asegura que se cargue de inmediato
-                  quality={75}
-                />
+
+              {/* Botones navegación */}
+              {product.images.length > 1 && (
+                <>
+                  <button
+                    onClick={handlePrevImage}
+                    aria-label="Imagen anterior"
+                    className="absolute top-1/2 left-3 -translate-y-1/2 w-10 h-10 rounded-full bg-[#B62E30] hover:bg-red-700 text-white flex items-center justify-center transition-colors duration-200 shadow-lg z-10"
+                  >
+                    <FaChevronLeft size={14} />
+                  </button>
+                  <button
+                    onClick={handleNextImage}
+                    aria-label="Siguiente imagen"
+                    className="absolute top-1/2 right-3 -translate-y-1/2 w-10 h-10 rounded-full bg-[#B62E30] hover:bg-red-700 text-white flex items-center justify-center transition-colors duration-200 shadow-lg z-10"
+                  >
+                    <FaChevronRight size={14} />
+                  </button>
+
+                  {/* Contador de imagen */}
+                  <div className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded-md">
+                    {currentImageIndex + 1} / {product.images.length}
+                  </div>
+                </>
               )}
             </div>
-          ) : (
-            <div className="flex items-center justify-center w-full h-full bg-gray-600 text-white">
-              <span>No hay imágenes disponibles</span>
-            </div>
-          )}
-          <button
-            onClick={handlePrevImage}
-            aria-label="Imagen anterior"
-            className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-60 text-white p-2 hover:bg-gray-600"
-          >
-            <FaChevronLeft size={24} />
-          </button>
-          <button
-            onClick={handleNextImage}
-            aria-label="Siguiente imagen"
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-60 text-white p-2 hover:bg-gray-600"
-          >
-            <FaChevronRight size={24} />
-          </button>
-        </div>
 
-        {/* Contenedor de detalles */}
-        <div className="flex flex-col gap-3 w-full lg:w-1/2 text-white pl-4 bg-[#333333]">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-black bg-[#D9D9D9] py-2 px-4 ">
-            {product.name}
-          </h2>
-          <p className="text-lg sm:text-xl font-light">{product.version}</p>
-          <p className="bg-[#B62E30] text-white w-fit px-4 py-1 text-xl sm:text-2xl font-semibold">
-            {product.year}
-          </p>
-          <div className="w-full  flex flex-col ">
-          <div className="mt-6 w-full">
-            <textarea
-              ref={textAreaRef}
-              value={product.description}
-              readOnly
-              className="w-full text-white bg-[#333333] placeholder:text-neutral-500 focus:outline-none focus:bg-[#222222] focus:text-white resize-none overflow-auto lg:max-h-none"
-            />
+            {/* Thumbnails */}
+            {product.images.length > 1 && (
+              <div className="flex gap-2 p-3 overflow-x-auto bg-[#1B1B1B] border-t border-[#505050]">
+                {product.images.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentImageIndex(i)}
+                    className={`relative flex-shrink-0 w-16 h-12 rounded-md overflow-hidden border-2 transition-all duration-200 ${
+                      i === currentImageIndex
+                        ? "border-[#B62E30]"
+                        : "border-transparent opacity-60 hover:opacity-100"
+                    }`}
+                  >
+                    <Image
+                      src={img}
+                      alt={`Miniatura ${i + 1}`}
+                      fill
+                      className="object-cover"
+                      sizes="64px"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
+
+          {/* Columna derecha: info */}
+          <div className="flex flex-col gap-5 w-full lg:w-1/2 p-6 lg:p-8 bg-[#1E1E1E]">
+
+            {/* Título */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <p className="text-[#B62E30] text-xs font-semibold tracking-widest uppercase mb-1">
+                {product.year}
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                {product.name}
+              </h2>
+              <div className="mt-3 w-12 h-[3px] bg-[#B62E30] rounded-full" />
+            </motion.div>
+
+            {/* Versión */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+            >
+              <p className="text-gray-300 text-base font-light border-l-2 border-[#B62E30] pl-3">
+                {product.version}
+              </p>
+            </motion.div>
+
+            {/* Descripción */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="flex-1"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-white text-sm font-semibold uppercase tracking-wide">
+                  Descripción
+                </span>
+                <div className="flex-1 h-[1px] bg-[#505050]" />
+              </div>
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed whitespace-pre-wrap">
+                {product.description}
+              </p>
+            </motion.div>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <Link
+                href={`https://wa.me/5493516129221?text=Hola%2C+me+interesa+el+${encodeURIComponent(product.name)}+${product.year}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="w-full px-6 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg"
+                >
+                  Consultar por este vehículo
+                </motion.button>
+              </Link>
+            </motion.div>
+
           </div>
-        </div>
-      </main>
+        </motion.div>
+
+      </div>
     </div>
   );
 };

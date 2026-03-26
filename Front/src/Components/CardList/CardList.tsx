@@ -67,8 +67,11 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     <section className="bg-[#0a0a0a] min-h-screen py-10">
       <div className="page-container">
 
-        {/* Barra de ordenamiento */}
-        <div className="flex justify-end mb-6">
+        {/* Barra de controles */}
+        <div className="flex items-center justify-between mb-6">
+          <p className="text-sm text-gray-400">
+            <span className="text-white font-semibold">{productsList.length}</span> vehículos disponibles
+          </p>
           <motion.button
             onClick={toggleSortOrder}
             whileHover={{ scale: 1.04 }}
@@ -109,6 +112,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
             >
               <Card
                 product={product}
+                index={index}
                 onDelete={() => handleDelete(product._id)}
                 onViewClick={() => handleViewClick(product)}
               />

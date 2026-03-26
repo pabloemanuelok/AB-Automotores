@@ -3,32 +3,28 @@
 import React, { useState, useContext } from "react";
 import Image from "next/image";
 import { UserContext } from "@/Context/contextUser";
-import logo from "@/Assets/LogoRojo.png";
+import logo from "@/Assets/LogoSinFondo.webp";
 import { useRouter } from "next/navigation";
-import Swal from "sweetalert2"; // Importar SweetAlert2
+import Swal from "sweetalert2";
+import { motion } from "framer-motion";
+import { FaLock, FaUser } from "react-icons/fa";
 
 const Login: React.FC = () => {
   const { login } = useContext(UserContext);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false); // Estado para manejar la carga
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  // Función reutilizable para mostrar alertas
   const showAlert = (icon: "success" | "error", title: string, text: string) => {
-    Swal.fire({
-      icon,
-      title,
-      text,
-      confirmButtonColor: "#B62E30",
-    });
+    Swal.fire({ icon, title, text, confirmButtonColor: "#B62E30" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setIsLoading(true); // Activamos la carga
+    setIsLoading(true);
 
     if (!name || !password) {
       setError("Por favor, complete todos los campos.");
@@ -38,7 +34,7 @@ const Login: React.FC = () => {
 
     try {
       const success = await login({ name, password });
-      setIsLoading(false); // Desactivamos la carga después de la respuesta
+      setIsLoading(false);
       if (success) {
         showAlert("success", "¡Bienvenido!", "Has iniciado sesión correctamente.");
         router.push("/");
@@ -55,69 +51,106 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-black min-h-screen p-4 mt-4">
-      <h2 className="text-3xl md:text-4xl text-center font-semibold text-white mb-8">
-        Iniciar Sesión
-      </h2>
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full max-w-md"
+      >
+        {/* Card */}
+        <div className="bg-[#1E1E1E] border border-[#505050] rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.6)]">
+          {/* Acento rojo superior */}
+          <div className="h-[3px] w-full bg-[#B62E30]" />
 
-      <div className="w-full max-w-md bg-[#222222] p-8 rounded-lg shadow-lg">
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+          <div className="p-8">
+            {/* Logo + título */}
+            <div className="flex flex-col items-center mb-8">
+              <Image
+                src={logo}
+                alt="AB Automotores"
+                width={80}
+                height={80}
+                className="mb-4"
+              />
+              <p className="text-[#B62E30] text-xs font-semibold tracking-widest uppercase mb-1">
+                Panel de administración
+              </p>
+              <h2 className="text-2xl font-bold text-white">Iniciar sesión</h2>
+              <div className="mt-3 w-10 h-[3px] bg-[#B62E30] rounded-full" />
+            </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-          {/* Campo de Nombre */}
-          <label htmlFor="name" className="text-white text-sm font-medium">
-            Nombre
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Nombre"
-            className="w-full p-4 bg-transparent border border-gray-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#B62E30] focus:border-[#B62E30] transition-all"
-            required
-          />
-
-          {/* Campo de Contraseña */}
-          <label htmlFor="password" className="text-white text-sm font-medium">
-            Contraseña
-          </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Contraseña"
-            className="w-full p-4 bg-transparent border border-gray-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#B62E30] focus:border-[#B62E30] transition-all"
-            required
-          />
-
-          {/* Botón de Submit o Spinner */}
-          <button
-            type="submit"
-            className={`w-full py-3 mt-4 bg-[#B62E30] text-white rounded-lg hover:bg-red-600 transition-all ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
-            disabled={isLoading} // Deshabilitar el botón durante la carga
-          >
-            {isLoading ? (
-              <div className="flex justify-center items-center">
-                <div className="w-6 h-6 border-4 border-t-4 border-white rounded-full animate-spin"></div>
-              </div>
-            ) : (
-              "Iniciar Sesión"
+            {/* Error */}
+            {error && (
+              <motion.p
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-red-400 text-sm text-center mb-5 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2"
+              >
+                {error}
+              </motion.p>
             )}
-          </button>
-        </form>
 
-        <div className="mt-8 text-center">
-          <Image
-            src={logo}
-            alt="Logo"
-            width={120}
-            height={120}
-            className="mx-auto"
-          />
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* Usuario */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="name" className="text-gray-400 text-xs font-semibold uppercase tracking-wide">
+                  Usuario
+                </label>
+                <div className="relative">
+                  <FaUser className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500" size={13} />
+                  <input
+                    id="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Ingresá tu usuario"
+                    className="w-full pl-10 pr-4 py-3 bg-[#2a2a2a] border border-[#505050] rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#B62E30] focus:ring-1 focus:ring-[#B62E30] transition-colors duration-200"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Contraseña */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="password" className="text-gray-400 text-xs font-semibold uppercase tracking-wide">
+                  Contraseña
+                </label>
+                <div className="relative">
+                  <FaLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500" size={13} />
+                  <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Ingresá tu contraseña"
+                    className="w-full pl-10 pr-4 py-3 bg-[#2a2a2a] border border-[#505050] rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#B62E30] focus:ring-1 focus:ring-[#B62E30] transition-colors duration-200"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Botón */}
+              <motion.button
+                type="submit"
+                disabled={isLoading}
+                whileHover={{ scale: isLoading ? 1 : 1.02 }}
+                whileTap={{ scale: isLoading ? 1 : 0.97 }}
+                className={`w-full py-3 mt-2 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 ${
+                  isLoading ? "opacity-60 cursor-not-allowed" : ""
+                }`}
+              >
+                {isLoading ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  "Ingresar"
+                )}
+              </motion.button>
+            </form>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

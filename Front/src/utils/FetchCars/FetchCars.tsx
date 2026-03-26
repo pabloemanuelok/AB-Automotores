@@ -4,7 +4,7 @@ import { IProduct } from "@/Interfaces/Interface";
 export default async function fetchCars(): Promise<IProduct[]> {
     try {
         const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products", {
-            cache: 'no-store', // Deshabilita el cache del lado del cliente y servidor
+            next: { revalidate: 60 },
         });
 
         if (!res.ok) {
@@ -21,7 +21,9 @@ export default async function fetchCars(): Promise<IProduct[]> {
 // Función para obtener un producto por su ID
 export async function fetchProductById(_id: string): Promise<IProduct> {
     try {
-        const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${_id}`);
+        const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${_id}`, {
+            next: { revalidate: 60 },
+        });
         if (!res.ok) {
             throw new Error("No se pudo obtener el producto");
         }
@@ -54,8 +56,6 @@ export async function fetchDeleteId(_id: string): Promise<boolean> {
             return false;
         }
 
-        // Llamar a fetchCars después de eliminar para obtener los productos actualizados
-        await fetchCars(); // Llamada para asegurarte de obtener la lista actualizada
         return true;
     } catch (error) {
         console.error('Error de red:', error);
@@ -83,8 +83,6 @@ export async function fetchPostProduct(newProduct: FormData, token: string | nul
             throw new Error("No se pudo crear el producto");
         }
 
-        // Llamar a fetchCars para obtener la lista actualizada
-        await fetchCars(); // Llamada para asegurarte de obtener la lista actualizada
         return true;
     } catch (error) {
         console.error("Error al crear el producto:", error);

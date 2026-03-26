@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { trackEvent } from "@/utils/analytics";
 
 const infoBlocks = [
   {
@@ -26,6 +27,8 @@ const vehicles = [
 ];
 
 const Consignaciones = () => {
+  useEffect(() => { trackEvent("consignaciones"); }, []);
+
   return (
     <div className="bg-[#0a0a0a]">
       {/* Sección principal */}

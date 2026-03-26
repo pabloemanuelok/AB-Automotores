@@ -8,9 +8,10 @@ import { getAuthToken } from "@/utils/Auth/Auth";
 
 const Card = ({
   product,
+  index = 0,
   onDelete,
   onViewClick,
-}: IProductCardProps & { onDelete: () => void; onViewClick: () => void }) => {
+}: IProductCardProps & { index?: number; onDelete: () => void; onViewClick: () => void }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -30,6 +31,8 @@ const Card = ({
 
   return (
     <div className="relative rounded-xl mx-auto bg-[#1E1E1E] border border-[#505050] overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-[0_8px_30px_rgba(182,46,48,0.25)] w-full group">
+      {/* Acento rojo superior */}
+      <div className="h-[3px] w-full bg-[#B62E30]" />
       {/* Imagen */}
       <div className="relative w-full h-[240px] overflow-hidden">
         <Image
@@ -37,10 +40,10 @@ const Card = ({
           alt={product.name}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
-          priority
+          priority={index < 4}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#1E1E1E] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E]/60 to-transparent" />
       </div>
 
       {/* Panel de info siempre visible */}

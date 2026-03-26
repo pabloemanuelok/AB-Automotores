@@ -32,7 +32,7 @@ const Section3: React.FC = () => {
         </motion.div>
 
         {/* Íconos de servicios */}
-        <div className="flex flex-wrap justify-center gap-8 md:gap-12 lg:gap-14">
+        <div className="grid grid-cols-3 md:flex md:flex-wrap justify-center gap-8 md:gap-12 lg:gap-14">
           {services.map(({ icon: Icon, label }, index) => (
             <motion.div
               key={index}
