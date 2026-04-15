@@ -3,46 +3,30 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-
-const photos = [
-  { src: "/source/VolanteTaos.webp", alt: "Volante Taos" },
-  { src: "/source/EspejoHilux.webp", alt: "Espejo Hilux" },
-  { src: "/source/ManijaYaris.webp", alt: "Manija Yaris" },
-  { src: "/source/AsientosToro.webp", alt: "Asientos Toro" },
-];
-
-const roundedClass: Record<number, string> = {
-  0: "rounded-tl-xl",
-  2: "rounded-bl-xl",
-};
+import frenteHilux from "@/Assets/frenteHilux.jpeg";
 
 const SobreNosotros: React.FC = () => {
   return (
     <section className="bg-[#0a0a0a] py-10 md:py-20">
-      <div className="page-container flex flex-col md:flex-row items-center gap-8 md:gap-12">
+      <div className="page-container flex flex-col md:flex-row items-start gap-8 md:gap-12">
 
-        {/* Grid de fotos */}
-        <div className="w-[260px] shrink-0 md:w-2/5 lg:w-1/3 grid grid-cols-2 gap-2 md:gap-3 mx-auto md:mx-0">
-          {photos.map((photo, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
-              className={`relative aspect-square overflow-hidden group ${roundedClass[index] ?? ""}`}
-            >
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 130px, 25vw"
-              />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
-            </motion.div>
-          ))}
-        </div>
+        {/* Foto grande */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative w-full md:w-2/5 lg:w-1/3 shrink-0 aspect-square rounded-xl overflow-hidden"
+        >
+          <Image
+            src={frenteHilux}
+            alt="Frente Hilux"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 40vw"
+          />
+          <div className="absolute inset-0 bg-black/10" />
+        </motion.div>
 
         {/* Texto descriptivo */}
         <motion.div
@@ -50,7 +34,7 @@ const SobreNosotros: React.FC = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="w-full md:flex-1 flex flex-col text-center md:text-left"
+          className="w-full md:flex-1 flex flex-col text-center md:text-left md:pl-4 lg:pl-8"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-white">
             Sobre Nosotros

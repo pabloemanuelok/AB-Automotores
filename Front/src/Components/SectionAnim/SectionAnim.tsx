@@ -47,6 +47,12 @@ const reviews = [
     date: "Hace 3 meses",
     avatar: null,
   },
+  {
+    name: "Roberto Sosa",
+    text: "Vendí mi camioneta a través de ellos y el proceso fue transparente y rápido. Buenos precios y gente muy honesta. Los recomiendo sin dudar.",
+    date: "Hace 2 semanas",
+    avatar: null,
+  },
 ];
 
 const HomeCounter: React.FC = React.memo(() => {
@@ -94,19 +100,18 @@ const HomeCounter: React.FC = React.memo(() => {
       id="home-counter"
       className="relative bg-[#B62E30] py-12 md:py-16 overflow-hidden"
     >
-      <div className="absolute inset-0 opacity-[0.06] pointer-events-none select-none flex items-center justify-center">
-        <Image src={LogoSinFondo} alt="" aria-hidden width={420} className="object-contain" />
-      </div>
-
-      <div className="page-container relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+      <div className="page-container relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Contador */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isVisible ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="flex flex-col items-center md:items-start"
+          className="relative flex flex-col items-center md:items-start shrink-0"
         >
-          <span className="text-7xl md:text-9xl font-extrabold text-white tracking-tight leading-none">
+          <div className="absolute inset-0 opacity-[0.15] pointer-events-none select-none flex items-center justify-center">
+            <Image src={LogoSinFondo} alt="" aria-hidden width={260} className="object-contain" />
+          </div>
+          <span className="relative text-7xl md:text-9xl font-extrabold text-white tracking-tight leading-none">
             +<span className="text-yellow-400">{count}</span>
           </span>
           <motion.p
@@ -124,7 +129,7 @@ const HomeCounter: React.FC = React.memo(() => {
           initial={{ opacity: 0, y: 24 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="w-full md:max-w-sm lg:max-w-md"
+          className="flex-1 min-w-0"
         >
           <div className="flex items-center gap-2">
             <button
@@ -134,13 +139,18 @@ const HomeCounter: React.FC = React.memo(() => {
             >
               ‹
             </button>
-            <div className="flex-1 overflow-hidden [&_.swiper-wrapper]:!items-stretch">
+            <div className="flex-1 min-w-0 overflow-hidden [&_.swiper-wrapper]:!items-stretch">
               <Swiper
                 onSwiper={(s) => { swiperRef.current = s; }}
                 modules={[Autoplay]}
-                slidesPerView={2}
+                slidesPerView={1}
+                breakpoints={{
+                  640: { slidesPerView: 2, spaceBetween: 10 },
+                  1024: { slidesPerView: 3, spaceBetween: 12 },
+                }}
                 spaceBetween={10}
                 loop={true}
+                centeredSlides={true}
                 autoplay={{ delay: 4000, disableOnInteraction: false }}
               >
                 {reviews.map((review, i) => (
@@ -192,9 +202,9 @@ const HomeCounter: React.FC = React.memo(() => {
           initial={{ opacity: 0, y: 24 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col items-center md:items-end gap-4"
+          className="flex flex-col items-center md:items-end gap-4 shrink-0"
         >
-          <p className="text-white/80 text-lg md:text-xl font-medium">
+          <p className="text-white/80 text-lg md:text-xl font-medium whitespace-nowrap">
             + 5,000 clientes satisfechos
           </p>
           <div className="flex items-center gap-2">
