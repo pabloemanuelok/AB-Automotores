@@ -36,7 +36,7 @@ const FondoNav = ({
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-center page-container"
         >
-          <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-2">
+          <p className="hidden md:block text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-2">
             {eyebrow}
           </p>
           <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold">

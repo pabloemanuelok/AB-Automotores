@@ -2,12 +2,9 @@
 
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { trackEvent } from "@/utils/analytics";
 
-const banks = ["Bco. Córdoba", "Santander", "Supervielle", "HSBC", "Tarjetas de crédito"];
-
-const infoBlocks = [
+const infoBlocks: { title: string; text: string; pills?: string[] }[] = [
   {
     title: "Si no llegás con el efectivo, ¡podés financiarlo!",
     text: "Trabajamos con las mejores líneas de créditos, prendarios y personales, con demostración de ingresos o solo con DNI. Todos nuestros créditos son con entrega inmediata.",
@@ -15,7 +12,6 @@ const infoBlocks = [
   {
     title: "Distintas entidades financieras",
     text: "Financiamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Santander, Banco Supervielle y Banco HSBC. También recibimos tarjetas de crédito.",
-    pills: banks,
   },
   {
     title: "¿Querés averiguar tu crédito disponible?",
@@ -123,18 +119,9 @@ const Financiacion = () => {
             <h2 className="text-white text-2xl md:text-3xl font-bold mb-4">
               ¿Querés conocer tu crédito disponible?
             </h2>
-            <p className="text-gray-400 mb-8 max-w-md mx-auto">
+            <p className="text-gray-400 max-w-md mx-auto">
               Contactanos y te asesoramos para encontrar la mejor opción de financiamiento para vos.
             </p>
-            <Link href="/views/contacto">
-              <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200"
-              >
-                Contactanos
-              </motion.button>
-            </Link>
           </motion.div>
         </div>
       </section>

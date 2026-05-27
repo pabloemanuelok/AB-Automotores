@@ -8,7 +8,7 @@ const page = () => {
       <FondoNav
         eyebrow="Opciones de pago"
         title="Financiación"
-        description="Financiá hasta el 100% de tu próximo vehículo con entrega inmediata."
+        description="Financiá hasta el 100% de tu próximo vehículo."
       />
       <Financiacion />
     </div>

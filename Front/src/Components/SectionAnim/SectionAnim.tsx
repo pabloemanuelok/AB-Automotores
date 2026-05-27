@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
-import LogoSinFondo from "@/Assets/LogoSinFondo.webp";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -108,9 +107,6 @@ const HomeCounter: React.FC = React.memo(() => {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="relative flex flex-col items-center md:items-start shrink-0"
         >
-          <div className="absolute inset-0 opacity-[0.15] pointer-events-none select-none flex items-center justify-center">
-            <Image src={LogoSinFondo} alt="" aria-hidden width={260} className="object-contain" />
-          </div>
           <span className="relative text-7xl md:text-9xl font-extrabold text-white tracking-tight leading-none">
             +<span className="text-yellow-400">{count}</span>
           </span>
@@ -129,7 +125,7 @@ const HomeCounter: React.FC = React.memo(() => {
           initial={{ opacity: 0, y: 24 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex-1 min-w-0"
+          className="flex-1 min-w-0 w-full"
         >
           <div className="flex items-center gap-2">
             <button

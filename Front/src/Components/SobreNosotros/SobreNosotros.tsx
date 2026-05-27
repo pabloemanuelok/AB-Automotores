@@ -47,8 +47,7 @@ const SobreNosotros: React.FC = () => {
 
           <p className="mt-4 text-white/80 text-sm md:text-base leading-relaxed">
             En AB Automotores nos especializamos en la compraventa de vehículos seleccionados,
-            con más de dos décadas de trayectoria en el sector. Cada auto que ofrecemos pasa
-            por un riguroso proceso de revisión para garantizarte calidad y tranquilidad.
+            con más de dos décadas de trayectoria en el sector.
           </p>
 
           <p className="mt-3 text-white/70 text-sm md:text-base leading-relaxed">
@@ -61,13 +60,6 @@ const SobreNosotros: React.FC = () => {
             Ubicados en Córdoba, atendemos a compradores y vendedores de toda la región.
             Permutas, consignaciones y entrega inmediata son parte de nuestro servicio integral.
           </p>
-
-          <div className="mt-6 flex items-center gap-3 justify-center md:justify-start">
-            <div className="w-1 h-10 bg-[#B62E30] rounded-full" />
-            <p className="text-white/60 text-xs md:text-sm leading-snug italic">
-              &ldquo;Calidad, confianza y transparencia<br />en cada operación.&rdquo;
-            </p>
-          </div>
         </motion.div>
 
       </div>

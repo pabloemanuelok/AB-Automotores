@@ -16,7 +16,7 @@ const AddVehicle: React.FC = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    version: "",
+    precio: "",
     year: "",
     description: "",
     files: [] as File[],
@@ -60,13 +60,22 @@ const AddVehicle: React.FC = () => {
     }
   };
 
+  const handleRemoveImage = (index: number) => {
+    URL.revokeObjectURL(previews[index]);
+    setFormData((prev) => ({
+      ...prev,
+      files: prev.files.filter((_, i) => i !== index),
+    }));
+    setPreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
-    formDataToSend.append("version", formData.version);
+    formDataToSend.append("version", formData.precio);
     formDataToSend.append("year", formData.year);
     formDataToSend.append("description", formData.description);
     formData.files.forEach((file) => formDataToSend.append("files", file));
@@ -83,7 +92,7 @@ const AddVehicle: React.FC = () => {
           color: "#fff",
           confirmButtonColor: "#B62E30",
         });
-        setFormData({ name: "", version: "", year: "", description: "", files: [] });
+        setFormData({ name: "", precio: "", year: "", description: "", files: [] });
         setPreviews([]);
       } else {
         throw new Error();
@@ -125,13 +134,13 @@ const AddVehicle: React.FC = () => {
             />
           </div>
           <div>
-            <label className={labelClass}>Versión</label>
+            <label className={labelClass}>Precio</label>
             <input
               type="text"
-              name="version"
-              value={formData.version}
+              name="precio"
+              value={formData.precio}
               onChange={handleChange}
-              placeholder="Ej: Highline 1.0 TSI"
+              placeholder="Ej: $15.000.000"
               className={inputClass}
               required
             />
@@ -198,15 +207,24 @@ const AddVehicle: React.FC = () => {
             </div>
           )}
           {!compressing && previews.length > 0 && (
-            <div className="flex gap-2 mt-3 flex-wrap">
+            <div className="flex gap-3 mt-3 flex-wrap">
               {previews.map((url, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={i}
-                  src={url}
-                  alt={`preview ${i + 1}`}
-                  className="w-16 h-16 object-cover rounded-lg border border-[#505050]"
-                />
+                <div key={i} className="relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={url}
+                    alt={`preview ${i + 1}`}
+                    className="w-16 h-16 object-cover rounded-lg border border-[#505050]"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveImage(i)}
+                    className="absolute -top-1.5 -right-1.5 bg-[#B62E30] hover:bg-red-700 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs leading-none shadow"
+                    aria-label="Eliminar imagen"
+                  >
+                    ✕
+                  </button>
+                </div>
               ))}
             </div>
           )}

@@ -63,6 +63,43 @@ export async function fetchDeleteId(_id: string): Promise<boolean> {
     }
 }
 
+// Función para editar un producto existente
+export interface IProductUpdate {
+  name: string;
+  version: string;
+  year: string;
+  description: string;
+}
+
+export async function fetchPatchProduct(
+  id: string,
+  fields: IProductUpdate,
+  token: string | null
+): Promise<boolean> {
+  if (!token) {
+    console.error("No se encontró el token");
+    return false;
+  }
+  try {
+    const res = await fetch(
+      `https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(fields),
+      }
+    );
+    if (!res.ok) throw new Error("No se pudo editar el producto");
+    return true;
+  } catch (error) {
+    console.error("Error al editar el producto:", error);
+    return false;
+  }
+}
+
 // Función para crear un nuevo producto
 export async function fetchPostProduct(newProduct: FormData, token: string | null): Promise<boolean> {
     if (!token) {

@@ -64,7 +64,7 @@ const VehDestacados = () => {
   }, []);
 
   return (
-    <section className="bg-[#0a0a0a] py-12 md:py-16">
+    <section className="bg-white py-12 md:py-16">
       {/* Encabezado */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -73,12 +73,12 @@ const VehDestacados = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="page-container mb-8 text-center"
       >
-        <h2 className="text-2xl md:text-3xl font-bold text-white">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
           Vehículos Destacados
         </h2>
         <div className="mt-2 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto" />
         {label && (
-          <p className="text-gray-400 text-sm mt-3">{label}</p>
+          <p className="text-gray-500 text-sm mt-3">{label}</p>
         )}
       </motion.div>
 
@@ -115,11 +115,11 @@ const VehDestacados = () => {
             {products.map((product, index) => (
               <SwiperSlide key={product._id}>
                 <Link href={`/views/details/${product._id}`} passHref>
-                  <div className="relative overflow-hidden rounded-xl bg-gray-900 shadow-lg group cursor-pointer">
-                    <div className="absolute top-4 -left-6 z-10 bg-[#B62E30] text-white text-xs font-semibold px-8 py-1 rotate-[-35deg] shadow-md">
-                      Destacado
-                    </div>
-                    <div className="relative w-full h-52 md:h-64">
+                  <div className="overflow-hidden rounded-xl bg-white border border-gray-200 shadow-md group cursor-pointer">
+                    <div className="relative w-full h-52 md:h-64 overflow-hidden">
+                      <div className="absolute top-4 -left-6 z-10 bg-[#B62E30] text-white text-xs font-semibold px-8 py-1 rotate-[-35deg] shadow-md">
+                        Destacado
+                      </div>
                       {product.images?.[0] ? (
                         <Image
                           src={product.images[0]}
@@ -130,17 +130,17 @@ const VehDestacados = () => {
                           priority={index === 0}
                         />
                       ) : (
-                        <div className="flex items-center justify-center h-full bg-[#111] text-gray-600">
+                        <div className="flex items-center justify-center h-full bg-gray-100 text-gray-400">
                           <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z" />
                           </svg>
                         </div>
                       )}
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                      <h3 className="text-base md:text-lg font-semibold text-white">{product.name}</h3>
-                      <p className="text-sm text-gray-300 mt-0.5">{product.version} · {product.year}</p>
-                      <p className="text-sm text-red-500 font-medium mt-1">Ver información →</p>
+                    <div className="p-4">
+                      <h3 className="text-base md:text-lg font-semibold text-gray-900">{product.name}</h3>
+                      <p className="text-sm text-gray-500 mt-0.5">{product.version} · {product.year}</p>
+                      <p className="text-sm text-red-600 font-medium mt-2">Ver información →</p>
                     </div>
                   </div>
                 </Link>

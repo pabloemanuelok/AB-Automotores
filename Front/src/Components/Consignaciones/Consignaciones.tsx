@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { trackEvent } from "@/utils/analytics";
 
 const infoBlocks = [
@@ -93,36 +92,7 @@ const Consignaciones = () => {
         </div>
       </section>
 
-      {/* Banner CTA */}
-      <section className="bg-[#1E1E1E] border-t border-[#505050] py-14">
-        <div className="page-container text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-2">
-              Vendé sin complicaciones
-            </p>
-            <h2 className="text-white text-2xl md:text-3xl font-bold mb-4">
-              ¿Listo para vender tu vehículo?
-            </h2>
-            <p className="text-gray-400 mb-8 max-w-md mx-auto">
-              Contactanos y te explicamos cómo funciona el proceso de consignación paso a paso.
-            </p>
-            <Link href="/views/contacto">
-              <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200"
-              >
-                Contactanos
-              </motion.button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+
     </div>
   );
 };

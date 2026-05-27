@@ -1,16 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import Swal from "sweetalert2";
 import fetchCars, { fetchDeleteId } from "@/utils/FetchCars/FetchCars";
 import { IProduct } from "@/Interfaces/Interface";
+import { UserContext } from "@/Context/contextUser";
+import EditVehicleModal from "./EditVehicleModal";
 
 const CatalogoAdmin: React.FC = () => {
+  const { token } = useContext(UserContext);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [editingProduct, setEditingProduct] = useState<IProduct | null>(null);
 
   useEffect(() => {
     loadProducts();
@@ -137,17 +141,37 @@ const CatalogoAdmin: React.FC = () => {
               <div className="p-3">
                 <p className="text-white text-sm font-semibold truncate">{product.name}</p>
                 <p className="text-gray-400 text-xs truncate">{product.version}</p>
-                <button
-                  onClick={() => handleDelete(product)}
-                  disabled={deleting === product._id}
-                  className="mt-3 w-full py-1.5 text-xs font-medium text-red-400 border border-red-900/40 rounded-lg hover:bg-red-900/20 transition-colors disabled:opacity-50"
-                >
-                  {deleting === product._id ? "Eliminando..." : "Eliminar"}
-                </button>
+                <div className="mt-3 grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setEditingProduct(product)}
+                    className="py-1.5 text-xs font-medium text-blue-300 border border-blue-900/40 rounded-lg hover:bg-blue-900/20 transition-colors"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => handleDelete(product)}
+                    disabled={deleting === product._id}
+                    className="py-1.5 text-xs font-medium text-red-400 border border-red-900/40 rounded-lg hover:bg-red-900/20 transition-colors disabled:opacity-50"
+                  >
+                    {deleting === product._id ? "Eliminando..." : "Eliminar"}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
+      )}
+
+      {editingProduct && (
+        <EditVehicleModal
+          product={editingProduct}
+          token={token}
+          onClose={() => setEditingProduct(null)}
+          onSaved={() => {
+            setEditingProduct(null);
+            loadProducts();
+          }}
+        />
       )}
     </div>
   );
