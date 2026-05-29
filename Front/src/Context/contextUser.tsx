@@ -2,7 +2,7 @@
 import { IUserContextType, ILogin, IUser } from "@/Interfaces/Interface";
 import { postLogin } from "@/utils/FetchUsers/FetchUsers";
 import { isTokenExpired } from "@/utils/Auth/Auth";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 
 export const UserContext = createContext<IUserContextType>({
   user: null,
@@ -42,13 +42,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.removeItem("token");
   };
 
-  const handleSessionExpired = () => {
+  const handleSessionExpired = useCallback(() => {
     setSessionExpired(true);
     setToken(null);
     setIsLogged(false);
     setUser(null);
     localStorage.removeItem("token");
-  };
+  }, []);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -60,7 +60,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         setToken(storedToken);
       }
     }
-  }, []);
+  }, [handleSessionExpired]);
 
   return (
     <UserContext.Provider

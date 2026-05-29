@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 interface FondoNavProps {
+  eyebrow?: string;
   title?: string;
   description?: string;
 }
