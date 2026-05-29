@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { fetchGetConsultas, fetchDeleteConsulta } from "@/utils/FetchCon/FetchCon";
 import { getAuthToken } from "@/utils/Auth/Auth";
 import { IConsulta } from "@/Interfaces/Interface";
@@ -25,11 +25,7 @@ const ConsultasClient: React.FC = () => {
   const [selectedInquiry, setSelectedInquiry] = useState<IConsulta | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchInquiries();
-  }, []);
-
-  const fetchInquiries = async () => {
+  const fetchInquiries = useCallback(async () => {
     setLoading(true);
     try {
       const token = getAuthToken();
@@ -45,7 +41,11 @@ const ConsultasClient: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [handleSessionExpired]);
+
+  useEffect(() => {
+    fetchInquiries();
+  }, [fetchInquiries]);
 
   const handleDelete = async (_id: string) => {
     const token = getAuthToken();

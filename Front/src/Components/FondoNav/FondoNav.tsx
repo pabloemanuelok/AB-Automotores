@@ -5,13 +5,11 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 interface FondoNavProps {
-  eyebrow?: string;
   title?: string;
   description?: string;
 }
 
 const FondoNav = ({
-  eyebrow = "AB Automotores",
   title = "Nuestro Catálogo",
   description = "Explorá nuestra selección de vehículos disponibles para venta inmediata.",
 }: FondoNavProps) => {
