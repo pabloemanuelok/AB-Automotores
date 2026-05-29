@@ -11,7 +11,7 @@ import mondeoDetalle from "@/Assets/MondeoFrenteDetalle.webp";
 const SobreNosotros: React.FC = () => {
   return (
     <section className="bg-[#0a0a0a] py-10 md:py-20">
-      <div className="page-container flex flex-col md:flex-row items-center gap-8 md:gap-12">
+      <div className="page-container flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
 
         {/* Grid 2x2 de fotos */}
         <motion.div
@@ -19,9 +19,9 @@ const SobreNosotros: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden grid grid-cols-2 gap-[6px] bg-[#0a0a0a]"
+          className="w-full md:w-1/2 shrink-0 rounded-xl overflow-hidden grid grid-cols-2 grid-rows-2 gap-[6px] bg-[#0a0a0a]"
         >
-          <div className="relative aspect-square overflow-hidden">
+          <div className="relative overflow-hidden">
             <Image
               src={frenteHilux}
               alt="Frente Hilux"
@@ -30,7 +30,7 @@ const SobreNosotros: React.FC = () => {
               sizes="(max-width: 768px) 50vw, 25vw"
             />
           </div>
-          <div className="relative aspect-square overflow-hidden">
+          <div className="relative overflow-hidden">
             <Image
               src={colaDeBmw}
               alt="Cola BMW"
@@ -39,7 +39,7 @@ const SobreNosotros: React.FC = () => {
               sizes="(max-width: 768px) 50vw, 25vw"
             />
           </div>
-          <div className="relative aspect-square overflow-hidden">
+          <div className="relative overflow-hidden">
             <Image
               src={nivusFrente}
               alt="Frente Nivus"
@@ -48,7 +48,7 @@ const SobreNosotros: React.FC = () => {
               sizes="(max-width: 768px) 50vw, 25vw"
             />
           </div>
-          <div className="relative aspect-square overflow-hidden">
+          <div className="relative overflow-hidden">
             <Image
               src={mondeoDetalle}
               alt="Detalle Mondeo"
@@ -65,7 +65,7 @@ const SobreNosotros: React.FC = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="w-full md:flex-1 flex flex-col text-center md:text-left md:pl-4 lg:pl-8"
+          className="w-full md:w-1/2 flex flex-col text-center md:text-left md:pl-4 lg:pl-8"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-white">
             Sobre Nosotros
