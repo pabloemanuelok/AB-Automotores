@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { trackEvent } from "@/utils/analytics";
 
-const infoBlocks: { title: string; text: string; pills?: string[] }[] = [
+const infoBlocks: { title: string; text: string }[] = [
   {
     title: "Si no llegás con el efectivo, ¡podés financiarlo!",
     text: "Trabajamos con las mejores líneas de créditos, prendarios y personales, con demostración de ingresos o solo con DNI. Todos nuestros créditos son con entrega inmediata.",
@@ -19,93 +19,77 @@ const infoBlocks: { title: string; text: string; pills?: string[] }[] = [
   },
 ];
 
-const vehicles = [
-  { src: "/source/TCrossCostado.webp", alt: "Volkswagen T-Cross", delay: 0 },
-  { src: "/source/TiguanCostado.webp", alt: "Volkswagen Tiguan", delay: 0.15 },
-  { src: "/source/NivusCostado.webp", alt: "Volkswagen Nivus", delay: 0.3 },
-];
-
 const Financiacion = () => {
   useEffect(() => { trackEvent("financiacion"); }, []);
 
   return (
     <div className="bg-[#0a0a0a]">
-      {/* Sección principal */}
-      <section className="py-16">
-        <div className="page-container">
-          <div className="lg:flex items-center gap-12">
+      <section className="py-10 md:py-20">
+        <div className="page-container flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
 
-            {/* Columna de vehículos */}
-            <div className="hidden md:block lg:w-[22%] flex-shrink-0">
-              <div className="space-y-[-30px]">
-                {vehicles.map((vehicle) => (
-                  <motion.img
-                    key={vehicle.src}
-                    src={vehicle.src}
-                    alt={vehicle.alt}
-                    className="w-full h-auto object-contain drop-shadow-[0_4px_20px_rgba(182,46,48,0.3)]"
-                    initial={{ x: -220, filter: "blur(8px)", opacity: 0, scaleX: -1 }}
-                    whileInView={{ x: 0, filter: "blur(0px)", opacity: 1, scaleX: -1 }}
-                    viewport={{ once: true }}
-                    transition={{ type: "spring", stiffness: 40, delay: vehicle.delay }}
-                    loading="lazy"
-                  />
-                ))}
-              </div>
+          {/* Placeholder de video */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a] min-h-[220px] flex flex-col items-center justify-center gap-3"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-[#505050]"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polygon points="10 8 16 12 10 16 10 8" />
+            </svg>
+            <p className="text-[#505050] text-sm">Video próximamente</p>
+          </motion.div>
+
+          {/* Texto */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="w-full md:flex-1 flex flex-col text-center md:text-left"
+          >
+            <p className="text-[#B62E30] font-semibold text-sm md:text-base tracking-widest uppercase">
+              Opciones flexibles
+            </p>
+            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-white">
+              Financiá tu próximo auto
+            </h2>
+            <div className="mt-2 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto md:mx-0" />
+
+            <div className="mt-6 flex flex-col gap-6">
+              {infoBlocks.map((block, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
+                >
+                  <h3 className="text-white font-bold text-lg md:text-xl mb-1">{block.title}</h3>
+                  <p className="text-white/70 text-sm md:text-base leading-relaxed">{block.text}</p>
+                </motion.div>
+              ))}
             </div>
+          </motion.div>
 
-            {/* Columna de texto — entra desde la izquierda como si la trajeran los autos */}
-            <div className="flex-1">
-              <motion.div
-                initial={{ opacity: 0, x: -80 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-              >
-                <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-2">
-                  Opciones flexibles
-                </p>
-                <h2 className="text-white text-3xl md:text-4xl font-bold">
-                  Financiá tu próximo auto
-                </h2>
-                <div className="w-12 h-[3px] bg-[#B62E30] rounded-full mt-3 mb-8" />
-              </motion.div>
-
-              <div className="flex flex-col gap-6">
-                {infoBlocks.map((block, index) => (
-                  <motion.div
-                    key={index}
-                    className="border-l-2 border-[#B62E30] pl-5"
-                    initial={{ opacity: 0, x: -60 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.35 + index * 0.12 }}
-                  >
-                    <h3 className="text-white font-bold text-xl mb-1">{block.title}</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">{block.text}</p>
-                    {block.pills && (
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        {block.pills.map((pill) => (
-                          <span
-                            key={pill}
-                            className="px-3 py-1 text-xs border border-[#505050] text-gray-300 rounded-full"
-                          >
-                            {pill}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-          </div>
         </div>
       </section>
 
       {/* Banner CTA */}
-      <section className="bg-[#1E1E1E] border-t border-[#505050] py-14">
+      <section className="bg-[#1E1E1E] border-t border-[#2a2a2a] py-14">
         <div className="page-container text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -119,7 +103,7 @@ const Financiacion = () => {
             <h2 className="text-white text-2xl md:text-3xl font-bold mb-4">
               ¿Querés conocer tu crédito disponible?
             </h2>
-            <p className="text-gray-400 max-w-md mx-auto">
+            <p className="text-white/60 max-w-md mx-auto text-sm md:text-base">
               Contactanos y te asesoramos para encontrar la mejor opción de financiamiento para vos.
             </p>
           </motion.div>

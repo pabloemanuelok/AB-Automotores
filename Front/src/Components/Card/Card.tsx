@@ -62,7 +62,7 @@ const Card = ({
               whileTap={{ scale: 0.97 }}
               className="w-full px-4 py-2 bg-[#B62E30] hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors duration-200"
             >
-              Ver detalles
+              Ver información
             </motion.button>
           </Link>
 

@@ -7,8 +7,10 @@ import { fetchDeleteId } from "@/utils/FetchCars/FetchCars";
 
 const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsList, setProductsList] = useState<IProduct[]>(products);
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [productsList, setProductsList] = useState<IProduct[]>(
+    [...products].sort((a, b) => b.year - a.year)
+  );
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const productsPerPage = 8;
 
   const cardsContainerRef = useRef<HTMLDivElement>(null);
@@ -68,10 +70,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
       <div className="page-container">
 
         {/* Barra de controles */}
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-sm text-gray-400">
-            <span className="text-white font-semibold">{productsList.length}</span> vehículos disponibles
-          </p>
+        <div className="flex items-center justify-end mb-6">
           <motion.button
             onClick={toggleSortOrder}
             whileHover={{ scale: 1.04 }}

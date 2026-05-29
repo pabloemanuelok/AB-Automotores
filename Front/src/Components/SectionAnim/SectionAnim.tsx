@@ -11,45 +11,45 @@ import "swiper/css";
 
 const reviews = [
   {
-    name: "Martín González",
-    text: "Excelente atención desde el primer momento. Me asesoraron muy bien para elegir mi auto y el proceso fue rápido y transparente. Muy recomendable.",
-    date: "Hace 2 semanas",
+    name: "Carlos Molina",
+    text: "Muy buena atención, empresa familiar, eficientes, amables y serios. La atención pos venta también es excelente, te solucionan todo. El tema papeles es rápido y eficiente. Muy recomendables. ¡Gracias Fabri y Claudia!",
+    date: "Hace 6 meses",
     avatar: null,
   },
   {
-    name: "Laura Pérez",
-    text: "Compré mi primer auto con ellos y quedé muy contenta. El equipo es muy profesional y se nota la experiencia de años en el rubro. ¡Gracias!",
-    date: "Hace 1 mes",
+    name: "Lucas Bustos",
+    text: "Excelente atención. El vehículo en muy buen estado, siempre fueron sinceros y sin vueltas. En menos de una semana me hicieron todos los trámites y me entregaron el vehículo. Seriedad al 100%. Los recomiendo sin dudas.",
+    date: "Hace un año",
     avatar: null,
   },
   {
-    name: "Carlos Romero",
-    text: "Me ayudaron con la financiación sin problemas. Tienen mucha variedad de vehículos y los precios son acordes al mercado. Volvería a comprar acá.",
-    date: "Hace 3 semanas",
+    name: "Jorge Barra",
+    text: "Desde que llegamos hasta que nos llevamos el vehículo, Fabrizio nos atendió de forma impecable. Siempre asesorados y todo tal como lo pactamos. El vehículo muy bien, como se veía. Muy confiable.",
+    date: "Hace 9 meses",
     avatar: null,
   },
   {
-    name: "Sofía Herrera",
-    text: "El trato fue excelente. Sentí confianza desde el inicio, explicaron todo muy bien y el auto estaba en perfectas condiciones. 100% recomendado.",
-    date: "Hace 2 meses",
+    name: "Gustavo Cayata",
+    text: "Excelente trato, muy buena predisposición. Genera mucha confianza. Muy satisfecho con la compra.",
+    date: "Hace un año",
     avatar: null,
   },
   {
-    name: "Diego Fernández",
-    text: "Muy buena experiencia. Consulté varias concesionarias y esta fue la que mejor atención me brindó. El trámite fue sencillo y sin sorpresas.",
-    date: "Hace 1 mes",
+    name: "Daniel Quintana",
+    text: "Excelente atención y servicio. Mucha calidez humana. Muy recomendable.",
+    date: "Hace un año",
     avatar: null,
   },
   {
-    name: "Ana Castillo",
-    text: "Consigné mi vehículo con ellos y fue todo muy profesional. Rápidos, honestos y con mucha experiencia. Sin dudas los volvería a elegir.",
-    date: "Hace 3 meses",
+    name: "Fabian Soria",
+    text: "Nunca me animaba a comprar en Córdoba capital, pero en AB Automotores fue todo lo contrario. La atención como si me conocieran de años. Tuve un problema mecánico y ellos se hicieron cargo. Excelente atención personalizada, de confianza y de palabra. ¡Gracias Fabricio!",
+    date: "Hace un año",
     avatar: null,
   },
   {
-    name: "Roberto Sosa",
-    text: "Vendí mi camioneta a través de ellos y el proceso fue transparente y rápido. Buenos precios y gente muy honesta. Los recomiendo sin dudar.",
-    date: "Hace 2 semanas",
+    name: "Diego Posada",
+    text: "Mi experiencia fue excelente. Desde el primer momento sentí honestidad y confianza. La atención fue impecable, siempre con buena onda y dispuestos a responder todas mis preguntas. El proceso fue claro y transparente. Recomiendo totalmente AB Automotores.",
+    date: "Hace un año",
     avatar: null,
   },
 ];
@@ -99,35 +99,67 @@ const HomeCounter: React.FC = React.memo(() => {
       id="home-counter"
       className="relative bg-[#B62E30] py-12 md:py-16 overflow-hidden"
     >
-      <div className="page-container relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-        {/* Contador */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isVisible ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative flex flex-col items-center md:items-start shrink-0"
-        >
-          <span className="relative text-7xl md:text-9xl font-extrabold text-white tracking-tight leading-none">
-            +<span className="text-yellow-400">{count}</span>
-          </span>
-          <motion.p
-            initial={{ opacity: 0, x: -30 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-2 text-xl md:text-2xl font-semibold text-white/90 tracking-wide"
+      <div className="page-container relative z-10 flex flex-col md:flex-row items-stretch gap-8">
+        {/* Columna izquierda: stats */}
+        <div className="flex flex-col items-center md:items-start md:justify-between gap-6 shrink-0">
+          {/* Contador */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isVisible ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="relative flex flex-col items-center md:items-start"
           >
-            años de trayectoria
-          </motion.p>
-        </motion.div>
+            <span className="relative text-7xl md:text-9xl font-extrabold text-yellow-400 tracking-tight leading-none">
+              +<span className="text-yellow-400">{count}</span>
+            </span>
+            <motion.p
+              initial={{ opacity: 0, x: -30 }}
+              animate={isVisible ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mt-2 text-xl md:text-2xl font-semibold text-white/90 tracking-wide"
+            >
+              años de trayectoria
+            </motion.p>
+          </motion.div>
 
-        {/* Carrusel de reseñas */}
+          {/* Clientes + Google */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col items-center md:items-start gap-4"
+          >
+            <p className="text-white/80 text-lg md:text-xl font-medium whitespace-nowrap">
+              + 5,000 clientes satisfechos
+            </p>
+            <div className="flex items-center gap-2">
+              <span className="text-yellow-300 text-xl tracking-widest">★★★★★</span>
+              <Link
+                href="https://www.google.com/maps/place/AB+Automotores/@-31.4346103,-64.1320892,15z/data=!4m8!3m7!1s0x9432bd24e9ecd915:0xa32ee5da0ccf6d8f!8m2!3d-31.4346103!4d-64.1320892!9m1!1b1!16s%2Fg%2F11bw4rvkx6?entry=ttu&g_ep=EgoyMDI0MTExMi4wIKXMDSoJLDEwMjExMjMzSAFQAw%3D%3D"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/source/GoogleReview.webp"
+                  alt="Google Reviews"
+                  width={80}
+                  height={45}
+                  className="hover:scale-110 transition-transform duration-200"
+                  priority
+                />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Columna derecha: carrusel de reseñas */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="flex-1 min-w-0 w-full"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 h-[280px]">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
               className="shrink-0 w-8 h-8 rounded-full border border-white/60 text-white text-xl flex items-center justify-center hover:bg-white/20 transition-colors"
@@ -135,8 +167,9 @@ const HomeCounter: React.FC = React.memo(() => {
             >
               ‹
             </button>
-            <div className="flex-1 min-w-0 overflow-hidden [&_.swiper-wrapper]:!items-stretch">
+            <div className="flex-1 min-w-0 overflow-hidden h-full [&_.swiper-wrapper]:!items-stretch">
               <Swiper
+                className="h-full"
                 onSwiper={(s) => { swiperRef.current = s; }}
                 modules={[Autoplay]}
                 slidesPerView={1}
@@ -150,7 +183,7 @@ const HomeCounter: React.FC = React.memo(() => {
                 autoplay={{ delay: 4000, disableOnInteraction: false }}
               >
                 {reviews.map((review, i) => (
-                  <SwiperSlide key={i} className="!h-auto">
+                  <SwiperSlide key={i}>
                     <div className="border border-white/60 rounded-xl shadow-md hover:shadow-white/20 hover:shadow-lg hover:brightness-110 transition-all duration-200 p-5 flex flex-col gap-3 h-full">
                       <div className="flex items-center gap-2">
                         <div className="w-9 h-9 rounded-full bg-white/20 border border-white/40 flex items-center justify-center shrink-0 overflow-hidden">
@@ -173,11 +206,11 @@ const HomeCounter: React.FC = React.memo(() => {
                             </svg>
                           )}
                         </div>
-                        <span className="text-white font-semibold text-xs leading-tight line-clamp-1">{review.name}</span>
+                        <span className="text-white font-semibold text-sm leading-tight line-clamp-1">{review.name}</span>
                       </div>
-                      <div className="text-yellow-300 text-xs tracking-widest">★★★★★</div>
-                      <p className="text-white/90 text-xs leading-relaxed flex-1">{review.text}</p>
-                      <p className="text-white/50 text-[10px]">{review.date}</p>
+                      <div className="text-yellow-300 text-sm tracking-widest">★★★★★</div>
+                      <p className="text-white/90 text-sm leading-relaxed flex-1">{review.text}</p>
+                      <p className="text-white/50 text-xs">{review.date}</p>
                     </div>
                   </SwiperSlide>
                 ))}
@@ -190,35 +223,6 @@ const HomeCounter: React.FC = React.memo(() => {
             >
               ›
             </button>
-          </div>
-        </motion.div>
-
-        {/* Info lateral */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col items-center md:items-end gap-4 shrink-0"
-        >
-          <p className="text-white/80 text-lg md:text-xl font-medium whitespace-nowrap">
-            + 5,000 clientes satisfechos
-          </p>
-          <div className="flex items-center gap-2">
-            <span className="text-yellow-300 text-xl tracking-widest">★★★★★</span>
-            <Link
-              href="https://www.google.com/maps/place/AB+Automotores/@-31.4346103,-64.1320892,15z/data=!4m8!3m7!1s0x9432bd24e9ecd915:0xa32ee5da0ccf6d8f!8m2!3d-31.4346103!4d-64.1320892!9m1!1b1!16s%2Fg%2F11bw4rvkx6?entry=ttu&g_ep=EgoyMDI0MTExMi4wIKXMDSoJLDEwMjExMjMzSAFQAw%3D%3D"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/source/GoogleReview.webp"
-                alt="Google Reviews"
-                width={80}
-                height={45}
-                className="hover:scale-110 transition-transform duration-200"
-                priority
-              />
-            </Link>
           </div>
         </motion.div>
       </div>

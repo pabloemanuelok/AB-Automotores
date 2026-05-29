@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { trackEvent } from "@/utils/analytics";
 
@@ -19,80 +20,65 @@ const infoBlocks = [
   },
 ];
 
-const vehicles = [
-  { src: "/source/VentoCostado.webp", alt: "Volkswagen Vento", delay: 0, scaleX: 1 },
-  { src: "/source/MustangCostado.webp", alt: "Ford Mustang", delay: 0.15, scaleX: -1 },
-  { src: "/source/ToroCostado.webp", alt: "Fiat Toro", delay: 0.3, scaleX: -1 },
-];
-
 const Consignaciones = () => {
   useEffect(() => { trackEvent("consignaciones"); }, []);
 
   return (
     <div className="bg-[#0a0a0a]">
-      {/* Sección principal */}
-      <section className="py-16">
-        <div className="page-container">
-          <div className="lg:flex items-center gap-12">
+      <section className="py-10 md:py-20">
+        <div className="page-container flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
 
-            {/* Columna de vehículos */}
-            <div className="hidden md:block lg:w-[22%] flex-shrink-0">
-              <div className="space-y-[-30px]">
-                {vehicles.map((vehicle) => (
-                  <motion.img
-                    key={vehicle.src}
-                    src={vehicle.src}
-                    alt={vehicle.alt}
-                    className="w-full h-auto object-contain drop-shadow-[0_4px_20px_rgba(182,46,48,0.3)]"
-                    initial={{ x: -220, filter: "blur(8px)", opacity: 0, scaleX: vehicle.scaleX }}
-                    whileInView={{ x: 0, filter: "blur(0px)", opacity: 1, scaleX: vehicle.scaleX }}
-                    viewport={{ once: true }}
-                    transition={{ type: "spring", stiffness: 40, delay: vehicle.delay }}
-                    loading="lazy"
-                  />
-                ))}
-              </div>
+          {/* Foto */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="relative w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden min-h-[280px]"
+          >
+            <Image
+              src="/source/SaveiroDiag.webp"
+              alt="Saveiro diagonal"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          </motion.div>
+
+          {/* Texto */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="w-full md:flex-1 flex flex-col text-center md:text-left"
+          >
+            <p className="text-[#B62E30] font-semibold text-sm md:text-base tracking-widest uppercase">
+              Sin complicaciones
+            </p>
+            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-white">
+              Vendé tu vehículo con nosotros
+            </h2>
+            <div className="mt-2 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto md:mx-0" />
+
+            <div className="mt-6 flex flex-col gap-6">
+              {infoBlocks.map((block, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
+                >
+                  <h3 className="text-white font-bold text-lg md:text-xl mb-1">{block.title}</h3>
+                  <p className="text-white/70 text-sm md:text-base leading-relaxed">{block.text}</p>
+                </motion.div>
+              ))}
             </div>
+          </motion.div>
 
-            {/* Columna de texto */}
-            <div className="flex-1">
-              <motion.div
-                initial={{ opacity: 0, x: -80 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-              >
-                <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-2">
-                  Sin complicaciones
-                </p>
-                <h2 className="text-white text-3xl md:text-4xl font-bold">
-                  Vendé tu vehículo con nosotros
-                </h2>
-                <div className="w-12 h-[3px] bg-[#B62E30] rounded-full mt-3 mb-8" />
-              </motion.div>
-
-              <div className="flex flex-col gap-6">
-                {infoBlocks.map((block, index) => (
-                  <motion.div
-                    key={index}
-                    className="border-l-2 border-[#B62E30] pl-5"
-                    initial={{ opacity: 0, x: -60 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.35 + index * 0.12 }}
-                  >
-                    <h3 className="text-white font-bold text-xl mb-1">{block.title}</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">{block.text}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-          </div>
         </div>
       </section>
-
-
     </div>
   );
 };

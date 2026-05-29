@@ -4,28 +4,59 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import frenteHilux from "@/Assets/frenteHilux.jpeg";
+import colaDeBmw from "@/Assets/colaDeBmw.jpeg";
+import nivusFrente from "@/Assets/NivusFrente.webp";
+import mondeoDetalle from "@/Assets/MondeoFrenteDetalle.webp";
 
 const SobreNosotros: React.FC = () => {
   return (
     <section className="bg-[#0a0a0a] py-10 md:py-20">
-      <div className="page-container flex flex-col md:flex-row items-start gap-8 md:gap-12">
+      <div className="page-container flex flex-col md:flex-row items-center gap-8 md:gap-12">
 
-        {/* Foto grande */}
+        {/* Grid 2x2 de fotos */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative w-full md:w-2/5 lg:w-1/3 shrink-0 aspect-square rounded-xl overflow-hidden"
+          className="w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden grid grid-cols-2 gap-[6px] bg-[#0a0a0a]"
         >
-          <Image
-            src={frenteHilux}
-            alt="Frente Hilux"
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 40vw"
-          />
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="relative aspect-square overflow-hidden">
+            <Image
+              src={frenteHilux}
+              alt="Frente Hilux"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+          </div>
+          <div className="relative aspect-square overflow-hidden">
+            <Image
+              src={colaDeBmw}
+              alt="Cola BMW"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+          </div>
+          <div className="relative aspect-square overflow-hidden">
+            <Image
+              src={nivusFrente}
+              alt="Frente Nivus"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+          </div>
+          <div className="relative aspect-square overflow-hidden">
+            <Image
+              src={mondeoDetalle}
+              alt="Detalle Mondeo"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+          </div>
         </motion.div>
 
         {/* Texto descriptivo */}
