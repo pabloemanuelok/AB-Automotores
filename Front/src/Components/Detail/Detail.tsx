@@ -4,11 +4,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IDetailsProps } from "@/Interfaces/Interface";
-import { FaChevronLeft, FaChevronRight, FaWhatsapp } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaWhatsapp, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 
-// Variantes para el slide direccional de imágenes
 const slideVariants = {
   enter: (dir: "left" | "right") => ({
     x: dir === "right" ? 80 : -80,
@@ -27,12 +26,15 @@ const slideVariants = {
 const Detail: React.FC<IDetailsProps> = ({ product }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxZoomed, setLightboxZoomed] = useState(false);
 
   const handleNextImage = useCallback(() => {
     setDirection("right");
     setCurrentImageIndex((prev) =>
       prev === product.images.length - 1 ? 0 : prev + 1
     );
+    setLightboxZoomed(false);
   }, [product.images.length]);
 
   const handlePrevImage = useCallback(() => {
@@ -40,6 +42,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
     setCurrentImageIndex((prev) =>
       prev === 0 ? product.images.length - 1 : prev - 1
     );
+    setLightboxZoomed(false);
   }, [product.images.length]);
 
   const handleThumbnailClick = (i: number) => {
@@ -47,13 +50,50 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
     setCurrentImageIndex(i);
   };
 
-  // Swipe táctil con react-swipeable
+  const openLightbox = () => {
+    if (product.images.length === 0) return;
+    setLightboxZoomed(false);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    setLightboxZoomed(false);
+  };
+
+  // Escape key
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxOpen]);
+
+  // Block body scroll when lightbox is open
+  useEffect(() => {
+    document.body.style.overflow = lightboxOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [lightboxOpen]);
+
+  // Swipe táctil con react-swipeable (carrusel principal)
   const swipeHandlers = useSwipeable({
     onSwipedLeft: handleNextImage,
     onSwipedRight: handlePrevImage,
     preventScrollOnSwipe: true,
     trackMouse: false,
     delta: 50,
+    swipeDuration: 500,
+  });
+
+  // Swipe en el lightbox (solo cuando no está zoomeado)
+  const lightboxSwipeHandlers = useSwipeable({
+    onSwipedLeft: handleNextImage,
+    onSwipedRight: handlePrevImage,
+    preventScrollOnSwipe: !lightboxZoomed,
+    trackMouse: false,
+    delta: 60,
     swipeDuration: 500,
   });
 
@@ -96,7 +136,8 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
           {/* Imagen principal */}
           <div
             {...swipeHandlers}
-            className="relative w-full h-[280px] sm:h-[380px] md:h-[500px] lg:h-[620px] xl:h-[680px] bg-[#111111] overflow-hidden cursor-grab active:cursor-grabbing select-none"
+            onClick={openLightbox}
+            className="relative w-full h-[280px] sm:h-[380px] md:h-[500px] lg:h-[620px] xl:h-[680px] bg-[#111111] overflow-hidden cursor-zoom-in select-none"
           >
             {product.images.length > 0 ? (
               <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -127,21 +168,21 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
               </div>
             )}
 
-            {/* Degradado inferior para contraste de controles */}
+            {/* Degradado inferior */}
             <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
 
             {/* Controles de navegación */}
             {product.images.length > 1 && (
               <>
                 <button
-                  onClick={handlePrevImage}
+                  onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
                   aria-label="Imagen anterior"
                   className="absolute top-1/2 left-4 -translate-y-1/2 w-11 h-11 rounded-full bg-black/40 hover:bg-[#B62E30] border border-white/20 hover:border-[#B62E30] text-white flex items-center justify-center transition-all duration-200 shadow-lg z-10 backdrop-blur-sm"
                 >
                   <FaChevronLeft size={14} />
                 </button>
                 <button
-                  onClick={handleNextImage}
+                  onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
                   aria-label="Siguiente imagen"
                   className="absolute top-1/2 right-4 -translate-y-1/2 w-11 h-11 rounded-full bg-black/40 hover:bg-[#B62E30] border border-white/20 hover:border-[#B62E30] text-white flex items-center justify-center transition-all duration-200 shadow-lg z-10 backdrop-blur-sm"
                 >
@@ -159,7 +200,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                     {product.images.map((_, i) => (
                       <button
                         key={i}
-                        onClick={() => handleThumbnailClick(i)}
+                        onClick={(e) => { e.stopPropagation(); handleThumbnailClick(i); }}
                         aria-label={`Ir a imagen ${i + 1}`}
                         className={`h-1.5 rounded-full transition-all duration-200 ${
                           i === currentImageIndex
@@ -272,6 +313,96 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
         </motion.div>
 
       </div>
+
+      {/* ── Lightbox ── */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            onClick={closeLightbox}
+          >
+            {/* Botón cerrar */}
+            <button
+              onClick={closeLightbox}
+              aria-label="Cerrar"
+              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-[#B62E30] border border-white/20 hover:border-[#B62E30] text-white flex items-center justify-center transition-all duration-200 backdrop-blur-sm"
+            >
+              <FaTimes size={16} />
+            </button>
+
+            {/* Contador */}
+            {product.images.length > 1 && (
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-sm tracking-wide pointer-events-none">
+                {currentImageIndex + 1} / {product.images.length}
+              </div>
+            )}
+
+            {/* Contenedor de imagen con soporte de zoom */}
+            <div
+              {...(lightboxZoomed ? {} : lightboxSwipeHandlers)}
+              className={`relative w-full h-full overflow-auto flex items-center justify-center ${
+                lightboxZoomed ? "cursor-zoom-out" : "cursor-zoom-in"
+              }`}
+              style={{ touchAction: lightboxZoomed ? "pan-x pan-y pinch-zoom" : "pan-y" }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxZoomed((z) => !z);
+              }}
+            >
+              <motion.div
+                animate={{ scale: lightboxZoomed ? 2.5 : 1 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                style={{
+                  position: "relative",
+                  width: "100vw",
+                  height: "100vh",
+                  transformOrigin: "center center",
+                  flexShrink: 0,
+                }}
+              >
+                <Image
+                  src={product.images[currentImageIndex]}
+                  alt={`Imagen ${currentImageIndex + 1} de ${product.name}`}
+                  fill
+                  className="object-contain"
+                  quality={95}
+                  sizes="100vw"
+                  priority
+                />
+              </motion.div>
+            </div>
+
+            {/* Flechas en lightbox */}
+            {product.images.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
+                  aria-label="Imagen anterior"
+                  className="absolute top-1/2 left-4 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-[#B62E30] border border-white/20 hover:border-[#B62E30] text-white flex items-center justify-center transition-all duration-200 shadow-lg z-20 backdrop-blur-sm"
+                >
+                  <FaChevronLeft size={14} />
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
+                  aria-label="Siguiente imagen"
+                  className="absolute top-1/2 right-4 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-[#B62E30] border border-white/20 hover:border-[#B62E30] text-white flex items-center justify-center transition-all duration-200 shadow-lg z-20 backdrop-blur-sm"
+                >
+                  <FaChevronRight size={14} />
+                </button>
+              </>
+            )}
+
+            {/* Hint de zoom */}
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 text-white/40 text-xs pointer-events-none select-none">
+              {lightboxZoomed ? "Toca para alejar" : "Toca para hacer zoom"}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
