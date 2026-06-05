@@ -15,7 +15,7 @@ const FondoNav = ({
   description = "Explorá nuestra selección de vehículos disponibles para venta inmediata.",
 }: FondoNavProps) => {
   return (
-    <div className="relative h-[330px] overflow-hidden">
+    <div className="relative h-[200px] sm:h-[260px] md:h-[330px] overflow-hidden">
       <Image
         src={FondoImage}
         alt="Imagen de fondo del tablero Cronos con detalles de cronómetros y velocidad"
@@ -35,11 +35,11 @@ const FondoNav = ({
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-center page-container"
         >
-          <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold">
+          <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
             {title}
           </h1>
           <div className="mt-3 mx-auto w-12 h-[3px] bg-[#B62E30] rounded-full" />
-          <p className="mt-4 text-white/70 text-sm md:text-base max-w-md mx-auto">
+          <p className="mt-4 text-white/70 text-sm md:text-base max-w-md mx-auto font-bold">
             {description}
           </p>
         </motion.div>

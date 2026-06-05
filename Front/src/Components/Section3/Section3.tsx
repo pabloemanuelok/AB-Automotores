@@ -2,62 +2,67 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  FaCar,
-  FaMoneyBillWave,
-  FaClipboardList,
-  FaKey,
-  FaExchangeAlt,
-  FaHandshake,
-} from "react-icons/fa";
 
 const services = [
   {
-    icon: FaCar,
-    label: "Vehículos Seleccionados",
-    description:
-      "Contamos con un stock cuidadosamente seleccionado de vehículos en excelente estado. Cada auto pasa por un control de calidad antes de estar disponible para la venta.",
+    title: "Compraventa",
+    description: "Compramos y vendemos vehículos usados y 0km seleccionados, con total transparencia.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0-4-4m4 4-4 4m0 6H4m0 0 4 4m-4-4 4-4" />
+      </svg>
+    ),
   },
   {
-    icon: FaMoneyBillWave,
-    label: "Financiación",
-    description:
-      "Te ofrecemos las mejores líneas de crédito con entidades bancarias líderes. Financiamos hasta el 100% del vehículo, con o sin demostración de ingresos.",
+    title: "Financiación",
+    description: "Planes de financiación accesibles y personalizados para que llegues a tu próximo auto.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75" />
+      </svg>
+    ),
   },
   {
-    icon: FaClipboardList,
-    label: "Gestoría",
-    description:
-      "Nos ocupamos de todos los trámites de transferencia y documentación para que vos solo te preocupes de disfrutar tu nuevo auto.",
+    title: "Permutas",
+    description: "Permutamos tu vehículo actual por otro de nuestro stock, con valuación justa y rápida.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+      </svg>
+    ),
   },
   {
-    icon: FaKey,
-    label: "Entrega Inmediata",
-    description:
-      "Retirás tu vehículo el mismo día que cerrás el trato. Garantizamos una entrega ágil, sin demoras ni burocracia innecesaria.",
+    title: "Consignaciones",
+    description: "Vendemos tu auto por vos, atendemos compradores y gestionamos todo el proceso.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
+      </svg>
+    ),
   },
   {
-    icon: FaExchangeAlt,
-    label: "Permutas",
-    description:
-      "Permutamos tu vehículo actual por el que más te guste de nuestro stock. Valuamos tu auto de forma justa y transparente.",
+    title: "Gestoría",
+    description: "Tramitamos toda la documentación: transferencias, patentes, habilitaciones y más.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+      </svg>
+    ),
   },
   {
-    icon: FaHandshake,
-    label: "Consignaciones",
-    description:
-      "Si querés vender tu auto, lo recibimos en consignación y nos encargamos de publicarlo y encontrar comprador. Cobrás en el acto una vez cerrada la operación.",
+    title: "Entrega inmediata",
+    description: "Vehículos disponibles en stock para retirar en el momento, sin esperas ni trámites extra.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+      </svg>
+    ),
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
 const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const Section3: React.FC = () => {
@@ -78,44 +83,37 @@ const Section3: React.FC = () => {
             Nuestros Servicios
           </h2>
           <div className="mt-2 mx-auto w-12 h-[3px] bg-[#B62E30] rounded-full" />
-          <p className="mt-4 text-gray-500 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-            Más de 23 años acompañando a cada cliente desde la búsqueda del vehículo
-            ideal hasta el último trámite, con honestidad y compromiso en cada paso.
-          </p>
         </motion.div>
 
         <motion.div
-          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
+          transition={{ staggerChildren: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
         >
-          {services.map(({ icon: Icon, label, description }, index) => (
+          {services.map((service) => (
             <motion.div
-              key={index}
+              key={service.title}
               variants={cardVariants}
-              className="relative rounded-xl bg-white border border-gray-200 hover:border-[#B62E30] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_30px_rgba(182,46,48,0.15)] group cursor-default"
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="flex flex-col gap-3 p-6 md:p-8 border border-gray-100 rounded-xl shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200"
             >
-              <div className="h-[3px] w-full overflow-hidden">
-                <div className="h-full w-full bg-[#B62E30] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-              </div>
-              <div className="p-6 flex flex-col gap-4">
-                <div className="flex items-center justify-center w-14 h-14 rounded-full bg-[#B62E30]/10 text-[#B62E30] group-hover:bg-[#B62E30] group-hover:text-white transition-all duration-300 shrink-0">
-                  <Icon className="w-6 h-6" />
+              <div className="flex items-center gap-3">
+                <div className="w-[52px] h-[52px] flex items-center justify-center rounded-lg bg-red-50 text-[#B62E30] shrink-0">
+                  {service.icon}
                 </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-gray-900 group-hover:text-[#B62E30] font-bold text-base md:text-lg leading-snug transition-colors duration-300">
-                    {label}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    {description}
-                  </p>
-                </div>
+                <h3 className="font-semibold text-gray-900 text-base md:text-lg leading-tight">
+                  {service.title}
+                </h3>
               </div>
+              <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
+                {service.description}
+              </p>
             </motion.div>
           ))}
         </motion.div>
+
       </div>
     </section>
   );

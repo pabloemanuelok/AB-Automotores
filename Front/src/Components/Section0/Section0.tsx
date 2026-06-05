@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const Section0: React.FC = () => {
   return (
-    <section className="relative h-[600px] md:h-[780px] overflow-hidden">
+    <section className="relative h-[600px] md:h-[720px] overflow-hidden">
       <video
         className="absolute inset-0 w-full h-full object-cover"
         src="https://video.wixstatic.com/video/0816f9_e63ef511f08e4e98a63c5234ec756ebb/720p/mp4/file.mp4"
@@ -35,25 +35,22 @@ const Section0: React.FC = () => {
           >
             {/* Título y descripción */}
             <div className="flex flex-col gap-3 max-w-xl">
-              <p className="text-white text-sm font-semibold tracking-widest uppercase">
-                Agencia Automotriz
+              <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-sm font-bold">
+                Usados y 0KM
               </p>
               <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
                 Bienvenido a<br />
-                <span className="text-red-500">Automotores AB</span>
+                <span className="text-red-500 text-[1.55rem] md:text-[1.85rem] lg:text-[2.4rem]">Automotores AB</span>
               </h1>
-              <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-md hidden md:block">
-                Vehículos seleccionados, entrega inmediata, las mejores líneas de créditos, compras y permutas, y servicios de gestoría para hacer todos los trámites sin complicaciones.
-              </p>
             </div>
 
             {/* CTA */}
-            <div className="flex gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <Link href="/views/catalogo">
                 <motion.button
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="px-6 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 text-sm md:text-base shadow-lg"
+                  className="w-full px-6 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 text-sm md:text-base shadow-lg"
                 >
                   Ver Catálogo
                 </motion.button>
@@ -62,7 +59,7 @@ const Section0: React.FC = () => {
                 <motion.button
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="px-6 py-3 border border-white/50 hover:border-white text-white font-semibold rounded-lg transition-colors duration-200 text-sm md:text-base backdrop-blur-sm"
+                  className="w-full px-6 py-3 border border-white/50 hover:border-white text-white font-semibold rounded-lg transition-colors duration-200 text-sm md:text-base backdrop-blur-sm"
                 >
                   Contacto
                 </motion.button>

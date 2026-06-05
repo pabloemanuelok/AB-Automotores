@@ -265,7 +265,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
             </div>
 
             {/* Versión */}
-            <p className="text-gray-300 text-base font-light border-l-2 border-[#B62E30] pl-3">
+            <p className="text-gray-300 text-base font-light">
               {product.version}
             </p>
 

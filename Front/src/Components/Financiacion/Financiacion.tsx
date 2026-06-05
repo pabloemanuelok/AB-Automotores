@@ -11,7 +11,7 @@ const infoBlocks: { title: string; text: string }[] = [
   },
   {
     title: "Distintas entidades financieras",
-    text: "Financiamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Santander, Banco Supervielle y Banco HSBC. También recibimos tarjetas de crédito.",
+    text: "Financiamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Nación, Banco Supervielle y Banco Galicia. También recibimos tarjetas de crédito.",
   },
   {
     title: "¿Querés averiguar tu crédito disponible?",

@@ -1,60 +1,49 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import frenteHilux from "@/Assets/frenteHilux.jpeg";
-import colaDeBmw from "@/Assets/colaDeBmw.jpeg";
-import nivusFrente from "@/Assets/NivusFrente.webp";
-import mondeoDetalle from "@/Assets/MondeoFrenteDetalle.webp";
 
 const SobreNosotros: React.FC = () => {
   return (
     <section className="bg-[#0a0a0a] py-10 md:py-20">
       <div className="page-container flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
 
-        {/* Grid 2x2 de fotos */}
+        {/* Grid 3x2 de fotos */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full md:w-1/2 shrink-0 rounded-xl overflow-hidden grid grid-cols-2 grid-rows-2 gap-[6px] bg-[#0a0a0a]"
+          className="w-full md:w-[50%] shrink-0 rounded-xl overflow-hidden grid grid-cols-2 md:grid-cols-3 gap-2 h-[250px] md:h-auto bg-[#0a0a0a]"
         >
           <div className="relative overflow-hidden">
-            <Image
-              src={frenteHilux}
-              alt="Frente Hilux"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 50vw, 25vw"
+            <video
+              src="/videoBasaltSN.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
           <div className="relative overflow-hidden">
-            <Image
-              src={colaDeBmw}
-              alt="Cola BMW"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 50vw, 25vw"
+            <video
+              src="/videoRenegadeSN.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
-          <div className="relative overflow-hidden">
-            <Image
-              src={nivusFrente}
-              alt="Frente Nivus"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 50vw, 25vw"
-            />
-          </div>
-          <div className="relative overflow-hidden">
-            <Image
-              src={mondeoDetalle}
-              alt="Detalle Mondeo"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 50vw, 25vw"
+          <div className="relative overflow-hidden hidden md:block">
+            <video
+              src="/videoVerticalSN.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
         </motion.div>
@@ -65,23 +54,18 @@ const SobreNosotros: React.FC = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="w-full md:w-1/2 flex flex-col text-center md:text-left md:pl-4 lg:pl-8"
+          className="w-full md:flex-1 flex flex-col text-center md:text-left md:pl-4 lg:pl-8"
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-white">
+          <p className="text-[#B62E30] font-semibold text-sm md:text-base tracking-wide uppercase">
+            Compraventa de vehículos seleccionados y 0km
+          </p>
+
+          <h2 className="mt-2 text-2xl md:text-3xl font-bold text-white">
             Sobre Nosotros
           </h2>
           <div className="mt-2 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto md:mx-0" />
 
-          <p className="mt-4 text-[#B62E30] font-semibold text-sm md:text-base tracking-wide uppercase">
-            Más de 23 años en el mercado automotor
-          </p>
-
-          <p className="mt-4 text-white/80 text-sm md:text-base leading-relaxed">
-            En AB Automotores nos especializamos en la compraventa de vehículos seleccionados,
-            con más de dos décadas de trayectoria en el sector.
-          </p>
-
-          <p className="mt-3 text-white/70 text-sm md:text-base leading-relaxed">
+          <p className="mt-4 text-white/70 text-sm md:text-base leading-relaxed">
             Nos mueve el compromiso con nuestros clientes: brindamos asesoramiento honesto,
             financiación accesible, gestoría completa y la mejor experiencia de compra.
             Porque para nosotros, cada venta es el inicio de una relación de confianza.

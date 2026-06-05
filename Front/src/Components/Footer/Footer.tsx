@@ -91,9 +91,10 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={colVariants}
-            className="flex flex-col items-center md:items-end gap-4"
+            className="flex flex-col items-center md:items-end"
           >
-            <div className="flex flex-col items-center md:items-end">
+            <div className="flex flex-col items-start gap-4">
+            <div>
               <h3 className="text-gray-900 text-sm font-semibold uppercase tracking-widest">
                 Contacto
               </h3>
@@ -137,6 +138,7 @@ const Footer = () => {
                   abautomotores@hotmail.com
                 </span>
               </Link>
+            </div>
             </div>
           </motion.div>
         </div>

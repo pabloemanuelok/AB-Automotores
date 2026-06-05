@@ -7,12 +7,10 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/navigation";
-import colaDeBmw from "@/Assets/colaDeBmw.jpeg";
-
 const images = [
   { src: "/source/Frente20081.svg", alt: "Frente del vehículo" },
   { src: "/source/InteriorJeep2.svg", alt: "Interior del Jeep" },
-  { src: colaDeBmw, alt: "Cola del BMW" },
+  { src: "/source/ColaCronos.webp", alt: "Cola del Cronos" },
 ];
 
 const ImageGallery: React.FC = () => {

@@ -101,22 +101,23 @@ const HomeCounter: React.FC = React.memo(() => {
     >
       <div className="page-container relative z-10 flex flex-col md:flex-row items-stretch gap-8">
         {/* Columna izquierda: stats */}
-        <div className="flex flex-col items-center md:items-start md:justify-between gap-6 md:gap-0 md:h-[280px] shrink-0">
+        <div className="flex flex-col items-center md:justify-between gap-6 md:gap-0 md:h-[280px] shrink-0">
           {/* Contador */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isVisible ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="relative flex flex-col items-center md:items-start w-full"
+            className="relative flex flex-col items-center w-full"
           >
-            <span className="relative text-7xl md:text-9xl font-extrabold text-yellow-400 tracking-tight leading-none">
-              +<span className="text-yellow-400">{count}</span>
+            <span className="relative inline-block pl-8 md:pl-12 text-yellow-400 font-extrabold tracking-tight leading-none">
+              <span className="absolute left-0 top-1/2 -translate-y-1/2 text-4xl md:text-8xl">+</span>
+              <span className="text-5xl md:text-9xl">{count}</span>
             </span>
             <motion.p
               initial={{ opacity: 0, x: -30 }}
               animate={isVisible ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="mt-2 text-xl md:text-2xl font-semibold text-white/90 tracking-wide"
+              className="mt-2 text-lg md:text-3xl font-semibold text-white/90 tracking-wide"
             >
               años de trayectoria
             </motion.p>
@@ -127,12 +128,12 @@ const HomeCounter: React.FC = React.memo(() => {
             initial={{ opacity: 0, y: 24 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col items-center md:items-start gap-4 w-full"
+            className="flex flex-col items-center gap-4 w-full"
           >
             <p className="text-white/80 text-lg md:text-xl font-medium whitespace-nowrap">
               + 5,000 clientes satisfechos
             </p>
-            <div className="flex items-center gap-2 md:w-full md:justify-between">
+            <div className="flex items-center gap-4 justify-center">
               <span className="text-yellow-300 text-xl tracking-widest">★★★★★</span>
               <Link
                 href="https://www.google.com/maps/place/AB+Automotores/@-31.4346103,-64.1320892,15z/data=!4m8!3m7!1s0x9432bd24e9ecd915:0xa32ee5da0ccf6d8f!8m2!3d-31.4346103!4d-64.1320892!9m1!1b1!16s%2Fg%2F11bw4rvkx6?entry=ttu&g_ep=EgoyMDI0MTExMi4wIKXMDSoJLDEwMjExMjMzSAFQAw%3D%3D"
@@ -159,7 +160,7 @@ const HomeCounter: React.FC = React.memo(() => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="flex-1 min-w-0 w-full"
         >
-          <div className="flex items-center gap-2 h-[280px]">
+          <div className="flex items-center gap-2 h-[240px] md:h-[280px]">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
               className="shrink-0 w-8 h-8 rounded-full border border-white/60 text-white text-xl flex items-center justify-center hover:bg-white/20 transition-colors"
@@ -209,8 +210,9 @@ const HomeCounter: React.FC = React.memo(() => {
                         <span className="text-white font-semibold text-sm leading-tight line-clamp-1">{review.name}</span>
                       </div>
                       <div className="text-yellow-300 text-sm tracking-widest">★★★★★</div>
-                      <p className="text-white/90 text-sm leading-relaxed flex-1">{review.text}</p>
-                      <p className="text-white/50 text-xs">{review.date}</p>
+                      <div className="review-scroll flex-1 overflow-y-auto pr-1">
+                        <p className="text-white/90 text-sm leading-relaxed">{review.text}</p>
+                      </div>
                     </div>
                   </SwiperSlide>
                 ))}
