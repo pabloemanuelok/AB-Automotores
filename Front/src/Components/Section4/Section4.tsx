@@ -22,7 +22,11 @@ const Section4: React.FC = () => {
     >
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
         {images.map((image, index) => (
-          <div key={index} className="relative h-[200px] md:h-[300px] rounded-xl overflow-hidden group">
+          <div key={index} className={`relative h-[200px] md:h-[300px] overflow-hidden group ${
+              index === 0 ? "rounded-xl sm:rounded-r-none" :
+              index === 2 ? "rounded-xl sm:rounded-l-none" :
+              "rounded-xl sm:rounded-none"
+            }`}>
             <Image
               src={image.src}
               alt={image.alt}

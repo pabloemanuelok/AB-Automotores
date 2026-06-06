@@ -22,6 +22,7 @@ const ImageGallery: React.FC = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="page-container py-6 md:py-10"
     >
+      <div className="rounded-xl overflow-hidden">
       <Swiper
         modules={[Autoplay, Navigation]}
         spaceBetween={16}
@@ -36,7 +37,7 @@ const ImageGallery: React.FC = () => {
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
-            <div className="relative w-full h-[240px] md:h-[360px] rounded-xl overflow-hidden bg-gray-900">
+            <div className="relative w-full h-[240px] md:h-[360px] overflow-hidden bg-gray-900">
               <Image
                 src={img.src}
                 alt={img.alt}
@@ -49,6 +50,7 @@ const ImageGallery: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      </div>
     </motion.div>
   );
 };

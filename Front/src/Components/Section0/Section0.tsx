@@ -38,9 +38,9 @@ const Section0: React.FC = () => {
               <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-sm font-bold">
                 Usados y 0KM
               </p>
-              <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-                Bienvenido a<br />
-                <span className="text-red-500 text-[1.55rem] md:text-[1.85rem] lg:text-[2.4rem]">Automotores AB</span>
+              <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+                Bienvenido a
+                <span className="text-red-500 text-2xl md:text-3xl lg:text-4xl"> automotores AB</span>
               </h1>
             </div>
 
