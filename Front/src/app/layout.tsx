@@ -17,6 +17,9 @@ const titillium = Titillium_Web({
 export const metadata: Metadata = {
   title: "AB Automotores",
   description: "Concesionaria de autos usados en Argentina. Encontrá tu próximo auto en AB Automotores.",
+  verification: {
+    google: "Yd1UBzKAw9uI1TwNli-SL61tUJpgk_sNYf8ZyZWmCm0",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
