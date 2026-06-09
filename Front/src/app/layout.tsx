@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Titillium_Web } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import Navbar from "@/Components/Navbar/Navbar";
 import Footer from "@/Components/Footer/Footer";
 import { UserProvider } from "@/Context/contextUser";
@@ -34,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${titillium.className} flex flex-col min-h-screen antialiased`}>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
         <UserProvider>
           <PageviewTracker />
           <Navbar />
