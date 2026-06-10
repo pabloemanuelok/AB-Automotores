@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 const images = [
   { src: "/source/Frente20081.svg", alt: "Frente del vehículo" },
   { src: "/source/InteriorJeep2.svg", alt: "Interior del Jeep" },
-  { src: "/source/ColaCronos.webp", alt: "Cola del Cronos" },
+  { src: "/source/colaYaris.jpeg", alt: "Cola del Yaris" },
 ];
 
 const ImageGallery: React.FC = () => {

@@ -34,14 +34,14 @@ const Section0: React.FC = () => {
             className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
           >
             {/* Título y descripción */}
-            <div className="flex flex-col gap-3 max-w-xl">
-              <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-sm font-bold">
-                Usados y 0KM
-              </p>
+            <div className="flex flex-col gap-1 max-w-xl">
               <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-                Bienvenido a
-                <span className="text-red-500 text-2xl md:text-3xl lg:text-4xl"> automotores AB</span>
+                Concesionaria
+                <span className="text-red-500 text-2xl md:text-3xl lg:text-4xl"> Automotores AB</span>
               </h1>
+              <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-sm font-bold">
+                USADOS Y 0KM
+              </p>
             </div>
 
             {/* CTA */}

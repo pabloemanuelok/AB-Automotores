@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const images = [
-  { src: "/source/NivusInterior.webp", alt: "Interior Nivus" },
+  { src: "/source/marchaBMW.jpeg", alt: "Marcha BMW" },
   { src: "/source/ManijaYaris.webp", alt: "Manija Yaris", isMiddle: true },
   { src: "/source/Central208.webp", alt: "Central multimedia 208" },
 ];
