@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const images = [
-  { src: "/source/marchaBMW.jpeg", alt: "Marcha BMW" },
+  { src: "/source/pomoCompass.jpeg", alt: "Pomo Compass" },
   { src: "/source/ManijaYaris.webp", alt: "Manija Yaris", isMiddle: true },
   { src: "/source/Central208.webp", alt: "Central multimedia 208" },
 ];
@@ -32,7 +32,7 @@ const Section4: React.FC = () => {
               alt={image.alt}
               fill
               sizes="(max-width: 640px) 100vw, 33vw"
-              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
+              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${'position' in image ? image.position : ""} ${
                 image.isMiddle ? "brightness-50" : ""
               }`}
             />

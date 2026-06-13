@@ -185,7 +185,7 @@ const HomeCounter: React.FC = React.memo(() => {
               >
                 {reviews.map((review, i) => (
                   <SwiperSlide key={i}>
-                    <div className="border border-white/60 rounded-xl shadow-md hover:shadow-white/20 hover:shadow-lg hover:brightness-110 transition-all duration-200 p-5 flex flex-col gap-3 h-full">
+                    <div className="border border-white/60 rounded-xl shadow-md hover:shadow-white/20 hover:shadow-lg hover:brightness-110 transition-all duration-200 p-4 flex flex-col gap-1.5 h-full">
                       <div className="flex items-center gap-2">
                         <div className="w-9 h-9 rounded-full bg-white/20 border border-white/40 flex items-center justify-center shrink-0 overflow-hidden">
                           {review.avatar ? (
@@ -210,7 +210,7 @@ const HomeCounter: React.FC = React.memo(() => {
                         <span className="text-white font-semibold text-sm leading-tight line-clamp-1">{review.name}</span>
                       </div>
                       <div className="text-yellow-300 text-sm tracking-widest">★★★★★</div>
-                      <div className="review-scroll flex-1 overflow-y-auto pr-1">
+                      <div className="flex-1 overflow-hidden">
                         <p className="text-white/90 text-sm leading-relaxed">{review.text}</p>
                       </div>
                     </div>

@@ -8,16 +8,18 @@ interface FondoNavProps {
   eyebrow?: string;
   title?: string;
   description?: string;
+  imageSrc?: string;
 }
 
 const FondoNav = ({
   title = "Nuestro Catálogo",
   description = "Explorá nuestra selección de vehículos disponibles para venta inmediata.",
+  imageSrc,
 }: FondoNavProps) => {
   return (
     <div className="relative h-[200px] sm:h-[260px] md:h-[330px] overflow-hidden">
       <Image
-        src={FondoImage}
+        src={imageSrc ?? FondoImage}
         alt="Imagen de fondo del tablero Cronos con detalles de cronómetros y velocidad"
         fill
         className="object-cover md:object-[50%_15%]"
@@ -39,7 +41,7 @@ const FondoNav = ({
             {title}
           </h1>
           <div className="mt-3 mx-auto w-12 h-[3px] bg-[#B62E30] rounded-full" />
-          <p className="mt-4 text-white/70 text-sm md:text-base max-w-md mx-auto font-bold">
+          <p className="mt-4 text-white/70 text-sm md:text-base mx-auto font-bold md:whitespace-nowrap">
             {description}
           </p>
         </motion.div>

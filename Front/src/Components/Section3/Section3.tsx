@@ -77,7 +77,7 @@ const Section3: React.FC = () => {
           className="text-center mb-10"
         >
           <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-3">
-            Lo que ofrecemos
+            Asesoramiento integral
           </p>
           <h2 className="text-gray-900 text-2xl md:text-3xl font-bold">
             Nuestros Servicios

@@ -57,7 +57,7 @@ const SobreNosotros: React.FC = () => {
           className="w-full md:flex-1 flex flex-col text-center md:text-left md:pl-4 lg:pl-8"
         >
           <p className="text-[#B62E30] font-semibold text-sm md:text-base tracking-wide uppercase">
-            Compraventa de vehículos seleccionados y 0km
+            Compraventa de vehículos seleccionados
           </p>
 
           <h2 className="mt-2 text-2xl md:text-3xl font-bold text-white">

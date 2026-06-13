@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { fetchPostConsulta } from "@/utils/FetchCon/FetchCon";
 import { trackEvent } from "@/utils/analytics";
+import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 
 interface IConsulta {
   nombre: string;
@@ -94,8 +95,8 @@ const Contact = () => {
     "w-full bg-[#0a0a0a] border border-[#505050] text-white placeholder-gray-600 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#B62E30] focus:border-transparent transition";
 
   return (
-    <div className="bg-[#0a0a0a] py-16">
-      <div className="page-container">
+    <div className="bg-[#0a0a0a] pt-16">
+      <div className="page-container pb-16">
         <div className="lg:flex gap-12 items-start">
 
           {/* Columna izquierda — info */}
@@ -208,6 +209,11 @@ const Contact = () => {
 
         </div>
       </div>
+      <CtaBanner
+        eyebrow="Atención inmediata"
+        title="Respondemos en menos de 24 horas"
+        description="Nuestro equipo está listo para asesorarte y resolver todas tus dudas sin demoras."
+      />
     </div>
   );
 };

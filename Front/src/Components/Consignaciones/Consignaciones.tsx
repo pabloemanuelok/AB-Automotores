@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { trackEvent } from "@/utils/analytics";
+import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 
 const infoBlocks = [
   {
@@ -37,8 +38,8 @@ const Consignaciones = () => {
             className="relative w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden min-h-[280px]"
           >
             <Image
-              src="/source/SaveiroDiag.webp"
-              alt="Saveiro diagonal"
+              src="/source/2008Allure0Km.jpeg"
+              alt="Peugeot 2008 Allure 0km"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 33vw"
@@ -79,6 +80,12 @@ const Consignaciones = () => {
 
         </div>
       </section>
+
+      <CtaBanner
+        eyebrow="Consultá sin compromiso"
+        title="¿Querés saber cuánto vale tu vehículo?"
+        description="Contactanos y te damos una tasación gratuita. Te asesoramos para que vendas al mejor precio."
+      />
     </div>
   );
 };

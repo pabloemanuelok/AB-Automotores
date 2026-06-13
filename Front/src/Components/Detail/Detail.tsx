@@ -7,6 +7,7 @@ import { IDetailsProps } from "@/Interfaces/Interface";
 import { FaChevronLeft, FaChevronRight, FaWhatsapp, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
+import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 
 const slideVariants = {
   enter: (dir: "left" | "right") => ({
@@ -111,7 +112,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
   }, [currentImageIndex, product.images]);
 
   return (
-    <div className="bg-[#0a0a0a] py-8 md:py-12">
+    <div className="bg-[#0a0a0a] pt-8 md:pt-12">
       <div className="page-container">
 
         {/* Botón volver */}
@@ -137,7 +138,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
           <div
             {...swipeHandlers}
             onClick={openLightbox}
-            className="relative w-full h-[280px] sm:h-[380px] md:h-[500px] lg:h-[620px] xl:h-[680px] bg-[#111111] overflow-hidden cursor-zoom-in select-none"
+            className="relative w-full h-[240px] sm:h-[320px] md:h-[430px] lg:h-[530px] xl:h-[580px] bg-[#111111] overflow-hidden cursor-zoom-in select-none"
           >
             {product.images.length > 0 ? (
               <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -313,6 +314,12 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
         </motion.div>
 
       </div>
+
+      <CtaBanner
+        eyebrow="¿Necesitás ayuda con el pago?"
+        title="Financiá este vehículo en cuotas"
+        description="Trabajamos con las mejores entidades bancarias para que puedas llevarte tu auto con la financiación que más te convenga."
+      />
 
       {/* ── Lightbox ── */}
       <AnimatePresence>

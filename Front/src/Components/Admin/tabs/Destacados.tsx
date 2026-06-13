@@ -2,80 +2,25 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Swal from "sweetalert2";
 import fetchCars from "@/utils/FetchCars/FetchCars";
 import { IProduct } from "@/Interfaces/Interface";
+import { DESTACADOS_CONFIG } from "@/config/destacados.config";
 
 const MAX_DESTACADOS = 8;
-const DESTACADOS_IDS_KEY = "ab_destacados_ids";
-const DESTACADOS_LABEL_KEY = "ab_destacados_label";
 
 const Destacados: React.FC = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [selected, setSelected] = useState<string[]>([]);
-  const [label, setLabel] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+
+  const selected = DESTACADOS_CONFIG.ids;
 
   useEffect(() => {
-    // Load existing selection from localStorage
-    try {
-      const savedIds = localStorage.getItem(DESTACADOS_IDS_KEY);
-      if (savedIds) setSelected(JSON.parse(savedIds));
-      const savedLabel = localStorage.getItem(DESTACADOS_LABEL_KEY);
-      if (savedLabel) setLabel(savedLabel);
-    } catch {
-      // ignore
-    }
-
     fetchCars()
       .then((data) => setProducts(data))
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
-
-  const toggle = (id: string) => {
-    setSelected((prev) => {
-      if (prev.includes(id)) return prev.filter((x) => x !== id);
-      if (prev.length >= MAX_DESTACADOS) return prev;
-      return [...prev, id];
-    });
-  };
-
-  const handleSave = () => {
-    setSaving(true);
-    try {
-      localStorage.setItem(DESTACADOS_IDS_KEY, JSON.stringify(selected));
-      localStorage.setItem(DESTACADOS_LABEL_KEY, label);
-      Swal.fire({
-        icon: "success",
-        title: "¡Guardado!",
-        text: "Los vehículos destacados se actualizaron correctamente.",
-        confirmButtonColor: "#B62E30",
-        background: "#1a1a1a",
-        color: "#fff",
-        timer: 2000,
-        showConfirmButton: false,
-      });
-    } catch {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No se pudo guardar la selección.",
-        confirmButtonColor: "#B62E30",
-        background: "#1a1a1a",
-        color: "#fff",
-      });
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleClear = () => {
-    setSelected([]);
-    setLabel("");
-  };
 
   const filtered = products.filter((p) =>
     `${p.name} ${p.version} ${p.year}`
@@ -89,34 +34,28 @@ const Destacados: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold text-white mb-0.5">Vehículos Destacados</h2>
           <p className="text-gray-400 text-sm">
-            Seleccioná hasta {MAX_DESTACADOS} vehículos para mostrar en la página principal.
+            Selección actual en la página principal ({selected.length} / {MAX_DESTACADOS}).
           </p>
         </div>
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <span
-            className={`text-sm font-semibold px-3 py-1 rounded-full border ${
-              selected.length >= MAX_DESTACADOS
-                ? "bg-[#B62E30]/20 border-[#B62E30] text-[#B62E30]"
-                : "bg-[#1a1a1a] border-[#505050] text-gray-300"
-            }`}
-          >
-            {selected.length} / {MAX_DESTACADOS}
-          </span>
-        </div>
+        <span
+          className={`text-sm font-semibold px-3 py-1 rounded-full border flex-shrink-0 self-start ${
+            selected.length >= MAX_DESTACADOS
+              ? "bg-[#B62E30]/20 border-[#B62E30] text-[#B62E30]"
+              : "bg-[#1a1a1a] border-[#505050] text-gray-300"
+          }`}
+        >
+          {selected.length} / {MAX_DESTACADOS}
+        </span>
       </div>
 
-      {/* Label semanal */}
-      <div className="mb-5">
-        <label className="block text-sm text-gray-300 mb-1.5">
-          Etiqueta semanal <span className="text-gray-600">(opcional)</span>
-        </label>
-        <input
-          type="text"
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
-          placeholder="Ej: Destacados semana 13 · 25 Mar – 31 Mar"
-          className="w-full sm:w-96 px-4 py-2.5 bg-[#2a2a2a] border border-[#505050] text-white placeholder-gray-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#B62E30] transition"
-        />
+      {/* Instrucciones */}
+      <div className="mb-6 p-4 bg-[#1a1a1a] border border-[#505050]/60 rounded-xl">
+        <p className="text-gray-300 text-sm font-semibold mb-2">¿Cómo actualizar los destacados?</p>
+        <ol className="text-gray-400 text-sm space-y-1 list-decimal list-inside">
+          <li>Encontrá el vehículo en el catálogo y copiá su ID desde la URL: <span className="text-gray-500 font-mono text-xs">/views/details/[ID]</span></li>
+          <li>Editá el archivo <span className="text-[#B62E30] font-mono text-xs">src/config/destacados.config.ts</span></li>
+          <li>Hacé push a git — Vercel despliega en ~2 minutos y los cambios son visibles globalmente</li>
+        </ol>
       </div>
 
       {/* Search */}
@@ -136,21 +75,16 @@ const Destacados: React.FC = () => {
           </svg>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {filtered.map((product) => {
             const isSelected = selected.includes(product._id);
-            const isDisabled = !isSelected && selected.length >= MAX_DESTACADOS;
             return (
-              <button
+              <div
                 key={product._id}
-                onClick={() => !isDisabled && toggle(product._id)}
-                disabled={isDisabled}
-                className={`relative text-left rounded-xl border overflow-hidden transition-all duration-200 ${
+                className={`relative text-left rounded-xl border overflow-hidden ${
                   isSelected
                     ? "border-[#B62E30] ring-1 ring-[#B62E30] bg-[#B62E30]/10"
-                    : isDisabled
-                    ? "border-[#505050]/20 opacity-40 cursor-not-allowed bg-[#1a1a1a]"
-                    : "border-[#505050]/40 bg-[#1a1a1a] hover:border-[#B62E30]/50"
+                    : "border-[#505050]/40 bg-[#1a1a1a] opacity-50"
                 }`}
               >
                 <div className="relative h-36">
@@ -183,34 +117,15 @@ const Destacados: React.FC = () => {
                 <div className="p-3">
                   <p className="text-white text-sm font-semibold truncate">{product.name}</p>
                   <p className="text-gray-400 text-xs truncate">{product.version}</p>
+                  {isSelected && (
+                    <p className="text-[#B62E30] text-xs mt-1 font-medium">Destacado activo</p>
+                  )}
                 </div>
-              </button>
+              </div>
             );
           })}
         </div>
       )}
-
-      {selected.length >= MAX_DESTACADOS && (
-        <p className="text-[#B62E30] text-xs mb-4">
-          Límite de {MAX_DESTACADOS} vehículos alcanzado. Deseleccioná alguno para agregar otro.
-        </p>
-      )}
-
-      <div className="flex gap-3">
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="px-6 py-2.5 bg-[#B62E30] hover:bg-red-700 disabled:opacity-50 text-white text-sm font-semibold rounded-lg transition-colors duration-200"
-        >
-          {saving ? "Guardando..." : "Guardar selección"}
-        </button>
-        <button
-          onClick={handleClear}
-          className="px-6 py-2.5 border border-[#505050] text-gray-300 hover:border-gray-400 text-sm font-semibold rounded-lg transition-colors duration-200"
-        >
-          Limpiar
-        </button>
-      </div>
     </div>
   );
 };

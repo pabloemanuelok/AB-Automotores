@@ -36,8 +36,8 @@ const Section0: React.FC = () => {
             {/* Título y descripción */}
             <div className="flex flex-col gap-1 max-w-xl">
               <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-                Concesionaria
-                <span className="text-red-500 text-2xl md:text-3xl lg:text-4xl"> Automotores AB</span>
+                AGENCIA
+                <span className="text-red-500 text-2xl md:text-3xl lg:text-4xl"> AUTOMOTRIZ</span>
               </h1>
               <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-sm font-bold">
                 USADOS Y 0KM

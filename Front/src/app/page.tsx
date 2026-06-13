@@ -35,8 +35,8 @@ const Page = () => {
       <SectionAnim />
       <SobreNosotros />
       <Section3 />
-      <Section4 />
       <VehDestacados />
+      <Section4 />
     </>
   );
 };

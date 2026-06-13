@@ -7,20 +7,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { motion } from "framer-motion";
 import { IProduct } from "@/Interfaces/Interface";
+import { DESTACADOS_CONFIG } from "@/config/destacados.config";
 import "swiper/css";
 import "swiper/css/navigation";
-
-const DESTACADOS_IDS_KEY = "ab_destacados_ids";
-const DESTACADOS_LABEL_KEY = "ab_destacados_label";
-
-const FALLBACK_DESTACADOS = [
-  { id: "6761b3da7c18494e3a625bc8", name: "Volkswagen Nivus" },
-  { id: "6761b28e7c18494e3a625bbb", name: "Peugeot 2008" },
-  { id: "6761af537c18494e3a625b98", name: "Chevrolet Tracker" },
-  { id: "6761b0aa7c18494e3a625ba5", name: "Chevrolet S10 Z71" },
-  { id: "6761b3257c18494e3a625bc1", name: "Toyota Hilux" },
-  { id: "672d1f9bc80004605ddffb50", name: "Volkswagen Taos" },
-];
 
 const VehDestacados = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -30,29 +19,16 @@ const VehDestacados = () => {
   useEffect(() => {
     const loadDestacados = async () => {
       try {
-        const savedLabel = localStorage.getItem(DESTACADOS_LABEL_KEY);
-        if (savedLabel) setLabel(savedLabel);
-
-        const savedIds: string[] = JSON.parse(
-          localStorage.getItem(DESTACADOS_IDS_KEY) ?? "[]"
-        );
+        if (DESTACADOS_CONFIG.label) setLabel(DESTACADOS_CONFIG.label);
 
         const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products");
         const allProducts: IProduct[] = await res.json();
 
-        if (savedIds.length > 0) {
-          // Filter by saved IDs, preserving selection order
-          const map = new Map(allProducts.map((p) => [p._id, p]));
-          const selected = savedIds
-            .map((id) => map.get(id))
-            .filter((p): p is IProduct => !!p);
-          setProducts(selected.length > 0 ? selected : allProducts.slice(0, 6));
-        } else {
-          // Fallback: try to match legacy hardcoded IDs, else show first 6
-          const fallbackIds = FALLBACK_DESTACADOS.map((f) => f.id);
-          const matched = allProducts.filter((p) => fallbackIds.includes(p._id));
-          setProducts(matched.length > 0 ? matched : allProducts.slice(0, 6));
-        }
+        const map = new Map(allProducts.map((p) => [p._id, p]));
+        const selected = DESTACADOS_CONFIG.ids
+          .map((id) => map.get(id))
+          .filter((p): p is IProduct => !!p);
+        setProducts(selected.length > 0 ? selected : allProducts.slice(0, 6));
       } catch {
         setProducts([]);
       } finally {
