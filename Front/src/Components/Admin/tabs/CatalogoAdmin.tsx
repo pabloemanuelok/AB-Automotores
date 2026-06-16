@@ -167,9 +167,13 @@ const CatalogoAdmin: React.FC = () => {
           product={editingProduct}
           token={token}
           onClose={() => setEditingProduct(null)}
-          onSaved={() => {
+          onSaved={(updated) => {
+            setProducts((prev) =>
+              prev.map((p) =>
+                p._id === editingProduct._id ? { ...p, ...updated } : p
+              )
+            );
             setEditingProduct(null);
-            loadProducts();
           }}
         />
       )}

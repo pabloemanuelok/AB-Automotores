@@ -66,18 +66,17 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   };
 
   return (
-    <section className="bg-[#0a0a0a] min-h-screen py-10">
+    <section className="bg-[#0a0a0a] min-h-screen pb-10">
       <div className="page-container">
 
         {/* Barra de controles */}
         <div className="flex items-center justify-end mb-6">
-          <motion.button
+          <button
             onClick={toggleSortOrder}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#1E1E1E] border border-[#505050] hover:border-[#B62E30] text-white text-sm font-semibold rounded-lg transition-colors duration-200"
+            className="flex items-center gap-2 px-5 py-2.5 bg-[#1E1E1E] border border-[#505050] hover:border-[#B62E30] text-white text-sm font-semibold rounded-lg transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
           >
             <span>Ordenar por Año</span>
+
             <svg
               className={`w-4 h-4 transition-transform duration-300 ${sortOrder === "desc" ? "rotate-180" : ""}`}
               xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +90,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
                 clipRule="evenodd"
               />
             </svg>
-          </motion.button>
+          </button>
         </div>
 
         {/* Grid de tarjetas */}
@@ -100,70 +99,58 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
         >
           {currentProducts.map((product: IProduct, index: number) => (
-            <motion.div
+            <Card
               key={product._id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
-            >
-              <Card
-                product={product}
-                index={index}
-                onDelete={() => handleDelete(product._id)}
-                onViewClick={() => handleViewClick(product)}
-              />
-            </motion.div>
+              product={product}
+              index={index}
+              onDelete={() => handleDelete(product._id)}
+              onViewClick={() => handleViewClick(product)}
+            />
           ))}
         </motion.div>
 
         {/* Paginación */}
         <div className="flex items-center justify-center gap-2 mt-10 pb-4 flex-wrap">
-          <motion.button
+          <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            whileHover={{ scale: currentPage === 1 ? 1 : 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-colors duration-200 ${
+            className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-all duration-200 ${
               currentPage === 1
                 ? "border-[#505050] text-[#505050] cursor-not-allowed"
-                : "border-[#505050] text-white hover:border-[#B62E30] hover:text-[#B62E30]"
+                : "border-[#505050] text-white hover:border-[#B62E30] hover:text-[#B62E30] hover:scale-[1.05] active:scale-[0.97]"
             }`}
           >
             ← Anterior
-          </motion.button>
+          </button>
 
           {Array.from({ length: totalPages }, (_, index) => (
-            <motion.button
+            <button
               key={index + 1}
               onClick={() => handlePageChange(index + 1)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className={`w-9 h-9 rounded-lg text-sm font-semibold border transition-colors duration-200 ${
+              className={`w-9 h-9 rounded-lg text-sm font-semibold border transition-all duration-200 hover:scale-[1.1] active:scale-[0.95] ${
                 currentPage === index + 1
                   ? "bg-[#B62E30] border-[#B62E30] text-white"
                   : "bg-transparent border-[#505050] text-gray-400 hover:border-[#B62E30] hover:text-white"
               }`}
             >
               {index + 1}
-            </motion.button>
+            </button>
           ))}
 
-          <motion.button
+          <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            whileHover={{ scale: currentPage === totalPages ? 1 : 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-colors duration-200 ${
+            className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-all duration-200 ${
               currentPage === totalPages
                 ? "border-[#505050] text-[#505050] cursor-not-allowed"
-                : "border-[#505050] text-white hover:border-[#B62E30] hover:text-[#B62E30]"
+                : "border-[#505050] text-white hover:border-[#B62E30] hover:text-[#B62E30] hover:scale-[1.05] active:scale-[0.97]"
             }`}
           >
             Siguiente →
-          </motion.button>
+          </button>
         </div>
 
       </div>

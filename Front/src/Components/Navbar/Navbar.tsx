@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FC, useState, useEffect, useContext, useCallback } from "react";
+import { FC, useState, useEffect, useContext, useCallback, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/Assets/LogoSinFondo.webp";
@@ -19,21 +19,33 @@ const navLinks = [
 const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [bgOpacity, setBgOpacity] = useState(0.6);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const { isLogged } = useContext(UserContext);
   const pathname = usePathname();
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
   const handleScroll = useCallback(() => {
-    const newOpacity = Math.min(0.6 + (window.scrollY / 200) * 0.3, 0.95);
+    const currentY = window.scrollY;
+    const newOpacity = Math.min(0.6 + (currentY / 200) * 0.3, 0.95);
     setBgOpacity(newOpacity);
-  }, []);
+
+    if (!isOpen) {
+      if (currentY > lastScrollY.current && currentY > 80) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    }
+    lastScrollY.current = currentY;
+  }, [isOpen]);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
     const debounced = () => {
       clearTimeout(timeout);
-      timeout = setTimeout(handleScroll, 50);
+      timeout = setTimeout(handleScroll, 100);
     };
     window.addEventListener("scroll", debounced);
     return () => window.removeEventListener("scroll", debounced);
@@ -55,8 +67,10 @@ const Navbar: FC = () => {
   }, [pathname]);
 
   return (
-    <nav
-      className="fixed top-0 w-full z-50 transition-colors duration-300 text-white"
+    <motion.nav
+      animate={{ y: isVisible ? 0 : "-100%" }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="fixed top-0 w-full z-50 text-white"
       style={{ backgroundColor: `rgba(2, 2, 2, ${bgOpacity})` }}
     >
       <div className="page-container">
@@ -162,7 +176,7 @@ const Navbar: FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
 

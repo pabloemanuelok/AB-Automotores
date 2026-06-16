@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import React from "react";
+import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 import Section3 from "@/Components/Section3/Section3";
+import Section0 from "@/Components/Section0/Section0";
 
 const Loading = ({ section }: { section: string }) => (
   <div className="h-[400px] w-full flex items-center justify-center">
@@ -8,9 +10,6 @@ const Loading = ({ section }: { section: string }) => (
   </div>
 );
 
-const Section0 = dynamic(() => import("@/Components/Section0/Section0"), {
-  loading: () => <Loading section="Section0" />,
-});
 const Section1 = dynamic(() => import("@/Components/Section1/Section1"), {
   loading: () => <Loading section="Section1" />,
 });
@@ -37,6 +36,13 @@ const Page = () => {
       <Section3 />
       <VehDestacados />
       <Section4 />
+      <div className="mt-12 md:mt-16">
+        <CtaBanner
+          eyebrow="Consultá sin compromiso"
+          title="¿Listo para tu próximo vehículo?"
+          description="Contactanos y te asesoramos para que encuentres el auto ideal para vos."
+        />
+      </div>
     </>
   );
 };

@@ -10,7 +10,7 @@ interface Props {
   product: IProduct;
   token: string | null;
   onClose: () => void;
-  onSaved: () => void;
+  onSaved: (updated: Partial<IProduct>) => void;
 }
 
 const inputClass =
@@ -112,7 +112,7 @@ const EditVehicleModal: React.FC<Props> = ({ product, token, onClose, onSaved })
           timer: 2000,
           showConfirmButton: false,
         });
-        onSaved();
+        onSaved({ name, version: precio, year: Number(year), description });
         onClose();
       } else {
         throw new Error();

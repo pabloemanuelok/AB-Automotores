@@ -11,6 +11,9 @@ import { DESTACADOS_CONFIG } from "@/config/destacados.config";
 import "swiper/css";
 import "swiper/css/navigation";
 
+let _productsCache: { data: IProduct[]; ts: number } | null = null;
+const CACHE_TTL = 5 * 60 * 1000;
+
 const VehDestacados = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [label, setLabel] = useState<string>("");
@@ -21,8 +24,15 @@ const VehDestacados = () => {
       try {
         if (DESTACADOS_CONFIG.label) setLabel(DESTACADOS_CONFIG.label);
 
-        const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products");
-        const allProducts: IProduct[] = await res.json();
+        let allProducts: IProduct[];
+        const now = Date.now();
+        if (_productsCache && now - _productsCache.ts < CACHE_TTL) {
+          allProducts = _productsCache.data;
+        } else {
+          const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products");
+          allProducts = await res.json();
+          _productsCache = { data: allProducts, ts: now };
+        }
 
         const map = new Map(allProducts.map((p) => [p._id, p]));
         const selected = DESTACADOS_CONFIG.ids
@@ -40,7 +50,7 @@ const VehDestacados = () => {
   }, []);
 
   return (
-    <section className="bg-white py-12 md:py-16">
+    <section className="bg-white pb-12 md:pb-16">
       {/* Encabezado */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -49,6 +59,9 @@ const VehDestacados = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="page-container mb-8 text-center"
       >
+        <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-3">
+          Seleccionados de la semana
+        </p>
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
           Vehículos Destacados
         </h2>
@@ -115,7 +128,7 @@ const VehDestacados = () => {
                     </div>
                     <div className="p-4">
                       <h3 className="text-base md:text-lg font-semibold text-gray-900">{product.name}</h3>
-                      <p className="text-sm text-gray-500 mt-0.5">{product.version} · {product.year}</p>
+                      <p className="text-sm text-gray-500 mt-0.5">{product.year}</p>
                       <p className="text-sm text-red-600 font-medium mt-2">Ver información →</p>
                     </div>
                   </div>

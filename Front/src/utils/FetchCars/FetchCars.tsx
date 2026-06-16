@@ -4,7 +4,7 @@ import { IProduct } from "@/Interfaces/Interface";
 export default async function fetchCars(): Promise<IProduct[]> {
     try {
         const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products", {
-            next: { revalidate: 60 },
+            next: { revalidate: 300 },
         });
 
         if (!res.ok) {
@@ -22,7 +22,7 @@ export default async function fetchCars(): Promise<IProduct[]> {
 export async function fetchProductById(_id: string): Promise<IProduct> {
     try {
         const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${_id}`, {
-            next: { revalidate: 60 },
+            next: { revalidate: 300 },
         });
         if (!res.ok) {
             throw new Error("No se pudo obtener el producto");
@@ -92,7 +92,11 @@ export async function fetchPatchProduct(
         body: JSON.stringify(fields),
       }
     );
-    if (!res.ok) throw new Error("No se pudo editar el producto");
+    if (!res.ok) {
+      const errorBody = await res.text().catch(() => "");
+      console.error(`Error ${res.status} al editar:`, errorBody);
+      throw new Error("No se pudo editar el producto");
+    }
     return true;
   } catch (error) {
     console.error("Error al editar el producto:", error);

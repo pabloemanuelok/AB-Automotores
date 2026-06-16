@@ -16,7 +16,7 @@ const Section0: React.FC = () => {
         playsInline
         poster="/source/NivusFrente.webp"
         aria-label="Video de fondo"
-        preload="metadata"
+        preload="none"
       >
         <p>Tu navegador no soporta el elemento de video.</p>
       </video>
@@ -35,9 +35,9 @@ const Section0: React.FC = () => {
           >
             {/* Título y descripción */}
             <div className="flex flex-col gap-1 max-w-xl">
-              <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+              <h1 className="text-white text-2xl md:text-2xl lg:text-3xl font-bold leading-tight">
                 AGENCIA
-                <span className="text-red-500 text-2xl md:text-3xl lg:text-4xl"> AUTOMOTRIZ</span>
+                <span className="text-white text-2xl md:text-2xl lg:text-3xl"> AUTOMOTRIZ</span>
               </h1>
               <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-sm font-bold">
                 USADOS Y 0KM
@@ -47,22 +47,14 @@ const Section0: React.FC = () => {
             {/* CTA */}
             <div className="grid grid-cols-2 gap-3">
               <Link href="/views/catalogo">
-                <motion.button
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="w-full px-6 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 text-sm md:text-base shadow-lg"
-                >
+                <button className="w-full px-6 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-200 text-sm md:text-base shadow-lg hover:scale-[1.04] active:scale-[0.97]">
                   Ver Catálogo
-                </motion.button>
+                </button>
               </Link>
               <Link href="/views/contacto">
-                <motion.button
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="w-full px-6 py-3 border border-white/50 hover:border-white text-white font-semibold rounded-lg transition-colors duration-200 text-sm md:text-base backdrop-blur-sm"
-                >
+                <button className="w-full px-6 py-3 border border-white/50 hover:border-white text-white font-semibold rounded-lg transition-all duration-200 text-sm md:text-base backdrop-blur-sm hover:scale-[1.04] active:scale-[0.97]">
                   Contacto
-                </motion.button>
+                </button>
               </Link>
             </div>
           </motion.div>
