@@ -50,7 +50,7 @@ const VehDestacados = () => {
   }, []);
 
   return (
-    <section className="bg-white pb-12 md:pb-16">
+    <section className="bg-white py-12 md:pb-16">
       {/* Encabezado */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

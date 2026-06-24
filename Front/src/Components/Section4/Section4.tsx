@@ -32,9 +32,7 @@ const Section4: React.FC = () => {
               alt={image.alt}
               fill
               sizes="(max-width: 640px) 100vw, 33vw"
-              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${'position' in image ? image.position : ""} ${
-                image.isMiddle ? "brightness-50" : ""
-              }`}
+              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${'position' in image ? image.position : ""} brightness-50`}
             />
             {image.isMiddle && (
               <div className="absolute inset-0 flex items-center justify-center">

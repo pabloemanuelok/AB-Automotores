@@ -8,7 +8,7 @@ import { fetchDeleteId } from "@/utils/FetchCars/FetchCars";
 const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsList, setProductsList] = useState<IProduct[]>(
-    [...products].sort((a, b) => b.year - a.year)
+    [...products].sort((a, b) => b.year - a.year || a.name.localeCompare(b.name))
   );
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const productsPerPage = 8;
@@ -60,7 +60,9 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     const nextOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(nextOrder);
     setProductsList([...productsList].sort((a, b) =>
-      nextOrder === "asc" ? a.year - b.year : b.year - a.year
+      nextOrder === "asc"
+        ? a.year - b.year || a.name.localeCompare(b.name)
+        : b.year - a.year || a.name.localeCompare(b.name)
     ));
     setCurrentPage(1);
   };
