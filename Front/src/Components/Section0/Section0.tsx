@@ -35,9 +35,9 @@ const Section0: React.FC = () => {
           >
             {/* Título y descripción */}
             <div className="flex flex-col gap-1 max-w-xl">
-              <h1 className="text-white text-2xl md:text-2xl lg:text-3xl font-bold leading-tight">
+              <h1 className="text-white text-sm md:text-2xl lg:text-3xl font-bold leading-tight">
                 AGENCIA
-                <span className="text-white text-2xl md:text-2xl lg:text-3xl"> AUTOMOTRIZ</span>
+                <span className="text-white text-sm md:text-2xl lg:text-3xl"> AUTOMOTRIZ</span>
               </h1>
               <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-sm font-bold">
                 USADOS Y 0KM

@@ -96,7 +96,7 @@ const HomeCounter: React.FC = React.memo(() => {
           initial={{ opacity: 0, y: 16 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-row md:flex-col items-center justify-center gap-6 md:gap-4 shrink-0 md:w-44"
+          className="flex flex-col items-center justify-center gap-4 shrink-0 md:w-44"
         >
           {/* Contador */}
           <div className="flex flex-col items-center text-center">
@@ -119,30 +119,6 @@ const HomeCounter: React.FC = React.memo(() => {
             </motion.p>
             <div className="mt-2 w-8 h-[2px] bg-[#B62E30] rounded-full" />
           </div>
-
-          {/* Google badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="flex flex-col items-center gap-1.5"
-          >
-            <span className="text-yellow-400 text-base tracking-widest">★★★★★</span>
-            <Link
-              href="https://www.google.com/maps/place/AB+Automotores/@-31.4346103,-64.1320892,15z/data=!4m8!3m7!1s0x9432bd24e9ecd915:0xa32ee5da0ccf6d8f!8m2!3d-31.4346103!4d-64.1320892!9m1!1b1!16s%2Fg%2F11bw4rvkx6?entry=ttu&g_ep=EgoyMDI0MTExMi4wIKXMDSoJLDEwMjExMjMzSAFQAw%3D%3D"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/source/GoogleReview.webp"
-                alt="Google Reviews"
-                width={110}
-                height={62}
-                className="hover:scale-105 transition-transform duration-200 opacity-85 hover:opacity-100"
-                priority
-              />
-            </Link>
-          </motion.div>
         </motion.div>
 
         {/* Divisor vertical */}
@@ -178,7 +154,7 @@ const HomeCounter: React.FC = React.memo(() => {
             >
               {reviews.map((review, i) => (
                 <SwiperSlide key={i}>
-                  <div className="h-[160px] bg-[#1E1E1E] border border-white/10 rounded-xl p-3 flex flex-col gap-2 hover:border-[#B62E30]/40 hover:shadow-[0_0_16px_rgba(182,46,48,0.10)] transition-all duration-300">
+                  <div className="h-[210px] bg-[#1E1E1E] border border-white/10 rounded-xl p-3 flex flex-col gap-2 hover:border-[#B62E30]/40 hover:shadow-[0_0_16px_rgba(182,46,48,0.10)] transition-all duration-300">
                     {/* Header */}
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-[#B62E30] flex items-center justify-center shrink-0">
@@ -186,7 +162,22 @@ const HomeCounter: React.FC = React.memo(() => {
                           <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
                         </svg>
                       </div>
-                      <span className="ml-auto text-yellow-400 text-xs tracking-widest shrink-0">★★★★★</span>
+                      <div className="ml-auto flex flex-col items-end gap-0.5 shrink-0">
+                        <Link
+                          href="https://www.google.com/maps/place/AB+Automotores/@-31.4346103,-64.1320892,15z/data=!4m8!3m7!1s0x9432bd24e9ecd915:0xa32ee5da0ccf6d8f!8m2!3d-31.4346103!4d-64.1320892!9m1!1b1!16s%2Fg%2F11bw4rvkx6?entry=ttu&g_ep=EgoyMDI0MTExMi4wIKXMDSoJLDEwMjExMjMzSAFQAw%3D%3D"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Image
+                            src="/source/GoogleReview.webp"
+                            alt="Google Reviews"
+                            width={60}
+                            height={34}
+                            className="hover:scale-105 transition-transform duration-200 opacity-85 hover:opacity-100"
+                          />
+                        </Link>
+                        <span className="text-yellow-400 text-xs tracking-widest">★★★★★</span>
+                      </div>
                     </div>
 
                     {/* Texto */}

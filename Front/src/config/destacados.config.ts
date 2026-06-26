@@ -2,11 +2,11 @@
 // Los IDs se obtienen de la URL del producto: /views/details/[ID]
 export const DESTACADOS_CONFIG = {
   ids: [
-    "69cbcaf5c3c2687f652def86", // Renault Logan 2023
-    "69cacc0b6577e4382032e9f4", // Renault Kangoo 2022
-    "6a049af33a4eeff303d51c1b", // Fiat Cronos 2022
+    "6a3e9950b1501145e9438bf9", // Peugeot 208 GT 2025
+    "6a31a2b3e5af6fcb6bc7b09e", // Fiat Pulse 2025
+    "69cac7036577e4382032e9ee", // Jeep Compass Serie S 0KM 2026
     "6a049f463a4eeff303d51c2a", // Renault Captur 2019
-    "69cac7c66577e4382032e9f0", // Nissan Kicks 2017
+    "6a3e939263388929874d14f4", // Volkswagen Basalt 2026
     "69cbe1c7d67cda65cd446d45", // Volkswagen Voyage 2015
     "69cbccd3c3c2687f652def8d", // Toyota Corolla 2016
     "69e64a82fb42d5b65e2ef2de", // Jeep Compass Limited
