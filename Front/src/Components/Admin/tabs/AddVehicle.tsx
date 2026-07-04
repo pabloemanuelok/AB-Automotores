@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { UserContext } from "@/Context/contextUser";
 import { fetchPostProduct } from "@/utils/FetchCars/FetchCars";
 import { compressImage } from "@/utils/compressImage";
+import { buildDescription } from "@/utils/parseVehicleDescription";
 
 const inputClass =
   "w-full px-4 py-3 bg-[#2a2a2a] border border-[#505050] text-white placeholder-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B62E30] focus:border-transparent transition text-sm";
@@ -18,7 +19,8 @@ const AddVehicle: React.FC = () => {
     name: "",
     precio: "",
     year: "",
-    description: "",
+    combustible: "",
+    notas: "",
     files: [] as File[],
   });
   const [loading, setLoading] = useState(false);
@@ -26,7 +28,7 @@ const AddVehicle: React.FC = () => {
   const [previews, setPreviews] = useState<string[]>([]);
 
   const handleChange = async (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     if (name === "files" && e.target instanceof HTMLInputElement) {
@@ -77,7 +79,7 @@ const AddVehicle: React.FC = () => {
     formDataToSend.append("name", formData.name);
     formDataToSend.append("version", formData.precio);
     formDataToSend.append("year", formData.year);
-    formDataToSend.append("description", formData.description);
+    formDataToSend.append("description", buildDescription(formData.combustible, formData.notas));
     formData.files.forEach((file) => formDataToSend.append("files", file));
 
     try {
@@ -92,7 +94,7 @@ const AddVehicle: React.FC = () => {
           color: "#fff",
           confirmButtonColor: "#B62E30",
         });
-        setFormData({ name: "", precio: "", year: "", description: "", files: [] });
+        setFormData({ name: "", precio: "", year: "", combustible: "", notas: "", files: [] });
         setPreviews([]);
       } else {
         throw new Error();
@@ -161,15 +163,32 @@ const AddVehicle: React.FC = () => {
         </div>
 
         <div>
-          <label className={labelClass}>Descripción</label>
-          <textarea
-            name="description"
-            value={formData.description}
+          <label className={labelClass}>Combustible</label>
+          <select
+            name="combustible"
+            value={formData.combustible}
             onChange={handleChange}
-            placeholder="Descripción del vehículo, kilometraje, estado, extras..."
+            className={inputClass}
+            required
+          >
+            <option value="" disabled>Seleccioná el tipo de combustible</option>
+            <option value="Nafta">Nafta</option>
+            <option value="Diesel">Diesel</option>
+            <option value="GNC">GNC</option>
+            <option value="Eléctrico">Eléctrico</option>
+            <option value="Híbrido">Híbrido</option>
+          </select>
+        </div>
+
+        <div>
+          <label className={labelClass}>Descripción / Notas</label>
+          <textarea
+            name="notas"
+            value={formData.notas}
+            onChange={handleChange}
+            placeholder="Kilometraje, estado, extras, equipamiento..."
             className={inputClass}
             rows={4}
-            required
           />
         </div>
 

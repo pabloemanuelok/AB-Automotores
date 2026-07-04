@@ -14,7 +14,7 @@ const Section0: React.FC = () => {
         muted
         loop
         playsInline
-        poster="/source/NivusFrente.webp"
+        poster="https://ik.imagekit.io/automotoresab/public-source/NivusFrente.webp"
         aria-label="Video de fondo"
         preload="none"
       >

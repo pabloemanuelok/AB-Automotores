@@ -47,7 +47,7 @@ const SobreNosotros: React.FC = () => {
         >
           <div className="relative h-[420px] md:h-[560px] overflow-hidden rounded-xl sm:rounded-r-none">
             <video
-              src="/videoBasaltSN.mp4"
+              src="https://ik.imagekit.io/automotoresab/videos/videoBasaltSN.mp4"
               autoPlay
               muted
               loop
@@ -57,7 +57,7 @@ const SobreNosotros: React.FC = () => {
           </div>
           <div className="relative h-[420px] md:h-[560px] overflow-hidden rounded-xl sm:rounded-none">
             <video
-              src="/videoRenegadeSN.mp4"
+              src="https://ik.imagekit.io/automotoresab/videos/videoRenegadeSN.mp4"
               autoPlay
               muted
               loop
@@ -67,7 +67,7 @@ const SobreNosotros: React.FC = () => {
           </div>
           <div className="relative h-[420px] md:h-[560px] overflow-hidden rounded-xl sm:rounded-l-none">
             <video
-              src="/videoVerticalSN.mp4"
+              src="https://ik.imagekit.io/automotoresab/videos/videoVerticalSN.mp4"
               autoPlay
               muted
               loop

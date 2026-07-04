@@ -6,9 +6,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const images = [
-  { src: "/source/pomoCompass.jpeg", alt: "Pomo Compass" },
-  { src: "/source/ManijaYaris.webp", alt: "Manija Yaris", isMiddle: true },
-  { src: "/source/Central208.webp", alt: "Central multimedia 208" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/pomoCompass.jpeg", alt: "Pomo Compass" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/ManijaYaris.webp", alt: "Manija Yaris", isMiddle: true },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/Central208.webp", alt: "Central multimedia 208" },
 ];
 
 const Section4: React.FC = () => {

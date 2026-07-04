@@ -12,7 +12,7 @@ export default async function CatalogoPage() {
   return (
     <div className="bg-[#0a0a0a]">
       <FondoNav
-        imageSrc="/source/fotoBanner.png"
+        imageSrc="https://ik.imagekit.io/automotoresab/public-source/fotoBanner.png"
         title="Catalogo de usados y 0KM"
         description="Explorá nuestra seleccion de vehiculos disponibles para entrega inmediata."
       />

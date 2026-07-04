@@ -4,9 +4,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { trackEvent } from "@/utils/analytics";
-import logoWsp from "@/Assets/logoWsp.png";
-import logoInstagram from "@/Assets/logoInstagram.png";
-import logoFacebook from "@/Assets/logoFacebook.png";
+const logoWsp = "https://ik.imagekit.io/automotoresab/src-assets/logoWsp.png";
+const logoInstagram = "https://ik.imagekit.io/automotoresab/src-assets/logoInstagram.png";
+const logoFacebook = "https://ik.imagekit.io/automotoresab/src-assets/logoFacebook.png";
 
 const FloatingWhatsApp: React.FC = () => {
   return (

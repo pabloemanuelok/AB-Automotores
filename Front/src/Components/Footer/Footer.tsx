@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaPhoneAlt, FaEnvelope, FaInstagram, FaFacebook, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
-import Logo from "@/Assets/LogoRojo.png";
+const Logo = "https://ik.imagekit.io/automotoresab/src-assets/LogoRojo.png";
 
 const socialLinks = [
   {
@@ -155,7 +155,7 @@ const Footer = () => {
               Created by Vartox
             </span>
             <Image
-              src="/source/veltro_simbolo_transparente.png"
+              src="https://ik.imagekit.io/automotoresab/public-source/veltro_simbolo_transparente.png"
               alt="Vartox"
               width={28}
               height={28}

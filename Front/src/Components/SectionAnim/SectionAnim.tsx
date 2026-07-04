@@ -169,7 +169,7 @@ const HomeCounter: React.FC = React.memo(() => {
                           rel="noopener noreferrer"
                         >
                           <Image
-                            src="/source/GoogleReview.webp"
+                            src="https://ik.imagekit.io/automotoresab/public-source/GoogleReview.webp"
                             alt="Google Reviews"
                             width={60}
                             height={34}

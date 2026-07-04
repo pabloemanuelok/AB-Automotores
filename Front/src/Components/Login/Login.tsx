@@ -3,7 +3,7 @@
 import React, { useState, useContext } from "react";
 import Image from "next/image";
 import { UserContext } from "@/Context/contextUser";
-import logo from "@/Assets/LogoSinFondo.webp";
+const logo = "https://ik.imagekit.io/automotoresab/src-assets/LogoSinFondo.webp";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";

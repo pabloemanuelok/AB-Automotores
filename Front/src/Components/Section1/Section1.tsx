@@ -8,9 +8,9 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/navigation";
 const images = [
-  { src: "/source/Frente20081.svg", alt: "Frente del vehículo" },
-  { src: "/source/InteriorJeep2.svg", alt: "Interior del Jeep" },
-  { src: "/source/colaYaris.jpeg", alt: "Cola del Yaris" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/Frente20081.svg", alt: "Frente del vehículo" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/InteriorJeep2.svg", alt: "Interior del Jeep" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/colaYaris.jpeg", alt: "Cola del Yaris" },
 ];
 
 const ImageGallery: React.FC = () => {

@@ -38,7 +38,7 @@ const Consignaciones = () => {
             className="relative w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden min-h-[280px]"
           >
             <Image
-              src="/source/2008Allure0Km.jpeg"
+              src="https://ik.imagekit.io/automotoresab/public-source/2008Allure0Km.jpeg"
               alt="Peugeot 2008 Allure 0km"
               fill
               className="object-cover"

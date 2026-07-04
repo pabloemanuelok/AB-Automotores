@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FC, useState, useEffect, useContext, useCallback, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import Logo from "@/Assets/LogoSinFondo.webp";
+const Logo = "https://ik.imagekit.io/automotoresab/src-assets/LogoSinFondo.webp";
 import { UserContext } from "@/Context/contextUser";
 
 const navLinks = [
@@ -77,7 +77,7 @@ const Navbar: FC = () => {
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <Image src={Logo} alt="AB Automotores" width={70} priority />
+            <Image src={Logo} alt="AB Automotores" width={70} height={70} priority />
           </Link>
 
           {/* Desktop links */}

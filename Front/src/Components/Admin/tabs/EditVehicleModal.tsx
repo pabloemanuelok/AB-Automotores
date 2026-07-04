@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { IProduct } from "@/Interfaces/Interface";
 import { fetchPatchProduct, IProductUpdate } from "@/utils/FetchCars/FetchCars";
 import { compressImage } from "@/utils/compressImage";
+import { parseCombustible, stripCombustible, buildDescription } from "@/utils/parseVehicleDescription";
 
 interface Props {
   product: IProduct;
@@ -22,7 +23,8 @@ const EditVehicleModal: React.FC<Props> = ({ product, token, onClose, onSaved })
   const [name, setName] = useState(product.name);
   const [precio, setPrecio] = useState(product.version);
   const [year, setYear] = useState(String(product.year));
-  const [description, setDescription] = useState(product.description);
+  const [combustible, setCombustible] = useState(parseCombustible(product.description) ?? "");
+  const [notas, setNotas] = useState(stripCombustible(product.description));
 
   // Imágenes existentes a conservar (las que NO se tachan)
   const [keepImages, setKeepImages] = useState<string[]>([...(product.images ?? [])]);
@@ -95,7 +97,7 @@ const EditVehicleModal: React.FC<Props> = ({ product, token, onClose, onSaved })
       name,
       version: precio,
       year,
-      description,
+      description: buildDescription(combustible, notas),
       images: keepImages,
     };
 
@@ -113,7 +115,7 @@ const EditVehicleModal: React.FC<Props> = ({ product, token, onClose, onSaved })
           timer: 2000,
           showConfirmButton: false,
         });
-        onSaved({ name, version: precio, year: Number(year), description });
+        onSaved({ name, version: precio, year: Number(year), description: buildDescription(combustible, notas) });
         onClose();
       } else {
         throw new Error();
@@ -202,16 +204,33 @@ const EditVehicleModal: React.FC<Props> = ({ product, token, onClose, onSaved })
             />
           </div>
 
-          {/* Descripción */}
+          {/* Combustible */}
           <div>
-            <label className={labelClass}>Descripción</label>
+            <label className={labelClass}>Combustible</label>
+            <select
+              value={combustible}
+              onChange={(e) => setCombustible(e.target.value)}
+              className={inputClass}
+              required
+            >
+              <option value="" disabled>Seleccioná el tipo de combustible</option>
+              <option value="Nafta">Nafta</option>
+              <option value="Diesel">Diesel</option>
+              <option value="GNC">GNC</option>
+              <option value="Eléctrico">Eléctrico</option>
+              <option value="Híbrido">Híbrido</option>
+            </select>
+          </div>
+
+          {/* Descripción / Notas */}
+          <div>
+            <label className={labelClass}>Descripción / Notas</label>
             <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Descripción del vehículo, kilometraje, estado, extras..."
+              value={notas}
+              onChange={(e) => setNotas(e.target.value)}
+              placeholder="Kilometraje, estado, extras, equipamiento..."
               className={inputClass}
               rows={4}
-              required
             />
           </div>
 

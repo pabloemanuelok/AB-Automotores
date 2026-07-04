@@ -1,6 +1,6 @@
 "use client";
-import FondoImage from "@/Assets/PruebaFondo1.svg";
 import React from "react";
+const FondoImage = "https://ik.imagekit.io/automotoresab/src-assets/PruebaFondo1.svg";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
