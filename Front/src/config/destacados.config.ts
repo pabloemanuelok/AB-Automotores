@@ -6,7 +6,7 @@ export const DESTACADOS_CONFIG = {
     "6a31a2b3e5af6fcb6bc7b09e", // Fiat Pulse 2025
     "69cac7036577e4382032e9ee", // Jeep Compass Serie S 0KM 2026
     "6a049f463a4eeff303d51c2a", // Renault Captur 2019
-    "6a3e939263388929874d14f4", // Volkswagen Basalt 2026
+    "6a3e939263388929874d14f4", // Citroën Basalt 2026
     "69cbe1c7d67cda65cd446d45", // Volkswagen Voyage 2015
     "69cbccd3c3c2687f652def8d", // Toyota Corolla 2016
     "69e64a82fb42d5b65e2ef2de", // Jeep Compass Limited

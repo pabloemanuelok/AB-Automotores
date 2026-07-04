@@ -93,12 +93,12 @@ const Footer = () => {
             variants={colVariants}
             className="flex flex-col items-center md:items-end"
           >
-            <div className="flex flex-col items-start gap-4">
+            <div className="flex flex-col items-center md:items-start gap-4">
             <div>
               <h3 className="text-gray-900 text-sm font-semibold uppercase tracking-widest">
                 Contacto
               </h3>
-              <div className="h-0.5 w-8 bg-[#B62E30] mt-2" />
+              <div className="h-0.5 w-8 bg-[#B62E30] mt-2 md:mx-0 mx-auto" />
             </div>
 
             <div className="flex flex-col gap-3">

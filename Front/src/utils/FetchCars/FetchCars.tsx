@@ -69,6 +69,7 @@ export interface IProductUpdate {
   version: string;
   year: string;
   description: string;
+  images?: string[];
 }
 
 export async function fetchPatchProduct(

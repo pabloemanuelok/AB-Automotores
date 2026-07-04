@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 interface Props {
   eyebrow: string;
   title: string;
-  description: React.ReactNode;
+  description: string;
+  boldText?: string;
 }
 
-export default function CtaBanner({ eyebrow, title, description }: Props) {
+export default function CtaBanner({ eyebrow, title, description, boldText }: Props) {
   return (
     <section className="bg-[#1E1E1E] border-t border-[#2a2a2a] py-14">
       <div className="page-container text-center">
@@ -27,6 +28,7 @@ export default function CtaBanner({ eyebrow, title, description }: Props) {
           </h2>
           <p className="text-white/60 max-w-md mx-auto text-sm md:text-base">
             {description}
+            {boldText && <><br /><strong>{boldText}</strong></>}
           </p>
         </motion.div>
       </div>

@@ -96,6 +96,7 @@ const EditVehicleModal: React.FC<Props> = ({ product, token, onClose, onSaved })
       version: precio,
       year,
       description,
+      images: keepImages,
     };
 
     try {

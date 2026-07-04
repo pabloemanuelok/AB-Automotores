@@ -33,7 +33,7 @@ const SobreNosotros: React.FC = () => {
 
           <p className="mt-3 text-white/70 text-sm md:text-base leading-relaxed">
             Ubicados en Córdoba, atendemos a compradores y vendedores de toda la región.
-            Permutas, consignaciones y entrega inmediata son parte de nuestro servicio integral.
+          
           </p>
         </motion.div>
 

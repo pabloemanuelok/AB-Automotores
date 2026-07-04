@@ -42,7 +42,8 @@ const Page = () => {
         <CtaBanner
           eyebrow="Consultá sin compromiso"
           title="¿Listo para tu próximo vehículo?"
-          description={<>Contactanos y te asesoramos para que encuentres<br />el auto ideal para vos.</>}
+          description="Contactanos y te asesoramos para que encuentres"
+          boldText="el auto ideal para vos."
         />
       </div>
     </>
