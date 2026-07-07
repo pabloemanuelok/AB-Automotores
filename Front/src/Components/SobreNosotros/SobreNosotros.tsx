@@ -33,7 +33,7 @@ const SobreNosotros: React.FC = () => {
 
           <p className="mt-3 text-white/70 text-sm md:text-base leading-relaxed font-bold">
             Ubicados en Córdoba, atendemos a compradores y vendedores de toda la región.
-
+            Si te gusta alguno de nuestros autos no dudes en consultarnos.
           </p>
         </motion.div>
 
