@@ -102,21 +102,6 @@ const Footer = () => {
             </div>
 
             <div className="flex flex-col gap-3">
-              {/* Ubicación */}
-              <Link
-                href="https://maps.app.goo.gl/SwaGpKmyq8RJGCAHA"
-                target="_blank"
-                aria-label="Ver ubicación en Google Maps"
-                className="group flex items-start gap-3"
-              >
-                <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
-                  <FaMapMarkerAlt className="text-white text-sm" />
-                </div>
-                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug">
-                  Av. Sabattini 4260, Córdoba
-                </span>
-              </Link>
-
               {/* Teléfono */}
               <div className="flex items-center gap-3">
                 <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
@@ -136,6 +121,21 @@ const Footer = () => {
                 </div>
                 <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm break-all">
                   abautomotores@hotmail.com
+                </span>
+              </Link>
+
+              {/* Ubicación */}
+              <Link
+                href="https://maps.app.goo.gl/SwaGpKmyq8RJGCAHA"
+                target="_blank"
+                aria-label="Ver ubicación en Google Maps"
+                className="group flex items-start gap-3"
+              >
+                <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
+                  <FaMapMarkerAlt className="text-white text-sm" />
+                </div>
+                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug">
+                  Av. Sabattini 4260, Córdoba
                 </span>
               </Link>
             </div>

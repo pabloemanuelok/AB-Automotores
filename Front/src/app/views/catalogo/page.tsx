@@ -14,7 +14,11 @@ export default async function CatalogoPage() {
       <FondoNav
         imageSrc="https://ik.imagekit.io/automotoresab/public-source/fotoBanner.png"
         title="Catalogo de usados y 0KM"
-        description="Explorá nuestra seleccion de vehiculos disponibles para entrega inmediata."
+        description={
+          <>
+            Explorá nuestra seleccion de vehiculos <strong>disponibles para entrega inmediata</strong>.
+          </>
+        }
       />
       <CardsList products={products} />
       <CtaBanner

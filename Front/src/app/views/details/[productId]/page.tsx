@@ -1,10 +1,8 @@
 // page.tsx
 import Detail from '@/Components/Detail/Detail';
 import { fetchProductById } from '@/utils/FetchCars/FetchCars';
-import FondoNav from '@/Components/FondoNav/FondoNav';
 
 export default async function CarsPage({ params }: { params: { productId: string } }) {
-  // Convertimos el ID de la URL a número
   const product = await fetchProductById(params.productId);
 
   if (!product) {
@@ -16,12 +14,7 @@ export default async function CarsPage({ params }: { params: { productId: string
   }
 
   return (
-    <div className="bg-[#0a0a0a]">
-      <FondoNav
-        eyebrow="AB Automotores"
-        title={product.name}
-        description={`${product.version} · ${product.year}`}
-      />
+    <div className="bg-[#0a0a0a] pt-20">
       <Detail product={product} />
     </div>
   );

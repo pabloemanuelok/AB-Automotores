@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 interface FondoNavProps {
   eyebrow?: string;
   title?: string;
-  description?: string;
+  description?: React.ReactNode;
   imageSrc?: string;
 }
 
@@ -37,11 +37,11 @@ const FondoNav = ({
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-center page-container"
         >
-          <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+          <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
             {title}
           </h1>
           <div className="mt-3 mx-auto w-12 h-[3px] bg-[#B62E30] rounded-full" />
-          <p className="mt-4 text-white/70 text-sm md:text-base mx-auto font-bold md:whitespace-nowrap">
+          <p className="mt-4 text-white/70 text-xs sm:text-sm md:text-base mx-auto font-normal md:whitespace-nowrap">
             {description}
           </p>
         </motion.div>

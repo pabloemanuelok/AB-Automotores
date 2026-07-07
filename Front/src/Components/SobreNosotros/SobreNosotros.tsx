@@ -26,14 +26,14 @@ const SobreNosotros: React.FC = () => {
           <div className="mt-2 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto" />
 
           <p className="mt-4 text-white/70 text-sm md:text-base leading-relaxed">
-            Nos mueve el compromiso con nuestros clientes: brindamos asesoramiento honesto,
+            Nos mueve el compromiso con nuestros clientes: brindamos asesoramiento personalizado,
             financiación accesible, gestoría completa y la mejor experiencia de compra.
             Porque para nosotros, cada venta es el inicio de una relación de confianza.
           </p>
 
-          <p className="mt-3 text-white/70 text-sm md:text-base leading-relaxed">
+          <p className="mt-3 text-white/70 text-sm md:text-base leading-relaxed font-bold">
             Ubicados en Córdoba, atendemos a compradores y vendedores de toda la región.
-          
+
           </p>
         </motion.div>
 
