@@ -125,7 +125,7 @@ const AddVehicle: React.FC = () => {
         });
         setFormData({
           name: "", precio: "", year: "", notas: "", files: [],
-          version: "", motor: "", combustible: "", potencia: "", transmision: "",
+          version: "", motor: "", combustible: "", potencia: "", transmision: "", traccion: "",
           autonomia: "", velocidadMax: "", largo: "", ancho: "",
           alto: "", tanque: "", baul: "",
         });
