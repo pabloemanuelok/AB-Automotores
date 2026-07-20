@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { IProduct } from "@/Interfaces/Interface";
 import { fetchPatchProduct, IProductUpdate } from "@/utils/FetchCars/FetchCars";
 import { compressImage } from "@/utils/compressImage";
-import { parseCombustible, stripCombustible, buildDescription } from "@/utils/parseVehicleDescription";
+import { parseCombustible, stripCombustible, buildDescription, parseVehicleSpecs } from "@/utils/parseVehicleDescription";
 
 interface Props {
   product: IProduct;
@@ -35,6 +35,7 @@ const EditVehicleModal: React.FC<Props> = ({ product, token, onClose, onSaved })
 
   const [compressing, setCompressing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const baseSpecs = parseVehicleSpecs(product.description);
 
   // Cerrar con ESC
   const handleKeyDown = useCallback(
@@ -97,7 +98,7 @@ const EditVehicleModal: React.FC<Props> = ({ product, token, onClose, onSaved })
       name,
       version: precio,
       year,
-      description: buildDescription(combustible, notas),
+      description: buildDescription({ ...baseSpecs, combustible }, notas),
       images: keepImages,
     };
 
@@ -115,7 +116,7 @@ const EditVehicleModal: React.FC<Props> = ({ product, token, onClose, onSaved })
           timer: 2000,
           showConfirmButton: false,
         });
-        onSaved({ name, version: precio, year: Number(year), description: buildDescription(combustible, notas) });
+        onSaved({ name, version: precio, year: Number(year), description: buildDescription({ ...baseSpecs, combustible }, notas) });
         onClose();
       } else {
         throw new Error();
