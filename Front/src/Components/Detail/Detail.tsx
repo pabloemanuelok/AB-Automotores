@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IDetailsProps } from "@/Interfaces/Interface";
@@ -8,6 +8,7 @@ import { FaChevronLeft, FaChevronRight, FaWhatsapp, FaTimes } from "react-icons/
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import CtaBanner from "@/Components/CtaBanner/CtaBanner";
+import { parseVehicleSpecs, parseNotas } from "@/utils/parseVehicleDescription";
 
 const slideVariants = {
   enter: (dir: "left" | "right") => ({
@@ -24,11 +25,31 @@ const slideVariants = {
   }),
 };
 
+const SPEC_LABELS: { key: keyof ReturnType<typeof parseVehicleSpecs>; label: string }[] = [
+  { key: "combustible", label: "Combustible" },
+  { key: "motor", label: "Motor" },
+  { key: "potencia", label: "Potencia" },
+  { key: "transmision", label: "Transmisión" },
+  { key: "traccion", label: "Tracción" },
+  { key: "autonomia", label: "Autonomía Estimada" },
+  { key: "velocidadMax", label: "Velocidad Máxima" },
+  { key: "largo", label: "Largo" },
+  { key: "ancho", label: "Ancho" },
+  { key: "alto", label: "Alto" },
+  { key: "tanque", label: "Capacidad del Tanque" },
+  { key: "baul", label: "Capacidad del Baúl" },
+];
+
+
 const Detail: React.FC<IDetailsProps> = ({ product }) => {
+  const specs = parseVehicleSpecs(product.description);
+  const notas = parseNotas(product.description);
+  const hasSpecs = !!specs.version || SPEC_LABELS.some(({ key }) => specs[key]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxZoomed, setLightboxZoomed] = useState(false);
+  const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const handleNextImage = useCallback(() => {
     setDirection("right");
@@ -61,6 +82,14 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
     setLightboxOpen(false);
     setLightboxZoomed(false);
   };
+
+  // Scroll thumbnail activo a la vista
+  useEffect(() => {
+    thumbnailRefs.current[currentImageIndex]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
+  }, [currentImageIndex]);
 
   // Escape key
   useEffect(() => {
@@ -127,18 +156,18 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
           </motion.button>
         </Link>
 
-        {/* ── Galería full-width ── */}
+        {/* ── Galería ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="rounded-xl overflow-hidden border border-[#505050] shadow-2xl"
+          className="rounded-xl overflow-hidden border border-[#505050] shadow-2xl flex h-[300px] sm:h-[380px] md:h-[450px] lg:h-[500px]"
         >
           {/* Imagen principal */}
           <div
             {...swipeHandlers}
             onClick={openLightbox}
-            className="relative w-full h-[240px] sm:h-[320px] md:h-[430px] lg:h-[530px] xl:h-[580px] bg-[#111111] overflow-hidden cursor-zoom-in select-none"
+            className="relative flex-1 bg-[#111111] overflow-hidden cursor-zoom-in select-none"
           >
             {product.images.length > 0 ? (
               <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -159,7 +188,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                     className="object-contain"
                     priority={currentImageIndex === 0}
                     quality={85}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1200px"
+                    sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 768px) calc(100vw - 96px), (max-width: 1280px) calc(90vw - 108px), 1100px"
                   />
                 </motion.div>
               </AnimatePresence>
@@ -170,7 +199,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
             )}
 
             {/* Degradado inferior */}
-            <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
 
             {/* Controles de navegación */}
             {product.images.length > 1 && (
@@ -178,65 +207,47 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                 <button
                   onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
                   aria-label="Imagen anterior"
-                  className="absolute top-1/2 left-4 -translate-y-1/2 w-11 h-11 rounded-full bg-black/40 hover:bg-[#B62E30] border border-white/20 hover:border-[#B62E30] text-white flex items-center justify-center transition-all duration-200 shadow-lg z-10 backdrop-blur-sm"
+                  className="absolute top-1/2 left-3 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-[#B62E30] border border-white/20 hover:border-[#B62E30] text-white flex items-center justify-center transition-all duration-200 shadow-lg z-10 backdrop-blur-sm"
                 >
-                  <FaChevronLeft size={14} />
+                  <FaChevronLeft size={12} />
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
                   aria-label="Siguiente imagen"
-                  className="absolute top-1/2 right-4 -translate-y-1/2 w-11 h-11 rounded-full bg-black/40 hover:bg-[#B62E30] border border-white/20 hover:border-[#B62E30] text-white flex items-center justify-center transition-all duration-200 shadow-lg z-10 backdrop-blur-sm"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-[#B62E30] border border-white/20 hover:border-[#B62E30] text-white flex items-center justify-center transition-all duration-200 shadow-lg z-10 backdrop-blur-sm"
                 >
-                  <FaChevronRight size={14} />
+                  <FaChevronRight size={12} />
                 </button>
 
                 {/* Contador */}
-                <div className="absolute bottom-4 right-4 z-10 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-sm tracking-wide">
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 bg-black/60 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm tracking-wide">
                   {currentImageIndex + 1} / {product.images.length}
                 </div>
-
-                {/* Dots para mobile (máx 8 imágenes) */}
-                {product.images.length <= 8 && (
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10 sm:hidden">
-                    {product.images.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={(e) => { e.stopPropagation(); handleThumbnailClick(i); }}
-                        aria-label={`Ir a imagen ${i + 1}`}
-                        className={`h-1.5 rounded-full transition-all duration-200 ${
-                          i === currentImageIndex
-                            ? "bg-[#B62E30] w-4"
-                            : "bg-white/50 w-1.5"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                )}
               </>
             )}
           </div>
 
-          {/* Thumbnail strip */}
+          {/* Thumbnail strip vertical - derecha */}
           {product.images.length > 1 && (
-            <div className="flex gap-2 p-3 sm:p-4 overflow-x-auto scrollbar-hide bg-[#111111] border-t border-[#505050]">
+            <div className="flex flex-col gap-2 p-2 overflow-y-auto scrollbar-hide bg-[#111111] border-l border-[#505050] w-[72px] sm:w-[84px] md:w-[96px]">
               {product.images.map((img, i) => (
                 <button
                   key={i}
+                  ref={(el) => { thumbnailRefs.current[i] = el; }}
                   onClick={() => handleThumbnailClick(i)}
-                  className={`relative flex-shrink-0 rounded-lg overflow-hidden transition-all duration-200
-                    w-20 h-[60px] sm:w-24 sm:h-[72px] md:w-28 md:h-[84px]
-                    ${
-                      i === currentImageIndex
-                        ? "ring-2 ring-[#B62E30] ring-offset-2 ring-offset-[#111111] opacity-100 scale-105"
-                        : "opacity-50 hover:opacity-80 ring-1 ring-transparent hover:ring-[#505050]"
+                  className={`relative flex-shrink-0 w-full rounded-md overflow-hidden transition-all duration-200
+                    ${i === currentImageIndex
+                      ? "ring-2 ring-[#B62E30] ring-offset-1 ring-offset-[#111111] opacity-100"
+                      : "opacity-40 hover:opacity-75 ring-1 ring-transparent hover:ring-[#505050]"
                     }`}
+                  style={{ aspectRatio: "3/4" }}
                 >
                   <Image
                     src={img}
                     alt={`Miniatura ${i + 1}`}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 640px) 80px, (max-width: 768px) 96px, 112px"
+                    sizes="(max-width: 640px) 72px, (max-width: 768px) 84px, 96px"
                   />
                 </button>
               ))}
@@ -249,7 +260,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-          className="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4"
+          className="mt-4 mb-4 grid grid-cols-1 lg:grid-cols-3 gap-4"
         >
           {/* Card descripción (2/3) */}
           <div className="lg:col-span-2 bg-[#1E1E1E] border border-[#505050] rounded-xl p-6 lg:p-8 flex flex-col gap-5">
@@ -270,23 +281,37 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
               {product.version}
             </p>
 
-            {/* Descripción */}
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-white text-sm font-semibold uppercase tracking-wide">
-                  Descripción
-                </span>
-                <div className="flex-1 h-[1px] bg-[#505050]" />
+            {/* Especificaciones técnicas */}
+            {hasSpecs && (
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-white text-sm font-semibold uppercase tracking-wide">
+                    Especificaciones técnicas
+                  </span>
+                  <div className="flex-1 h-[1px] bg-[#505050]" />
+                </div>
+                {specs.version && (
+                  <div className="bg-[#B62E30]/10 border border-[#B62E30]/40 rounded-lg px-4 py-3 mb-3">
+                    <p className="text-[#B62E30] text-xs font-semibold uppercase tracking-wider mb-0.5">Versión</p>
+                    <p className="text-white text-base font-semibold">{specs.version}</p>
+                  </div>
+                )}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {SPEC_LABELS.filter(({ key }) => specs[key]).map(({ key, label }) => (
+                    <div key={key} className="bg-[#141414] border border-[#383838] rounded-lg px-3 py-2.5">
+                      <p className="text-gray-500 text-xs mb-0.5">{label}</p>
+                      <p className="text-white text-sm font-medium">{specs[key]}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <p className="text-gray-300 text-sm md:text-base leading-relaxed whitespace-pre-wrap">
-                {product.description}
-              </p>
-            </div>
+            )}
+
           </div>
 
           {/* Card CTA (1/3) */}
-          <div className="bg-[#1E1E1E] border border-[#505050] rounded-xl p-6 flex flex-col justify-between gap-6">
-            <div className="flex flex-col gap-3">
+          <div className="bg-[#1E1E1E] border border-[#505050] rounded-xl p-6 flex flex-col gap-2">
+            <div className="flex flex-col gap-1.5">
               <div className="w-10 h-[3px] bg-[#B62E30] rounded-full" />
               <p className="text-white font-semibold text-base leading-snug">
                 ¿Te interesa este vehículo?
@@ -304,12 +329,26 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="w-full px-6 py-4 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg flex items-center justify-center gap-3 text-base"
+                className="w-full px-6 py-2 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg flex items-center justify-center gap-3 text-base"
               >
                 <FaWhatsapp size={20} />
                 Consultar por WhatsApp
               </motion.button>
             </Link>
+
+            {notas ? (
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-white text-sm font-semibold uppercase tracking-wide">
+                    Descripción
+                  </span>
+                  <div className="flex-1 h-[1px] bg-[#505050]" />
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">
+                  {notas}
+                </p>
+              </div>
+            ) : null}
           </div>
         </motion.div>
 
