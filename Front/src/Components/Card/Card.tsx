@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { getAuthToken } from "@/utils/Auth/Auth";
-import { parseCombustible } from "@/utils/parseVehicleDescription";
+
 
 const Card = ({
   product,
@@ -54,16 +54,11 @@ const Card = ({
         </h2>
         <p className="text-gray-200 text-sm font-medium truncate">{product.version}</p>
 
-        {/* Badges: año + combustible */}
+        {/* Badge: año */}
         <div className="flex flex-wrap gap-1.5 mt-0.5">
           <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#B62E30]/20 text-[#B62E30] text-xs font-semibold border border-[#B62E30]/30">
             {product.year}
           </span>
-          {parseCombustible(product.description) && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-blue-900/30 text-blue-300 text-xs font-semibold border border-blue-700/30">
-              {parseCombustible(product.description)}
-            </span>
-          )}
         </div>
 
         {/* Botones */}
