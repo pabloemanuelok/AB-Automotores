@@ -151,16 +151,18 @@ const Footer = () => {
             © 2025 AB Automotores. Todos los derechos reservados.
           </span>
           <div className="flex items-center gap-2">
-            <span className="text-gray-500 text-xs">
-              Created by Vartox
-            </span>
-            <Image
-              src="https://ik.imagekit.io/automotoresab/public-source/veltro_simbolo_transparente.png"
-              alt="Vartox"
-              width={28}
-              height={28}
-              className="object-contain"
-            />
+            <span className="text-gray-500 text-xs">Created by</span>
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=pablo.emanuelok@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-[#505050] bg-[#1a1a1a] px-3 py-1 text-xs font-medium text-white transition-colors hover:border-[#B62E30] hover:bg-[#B62E30]"
+            >
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#B62E30] text-[11px] font-bold text-white">
+                P
+              </span>
+              Pablo Fernandez
+            </a>
           </div>
         </div>
       </div>
