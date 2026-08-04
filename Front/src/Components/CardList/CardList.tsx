@@ -68,11 +68,11 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   };
 
   return (
-    <section className="bg-[#0a0a0a] min-h-screen pb-10">
+    <section className="bg-white min-h-screen pb-10">
       <div className="page-container">
 
         {/* Barra de controles */}
-        <div className="flex items-center justify-end mb-6">
+        <div className="flex items-center justify-end mt-8 mb-6">
           <button
             onClick={toggleSortOrder}
             className="flex items-center gap-2 px-5 py-2.5 bg-[#1E1E1E] border border-[#505050] hover:border-[#B62E30] text-white text-sm font-semibold rounded-lg transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
@@ -122,7 +122,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
             className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-all duration-200 ${
               currentPage === 1
                 ? "border-[#505050] text-[#505050] cursor-not-allowed"
-                : "border-[#505050] text-white hover:border-[#B62E30] hover:text-[#B62E30] hover:scale-[1.05] active:scale-[0.97]"
+                : "border-[#505050] text-gray-700 hover:border-[#B62E30] hover:text-[#B62E30] hover:scale-[1.05] active:scale-[0.97]"
             }`}
           >
             ← Anterior
@@ -135,7 +135,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
               className={`w-9 h-9 rounded-lg text-sm font-semibold border transition-all duration-200 hover:scale-[1.1] active:scale-[0.95] ${
                 currentPage === index + 1
                   ? "bg-[#B62E30] border-[#B62E30] text-white"
-                  : "bg-transparent border-[#505050] text-gray-400 hover:border-[#B62E30] hover:text-white"
+                  : "bg-transparent border-[#505050] text-gray-600 hover:border-[#B62E30] hover:text-[#B62E30]"
               }`}
             >
               {index + 1}
@@ -148,7 +148,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
             className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-all duration-200 ${
               currentPage === totalPages
                 ? "border-[#505050] text-[#505050] cursor-not-allowed"
-                : "border-[#505050] text-white hover:border-[#B62E30] hover:text-[#B62E30] hover:scale-[1.05] active:scale-[0.97]"
+                : "border-[#505050] text-gray-700 hover:border-[#B62E30] hover:text-[#B62E30] hover:scale-[1.05] active:scale-[0.97]"
             }`}
           >
             Siguiente →

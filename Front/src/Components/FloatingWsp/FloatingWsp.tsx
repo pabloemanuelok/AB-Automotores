@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { trackEvent } from "@/utils/analytics";
+import { sendGAEvent } from "@next/third-parties/google";
 const logoWsp = "https://ik.imagekit.io/automotoresab/src-assets/logoWsp.png";
 const logoInstagram = "https://ik.imagekit.io/automotoresab/src-assets/logoInstagram.png";
 const logoFacebook = "https://ik.imagekit.io/automotoresab/src-assets/logoFacebook.png";
@@ -14,7 +15,10 @@ const FloatingWhatsApp: React.FC = () => {
       <Link
         href="https://www.whatsapp.com/catalog/5493516129221/?app_absent=0"
         target="_blank"
-        onClick={() => trackEvent("wsp")}
+        onClick={() => {
+          trackEvent("wsp");
+          sendGAEvent("event", "click_whatsapp", { origen: "flotante" });
+        }}
       >
         <Image
           src={logoWsp}

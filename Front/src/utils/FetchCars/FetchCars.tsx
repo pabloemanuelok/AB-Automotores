@@ -19,18 +19,25 @@ export default async function fetchCars(): Promise<IProduct[]> {
 }
 
 // Función para obtener un producto por su ID
-export async function fetchProductById(_id: string): Promise<IProduct> {
+export async function fetchProductById(_id: string): Promise<IProduct | null> {
     try {
         const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${_id}`, {
             next: { revalidate: 300 },
         });
         if (!res.ok) {
-            throw new Error("No se pudo obtener el producto");
+            console.error("No se pudo obtener el producto:", res.status);
+            return null;
         }
-        return await res.json();
+        const data = await res.json();
+        // El backend devuelve 200 con {} (ID inexistente) o un CastError (ID inválido)
+        // en vez de un 404, así que hay que validar la forma de la respuesta.
+        if (!data || !data._id || !data.name) {
+            return null;
+        }
+        return data;
     } catch (error) {
         console.error("Error al obtener el producto:", error);
-        throw error;  // Propaga el error
+        return null;
     }
 }
 

@@ -1,8 +1,27 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import CardsList from '@/Components/CardList/CardList';
 import FondoNav from '@/Components/FondoNav/FondoNav';
 import CtaBanner from '@/Components/CtaBanner/CtaBanner';
 import fetchCars from '@/utils/FetchCars/FetchCars';
+
+const title = 'Catálogo de autos usados y 0KM';
+const description = 'Explorá nuestra selección de vehículos usados y 0KM disponibles para entrega inmediata en AB Automotores.';
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: '/views/catalogo' },
+  openGraph: {
+    title: `${title} | AB Automotores`,
+    description,
+    url: '/views/catalogo',
+    type: 'website',
+    locale: 'es_AR',
+    siteName: 'AB Automotores',
+    images: [{ url: '/og-default.jpg', width: 1200, height: 630 }],
+  },
+};
 
 // Componente Server Component
 export default async function CatalogoPage() {
@@ -10,7 +29,7 @@ export default async function CatalogoPage() {
   const products = await fetchCars();
 
   return (
-    <div className="bg-[#0a0a0a]">
+    <div className="bg-white">
       <FondoNav
         imageSrc="https://ik.imagekit.io/automotoresab/public-source/fotoBanner.png"
         title="Catalogo de usados y 0KM"
@@ -22,9 +41,9 @@ export default async function CatalogoPage() {
       />
       <CardsList products={products} />
       <CtaBanner
-        eyebrow="¿No encontrás lo que buscás?"
-        title="Consultanos y te ayudamos a encontrar tu auto"
-        description="Decinos qué estás buscando y te avisamos cuando tengamos el vehículo ideal para vos."
+        eyebrow="¿Te gustó algunos de nuestros autos?"
+        title="Consultanos y te asesoramos a la brevedad."
+        description="Todos nuestros vehículos disponibles para entrega inmediata y sin vueltas"
       />
     </div>
   );

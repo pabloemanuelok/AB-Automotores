@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 import { parseVehicleSpecs, parseNotas } from "@/utils/parseVehicleDescription";
+import { sendGAEvent } from "@next/third-parties/google";
 
 const slideVariants = {
   enter: (dir: "left" | "right") => ({
@@ -325,6 +326,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
               href={`https://wa.me/5493516129221?text=Hola%2C+me+interesa+el+${encodeURIComponent(product.name)}+${product.year}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => sendGAEvent("event", "click_whatsapp", { origen: "ficha_vehiculo" })}
             >
               <motion.button
                 whileHover={{ scale: 1.03 }}

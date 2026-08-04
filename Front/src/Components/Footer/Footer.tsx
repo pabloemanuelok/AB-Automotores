@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaPhoneAlt, FaEnvelope, FaInstagram, FaFacebook, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
+import { sendGAEvent } from "@next/third-parties/google";
 const Logo = "https://ik.imagekit.io/automotoresab/src-assets/LogoRojo.png";
 
 const socialLinks = [
@@ -21,6 +22,7 @@ const socialLinks = [
     icon: FaWhatsapp,
     href: "https://www.whatsapp.com/catalog/5493516129221/?app_absent=0",
     label: "WhatsApp",
+    onClick: () => sendGAEvent("event", "click_whatsapp", { origen: "footer" }),
   },
 ];
 
@@ -69,13 +71,14 @@ const Footer = () => {
             className="flex flex-col items-center justify-center"
           >
             <div className="flex items-center gap-4">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
+              {socialLinks.map(({ icon: Icon, href, label, onClick }) => (
                 <Link
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
+                  onClick={onClick}
                   className="text-gray-500 hover:text-[#B62E30] transition-colors duration-200 text-2xl"
                 >
                   <Icon />
@@ -107,7 +110,23 @@ const Footer = () => {
                 <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
                   <FaPhoneAlt className="text-white text-sm" />
                 </div>
-                <span className="text-gray-600 text-sm">351 6129221 / 351 5088602</span>
+                <span className="text-gray-600 text-sm">
+                  <a
+                    href="tel:+543516129221"
+                    onClick={() => sendGAEvent("event", "click_telefono", { origen: "footer" })}
+                    className="hover:text-[#B62E30] transition-colors duration-200"
+                  >
+                    351 6129221
+                  </a>
+                  {" / "}
+                  <a
+                    href="tel:+543515088602"
+                    onClick={() => sendGAEvent("event", "click_telefono", { origen: "footer" })}
+                    className="hover:text-[#B62E30] transition-colors duration-200"
+                  >
+                    351 5088602
+                  </a>
+                </span>
               </div>
 
               {/* Email */}
@@ -135,7 +154,7 @@ const Footer = () => {
                   <FaMapMarkerAlt className="text-white text-sm" />
                 </div>
                 <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug">
-                  Av. Sabattini 4260, Córdoba
+                  Avenida Amadeo Sabattini 4260, Empalme, X5006KQT Córdoba
                 </span>
               </Link>
             </div>
@@ -148,7 +167,7 @@ const Footer = () => {
       <div className="bg-black border-t border-[#505050]">
         <div className="page-container py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-gray-500 text-xs">
-            © 2025 AB Automotores. Todos los derechos reservados.
+            © {new Date().getFullYear()} AB Automotores. Todos los derechos reservados.
           </span>
           <div className="flex items-center gap-2">
             <span className="text-gray-500 text-xs">Created by</span>

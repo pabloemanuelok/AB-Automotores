@@ -1,8 +1,20 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import { trackEvent } from "@/utils/analytics";
+
+const images = [
+  { src: "https://ik.imagekit.io/automotoresab/public-source/Frente20081.svg", alt: "Frente del vehículo" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/InteriorJeep2.svg", alt: "Interior del Jeep" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/colaYaris.jpeg", alt: "Cola del Yaris" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/pomoCompass.jpeg", alt: "Pomo Compass" },
+];
 
 const infoBlocks: { title: string; text: string }[] = [
   {
@@ -23,34 +35,40 @@ const Financiacion = () => {
   useEffect(() => { trackEvent("financiacion"); }, []);
 
   return (
-    <div className="bg-[#0a0a0a]">
+    <div className="bg-white">
       <section className="py-10 md:py-20">
         <div className="page-container flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
 
-          {/* Placeholder de video */}
+          {/* Carrusel de fotos */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a] min-h-[220px] flex flex-col items-center justify-center gap-3"
+            className="w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden h-[280px] md:h-auto"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-[#505050]"
+            <Swiper
+              modules={[Autoplay, Navigation]}
+              loop
+              autoplay={{ delay: 3500, disableOnInteraction: false }}
+              navigation
+              className="h-full"
             >
-              <circle cx="12" cy="12" r="10" />
-              <polygon points="10 8 16 12 10 16 10 8" />
-            </svg>
-            <p className="text-[#505050] text-sm">Video próximamente</p>
+              {images.map((img, index) => (
+                <SwiperSlide key={index}>
+                  <div className="relative w-full h-full overflow-hidden">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      priority={index === 0}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </motion.div>
 
           {/* Texto */}
@@ -64,7 +82,7 @@ const Financiacion = () => {
             <p className="text-[#B62E30] font-semibold text-sm md:text-base tracking-widest uppercase">
               Opciones flexibles
             </p>
-            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-white">
+            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900">
               Financiá tu próximo auto
             </h2>
             <div className="mt-2 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto md:mx-0" />
@@ -78,8 +96,8 @@ const Financiacion = () => {
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
                 >
-                  <h3 className="text-white font-bold text-lg md:text-xl mb-1">{block.title}</h3>
-                  <p className="text-white/70 text-sm md:text-base leading-relaxed">{block.text}</p>
+                  <h3 className="text-gray-900 font-bold text-lg md:text-xl mb-1">{block.title}</h3>
+                  <p className="text-gray-600 text-sm md:text-base leading-relaxed">{block.text}</p>
                 </motion.div>
               ))}
             </div>

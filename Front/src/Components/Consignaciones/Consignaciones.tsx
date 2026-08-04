@@ -6,6 +6,13 @@ import { motion } from "framer-motion";
 import { trackEvent } from "@/utils/analytics";
 import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 
+const images = [
+  { src: "https://ik.imagekit.io/automotoresab/public-source/2008Allure0Km.jpeg", alt: "Peugeot 2008 Allure 0km" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/ManijaYaris.webp", alt: "Manija Yaris" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/Central208.webp", alt: "Central multimedia 208" },
+  { src: "https://ik.imagekit.io/automotoresab/public-source/NivusFrente.webp", alt: "Frente del Nivus" },
+];
+
 const infoBlocks = [
   {
     title: "¿Querés vender tu auto?",
@@ -25,25 +32,31 @@ const Consignaciones = () => {
   useEffect(() => { trackEvent("consignaciones"); }, []);
 
   return (
-    <div className="bg-[#0a0a0a]">
+    <div className="bg-white">
       <section className="py-10 md:py-20">
         <div className="page-container flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
 
-          {/* Foto */}
+          {/* Recuadro de fotos */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden min-h-[280px]"
+            className="relative w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden h-[280px] md:h-auto"
           >
-            <Image
-              src="https://ik.imagekit.io/automotoresab/public-source/2008Allure0Km.jpeg"
-              alt="Peugeot 2008 Allure 0km"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 33vw"
-            />
+            <div className="grid grid-cols-2 grid-rows-2 gap-1 w-full h-full">
+              {images.map((img, i) => (
+                <div key={i} className="relative w-full h-full">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 17vw"
+                  />
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           {/* Texto */}
@@ -57,7 +70,7 @@ const Consignaciones = () => {
             <p className="text-[#B62E30] font-semibold text-sm md:text-base tracking-widest uppercase">
               Sin complicaciones
             </p>
-            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-white">
+            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900">
               Vendé tu vehículo con nosotros
             </h2>
             <div className="mt-2 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto md:mx-0" />
@@ -71,8 +84,8 @@ const Consignaciones = () => {
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
                 >
-                  <h3 className="text-white font-bold text-lg md:text-xl mb-1">{block.title}</h3>
-                  <p className="text-white/70 text-sm md:text-base leading-relaxed">{block.text}</p>
+                  <h3 className="text-gray-900 font-bold text-lg md:text-xl mb-1">{block.title}</h3>
+                  <p className="text-gray-600 text-sm md:text-base leading-relaxed">{block.text}</p>
                 </motion.div>
               ))}
             </div>

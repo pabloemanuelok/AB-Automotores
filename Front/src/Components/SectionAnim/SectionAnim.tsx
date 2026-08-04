@@ -47,9 +47,13 @@ const reviews = [
   },
 ];
 
+const ANIO_FUNDACION = 2003;
+
 const HomeCounter: React.FC = React.memo(() => {
-  const [count, setCount] = useState(0);
+  const anios = new Date().getFullYear() - ANIO_FUNDACION;
+  const [count, setCount] = useState(anios);
   const [isVisible, setIsVisible] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
 
   const handleScroll = useCallback(() => {
@@ -71,11 +75,13 @@ const HomeCounter: React.FC = React.memo(() => {
   }, [handleScroll]);
 
   useEffect(() => {
-    if (!isVisible) return;
-    const end = 23;
+    if (!isVisible || hasAnimated) return;
+    setHasAnimated(true);
+    const end = anios;
     const duration = 1800;
     const increment = end / (duration / 16);
     let start = 0;
+    setCount(0);
     const timer = setInterval(() => {
       start += increment;
       if (start >= end) {
@@ -85,7 +91,7 @@ const HomeCounter: React.FC = React.memo(() => {
       setCount(Math.floor(start));
     }, 16);
     return () => clearInterval(timer);
-  }, [isVisible]);
+  }, [isVisible, hasAnimated, anios]);
 
   return (
     <section id="home-counter" className="bg-[#0a0a0a] py-8 md:py-10">
