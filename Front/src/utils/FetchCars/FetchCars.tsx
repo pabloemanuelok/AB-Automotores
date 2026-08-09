@@ -1,12 +1,15 @@
 import { IProduct, IProductUpdate } from "@/Interfaces/Interface";
 import { API_URL, request } from "@/utils/apiClient";
 
+// El caché se purga al instante cuando el admin toca algo (ver /api/revalidate);
+// este plazo es solo la red de seguridad por si esa señal se pierde.
 const REVALIDATE = 300;
+export const VEHICLES_TAG = "vehicles";
 
 export default async function fetchCars(): Promise<IProduct[]> {
   try {
     const res = await fetch(`${API_URL}/vehicles`, {
-      next: { revalidate: REVALIDATE },
+      next: { revalidate: REVALIDATE, tags: [VEHICLES_TAG] },
     });
 
     if (!res.ok) {
@@ -23,7 +26,7 @@ export default async function fetchCars(): Promise<IProduct[]> {
 export async function fetchFeaturedCars(): Promise<IProduct[]> {
   try {
     const res = await fetch(`${API_URL}/vehicles?featured=true`, {
-      next: { revalidate: REVALIDATE },
+      next: { revalidate: REVALIDATE, tags: [VEHICLES_TAG] },
     });
 
     if (!res.ok) {
@@ -41,7 +44,7 @@ export async function fetchFeaturedCars(): Promise<IProduct[]> {
 export async function fetchProductById(id: string): Promise<IProduct | null> {
   try {
     const res = await fetch(`${API_URL}/vehicles/${id}`, {
-      next: { revalidate: REVALIDATE },
+      next: { revalidate: REVALIDATE, tags: [VEHICLES_TAG] },
     });
 
     if (!res.ok) {
