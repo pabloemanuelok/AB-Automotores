@@ -5,36 +5,49 @@ import Swal from "sweetalert2";
 import { UserContext } from "@/Context/contextUser";
 import { fetchPostProduct } from "@/utils/FetchCars/FetchCars";
 import { compressImage } from "@/utils/compressImage";
-import { buildDescription } from "@/utils/parseVehicleDescription";
 
 const inputClass =
   "w-full px-4 py-3 bg-[#2a2a2a] border border-[#505050] text-white placeholder-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B62E30] focus:border-transparent transition text-sm";
 
 const labelClass = "block text-sm text-gray-300 mb-1.5";
 
+/** El select usa etiquetas en castellano; el backend guarda el enum. */
+const FUEL_TO_ENUM: Record<string, string> = {
+  Nafta: "NAFTA",
+  Diesel: "DIESEL",
+  GNC: "GNC",
+  "Eléctrico": "ELECTRICO",
+  "Híbrido": "HIBRIDO",
+};
+
+const EMPTY_FORM = {
+  brand: "",
+  model: "",
+  precio: "",
+  year: "",
+  km: "",
+  notas: "",
+  version: "",
+  motor: "",
+  combustible: "",
+  potencia: "",
+  transmision: "",
+  traccion: "",
+  autonomia: "",
+  velocidadMax: "",
+  largo: "",
+  ancho: "",
+  alto: "",
+  tanque: "",
+  baul: "",
+};
+
 const AddVehicle: React.FC = () => {
   const { token } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
-    name: "",
-    precio: "",
-    year: "",
-    notas: "",
+    ...EMPTY_FORM,
     files: [] as File[],
-    // specs
-    version: "",
-    motor: "",
-    combustible: "",
-    potencia: "",
-    transmision: "",
-    traccion: "",
-    autonomia: "",
-    velocidadMax: "",
-    largo: "",
-    ancho: "",
-    alto: "",
-    tanque: "",
-    baul: "",
   });
   const [loading, setLoading] = useState(false);
   const [compressing, setCompressing] = useState(false);
@@ -88,28 +101,24 @@ const AddVehicle: React.FC = () => {
     e.preventDefault();
     setLoading(true);
 
-    const specs = {
-      version: formData.version,
-      motor: formData.motor,
-      combustible: formData.combustible,
-      potencia: formData.potencia,
-      transmision: formData.transmision,
-      traccion: formData.traccion,
-      autonomia: formData.autonomia,
-      velocidadMax: formData.velocidadMax,
-      largo: formData.largo,
-      ancho: formData.ancho,
-      alto: formData.alto,
-      tanque: formData.tanque,
-      baul: formData.baul,
+    // El backend guarda cada dato en su propia columna: ya no hace falta
+    // serializar la ficha técnica dentro de la descripción.
+    const { precio, notas, files, combustible, transmision, ...specs } =
+      formData;
+
+    const payload: Record<string, string> = {
+      ...specs,
+      price: precio,
+      description: notas,
+      fuelType: FUEL_TO_ENUM[combustible] ?? "",
+      transmission: transmision,
     };
 
     const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("version", formData.precio);
-    formDataToSend.append("year", formData.year);
-    formDataToSend.append("description", buildDescription(specs, formData.notas));
-    formData.files.forEach((file) => formDataToSend.append("files", file));
+    Object.entries(payload).forEach(([key, value]) => {
+      if (value !== "") formDataToSend.append(key, value);
+    });
+    files.forEach((file) => formDataToSend.append("files", file));
 
     try {
       const success = await fetchPostProduct(formDataToSend, token);
@@ -123,12 +132,7 @@ const AddVehicle: React.FC = () => {
           color: "#fff",
           confirmButtonColor: "#B62E30",
         });
-        setFormData({
-          name: "", precio: "", year: "", notas: "", files: [],
-          version: "", motor: "", combustible: "", potencia: "", transmision: "", traccion: "",
-          autonomia: "", velocidadMax: "", largo: "", ancho: "",
-          alto: "", tanque: "", baul: "",
-        });
+        setFormData({ ...EMPTY_FORM, files: [] });
         setPreviews([]);
       } else {
         throw new Error();
@@ -158,42 +162,73 @@ const AddVehicle: React.FC = () => {
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="grid sm:grid-cols-2 gap-5">
           <div>
-            <label className={labelClass}>Nombre</label>
+            <label className={labelClass}>Marca</label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="brand"
+              value={formData.brand}
               onChange={handleChange}
-              placeholder="Ej: Volkswagen Nivus"
+              placeholder="Ej: Volkswagen"
               className={inputClass}
               required
             />
           </div>
           <div>
-            <label className={labelClass}>Precio</label>
+            <label className={labelClass}>Modelo</label>
             <input
               type="text"
-              name="precio"
-              value={formData.precio}
+              name="model"
+              value={formData.model}
               onChange={handleChange}
-              placeholder="Ej: $15.000.000"
+              placeholder="Ej: Nivus"
               className={inputClass}
               required
             />
           </div>
         </div>
 
-        <div>
-          <label className={labelClass}>Año</label>
-          <input
-            type="text"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-            placeholder="Ej: 2023"
-            className={inputClass}
-            required
-          />
+        <div className="grid sm:grid-cols-3 gap-5">
+          <div>
+            <label className={labelClass}>Precio (ARS)</label>
+            <input
+              type="number"
+              name="precio"
+              value={formData.precio}
+              onChange={handleChange}
+              placeholder="15000000"
+              min={0}
+              className={inputClass}
+              required
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Año</label>
+            <input
+              type="number"
+              name="year"
+              value={formData.year}
+              onChange={handleChange}
+              placeholder="2023"
+              min={1900}
+              max={2100}
+              className={inputClass}
+              required
+            />
+          </div>
+          <div>
+            <label className={labelClass}>
+              Kilómetros <span className="text-gray-600">(opcional)</span>
+            </label>
+            <input
+              type="number"
+              name="km"
+              value={formData.km}
+              onChange={handleChange}
+              placeholder="15000"
+              min={0}
+              className={inputClass}
+            />
+          </div>
         </div>
 
         {/* Especificaciones técnicas */}

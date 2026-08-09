@@ -7,6 +7,7 @@ import fetchCars, { fetchDeleteId } from "@/utils/FetchCars/FetchCars";
 import { IProduct } from "@/Interfaces/Interface";
 import { UserContext } from "@/Context/contextUser";
 import EditVehicleModal from "./EditVehicleModal";
+import { formatPrice } from "@/utils/apiClient";
 
 const CatalogoAdmin: React.FC = () => {
   const { token } = useContext(UserContext);
@@ -35,7 +36,7 @@ const CatalogoAdmin: React.FC = () => {
   const handleDelete = async (product: IProduct) => {
     const result = await Swal.fire({
       title: "¿Eliminar vehículo?",
-      text: `"${product.name} ${product.version}" será eliminado permanentemente.`,
+      text: `"${product.brand} ${product.model}" será eliminado permanentemente.`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#B62E30",
@@ -48,10 +49,10 @@ const CatalogoAdmin: React.FC = () => {
 
     if (!result.isConfirmed) return;
 
-    setDeleting(product._id);
+    setDeleting(product.id);
     try {
-      await fetchDeleteId(product._id);
-      setProducts((prev) => prev.filter((p) => p._id !== product._id));
+      await fetchDeleteId(product.id);
+      setProducts((prev) => prev.filter((p) => p.id !== product.id));
       Swal.fire({
         icon: "success",
         title: "Eliminado",
@@ -77,7 +78,7 @@ const CatalogoAdmin: React.FC = () => {
   };
 
   const filtered = products.filter((p) =>
-    `${p.name} ${p.version} ${p.year}`
+    `${p.brand} ${p.model} ${p.version ?? ""} ${p.year}`
       .toLowerCase()
       .includes(search.toLowerCase())
   );
@@ -115,14 +116,14 @@ const CatalogoAdmin: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filtered.map((product) => (
             <div
-              key={product._id}
+              key={product.id}
               className="bg-[#1a1a1a] border border-[#505050]/40 rounded-xl overflow-hidden group"
             >
               <div className="relative h-40 bg-[#111]">
-                {product.images?.[0] ? (
+                {product.images[0] ? (
                   <Image
-                    src={product.images[0]}
-                    alt={product.name}
+                    src={product.images[0].url}
+                    alt={`${product.brand} ${product.model}`}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -139,8 +140,14 @@ const CatalogoAdmin: React.FC = () => {
                 </span>
               </div>
               <div className="p-3">
-                <p className="text-white text-sm font-semibold truncate">{product.name}</p>
-                <p className="text-gray-400 text-xs truncate">{product.version}</p>
+                <p className="text-white text-sm font-semibold truncate">
+                  {product.brand} {product.model}
+                </p>
+                <p className="text-gray-400 text-xs truncate">
+                  {formatPrice(product.price)}
+                  {product.status !== "DISPONIBLE" &&
+                    ` · ${product.status === "VENDIDO" ? "Vendido" : "Reservado"}`}
+                </p>
                 <div className="mt-3 grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setEditingProduct(product)}
@@ -150,10 +157,10 @@ const CatalogoAdmin: React.FC = () => {
                   </button>
                   <button
                     onClick={() => handleDelete(product)}
-                    disabled={deleting === product._id}
+                    disabled={deleting === product.id}
                     className="py-1.5 text-xs font-medium text-red-400 border border-red-900/40 rounded-lg hover:bg-red-900/20 transition-colors disabled:opacity-50"
                   >
-                    {deleting === product._id ? "Eliminando..." : "Eliminar"}
+                    {deleting === product.id ? "Eliminando..." : "Eliminar"}
                   </button>
                 </div>
               </div>
@@ -170,7 +177,7 @@ const CatalogoAdmin: React.FC = () => {
           onSaved={(updated) => {
             setProducts((prev) =>
               prev.map((p) =>
-                p._id === editingProduct._id ? { ...p, ...updated } : p
+                p.id === editingProduct.id ? { ...p, ...updated } : p
               )
             );
             setEditingProduct(null);

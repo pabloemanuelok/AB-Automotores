@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { getAuthToken } from "@/utils/Auth/Auth";
+import { formatPrice } from "@/utils/apiClient";
 
 
 const Card = ({
@@ -37,8 +38,8 @@ const Card = ({
       {/* Imagen */}
       <div className="relative w-full h-[240px] overflow-hidden">
         <Image
-          src={product.images[0]}
-          alt={product.name}
+          src={product.images[0].url}
+          alt={`${product.brand} ${product.model}`}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           priority={index < 4}
@@ -50,9 +51,11 @@ const Card = ({
       {/* Panel de info siempre visible */}
       <div className="px-4 pt-3 pb-4 flex flex-col gap-1.5">
         <h2 className="text-white font-bold text-base leading-tight truncate">
-          {product.name}
+          {product.brand} {product.model}
         </h2>
-        <p className="text-gray-200 text-sm font-medium truncate">{product.version}</p>
+        <p className="text-gray-200 text-sm font-medium truncate">
+          {formatPrice(product.price)}
+        </p>
 
         {/* Badge: año */}
         <div className="flex flex-wrap gap-1.5 mt-0.5">
@@ -63,7 +66,7 @@ const Card = ({
 
         {/* Botones */}
         <div className="flex items-center gap-2 mt-3">
-          <Link href={`/views/details/${product._id}`} onClick={onViewClick} className="flex-1">
+          <Link href={`/views/details/${product.id}`} onClick={onViewClick} className="flex-1">
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}

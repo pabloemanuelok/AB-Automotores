@@ -27,7 +27,7 @@ const StatCard: React.FC<{
   </div>
 );
 
-const formatDate = (date: Date | undefined) => {
+const formatDate = (date: string | undefined) => {
   if (!date) return "—";
   return new Date(date).toLocaleDateString("es-AR", {
     day: "2-digit",
@@ -197,7 +197,7 @@ const Dashboard: React.FC = () => {
         ) : (
           <div className="space-y-3">
             {recentConsultas.map((c) => (
-              <div key={c._id} className="flex items-start justify-between gap-4 py-3 border-b border-[#505050]/30 last:border-0">
+              <div key={c.id} className="flex items-start justify-between gap-4 py-3 border-b border-[#505050]/30 last:border-0">
                 <div className="flex-1 min-w-0">
                   <p className="text-white text-sm font-medium truncate">{c.nombre}</p>
                   <p className="text-gray-400 text-xs truncate">{c.email}</p>

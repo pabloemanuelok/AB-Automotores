@@ -1,140 +1,164 @@
-import { IProduct } from "@/Interfaces/Interface";
+import { IProduct, IProductUpdate } from "@/Interfaces/Interface";
+import { API_URL, request } from "@/utils/apiClient";
 
-// Función para obtener todos los productos
+// El caché se purga al instante cuando el admin toca algo (ver /api/revalidate);
+// este plazo es solo la red de seguridad por si esa señal se pierde.
+const REVALIDATE = 300;
+export const VEHICLES_TAG = "vehicles";
+
 export default async function fetchCars(): Promise<IProduct[]> {
-    try {
-        const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products", {
-            next: { revalidate: 300 },
-        });
+  try {
+    const res = await fetch(`${API_URL}/vehicles`, {
+      next: { revalidate: REVALIDATE, tags: [VEHICLES_TAG] },
+    });
 
-        if (!res.ok) {
-            throw new Error("No se pudieron obtener los vehículos");
-        }
-
-        return await res.json();
-    } catch (error) {
-        console.error("Error al obtener los vehículos:", error);
-        return [];
+    if (!res.ok) {
+      throw new Error(`No se pudieron obtener los vehículos (${res.status})`);
     }
+
+    return await res.json();
+  } catch (error) {
+    console.error("Error al obtener los vehículos:", error);
+    return [];
+  }
 }
 
-// Función para obtener un producto por su ID
-export async function fetchProductById(_id: string): Promise<IProduct | null> {
-    try {
-        const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${_id}`, {
-            next: { revalidate: 300 },
-        });
-        if (!res.ok) {
-            console.error("No se pudo obtener el producto:", res.status);
-            return null;
-        }
-        const data = await res.json();
-        // El backend devuelve 200 con {} (ID inexistente) o un CastError (ID inválido)
-        // en vez de un 404, así que hay que validar la forma de la respuesta.
-        if (!data || !data._id || !data.name) {
-            return null;
-        }
-        return data;
-    } catch (error) {
-        console.error("Error al obtener el producto:", error);
-        return null;
+export async function fetchFeaturedCars(): Promise<IProduct[]> {
+  try {
+    const res = await fetch(`${API_URL}/vehicles?featured=true`, {
+      next: { revalidate: REVALIDATE, tags: [VEHICLES_TAG] },
+    });
+
+    if (!res.ok) {
+      throw new Error(`No se pudieron obtener los destacados (${res.status})`);
     }
+
+    return await res.json();
+  } catch (error) {
+    console.error("Error al obtener los destacados:", error);
+    return [];
+  }
 }
 
-// Función para eliminar un producto por su ID
-export async function fetchDeleteId(_id: string): Promise<boolean> {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        console.error('No se encontró el token');
-        return false;
+/** `null` cuando el vehículo no existe, para que la página llame a notFound(). */
+export async function fetchProductById(id: string): Promise<IProduct | null> {
+  try {
+    const res = await fetch(`${API_URL}/vehicles/${id}`, {
+      next: { revalidate: REVALIDATE, tags: [VEHICLES_TAG] },
+    });
+
+    if (!res.ok) {
+      if (res.status !== 404) {
+        console.error("No se pudo obtener el vehículo:", res.status);
+      }
+      return null;
     }
 
-    try {
-        const res = await fetch(`https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${_id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        });
-
-        if (!res.ok) {
-            console.error('Error al eliminar el vehículo');
-            return false;
-        }
-
-        return true;
-    } catch (error) {
-        console.error('Error de red:', error);
-        return false;
-    }
+    return await res.json();
+  } catch (error) {
+    console.error("Error al obtener el vehículo:", error);
+    return null;
+  }
 }
 
-// Función para editar un producto existente
-export interface IProductUpdate {
-  name: string;
-  version: string;
-  year: string;
-  description: string;
-  images?: string[];
+export async function fetchPostProduct(
+  newProduct: FormData,
+  token: string | null,
+): Promise<boolean> {
+  if (!token) return false;
+
+  try {
+    await request<IProduct>("/vehicles", {
+      method: "POST",
+      body: newProduct,
+      token,
+    });
+    return true;
+  } catch (error) {
+    console.error("Error al crear el vehículo:", error);
+    return false;
+  }
 }
 
 export async function fetchPatchProduct(
   id: string,
   fields: IProductUpdate,
-  token: string | null
+  token: string | null,
 ): Promise<boolean> {
-  if (!token) {
-    console.error("No se encontró el token");
-    return false;
-  }
+  if (!token) return false;
+
   try {
-    const res = await fetch(
-      `https://ab-backend-iznbqeqe7a-uc.a.run.app/products/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(fields),
-      }
-    );
-    if (!res.ok) {
-      const errorBody = await res.text().catch(() => "");
-      console.error(`Error ${res.status} al editar:`, errorBody);
-      throw new Error("No se pudo editar el producto");
-    }
+    await request<IProduct>(`/vehicles/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(fields),
+      token,
+    });
     return true;
   } catch (error) {
-    console.error("Error al editar el producto:", error);
+    console.error("Error al editar el vehículo:", error);
     return false;
   }
 }
 
-// Función para crear un nuevo producto
-export async function fetchPostProduct(newProduct: FormData, token: string | null): Promise<boolean> {
-    if (!token) {
-        console.error('No se encontró el token');
-        return false;
-    }
+/**
+ * Reemplaza la galería en una sola llamada: las imágenes cuyo id no esté en
+ * `keepImageIds` se borran (también de Cloudinary) y se agregan `newFiles`.
+ */
+export async function fetchUpdateProductImages(
+  id: string,
+  keepImageIds: string[],
+  newFiles: File[],
+  token: string | null,
+): Promise<boolean> {
+  if (!token) return false;
 
-    try {
-        const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: newProduct,
-        });
+  const body = new FormData();
+  body.append("keepImageIds", JSON.stringify(keepImageIds));
+  newFiles.forEach((file) => body.append("files", file));
 
-        if (!res.ok) {
-            throw new Error("No se pudo crear el producto");
-        }
+  try {
+    await request<IProduct>(`/vehicles/${id}/images`, {
+      method: "PATCH",
+      body,
+      token,
+    });
+    return true;
+  } catch (error) {
+    console.error("Error al actualizar las imágenes:", error);
+    return false;
+  }
+}
 
-        return true;
-    } catch (error) {
-        console.error("Error al crear el producto:", error);
-        return false;
-    }
+export async function fetchSetFeatured(
+  ids: string[],
+  token: string | null,
+): Promise<boolean> {
+  if (!token) return false;
+
+  try {
+    await request<IProduct[]>("/vehicles/featured", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ids }),
+      token,
+    });
+    return true;
+  } catch (error) {
+    console.error("Error al actualizar los destacados:", error);
+    return false;
+  }
+}
+
+export async function fetchDeleteId(id: string): Promise<boolean> {
+  const token = localStorage.getItem("token");
+  if (!token) return false;
+
+  try {
+    await request<void>(`/vehicles/${id}`, { method: "DELETE", token });
+    return true;
+  } catch (error) {
+    console.error("Error al eliminar el vehículo:", error);
+    return false;
+  }
 }

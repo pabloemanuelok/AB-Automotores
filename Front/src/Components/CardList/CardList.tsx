@@ -5,10 +5,13 @@ import { IProduct } from "@/Interfaces/Interface";
 import { motion } from "framer-motion";
 import { fetchDeleteId } from "@/utils/FetchCars/FetchCars";
 
+const byName = (a: IProduct, b: IProduct) =>
+  `${a.brand} ${a.model}`.localeCompare(`${b.brand} ${b.model}`);
+
 const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsList, setProductsList] = useState<IProduct[]>(
-    [...products].sort((a, b) => b.year - a.year || a.name.localeCompare(b.name))
+    [...products].sort((a, b) => b.year - a.year || byName(a, b))
   );
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const productsPerPage = 8;
@@ -25,7 +28,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     try {
       const success = await fetchDeleteId(id);
       if (success) {
-        const updatedProducts = productsList.filter((product) => product._id !== id);
+        const updatedProducts = productsList.filter((product) => product.id !== id);
         setProductsList(updatedProducts);
         const newTotal = Math.ceil((productsList.length - 1) / productsPerPage);
         if (currentPage > newTotal) setCurrentPage(Math.max(1, newTotal));
@@ -38,15 +41,11 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     }
   };
 
-  const preloadImages = (images: string[]) => {
-    images.forEach((src) => {
-      const img: HTMLImageElement = new Image();
-      img.src = src;
-    });
-  };
-
   const handleViewClick = (product: IProduct) => {
-    preloadImages(product.images);
+    product.images.forEach(({ url }) => {
+      const img: HTMLImageElement = new Image();
+      img.src = url;
+    });
   };
 
   const handlePageChange = (page: number) => {
@@ -61,8 +60,8 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     setSortOrder(nextOrder);
     setProductsList([...productsList].sort((a, b) =>
       nextOrder === "asc"
-        ? a.year - b.year || a.name.localeCompare(b.name)
-        : b.year - a.year || a.name.localeCompare(b.name)
+        ? a.year - b.year || byName(a, b)
+        : b.year - a.year || byName(a, b)
     ));
     setCurrentPage(1);
   };
@@ -105,10 +104,10 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
         >
           {currentProducts.map((product: IProduct, index: number) => (
             <Card
-              key={product._id}
+              key={product.id}
               product={product}
               index={index}
-              onDelete={() => handleDelete(product._id)}
+              onDelete={() => handleDelete(product.id)}
               onViewClick={() => handleViewClick(product)}
             />
           ))}
