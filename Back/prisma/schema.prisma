@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum FuelType {
+  NAFTA
+  DIESEL
+  GNC
+  HIBRIDO
+  ELECTRICO
+}
+
+enum VehicleCondition {
+  NUEVO
+  USADO
+}
+
+enum VehicleStatus {
+  DISPONIBLE
+  RESERVADO
+  VENDIDO
+}
+
+model Vehicle {
+  id           String           @id @default(cuid())
+  slug         String           @unique
+  brand        String
+  model        String
+  version      String?
+  year         Int
+  price        Decimal          @db.Decimal(12, 2)
+  km           Int?
+  fuelType     FuelType?
+  transmission String?
+  color        String?
+  condition    VehicleCondition @default(USADO)
+  status       VehicleStatus    @default(DISPONIBLE)
+  description  String
+
+  // Ficha técnica. Texto libre porque son valores con unidad ("1.0 TSI", "128 cv").
+  motor        String?
+  potencia     String?
+  traccion     String?
+  autonomia    String?
+  velocidadMax String?
+  largo        String?
+  ancho        String?
+  alto         String?
+  tanque       String?
+  baul         String?
+  featured     Boolean          @default(false)
+  featuredRank Int?
+  images       VehicleImage[]
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@index([featured, featuredRank])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model VehicleImage {
+  id        String   @id @default(cuid())
+  vehicleId String
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  publicId  String
+  url       String
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([vehicleId, position])
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  nombre    String
+  telefono  String
+  email     String
+  mensaje   String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model SiteConfig {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
