@@ -3,12 +3,12 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { IDetailsProps } from "@/Interfaces/Interface";
+import { IDetailsProps, IProduct } from "@/Interfaces/Interface";
 import { FaChevronLeft, FaChevronRight, FaWhatsapp, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import CtaBanner from "@/Components/CtaBanner/CtaBanner";
-import { parseVehicleSpecs, parseNotas } from "@/utils/parseVehicleDescription";
+import { formatPrice } from "@/utils/apiClient";
 import { sendGAEvent } from "@next/third-parties/google";
 
 const slideVariants = {
@@ -26,11 +26,18 @@ const slideVariants = {
   }),
 };
 
-const SPEC_LABELS: { key: keyof ReturnType<typeof parseVehicleSpecs>; label: string }[] = [
-  { key: "combustible", label: "Combustible" },
+const FUEL_LABELS: Record<string, string> = {
+  NAFTA: "Nafta",
+  DIESEL: "Diesel",
+  GNC: "GNC",
+  HIBRIDO: "Híbrido",
+  ELECTRICO: "Eléctrico",
+};
+
+const SPEC_LABELS: { key: keyof IProduct; label: string }[] = [
   { key: "motor", label: "Motor" },
   { key: "potencia", label: "Potencia" },
-  { key: "transmision", label: "Transmisión" },
+  { key: "transmission", label: "Transmisión" },
   { key: "traccion", label: "Tracción" },
   { key: "autonomia", label: "Autonomía Estimada" },
   { key: "velocidadMax", label: "Velocidad Máxima" },
@@ -41,11 +48,25 @@ const SPEC_LABELS: { key: keyof ReturnType<typeof parseVehicleSpecs>; label: str
   { key: "baul", label: "Capacidad del Baúl" },
 ];
 
-
 const Detail: React.FC<IDetailsProps> = ({ product }) => {
-  const specs = parseVehicleSpecs(product.description);
-  const notas = parseNotas(product.description);
-  const hasSpecs = !!specs.version || SPEC_LABELS.some(({ key }) => specs[key]);
+  // La ficha técnica ahora viene en campos propios, sin parsear la descripción.
+  const specs: [string, string][] = [
+    ...(product.km != null
+      ? ([["Kilómetros", `${product.km.toLocaleString("es-AR")} km`]] as [string, string][])
+      : []),
+    ...(product.fuelType
+      ? ([["Combustible", FUEL_LABELS[product.fuelType] ?? product.fuelType]] as [string, string][])
+      : []),
+    ...(product.color ? ([["Color", product.color]] as [string, string][]) : []),
+    ...SPEC_LABELS.flatMap(({ key, label }) => {
+      const value = product[key];
+      return typeof value === "string" && value
+        ? ([[label, value]] as [string, string][])
+        : [];
+    }),
+  ];
+  const notas = product.description;
+  const hasSpecs = specs.length > 0;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -137,8 +158,8 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
     const total = product.images.length;
     const next = product.images[(currentImageIndex + 1) % total];
     const prev = product.images[(currentImageIndex - 1 + total) % total];
-    preload(next);
-    if (prev !== next) preload(prev);
+    preload(next.url);
+    if (prev !== next) preload(prev.url);
   }, [currentImageIndex, product.images]);
 
   return (
@@ -183,8 +204,8 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                   className="absolute inset-0"
                 >
                   <Image
-                    src={product.images[currentImageIndex]}
-                    alt={`Imagen ${currentImageIndex + 1} de ${product.name}`}
+                    src={product.images[currentImageIndex].url}
+                    alt={`Imagen ${currentImageIndex + 1} de ${product.brand} ${product.model}`}
                     fill
                     className="object-contain"
                     priority={currentImageIndex === 0}
@@ -244,7 +265,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                   style={{ aspectRatio: "3/4" }}
                 >
                   <Image
-                    src={img}
+                    src={img.url}
                     alt={`Miniatura ${i + 1}`}
                     fill
                     className="object-cover"
@@ -272,14 +293,19 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                 {product.year}
               </p>
               <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
-                {product.name}
+                {product.brand} {product.model}
               </h2>
               <div className="mt-3 w-12 h-[3px] bg-[#B62E30] rounded-full" />
             </div>
 
-            {/* Versión */}
-            <p className="text-gray-300 text-base font-light">
-              {product.version}
+            {/* Precio */}
+            <p className="text-[#B62E30] text-2xl sm:text-3xl font-bold">
+              {formatPrice(product.price)}
+              {product.status !== "DISPONIBLE" && (
+                <span className="ml-3 align-middle text-sm font-semibold text-gray-400">
+                  {product.status === "VENDIDO" ? "Vendido" : "Reservado"}
+                </span>
+              )}
             </p>
 
             {/* Especificaciones técnicas */}
@@ -291,17 +317,17 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                   </span>
                   <div className="flex-1 h-[1px] bg-[#505050]" />
                 </div>
-                {specs.version && (
+                {product.version && (
                   <div className="bg-[#B62E30]/10 border border-[#B62E30]/40 rounded-lg px-4 py-3 mb-3">
                     <p className="text-[#B62E30] text-xs font-semibold uppercase tracking-wider mb-0.5">Versión</p>
-                    <p className="text-white text-base font-semibold">{specs.version}</p>
+                    <p className="text-white text-base font-semibold">{product.version}</p>
                   </div>
                 )}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {SPEC_LABELS.filter(({ key }) => specs[key]).map(({ key, label }) => (
-                    <div key={key} className="bg-[#141414] border border-[#383838] rounded-lg px-3 py-2.5">
+                  {specs.map(([label, value]) => (
+                    <div key={label} className="bg-[#141414] border border-[#383838] rounded-lg px-3 py-2.5">
                       <p className="text-gray-500 text-xs mb-0.5">{label}</p>
-                      <p className="text-white text-sm font-medium">{specs[key]}</p>
+                      <p className="text-white text-sm font-medium">{value}</p>
                     </div>
                   ))}
                 </div>
@@ -323,7 +349,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
             </div>
 
             <Link
-              href={`https://wa.me/5493516129221?text=Hola%2C+me+interesa+el+${encodeURIComponent(product.name)}+${product.year}`}
+              href={`https://wa.me/5493516129221?text=Hola%2C+me+interesa+el+${encodeURIComponent(`${product.brand} ${product.model}`)}+${product.year}`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sendGAEvent("event", "click_whatsapp", { origen: "ficha_vehiculo" })}
@@ -413,8 +439,8 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
                 }}
               >
                 <Image
-                  src={product.images[currentImageIndex]}
-                  alt={`Imagen ${currentImageIndex + 1} de ${product.name}`}
+                  src={product.images[currentImageIndex].url}
+                  alt={`Imagen ${currentImageIndex + 1} de ${product.brand} ${product.model}`}
                   fill
                   className="object-contain"
                   quality={95}

@@ -7,12 +7,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { motion } from "framer-motion";
 import { IProduct } from "@/Interfaces/Interface";
-import { DESTACADOS_CONFIG } from "@/config/destacados.config";
+import fetchCars, { fetchFeaturedCars } from "@/utils/FetchCars/FetchCars";
+import { DESTACADOS_LABEL_KEY, fetchSiteConfig } from "@/utils/FetchSiteConfig";
+import { formatPrice } from "@/utils/apiClient";
 import "swiper/css";
 import "swiper/css/navigation";
-
-let _productsCache: { data: IProduct[]; ts: number } | null = null;
-const CACHE_TTL = 5 * 60 * 1000;
 
 const VehDestacados = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -21,29 +20,15 @@ const VehDestacados = () => {
 
   useEffect(() => {
     const loadDestacados = async () => {
-      try {
-        if (DESTACADOS_CONFIG.label) setLabel(DESTACADOS_CONFIG.label);
+      const [featured, config] = await Promise.all([
+        fetchFeaturedCars(),
+        fetchSiteConfig(DESTACADOS_LABEL_KEY).catch(() => ({ value: null })),
+      ]);
 
-        let allProducts: IProduct[];
-        const now = Date.now();
-        if (_productsCache && now - _productsCache.ts < CACHE_TTL) {
-          allProducts = _productsCache.data;
-        } else {
-          const res = await fetch("https://ab-backend-iznbqeqe7a-uc.a.run.app/products");
-          allProducts = await res.json();
-          _productsCache = { data: allProducts, ts: now };
-        }
-
-        const map = new Map(allProducts.map((p) => [p._id, p]));
-        const selected = DESTACADOS_CONFIG.ids
-          .map((id) => map.get(id))
-          .filter((p): p is IProduct => !!p);
-        setProducts(selected.length > 0 ? selected : allProducts.slice(0, 6));
-      } catch {
-        setProducts([]);
-      } finally {
-        setLoading(false);
-      }
+      setLabel(config.value ?? "");
+      // Sin destacados elegidos todavía, mostrar los últimos publicados.
+      setProducts(featured.length > 0 ? featured : (await fetchCars()).slice(0, 6));
+      setLoading(false);
     };
 
     loadDestacados();
@@ -102,17 +87,17 @@ const VehDestacados = () => {
             }}
           >
             {products.map((product, index) => (
-              <SwiperSlide key={product._id}>
-                <Link href={`/views/details/${product._id}`} passHref>
+              <SwiperSlide key={product.id}>
+                <Link href={`/views/details/${product.id}`} passHref>
                   <div className="overflow-hidden rounded-xl bg-white border border-gray-200 shadow-md group cursor-pointer">
                     <div className="relative w-full h-52 md:h-64 overflow-hidden">
                       <div className="absolute top-4 -left-6 z-10 bg-[#B62E30] text-white text-xs font-semibold px-8 py-1 rotate-[-35deg] shadow-md">
                         Destacado
                       </div>
-                      {product.images?.[0] ? (
+                      {product.images[0] ? (
                         <Image
-                          src={product.images[0]}
-                          alt={product.name}
+                          src={product.images[0].url}
+                          alt={`${product.brand} ${product.model}`}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -127,8 +112,13 @@ const VehDestacados = () => {
                       )}
                     </div>
                     <div className="p-4">
-                      <h3 className="text-base md:text-lg font-semibold text-gray-900">{product.name}</h3>
+                      <h3 className="text-base md:text-lg font-semibold text-gray-900">
+                        {product.brand} {product.model}
+                      </h3>
                       <p className="text-sm text-gray-500 mt-0.5">{product.year}</p>
+                      <p className="text-base font-bold text-gray-900 mt-1">
+                        {formatPrice(product.price)}
+                      </p>
                       <p className="text-sm text-red-600 font-medium mt-2">Ver información →</p>
                     </div>
                   </div>

@@ -14,6 +14,7 @@ export const UserContext = createContext<IUserContextType>({
   token: null,
   sessionExpired: false,
   handleSessionExpired: () => {},
+  authReady: false,
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -21,6 +22,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLogged, setIsLogged] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const [sessionExpired, setSessionExpired] = useState(false);
+  // Los guards no deben decidir antes de releer el token de localStorage.
+  const [authReady, setAuthReady] = useState(false);
 
   const login = async (credentials: ILogin) => {
     try {
@@ -60,6 +63,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         setToken(storedToken);
       }
     }
+    setAuthReady(true);
   }, [handleSessionExpired]);
 
   return (
@@ -74,6 +78,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         token,
         sessionExpired,
         handleSessionExpired,
+        authReady,
       }}
     >
       {children}

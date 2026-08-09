@@ -1,31 +1,93 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
-import fetchCars from "@/utils/FetchCars/FetchCars";
+import Swal from "sweetalert2";
+import fetchCars, { fetchSetFeatured } from "@/utils/FetchCars/FetchCars";
 import { IProduct } from "@/Interfaces/Interface";
-import { DESTACADOS_CONFIG } from "@/config/destacados.config";
+import { UserContext } from "@/Context/contextUser";
+import {
+  DESTACADOS_LABEL_KEY,
+  fetchSiteConfig,
+  saveSiteConfig,
+} from "@/utils/FetchSiteConfig";
+import { formatPrice } from "@/utils/apiClient";
 
 const MAX_DESTACADOS = 8;
 
 const Destacados: React.FC = () => {
+  const { token } = useContext(UserContext);
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [label, setLabel] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const selected = DESTACADOS_CONFIG.ids;
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    fetchCars()
-      .then((data) => setProducts(data))
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    const load = async () => {
+      const [all, config] = await Promise.all([
+        fetchCars(),
+        fetchSiteConfig(DESTACADOS_LABEL_KEY).catch(() => ({ value: null })),
+      ]);
+
+      setProducts(all);
+      setSelected(
+        all
+          .filter((p) => p.featured)
+          .sort((a, b) => (a.featuredRank ?? 0) - (b.featuredRank ?? 0))
+          .map((p) => p.id),
+      );
+      setLabel(config.value ?? "");
+      setLoading(false);
+    };
+
+    load();
   }, []);
 
+  const toggle = (id: string) => {
+    setSelected((prev) => {
+      if (prev.includes(id)) return prev.filter((x) => x !== id);
+      if (prev.length >= MAX_DESTACADOS) return prev;
+      return [...prev, id];
+    });
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const ok = await fetchSetFeatured(selected, token);
+      if (!ok) throw new Error();
+      await saveSiteConfig(DESTACADOS_LABEL_KEY, label, token);
+
+      Swal.fire({
+        icon: "success",
+        title: "¡Guardado!",
+        text: "Los destacados ya están actualizados en el sitio.",
+        confirmButtonColor: "#B62E30",
+        background: "#1a1a1a",
+        color: "#fff",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } catch {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo guardar la selección.",
+        confirmButtonColor: "#B62E30",
+        background: "#1a1a1a",
+        color: "#fff",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const filtered = products.filter((p) =>
-    `${p.name} ${p.version} ${p.year}`
+    `${p.brand} ${p.model} ${p.version ?? ""} ${p.year}`
       .toLowerCase()
-      .includes(search.toLowerCase())
+      .includes(search.toLowerCase()),
   );
 
   return (
@@ -34,7 +96,8 @@ const Destacados: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold text-white mb-0.5">Vehículos Destacados</h2>
           <p className="text-gray-400 text-sm">
-            Selección actual en la página principal ({selected.length} / {MAX_DESTACADOS}).
+            Elegí hasta {MAX_DESTACADOS} vehículos para la página principal. Los
+            cambios se ven al instante, sin necesidad de publicar el sitio.
           </p>
         </div>
         <span
@@ -48,17 +111,19 @@ const Destacados: React.FC = () => {
         </span>
       </div>
 
-      {/* Instrucciones */}
-      <div className="mb-6 p-4 bg-[#1a1a1a] border border-[#505050]/60 rounded-xl">
-        <p className="text-gray-300 text-sm font-semibold mb-2">¿Cómo actualizar los destacados?</p>
-        <ol className="text-gray-400 text-sm space-y-1 list-decimal list-inside">
-          <li>Encontrá el vehículo en el catálogo y copiá su ID desde la URL: <span className="text-gray-500 font-mono text-xs">/views/details/[ID]</span></li>
-          <li>Editá el archivo <span className="text-[#B62E30] font-mono text-xs">src/config/destacados.config.ts</span></li>
-          <li>Hacé push a git — Vercel despliega en ~2 minutos y los cambios son visibles globalmente</li>
-        </ol>
+      <div className="mb-5">
+        <label className="block text-sm text-gray-300 mb-1.5">
+          Etiqueta de la sección <span className="text-gray-600">(opcional)</span>
+        </label>
+        <input
+          type="text"
+          value={label}
+          onChange={(e) => setLabel(e.target.value)}
+          placeholder="Ej: Ofertas de la semana"
+          className="w-full sm:w-96 px-4 py-2.5 bg-[#2a2a2a] border border-[#505050] text-white placeholder-gray-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#B62E30] transition"
+        />
       </div>
 
-      {/* Search */}
       <input
         type="text"
         value={search}
@@ -75,23 +140,29 @@ const Destacados: React.FC = () => {
           </svg>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mb-6">
           {filtered.map((product) => {
-            const isSelected = selected.includes(product._id);
+            const isSelected = selected.includes(product.id);
+            const isDisabled = !isSelected && selected.length >= MAX_DESTACADOS;
             return (
-              <div
-                key={product._id}
-                className={`relative text-left rounded-xl border overflow-hidden ${
+              <button
+                key={product.id}
+                type="button"
+                onClick={() => !isDisabled && toggle(product.id)}
+                disabled={isDisabled}
+                className={`relative text-left rounded-xl border overflow-hidden transition-all duration-200 ${
                   isSelected
                     ? "border-[#B62E30] ring-1 ring-[#B62E30] bg-[#B62E30]/10"
-                    : "border-[#505050]/40 bg-[#1a1a1a] opacity-50"
+                    : isDisabled
+                    ? "border-[#505050]/20 opacity-40 cursor-not-allowed bg-[#1a1a1a]"
+                    : "border-[#505050]/40 bg-[#1a1a1a] hover:border-[#B62E30]/50"
                 }`}
               >
                 <div className="relative h-36">
-                  {product.images?.[0] ? (
+                  {product.images[0] ? (
                     <Image
-                      src={product.images[0]}
-                      alt={product.name}
+                      src={product.images[0].url}
+                      alt={`${product.brand} ${product.model}`}
                       fill
                       sizes="(max-width: 640px) 100vw, 25vw"
                       className="object-cover"
@@ -115,17 +186,40 @@ const Destacados: React.FC = () => {
                   </span>
                 </div>
                 <div className="p-3">
-                  <p className="text-white text-sm font-semibold truncate">{product.name}</p>
-                  <p className="text-gray-400 text-xs truncate">{product.version}</p>
-                  {isSelected && (
-                    <p className="text-[#B62E30] text-xs mt-1 font-medium">Destacado activo</p>
-                  )}
+                  <p className="text-white text-sm font-semibold truncate">
+                    {product.brand} {product.model}
+                  </p>
+                  <p className="text-gray-400 text-xs truncate">
+                    {formatPrice(product.price)}
+                  </p>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
       )}
+
+      {selected.length >= MAX_DESTACADOS && (
+        <p className="text-[#B62E30] text-xs mb-4">
+          Llegaste al límite de {MAX_DESTACADOS}. Sacá alguno para agregar otro.
+        </p>
+      )}
+
+      <div className="flex gap-3">
+        <button
+          onClick={handleSave}
+          disabled={saving || loading}
+          className="px-6 py-2.5 bg-[#B62E30] hover:bg-red-700 disabled:opacity-50 text-white text-sm font-semibold rounded-lg transition-colors duration-200"
+        >
+          {saving ? "Guardando..." : "Guardar selección"}
+        </button>
+        <button
+          onClick={() => setSelected([])}
+          className="px-6 py-2.5 border border-[#505050] text-gray-300 hover:border-gray-400 text-sm font-semibold rounded-lg transition-colors duration-200"
+        >
+          Limpiar
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,21 +1,18 @@
-"use client"
+"use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserContext } from "@/Context/contextUser";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
 const ProtectedPage: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isLogged, sessionExpired } = useContext(UserContext);
+  const { isLogged, sessionExpired, authReady } = useContext(UserContext);
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    // authReady evita redirigir mientras el contexto todavía no leyó el token.
+    if (!authReady) return;
 
-  useEffect(() => {
-    if (!mounted) return;
     if (sessionExpired) {
       Swal.fire({
         title: "Sesión expirada",
@@ -29,11 +26,11 @@ const ProtectedPage: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       return;
     }
     if (!isLogged) {
-      router.push("/");
+      router.push("/views/login");
     }
-  }, [mounted, isLogged, sessionExpired, router]);
+  }, [authReady, isLogged, sessionExpired, router]);
 
-  if (!mounted || !isLogged) return null;
+  if (!authReady || !isLogged) return null;
 
   return <>{children}</>;
 };

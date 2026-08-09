@@ -6,7 +6,7 @@ import { getAuthToken } from "@/utils/Auth/Auth";
 import { IConsulta } from "@/Interfaces/Interface";
 import { UserContext } from "@/Context/contextUser";
 
-const formatDate = (date: Date | undefined) => {
+const formatDate = (date: string | undefined) => {
   if (!date) return "Fecha no disponible";
   return new Date(date).toLocaleDateString("es-AR", {
     day: "2-digit",
@@ -47,14 +47,14 @@ const ConsultasClient: React.FC = () => {
     fetchInquiries();
   }, [fetchInquiries]);
 
-  const handleDelete = async (_id: string) => {
+  const handleDelete = async (id: string) => {
     const token = getAuthToken();
     if (!token) { setError("Token no encontrado"); return; }
-    setDeleting(_id);
+    setDeleting(id);
     try {
-      await fetchDeleteConsulta(_id, token);
-      setInquiries((prev) => prev.filter((i) => i._id !== _id));
-      if (selectedInquiry?._id === _id) setSelectedInquiry(null);
+      await fetchDeleteConsulta(id, token);
+      setInquiries((prev) => prev.filter((i) => i.id !== id));
+      if (selectedInquiry?.id === id) setSelectedInquiry(null);
     } catch (err) {
       if (err instanceof Error && err.message === "UNAUTHORIZED") {
         handleSessionExpired();
@@ -118,10 +118,10 @@ const ConsultasClient: React.FC = () => {
             <ul className="divide-y divide-[#505050]/30 overflow-y-auto max-h-[480px]">
               {inquiries.map((inquiry) => (
                 <li
-                  key={inquiry._id}
+                  key={inquiry.id}
                   onClick={() => setSelectedInquiry(inquiry)}
                   className={`flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer transition-colors ${
-                    selectedInquiry?._id === inquiry._id
+                    selectedInquiry?.id === inquiry.id
                       ? "bg-[#B62E30]/10 border-l-2 border-[#B62E30]"
                       : "hover:bg-white/5"
                   }`}
@@ -136,13 +136,13 @@ const ConsultasClient: React.FC = () => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleDelete(inquiry._id);
+                      handleDelete(inquiry.id);
                     }}
-                    disabled={deleting === inquiry._id}
+                    disabled={deleting === inquiry.id}
                     className="text-red-500/60 hover:text-red-400 transition-colors flex-shrink-0 p-1.5 rounded hover:bg-red-900/20"
                     title="Eliminar"
                   >
-                    {deleting === inquiry._id ? (
+                    {deleting === inquiry.id ? (
                       <svg className="animate-spin w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -182,7 +182,6 @@ const ConsultasClient: React.FC = () => {
                 {[
                   { label: "Email", value: selectedInquiry.email },
                   { label: "Teléfono", value: selectedInquiry.telefono },
-                  { label: "Banco", value: selectedInquiry.banco },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex flex-col gap-0.5">
                     <span className="text-gray-500 text-xs uppercase tracking-wider">{label}</span>
@@ -201,11 +200,11 @@ const ConsultasClient: React.FC = () => {
               </div>
 
               <button
-                onClick={() => handleDelete(selectedInquiry._id)}
-                disabled={deleting === selectedInquiry._id}
+                onClick={() => handleDelete(selectedInquiry.id)}
+                disabled={deleting === selectedInquiry.id}
                 className="mt-5 w-full py-2 text-sm font-medium text-red-400 border border-red-900/40 rounded-lg hover:bg-red-900/20 transition-colors disabled:opacity-50"
               >
-                {deleting === selectedInquiry._id ? "Eliminando..." : "Eliminar consulta"}
+                {deleting === selectedInquiry.id ? "Eliminando..." : "Eliminar consulta"}
               </button>
             </div>
           ) : (
