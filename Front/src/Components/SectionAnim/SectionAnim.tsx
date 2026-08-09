@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -51,50 +51,56 @@ const ANIO_FUNDACION = 2003;
 
 const HomeCounter: React.FC = React.memo(() => {
   const anios = new Date().getFullYear() - ANIO_FUNDACION;
-  const [count, setCount] = useState(anios);
+  const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
+  // En un ref y no en estado: como estado se re-dispara el efecto de abajo,
+  // que se limpia solo y corta el conteo apenas empieza.
+  const hasAnimated = useRef(false);
   const swiperRef = useRef<SwiperType | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
-  const handleScroll = useCallback(() => {
-    const top = document.getElementById("home-counter")?.getBoundingClientRect().top ?? 0;
-    if (top <= window.innerHeight * 0.85) {
-      setIsVisible(true);
-    }
+  // IntersectionObserver en vez de escuchar scroll: avisa aunque la seccion ya
+  // este en pantalla al cargar, sin depender de que el usuario mueva la pagina.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-    const debounced = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(handleScroll, 50);
-    };
-    window.addEventListener("scroll", debounced);
-    handleScroll();
-    return () => window.removeEventListener("scroll", debounced);
-  }, [handleScroll]);
+    if (!isVisible || hasAnimated.current) return;
+    hasAnimated.current = true;
 
-  useEffect(() => {
-    if (!isVisible || hasAnimated) return;
-    setHasAnimated(true);
-    const end = anios;
     const duration = 1800;
-    const increment = end / (duration / 16);
+    const increment = anios / (duration / 16);
     let start = 0;
-    setCount(0);
+
     const timer = setInterval(() => {
       start += increment;
-      if (start >= end) {
-        start = end;
+      if (start >= anios) {
+        start = anios;
         clearInterval(timer);
       }
       setCount(Math.floor(start));
     }, 16);
+
     return () => clearInterval(timer);
-  }, [isVisible, hasAnimated, anios]);
+  }, [isVisible, anios]);
 
   return (
-    <section id="home-counter" className="bg-[#0a0a0a] py-8 md:py-10">
+    <section ref={sectionRef} id="home-counter" className="bg-[#0a0a0a] py-8 md:py-10">
       <div className="page-container flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
 
         {/* Columna izquierda: contador + Google */}
