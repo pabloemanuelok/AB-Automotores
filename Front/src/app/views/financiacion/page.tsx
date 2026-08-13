@@ -2,6 +2,7 @@ import Financiacion from '@/Components/Financiacion/Financiacion'
 import React from 'react'
 import type { Metadata } from 'next'
 import FondoNav from '@/Components/FondoNav/FondoNav'
+import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 
 const title = 'Financiación de autos usados y 0KM'
 const description = 'Financiá hasta el 100% de tu próximo vehículo en AB Automotores. Planes a tu medida y entrega inmediata.'
@@ -30,6 +31,7 @@ const page = () => {
         title="Financiación"
         description="Financiá hasta el 100% de tu próximo vehículo."
       />
+      <Breadcrumb path="/views/financiacion" items={[{ nombre: 'Financiación' }]} />
       <Financiacion />
     </div>
   )

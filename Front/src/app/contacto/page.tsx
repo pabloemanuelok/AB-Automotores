@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 import type { Metadata } from 'next'
+import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Contact from '@/Components/Contact/Contact'
 import ComoLlegar from '@/Components/ComoLlegar/ComoLlegar'
 import QuienesSomos from '@/Components/QuienesSomos/QuienesSomos'
@@ -50,16 +50,6 @@ const contactPageSchema = {
   breadcrumb: { '@id': `${SITE_URL}/contacto#breadcrumb` },
 }
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  '@id': `${SITE_URL}/contacto#breadcrumb`,
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE_URL },
-    { '@type': 'ListItem', position: 2, name: 'Contacto', item: `${SITE_URL}/contacto` },
-  ],
-}
-
 const page = () => {
   return (
     <div className="bg-white">
@@ -67,11 +57,6 @@ const page = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-
       <FondoNav
         solid
         eyebrow="Estamos para ayudarte"
@@ -79,20 +64,7 @@ const page = () => {
         description="Completá el formulario y nos comunicamos a la brevedad para brindarte toda la información."
       />
 
-      {/* Breadcrumb visible, en paralelo al BreadcrumbList de arriba */}
-      <nav aria-label="Migas de pan" className="bg-[#0a0a0a]">
-        <div className="page-container pb-4">
-          <ol className="flex items-center gap-2 text-xs text-white/50">
-            <li>
-              <Link href="/" className="hover:text-[#B62E30] transition-colors duration-200">
-                Inicio
-              </Link>
-            </li>
-            <li aria-hidden="true">›</li>
-            <li aria-current="page" className="text-white/80">Contacto</li>
-          </ol>
-        </div>
-      </nav>
+      <Breadcrumb path="/contacto" items={[{ nombre: 'Contacto' }]} />
 
       <Contact />
       <ComoLlegar />

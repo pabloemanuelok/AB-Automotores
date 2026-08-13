@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import CardsList from '@/Components/CardList/CardList';
 import FondoNav from '@/Components/FondoNav/FondoNav';
+import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
 import CtaBanner from '@/Components/CtaBanner/CtaBanner';
 import fetchCars from '@/utils/FetchCars/FetchCars';
 
@@ -39,6 +40,7 @@ export default async function CatalogoPage() {
           </>
         }
       />
+      <Breadcrumb path="/views/catalogo" items={[{ nombre: 'Catálogo' }]} />
       <CardsList products={products} />
       <CtaBanner
         eyebrow="¿Te gustó algunos de nuestros autos?"

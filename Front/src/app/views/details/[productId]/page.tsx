@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Detail from "@/Components/Detail/Detail";
+import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import { fetchProductById } from "@/utils/FetchCars/FetchCars";
 import { formatPrice } from "@/utils/apiClient";
 import { ogImageUrl } from "@/utils/cloudinary";
@@ -88,6 +89,13 @@ export default async function CarsPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(vehicleSchema) }}
+      />
+      <Breadcrumb
+        path={`/views/details/${product.id}`}
+        items={[
+          { nombre: "Catálogo", href: "/views/catalogo" },
+          { nombre: `${product.brand} ${product.model} ${product.year}` },
+        ]}
       />
       <Detail product={product} />
     </div>
