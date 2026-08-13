@@ -28,7 +28,7 @@ const services = [
   },
   {
     title: "Permutas",
-    href: "/views/consignaciones",
+    href: "/consignaciones",
     description: "Tomamos tu auto actual como parte de pago del que te llevás, con una tasación clara y en el momento.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
@@ -38,7 +38,7 @@ const services = [
   },
   {
     title: "Consignaciones",
-    href: "/views/consignaciones",
+    href: "/consignaciones",
     description: "Dejás tu auto en nuestro salón, lo publicamos, buscamos comprador y nos ocupamos de todos los trámites hasta el cobro.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>

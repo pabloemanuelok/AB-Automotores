@@ -6,8 +6,8 @@ import { CAMARA } from "@/lib/negocio";
 const servicios = [
   { titulo: "Compraventa de usados y 0km", href: "/views/catalogo" },
   { titulo: "Financiación hasta el 100%", href: "/views/financiacion" },
-  { titulo: "Permutas", href: "/views/consignaciones" },
-  { titulo: "Consignaciones", href: "/views/consignaciones" },
+  { titulo: "Permutas", href: "/consignaciones" },
+  { titulo: "Consignaciones", href: "/consignaciones" },
   { titulo: "Gestoría y trámites", href: null },
 ];
 

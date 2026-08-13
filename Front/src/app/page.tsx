@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 import Section3 from "@/Components/Section3/Section3";
 import Faq from "@/Components/Faq/Faq";
-import { homeFaqs } from "@/lib/faq";
+import { faqPageSchema, homeFaqs } from "@/lib/faq";
 import { SITE_URL } from "@/lib/seo";
 
 const title = "Concesionaria de autos usados en Córdoba | AB Automotores";
@@ -27,19 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "@id": `${SITE_URL}/#faq`,
-  mainEntity: homeFaqs.map(({ question, answer }) => ({
-    "@type": "Question",
-    name: question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: answer,
-    },
-  })),
-};
+const faqSchema = faqPageSchema(homeFaqs, "");
 
 const Loading = ({ section }: { section: string }) => (
   <div className="h-[400px] w-full flex items-center justify-center">
@@ -80,7 +68,7 @@ const Page = () => {
       <Section3 />
       <VehDestacados />
       <Section4 />
-      <Faq />
+      <Faq items={homeFaqs} />
       <div className="mt-12 md:mt-16">
         <CtaBanner
           eyebrow="Consultá sin compromiso"

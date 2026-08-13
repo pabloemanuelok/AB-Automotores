@@ -7,8 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import Link from "next/link";
 import { trackEvent } from "@/utils/analytics";
-import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 
 const images = [
   { src: "https://ik.imagekit.io/automotoresab/public-source/2008Allure0Km.jpeg", alt: "Peugeot 2008 Allure 0km" },
@@ -17,18 +17,46 @@ const images = [
   { src: "https://ik.imagekit.io/automotoresab/public-source/NivusFrente.webp", alt: "Frente del Nivus" },
 ];
 
-const infoBlocks = [
+// Las tres modalidades del hasOfferCatalog del schema, en el mismo orden.
+const infoBlocks: { title: string; text: React.ReactNode }[] = [
   {
-    title: "¿Querés vender tu auto?",
-    text: "Nos encargamos de todas las gestiones y trámites para que no tengas que preocuparte de nada. Ahorrá tiempo y dinero con nosotros.",
+    title: "Consignación",
+    text: (
+      <>
+        Dejás tu auto en nuestro salón de Av. Amadeo Sabattini 4260, lo publicamos en los
+        principales portales y en nuestras redes, y nos ocupamos de atender a los interesados y
+        de mostrar el vehículo. Vos no tenés que recibir desconocidos ni coordinar visitas.
+        Cuando aparece el comprador, cerramos la operación y cobrás en el acto.
+      </>
+    ),
   },
   {
-    title: "Compra Directa",
-    text: "Si querés vender tu auto de forma rápida y segura, te lo compramos y te ofrecemos un precio competitivo, siempre que el vehículo esté en buenas condiciones.",
+    title: "Compra directa",
+    text: (
+      <>
+        Si necesitás resolver rápido, te lo compramos nosotros. Tasamos el vehículo sin cargo, te
+        hacemos una oferta en el momento y, si estás de acuerdo, la operación se cierra sin que
+        tengas que esperar a que aparezca un comprador.
+      </>
+    ),
   },
   {
-    title: "Consignaciones",
-    text: "Dejá tu auto en nuestra agencia, lo publicamos en todos los portales de venta online y buscamos comprador. Una vez encontrado, lo cobrás en el acto.",
+    title: "Permuta y parte de pago",
+    text: (
+      <>
+        Si lo que querés es cambiar de auto, tomamos el tuyo como parte de pago de cualquier
+        vehículo de{" "}
+        <Link href="/views/catalogo" className="text-[#B62E30] hover:underline">
+          nuestro catálogo
+        </Link>
+        . Tasamos el usado, lo descontamos del precio del que te llevás y, si queda diferencia,
+        la podés{" "}
+        <Link href="/views/financiacion" className="text-[#B62E30] hover:underline">
+          financiar
+        </Link>
+        .
+      </>
+    ),
   },
 ];
 
@@ -36,7 +64,9 @@ const Consignaciones = () => {
   useEffect(() => { trackEvent("consignaciones"); }, []);
 
   return (
-    <div className="bg-white">
+    // overflow-x-hidden: la columna de texto entra animada desde x:30 y hasta
+    // que dispara el whileInView asoma fuera del viewport en mobile.
+    <div className="bg-white overflow-x-hidden">
       <section className="py-10 md:py-20">
         <div className="page-container flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
 
@@ -106,12 +136,6 @@ const Consignaciones = () => {
 
         </div>
       </section>
-
-      <CtaBanner
-        eyebrow="Consultá sin compromiso"
-        title="¿Querés saber cuánto vale tu vehículo?"
-        description="Contactanos y te damos una tasación gratuita. Te asesoramos para que vendas al mejor precio."
-      />
     </div>
   );
 };

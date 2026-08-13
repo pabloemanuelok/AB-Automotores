@@ -25,6 +25,7 @@ const nextConfig = {
       // statusCode 301 y no permanent:true, que en Next emite un 308. Google los
       // trata igual, pero el 301 es el que espera el doc y las herramientas de auditoria.
       { source: '/views/contacto', destination: '/contacto', statusCode: 301 },
+      { source: '/views/consignaciones', destination: '/consignaciones', statusCode: 301 },
     ];
   },
 };
