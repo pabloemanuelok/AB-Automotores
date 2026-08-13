@@ -3,6 +3,10 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import { trackEvent } from "@/utils/analytics";
 import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 
@@ -36,27 +40,36 @@ const Consignaciones = () => {
       <section className="py-10 md:py-20">
         <div className="page-container flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
 
-          {/* Recuadro de fotos */}
+          {/* Carrusel de fotos */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden h-[280px] md:h-auto"
+            className="w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden h-[280px] md:h-auto"
           >
-            <div className="grid grid-cols-2 grid-rows-2 gap-1 w-full h-full">
-              {images.map((img, i) => (
-                <div key={i} className="relative w-full h-full">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 50vw, 17vw"
-                  />
-                </div>
+            <Swiper
+              modules={[Autoplay, Navigation]}
+              loop
+              autoplay={{ delay: 3500, disableOnInteraction: false }}
+              navigation
+              className="h-full"
+            >
+              {images.map((img, index) => (
+                <SwiperSlide key={index}>
+                  <div className="relative w-full h-full overflow-hidden">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      priority={index === 0}
+                    />
+                  </div>
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
           </motion.div>
 
           {/* Texto */}

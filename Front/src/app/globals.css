@@ -55,11 +55,21 @@ body {
 
 .swiper-button-next,
 .swiper-button-prev {
-  background-color: #B62E30;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   border-radius: 50%;
   width: 40px !important;
   height: 40px !important;
   --swiper-navigation-color: white;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #B62E30;
+  border-color: #B62E30;
 }
 
 .swiper-button-next::after,
