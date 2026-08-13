@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/views/catalogo`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE_URL}/views/financiacion`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/views/consignaciones`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/views/contacto`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/contacto`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     ...vehicles
       .filter((vehicle) => vehicle.status === "DISPONIBLE")
       .map((vehicle) => ({

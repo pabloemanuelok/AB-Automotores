@@ -53,7 +53,7 @@ const Section0: React.FC = () => {
                   Ver Catálogo
                 </button>
               </Link>
-              <Link href="/views/contacto">
+              <Link href="/contacto">
                 <button className="w-full px-6 py-3 border border-white/50 hover:border-white text-white font-semibold rounded-lg transition-all duration-200 text-sm md:text-base backdrop-blur-sm hover:scale-[1.04] active:scale-[0.97]">
                   Contacto
                 </button>

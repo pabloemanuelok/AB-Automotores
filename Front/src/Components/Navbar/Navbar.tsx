@@ -13,7 +13,7 @@ const navLinks = [
   { href: "/views/catalogo", label: "Catálogo" },
   { href: "/views/financiacion", label: "Financiación" },
   { href: "/views/consignaciones", label: "Consignaciones" },
-  { href: "/views/contacto", label: "Contacto" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 const Navbar: FC = () => {

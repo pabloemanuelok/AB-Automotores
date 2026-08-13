@@ -5,12 +5,9 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { trackEvent } from "@/utils/analytics";
 import { sendGAEvent } from "@next/third-parties/google";
+import { wspChat } from "@/lib/negocio";
 
-// wa.me y no el catalogo de WhatsApp Business: abre el chat directo con el
-// mensaje precargado, que es lo que convierte.
-const WSP_CHAT =
-  "https://wa.me/5493516129221?text=" +
-  encodeURIComponent("¡Hola! Quiero consultar por un vehículo.");
+const WSP_CHAT = wspChat();
 
 const FloatingWhatsApp: React.FC = () => {
   return (

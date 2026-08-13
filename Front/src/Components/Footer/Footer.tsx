@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaPhoneAlt, FaEnvelope, FaInstagram, FaFacebook, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
 import { sendGAEvent } from "@next/third-parties/google";
+import { DIRECCION_COMPLETA, EMAIL, TELEFONOS } from "@/lib/negocio";
 const Logo = "https://ik.imagekit.io/automotoresab/src-assets/LogoRojo.png";
 
 const socialLinks = [
@@ -114,27 +115,25 @@ const Footer = () => {
                   <FaPhoneAlt className="text-white text-sm" />
                 </div>
                 <span className="text-gray-600 text-sm">
-                  <a
-                    href="tel:+543516129221"
-                    onClick={() => sendGAEvent("event", "click_telefono", { origen: "footer" })}
-                    className="hover:text-[#B62E30] transition-colors duration-200"
-                  >
-                    351 6129221
-                  </a>
-                  {" / "}
-                  <a
-                    href="tel:+543515088602"
-                    onClick={() => sendGAEvent("event", "click_telefono", { origen: "footer" })}
-                    className="hover:text-[#B62E30] transition-colors duration-200"
-                  >
-                    351 5088602
-                  </a>
+                  {TELEFONOS.map(({ tel }, i) => (
+                    <React.Fragment key={tel}>
+                      {i > 0 && " / "}
+                      <a
+                        href={`tel:${tel}`}
+                        onClick={() => sendGAEvent("event", "click_telefono", { origen: "footer" })}
+                        className="hover:text-[#B62E30] transition-colors duration-200"
+                      >
+                        {/* Formato corto: el footer nunca mostro el prefijo internacional */}
+                        {tel.replace("+549", "").replace(/^(\d{3})/, "$1 ")}
+                      </a>
+                    </React.Fragment>
+                  ))}
                 </span>
               </div>
 
               {/* Email */}
               <Link
-                href="mailto:abautomotores@hotmail.com"
+                href={`mailto:${EMAIL}`}
                 aria-label="Enviar correo a AB Automotores"
                 className="group flex items-center gap-3"
               >
@@ -142,7 +141,7 @@ const Footer = () => {
                   <FaEnvelope className="text-white text-sm" />
                 </div>
                 <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm break-all">
-                  abautomotores@hotmail.com
+                  {EMAIL}
                 </span>
               </Link>
 
@@ -162,7 +161,7 @@ const Footer = () => {
                   Av. Sabattini 4260, Córdoba
                 </span>
                 <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug hidden md:inline">
-                  Avenida Amadeo Sabattini 4260, Empalme, X5006KQT Córdoba
+                  {DIRECCION_COMPLETA}
                 </span>
               </Link>
             </div>

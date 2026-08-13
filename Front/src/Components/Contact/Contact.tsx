@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { fetchPostConsulta } from "@/utils/FetchCon/FetchCon";
 import { trackEvent } from "@/utils/analytics";
 import { sendGAEvent } from "@next/third-parties/google";
-import CtaBanner from "@/Components/CtaBanner/CtaBanner";
+import { DIRECCION_COMPLETA, HORARIOS, TELEFONOS } from "@/lib/negocio";
 
 interface IConsulta {
   nombre: string;
@@ -15,11 +15,26 @@ interface IConsulta {
   _honeyPot: string;
 }
 
+const telLinkClass =
+  "text-gray-900 text-sm font-medium hover:text-[#B62E30] transition-colors duration-200";
+
 const contactItems = [
   {
-    label: "Teléfono",
-    value: "+54 9 351 612-9221",
-    href: "tel:+5493516129221",
+    label: "Teléfonos",
+    value: (
+      <span className="flex flex-col">
+        {TELEFONOS.map(({ display, tel }) => (
+          <a
+            key={tel}
+            href={`tel:${tel}`}
+            onClick={() => sendGAEvent("event", "click_telefono", { origen: "contacto" })}
+            className={telLinkClass}
+          >
+            {display}
+          </a>
+        ))}
+      </span>
+    ),
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
@@ -28,7 +43,7 @@ const contactItems = [
   },
   {
     label: "Dirección",
-    value: "Av. Sabattini 4260, Cordoba, Argentina",
+    value: DIRECCION_COMPLETA,
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -40,8 +55,9 @@ const contactItems = [
     label: "Horario",
     value: (
       <>
-        <span className="block">Lun a Vie: 9 a 13 hs y 15 a 19 hs</span>
-        <span className="block">Sábados: 9 a 13 hs</span>
+        {HORARIOS.map((h) => (
+          <span key={h} className="block">{h}</span>
+        ))}
       </>
     ),
     icon: (
@@ -98,7 +114,9 @@ const Contact = () => {
     "w-full bg-[#0a0a0a] border border-[#505050] text-white placeholder-gray-600 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#B62E30] focus:border-transparent transition";
 
   return (
-    <div className="bg-white pt-16">
+    // overflow-x-hidden: las columnas entran animadas desde x:-60 y x:60, y
+    // antes de que dispare el whileInView asoman fuera del viewport.
+    <div className="bg-white pt-16 overflow-x-hidden">
       <div className="page-container pb-16">
         <div className="lg:flex gap-12 items-start">
 
@@ -136,17 +154,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-gray-500 text-xs uppercase tracking-wider">{item.label}</p>
-                    {"href" in item && item.href ? (
-                      <a
-                        href={item.href}
-                        onClick={() => sendGAEvent("event", "click_telefono", { origen: "contacto" })}
-                        className="text-gray-900 text-sm font-medium hover:text-[#B62E30] transition-colors duration-200"
-                      >
-                        {item.value}
-                      </a>
-                    ) : (
-                      <p className="text-gray-900 text-sm font-medium">{item.value}</p>
-                    )}
+                    <div className="text-gray-900 text-sm font-medium">{item.value}</div>
                   </div>
                 </motion.div>
               ))}
@@ -222,11 +230,6 @@ const Contact = () => {
 
         </div>
       </div>
-      <CtaBanner
-        eyebrow="Atención inmediata"
-        title="Respondemos en menos de 24 horas"
-        description="Nuestro equipo está listo para asesorarte y resolver todas tus dudas sin demoras."
-      />
     </div>
   );
 };

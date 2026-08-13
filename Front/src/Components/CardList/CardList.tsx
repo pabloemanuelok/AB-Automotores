@@ -89,7 +89,7 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
             entren unidades nuevas.
           </p>
           <a
-            href="/views/contacto"
+            href="/contacto"
             className="px-6 py-3 bg-[#B62E30] hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors duration-200"
           >
             Contactanos

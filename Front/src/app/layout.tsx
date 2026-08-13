@@ -8,6 +8,7 @@ import { UserProvider } from "@/Context/contextUser";
 import FloatingWhatsApp from "@/Components/FloatingWsp/FloatingWsp";
 import PageviewTracker from "@/Components/PageviewTracker/PageviewTracker";
 import { SITE_URL } from "@/lib/seo";
+import { CAMARA, DIRECCION, EMAIL, NOMBRE, TELEFONOS } from "@/lib/negocio";
 
 const titillium = Titillium_Web({
   subsets: ["latin"],
@@ -54,23 +55,23 @@ const dealerSchema = {
   "@context": "https://schema.org",
   "@type": "AutoDealer",
   "@id": `${SITE_URL}/#autodealer`,
-  name: "AB Automotores",
+  name: NOMBRE,
   description:
     "Concesionaria de autos usados y 0km en Córdoba. Compraventa, financiación, permutas, consignaciones y gestoría integral. Más de 20 años en el rubro automotor.",
   url: SITE_URL,
   logo: "https://ik.imagekit.io/automotoresab/src-assets/LogoRojo.png",
   image: "https://ik.imagekit.io/automotoresab/src-assets/LogoRojo.png",
-  telephone: ["+543516129221", "+543515088602"],
-  email: "abautomotores@hotmail.com",
+  telephone: TELEFONOS.map((t) => t.tel),
+  email: EMAIL,
   foundingDate: "2003",
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Avenida Amadeo Sabattini 4260, Empalme",
-    addressLocality: "Córdoba",
-    addressRegion: "Córdoba",
-    postalCode: "X5006KQT",
-    addressCountry: "AR",
+    streetAddress: `${DIRECCION.calle}, ${DIRECCION.barrio}`,
+    addressLocality: DIRECCION.ciudad,
+    addressRegion: DIRECCION.provincia,
+    postalCode: DIRECCION.codigoPostal,
+    addressCountry: DIRECCION.pais,
   },
   geo: {
     "@type": "GeoCoordinates",
@@ -90,7 +91,7 @@ const dealerSchema = {
   ],
   memberOf: {
     "@type": "Organization",
-    name: "Cámara de Comercio Automotor de Córdoba",
+    name: CAMARA,
   },
   openingHoursSpecification: [
     {
