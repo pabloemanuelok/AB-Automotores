@@ -106,11 +106,11 @@ const Footer = () => {
 
             <div className="flex flex-col gap-3">
               {/* Teléfono */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center md:justify-start gap-3">
                 <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
                   <FaPhoneAlt className="text-white text-sm" />
                 </div>
-                <span className="text-gray-600 text-sm">
+                <span className="text-gray-600 text-sm text-center md:text-left">
                   <a
                     href="tel:+543516129221"
                     onClick={() => sendGAEvent("event", "click_telefono", { origen: "footer" })}
@@ -133,12 +133,12 @@ const Footer = () => {
               <Link
                 href="mailto:abautomotores@hotmail.com"
                 aria-label="Enviar correo a AB Automotores"
-                className="group flex items-center gap-3"
+                className="group flex items-center justify-center md:justify-start gap-3"
               >
                 <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
                   <FaEnvelope className="text-white text-sm" />
                 </div>
-                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm break-all">
+                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm break-all text-center md:text-left">
                   abautomotores@hotmail.com
                 </span>
               </Link>
@@ -148,12 +148,12 @@ const Footer = () => {
                 href="https://maps.app.goo.gl/SwaGpKmyq8RJGCAHA"
                 target="_blank"
                 aria-label="Ver ubicación en Google Maps"
-                className="group flex items-start gap-3"
+                className="group flex items-center md:items-start justify-center md:justify-start gap-3"
               >
                 <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
                   <FaMapMarkerAlt className="text-white text-sm" />
                 </div>
-                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug">
+                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug text-center md:text-left">
                   Avenida Amadeo Sabattini 4260, Empalme, X5006KQT Córdoba
                 </span>
               </Link>
@@ -166,7 +166,7 @@ const Footer = () => {
       {/* Barra inferior */}
       <div className="bg-black border-t border-[#505050]">
         <div className="page-container py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-gray-500 text-xs">
+          <span className="text-gray-500 text-xs text-center sm:text-left">
             © {new Date().getFullYear()} AB Automotores. Todos los derechos reservados.
           </span>
           <div className="flex items-center gap-2">
