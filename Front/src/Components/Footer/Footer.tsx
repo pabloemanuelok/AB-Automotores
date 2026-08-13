@@ -158,7 +158,7 @@ const Footer = () => {
                 {/* En mobile va la version corta para no estirar la columna; la
                     completa sigue en el DOM, solo oculta, para no perder SEO local */}
                 <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug md:hidden">
-                  Av. Sabattini 4260
+                  Av. Sabattini 4260, Córdoba
                 </span>
                 <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug hidden md:inline">
                   Avenida Amadeo Sabattini 4260, Empalme, X5006KQT Córdoba
