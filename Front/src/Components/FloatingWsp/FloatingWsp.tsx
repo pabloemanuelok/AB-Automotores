@@ -23,12 +23,9 @@ const FloatingWhatsApp: React.FC = () => {
         trackEvent("wsp");
         sendGAEvent("event", "click_whatsapp", { origen: "flotante" });
       }}
-      className="fixed bottom-10 md:bottom-6 right-4 z-50 flex items-center gap-3 rounded-full bg-[#25D366] text-white shadow-xl shadow-black/25 ring-2 ring-white/40 transition-transform duration-200 hover:scale-105 active:scale-95 h-[60px] w-[60px] justify-center md:h-auto md:w-auto md:px-6 md:py-4"
+      className="fixed bottom-10 md:bottom-6 right-4 z-50 flex h-[60px] w-[60px] md:h-16 md:w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-black/25 ring-2 ring-white/40 transition-transform duration-200 hover:scale-105 active:scale-95"
     >
-      <FaWhatsapp className="text-[32px] md:text-[28px]" aria-hidden="true" />
-      <span className="hidden md:inline text-base font-bold whitespace-nowrap">
-        Escribinos
-      </span>
+      <FaWhatsapp className="text-[32px] md:text-[34px]" aria-hidden="true" />
     </Link>
   );
 };
