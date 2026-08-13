@@ -1,52 +1,35 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
 import { trackEvent } from "@/utils/analytics";
 import { sendGAEvent } from "@next/third-parties/google";
-const logoWsp = "https://ik.imagekit.io/automotoresab/src-assets/logoWsp.png";
-const logoInstagram = "https://ik.imagekit.io/automotoresab/src-assets/logoInstagram.png";
-const logoFacebook = "https://ik.imagekit.io/automotoresab/src-assets/logoFacebook.png";
+
+// wa.me y no el catalogo de WhatsApp Business: abre el chat directo con el
+// mensaje precargado, que es lo que convierte.
+const WSP_CHAT =
+  "https://wa.me/5493516129221?text=" +
+  encodeURIComponent("¡Hola! Quiero consultar por un vehículo.");
 
 const FloatingWhatsApp: React.FC = () => {
   return (
-    <div className="fixed md:bottom-2 bottom-10 right-4 z-50 space-y-3">
-      <Link
-        href="https://www.whatsapp.com/catalog/5493516129221/?app_absent=0"
-        target="_blank"
-        onClick={() => {
-          trackEvent("wsp");
-          sendGAEvent("event", "click_whatsapp", { origen: "flotante" });
-        }}
-      >
-        <Image
-          src={logoWsp}
-          alt="WhatsApp"
-          width={80}
-          height={80}
-          className="transition-transform transform md:w-[40px] w-[40px] hover:scale-110 cursor-pointer"
-        />
-      </Link>
-      <Link href="https://www.instagram.com/automotoresab/?hl=es" target="_blank">
-        <Image
-          src={logoInstagram}
-          alt="Instagram"
-          width={80}
-          height={80}
-          className="transition-transform transform md:w-[40px] w-[40px] hover:scale-110 cursor-pointer"
-        />
-      </Link>
-      <Link href="https://www.facebook.com/profile.php?id=100001582968005" target="_blank">
-        <Image
-          src={logoFacebook}
-          alt="Facebook"
-          width={80}
-          height={80}
-          className="transition-transform transform md:w-[40px] w-[40px] hover:scale-110 cursor-pointer"
-        />
-      </Link>
-    </div>
+    <Link
+      href={WSP_CHAT}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Escribinos por WhatsApp"
+      onClick={() => {
+        trackEvent("wsp");
+        sendGAEvent("event", "click_whatsapp", { origen: "flotante" });
+      }}
+      className="fixed bottom-10 md:bottom-6 right-4 z-50 flex items-center gap-3 rounded-full bg-[#25D366] text-white shadow-xl shadow-black/25 ring-2 ring-white/40 transition-transform duration-200 hover:scale-105 active:scale-95 h-[60px] w-[60px] justify-center md:h-auto md:w-auto md:px-6 md:py-4"
+    >
+      <FaWhatsapp className="text-[32px] md:text-[28px]" aria-hidden="true" />
+      <span className="hidden md:inline text-base font-bold whitespace-nowrap">
+        Escribinos
+      </span>
+    </Link>
   );
 };
 

@@ -101,7 +101,15 @@ const HomeCounter: React.FC = React.memo(() => {
 
   return (
     <section ref={sectionRef} id="home-counter" className="bg-[#0a0a0a] py-8 md:py-10">
-      <div className="page-container flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
+      <div className="page-container">
+
+        {/* Encabezado */}
+        <h2 className="text-xl md:text-2xl font-bold text-white text-center">
+          Lo que dicen nuestros clientes
+        </h2>
+        <div className="mt-2 mb-6 md:mb-8 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto" />
+
+        <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
 
         {/* Columna izquierda: contador + Google */}
         <motion.div
@@ -211,6 +219,7 @@ const HomeCounter: React.FC = React.memo(() => {
           </button>
         </motion.div>
 
+        </div>
       </div>
     </section>
   );

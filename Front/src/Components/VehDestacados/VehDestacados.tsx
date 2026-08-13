@@ -48,9 +48,13 @@ const VehDestacados = () => {
           Seleccionados de la semana
         </p>
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-          Vehículos Destacados
+          Autos usados destacados en Córdoba
         </h2>
         <div className="mt-2 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto" />
+        <p className="mt-4 text-gray-500 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+          Estos son algunos de los autos disponibles en nuestro salón de Córdoba. Todos con precio
+          publicado, entrega inmediata y posibilidad de financiar o entregar tu usado como parte de pago.
+        </p>
         {label && (
           <p className="text-gray-500 text-sm mt-3">{label}</p>
         )}

@@ -35,11 +35,11 @@ const Section0: React.FC = () => {
           >
             {/* Título y descripción */}
             <div className="flex flex-col gap-1 w-full md:max-w-xl">
-              <h1 className="text-white text-2xl md:text-2xl lg:text-3xl font-bold leading-tight">
-                AGENCIA AUTOMOTRIZ
+              <h1 className="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                Concesionaria de autos usados y 0km en Córdoba
               </h1>
-              <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-sm font-bold">
-                USADOS Y 0KM
+              <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-md font-bold">
+                Entrega inmediata, financiación y permutas
               </p>
             </div>
 

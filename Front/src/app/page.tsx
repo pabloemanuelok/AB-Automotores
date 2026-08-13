@@ -1,7 +1,45 @@
 import dynamic from "next/dynamic";
 import React from "react";
+import type { Metadata } from "next";
 import CtaBanner from "@/Components/CtaBanner/CtaBanner";
 import Section3 from "@/Components/Section3/Section3";
+import Faq from "@/Components/Faq/Faq";
+import { homeFaqs } from "@/lib/faq";
+import { SITE_URL } from "@/lib/seo";
+
+const title = "Concesionaria de autos usados en Córdoba | AB Automotores";
+
+export const metadata: Metadata = {
+  // absolute: el layout aplica el template "%s | AB Automotores" y duplicaria la marca.
+  title: { absolute: title },
+  description:
+    "Concesionaria de autos usados y 0km en Córdoba, sobre Av. Amadeo Sabattini 4260. Entrega inmediata, financiación hasta el 100%, permutas y consignaciones. Más de 20 años en el rubro.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title,
+    description:
+      "Autos usados y 0km seleccionados en Córdoba. Financiación, permutas, consignaciones y gestoría. Entrega inmediata.",
+    url: SITE_URL,
+    type: "website",
+    locale: "es_AR",
+    siteName: "AB Automotores",
+    images: [{ url: "/og-default.jpg", width: 1200, height: 630 }],
+  },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${SITE_URL}/#faq`,
+  mainEntity: homeFaqs.map(({ question, answer }) => ({
+    "@type": "Question",
+    name: question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: answer,
+    },
+  })),
+};
 
 const Loading = ({ section }: { section: string }) => (
   <div className="h-[400px] w-full flex items-center justify-center">
@@ -31,13 +69,18 @@ const VehDestacados = dynamic(() => import("@/Components/VehDestacados/VehDestac
 const Page = () => {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Section0 />
+      <SectionAnim />
       <Section1 />
       <SobreNosotros />
       <Section3 />
-      <SectionAnim />
       <VehDestacados />
       <Section4 />
+      <Faq />
       <div className="mt-12 md:mt-16">
         <CtaBanner
           eyebrow="Consultá sin compromiso"

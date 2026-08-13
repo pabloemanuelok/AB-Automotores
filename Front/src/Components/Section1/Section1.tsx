@@ -44,7 +44,6 @@ const ImageGallery: React.FC = () => {
                 fill
                 sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 50vw, 33vw"
                 className="object-cover transition-transform duration-500 hover:scale-105"
-                priority={index === 0}
               />
             </div>
           </SwiperSlide>

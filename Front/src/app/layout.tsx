@@ -53,17 +53,22 @@ export const metadata: Metadata = {
 const dealerSchema = {
   "@context": "https://schema.org",
   "@type": "AutoDealer",
+  "@id": `${SITE_URL}/#autodealer`,
   name: "AB Automotores",
+  description:
+    "Concesionaria de autos usados y 0km en Córdoba. Compraventa, financiación, permutas, consignaciones y gestoría integral. Más de 20 años en el rubro automotor.",
   url: SITE_URL,
   logo: "https://ik.imagekit.io/automotoresab/src-assets/LogoRojo.png",
   image: "https://ik.imagekit.io/automotoresab/src-assets/LogoRojo.png",
   telephone: ["+543516129221", "+543515088602"],
   email: "abautomotores@hotmail.com",
   foundingDate: "2003",
+  priceRange: "$$",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Avenida Amadeo Sabattini 4260, Empalme",
     addressLocality: "Córdoba",
+    addressRegion: "Córdoba",
     postalCode: "X5006KQT",
     addressCountry: "AR",
   },
@@ -71,6 +76,21 @@ const dealerSchema = {
     "@type": "GeoCoordinates",
     latitude: -31.4346103,
     longitude: -64.1320892,
+  },
+  hasMap: "http://google.com.ar/maps/?cid=11758588401791495567",
+  areaServed: [
+    { "@type": "City", name: "Córdoba" },
+    { "@type": "City", name: "Villa Allende" },
+    { "@type": "City", name: "Río Ceballos" },
+    { "@type": "City", name: "Alta Gracia" },
+    { "@type": "City", name: "Malagueño" },
+    { "@type": "City", name: "Unquillo" },
+    { "@type": "City", name: "Mendiolaza" },
+    { "@type": "City", name: "Saldán" },
+  ],
+  memberOf: {
+    "@type": "Organization",
+    name: "Cámara de Comercio Automotor de Córdoba",
   },
   openingHoursSpecification: [
     {
@@ -95,6 +115,9 @@ const dealerSchema = {
   sameAs: [
     "https://www.instagram.com/automotoresab/?hl=es",
     "https://www.facebook.com/profile.php?id=100001582968005",
+    "https://www.guia360.com.ar/es/recorrido-virtual-360/ab-automotores",
+    "https://clasificados.lavoz.com.ar/sitio/abautomotores",
+    "https://gtm.com.ar/concesionario/ab-automotores-2/",
   ],
 };
 

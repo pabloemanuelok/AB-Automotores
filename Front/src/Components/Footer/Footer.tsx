@@ -98,9 +98,10 @@ const Footer = () => {
           >
             <div className="flex flex-col items-center md:items-start gap-4">
             <div>
-              <h3 className="text-gray-900 text-sm font-semibold uppercase tracking-widest">
+              {/* <p> y no <h3>: es un rotulo visual, no un encabezado de contenido */}
+              <p className="text-gray-900 text-sm font-semibold uppercase tracking-widest">
                 Contacto
-              </h3>
+              </p>
               <div className="h-0.5 w-8 bg-[#B62E30] mt-2 md:mx-0 mx-auto" />
             </div>
 
