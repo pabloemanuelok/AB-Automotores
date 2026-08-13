@@ -104,13 +104,15 @@ const Footer = () => {
               <div className="h-0.5 w-8 bg-[#B62E30] mt-2 md:mx-0 mx-auto" />
             </div>
 
-            <div className="flex flex-col gap-3">
+            {/* w-fit + mx-auto: el bloque se encoge a su contenido y se centra,
+                asi los iconos quedan alineados en columna y no cada uno por su lado */}
+            <div className="flex flex-col gap-3 w-fit mx-auto md:mx-0">
               {/* Teléfono */}
-              <div className="flex items-center justify-center md:justify-start gap-3">
+              <div className="flex items-center gap-3">
                 <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
                   <FaPhoneAlt className="text-white text-sm" />
                 </div>
-                <span className="text-gray-600 text-sm text-center md:text-left">
+                <span className="text-gray-600 text-sm">
                   <a
                     href="tel:+543516129221"
                     onClick={() => sendGAEvent("event", "click_telefono", { origen: "footer" })}
@@ -133,12 +135,12 @@ const Footer = () => {
               <Link
                 href="mailto:abautomotores@hotmail.com"
                 aria-label="Enviar correo a AB Automotores"
-                className="group flex items-center justify-center md:justify-start gap-3"
+                className="group flex items-center gap-3"
               >
                 <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
                   <FaEnvelope className="text-white text-sm" />
                 </div>
-                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm break-all text-center md:text-left">
+                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm break-all">
                   abautomotores@hotmail.com
                 </span>
               </Link>
@@ -148,12 +150,17 @@ const Footer = () => {
                 href="https://maps.app.goo.gl/SwaGpKmyq8RJGCAHA"
                 target="_blank"
                 aria-label="Ver ubicación en Google Maps"
-                className="group flex items-center md:items-start justify-center md:justify-start gap-3"
+                className="group flex items-center md:items-start gap-3"
               >
                 <div className="bg-[#B62E30] rounded-md p-1.5 flex-shrink-0">
                   <FaMapMarkerAlt className="text-white text-sm" />
                 </div>
-                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug text-center md:text-left">
+                {/* En mobile va la version corta para no estirar la columna; la
+                    completa sigue en el DOM, solo oculta, para no perder SEO local */}
+                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug md:hidden">
+                  Av. Sabattini 4260
+                </span>
+                <span className="text-gray-600 group-hover:text-[#B62E30] transition-colors duration-200 text-sm leading-snug hidden md:inline">
                   Avenida Amadeo Sabattini 4260, Empalme, X5006KQT Córdoba
                 </span>
               </Link>
