@@ -35,8 +35,11 @@ const Section0: React.FC = () => {
           >
             {/* Título y descripción */}
             <div className="flex flex-col gap-1 w-full md:max-w-xl">
+              {/* El salto es un <span block> y no un <br>: con el {" "} el
+                  textContent sigue siendo la frase completa con sus espacios */}
               <h1 className="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
-                Concesionaria de autos usados y 0km en Córdoba
+                Concesionaria de{" "}
+                <span className="block">autos usados y 0km en Córdoba</span>
               </h1>
               <p className="text-white/80 text-sm md:text-base leading-relaxed hidden md:block max-w-md font-bold">
                 Entrega inmediata, financiación y permutas

@@ -46,10 +46,10 @@ const SobreNosotros: React.FC = () => {
               Vehículos seleccionados uno por uno
             </h3>
             <p className="mt-2 text-white/70 text-sm md:text-base leading-relaxed">
-              Cada unidad que entra a nuestro salón pasa por una revisión de estado mecánico,
-              kilometraje y documentación antes de publicarse. Publicamos el precio de cada auto
-              y trabajamos con papeles al día, para que sepas exactamente qué estás comprando
-              desde el primer momento.
+              Cada unidad que entra a nuestro salón pasa por una revisión de estado mecánico
+              y documentación antes de publicarse. Además trabajamos con las mejores líneas de
+              crédito del mercado y con los papeles al día, para que sepas exactamente qué
+              estás comprando desde el primer momento.
             </p>
           </div>
 
