@@ -48,7 +48,7 @@ const Section0: React.FC = () => {
 
             {/* CTA */}
             <div className="grid grid-cols-2 gap-3">
-              <Link href="/views/catalogo">
+              <Link href="/autos-usados">
                 <button className="w-full px-6 py-3 bg-[#B62E30] hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-200 text-sm md:text-base shadow-lg hover:scale-[1.04] active:scale-[0.97]">
                   Ver Catálogo
                 </button>

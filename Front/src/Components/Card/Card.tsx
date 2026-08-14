@@ -50,9 +50,11 @@ const Card = ({
 
       {/* Panel de info siempre visible */}
       <div className="px-4 pt-3 pb-4 flex flex-col gap-1.5">
-        <h2 className="text-white font-bold text-base leading-tight truncate">
+        {/* h3 y no h2: cuelga del h2 de la grilla. Como h2 quedaba al mismo
+            nivel que una seccion entera y la pagina se quedaba sin jerarquia. */}
+        <h3 className="text-white font-bold text-base leading-tight truncate">
           {product.brand} {product.model}
-        </h2>
+        </h3>
         <p className="text-gray-200 text-sm font-medium truncate">
           {formatPrice(product.price)}
         </p>

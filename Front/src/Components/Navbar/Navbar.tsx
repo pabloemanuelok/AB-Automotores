@@ -10,7 +10,7 @@ import { UserContext } from "@/Context/contextUser";
 
 const navLinks = [
   { href: "/", label: "Inicio" },
-  { href: "/views/catalogo", label: "Catálogo" },
+  { href: "/autos-usados", label: "Catálogo" },
   { href: "/financiacion", label: "Financiación" },
   { href: "/consignaciones", label: "Consignaciones" },
   { href: "/contacto", label: "Contacto" },

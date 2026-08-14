@@ -93,7 +93,7 @@ export default async function CarsPage({ params }: Props) {
       <Breadcrumb
         path={`/views/details/${product.id}`}
         items={[
-          { nombre: "Catálogo", href: "/views/catalogo" },
+          { nombre: "Autos usados", href: "/autos-usados" },
           { nombre: `${product.brand} ${product.model} ${product.year}` },
         ]}
       />

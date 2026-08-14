@@ -36,7 +36,7 @@ const Section4: React.FC = () => {
             />
             {image.isMiddle && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <Link href="/views/catalogo">
+                <Link href="/autos-usados">
                   <motion.button
                     whileHover={{ scale: 1.06 }}
                     whileTap={{ scale: 0.97 }}

@@ -167,7 +167,7 @@ const Detail: React.FC<IDetailsProps> = ({ product }) => {
       <div className="page-container">
 
         {/* Botón volver */}
-        <Link href="/views/catalogo">
+        <Link href="/autos-usados">
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}

@@ -27,6 +27,7 @@ const nextConfig = {
       { source: '/views/contacto', destination: '/contacto', statusCode: 301 },
       { source: '/views/consignaciones', destination: '/consignaciones', statusCode: 301 },
       { source: '/views/financiacion', destination: '/financiacion', statusCode: 301 },
+      { source: '/views/catalogo', destination: '/autos-usados', statusCode: 301 },
     ];
   },
 };

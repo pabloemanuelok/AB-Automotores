@@ -23,11 +23,11 @@ No test suite is configured.
 
 All routes live under `src/app/`:
 - `/` — Landing page with dynamic-imported section components (`Section0`–`Section5`)
-- `/views/catalogo` — Product catalog (server-side fetch, client pagination/sorting)
+- `/autos-usados` — Product catalog (server-side fetch, client pagination/sorting in `CardList`), plus SEO content blocks and FAQ below the grid
 - `/views/details/[productId]` — Dynamic product detail route
 - `/views/admin` — Admin panel, wrapped with `ProtectedPage` HOC
 - `/views/login` — Authentication
-- `/contacto`, `/consignaciones`, `/financiacion` — SEO landing pages for each service. Server Components that emit their own JSON-LD (`Service` / `ContactPage`, plus `FAQPage`) and reuse `Breadcrumb`, `Faq` and `CtaBanner`. The old `/views/*` paths 301 to these in `next.config.mjs`; `/views/catalogo` has not been migrated yet.
+- `/contacto`, `/consignaciones`, `/financiacion` — SEO landing pages for each service. Server Components that emit their own JSON-LD (`Service` / `ContactPage`, plus `FAQPage`) and reuse `Breadcrumb`, `Faq` and `CtaBanner`. All the old `/views/*` paths 301 to their new locations in `next.config.mjs`. Only `admin`, `login` and `details/[productId]` still live under `/views/`.
 
 The root layout (`src/app/layout.tsx`) wraps the entire app with `UserProvider`, `Navbar`, `Footer`, and `FloatingWhatsApp`.
 

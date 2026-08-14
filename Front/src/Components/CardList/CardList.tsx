@@ -103,11 +103,15 @@ const CardsList: React.FC<{ products: IProduct[] }> = ({ products }) => {
     <section className="bg-white min-h-screen pb-10">
       <div className="page-container">
 
-        {/* Barra de controles */}
-        <div className="flex items-center justify-end mt-8 mb-6">
+        {/* Barra de controles. El h2 encabeza la grilla: los nombres de los
+            vehiculos cuelgan de el como h3. */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-8 mb-6">
+          <h2 className="text-gray-900 text-xl md:text-2xl font-bold">
+            Autos disponibles para entrega inmediata
+          </h2>
           <button
             onClick={toggleSortOrder}
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#1E1E1E] border border-[#505050] hover:border-[#B62E30] text-white text-sm font-semibold rounded-lg transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
+            className="self-end sm:self-auto shrink-0 flex items-center gap-2 px-5 py-2.5 bg-[#1E1E1E] border border-[#505050] hover:border-[#B62E30] text-white text-sm font-semibold rounded-lg transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
           >
             <span>Ordenar por Año</span>
 

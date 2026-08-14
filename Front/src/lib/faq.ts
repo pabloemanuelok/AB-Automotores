@@ -81,6 +81,43 @@ export const consignacionesFaqs = [
 ] as const;
 
 /**
+ * Las cinco salen del bloque "Otras preguntas de los usuarios" que Google
+ * muestra para la busqueda de autos usados en Cordoba, asi que estan escritas
+ * como las hace la gente. Las respuestas vienen del doc de SEO.
+ *
+ * OJO: la primera esta duplicada con homeFaqs, que declara la misma Question
+ * en el FAQPage de la home con una respuesta distinta. Hay que sacarla de uno
+ * de los dos lados; la decision quedo abierta con el cliente.
+ */
+export const autosUsadosFaqs = [
+  {
+    question: "¿Dónde comprar autos usados confiables en Córdoba?",
+    answer:
+      "Conviene verificar tres cosas antes de elegir: que el vendedor esté habilitado y forme parte de la Cámara de Comercio Automotor de Córdoba, que publique el precio y el estado real de cada unidad, y que se haga cargo de la transferencia y de los trámites. AB Automotores cumple con las tres. Estamos en Av. Amadeo Sabattini 4260, barrio Empalme, con más de 20 años en el rubro automotor de Córdoba.",
+  },
+  {
+    question: "¿Cuántos kilómetros es recomendable para comprar un auto usado?",
+    answer:
+      "Un promedio de 15.000 kilómetros por año de antigüedad está dentro de lo normal en Argentina. Más que el número absoluto importa el mantenimiento: un auto con 200.000 kilómetros y service documentado suele estar mejor que uno con 80.000 sin historial. Lo que sí conviene revisar es que el kilometraje sea coherente con el desgaste visible del vehículo.",
+  },
+  {
+    question: "¿Qué autos usados no conviene comprar?",
+    answer:
+      "Más que evitar marcas o modelos puntuales, conviene evitar situaciones: vehículos con el título observado o con prenda sin cancelar, unidades con deudas de patentes o infracciones acumuladas, autos que tuvieron siniestros importantes sin reparación documentada, y modelos cuyos repuestos ya no se consiguen con facilidad en el mercado local. Cualquiera de esas cuatro cosas convierte una buena oferta en un problema caro.",
+  },
+  {
+    question: "¿Conviene comprar en una agencia o a un particular?",
+    answer:
+      "Comprar a un particular suele salir algo más barato, pero todo el riesgo queda del lado del comprador: verificar el estado real del vehículo, confirmar que no tenga deudas ni prenda, y hacer la transferencia por cuenta propia. En una agencia habilitada el vehículo pasa por una revisión previa, la operación queda documentada y los trámites los hace la concesionaria. La diferencia de precio suele ser menor que el costo de un problema con los papeles.",
+  },
+  {
+    question: "¿Puedo entregar mi auto usado como parte de pago?",
+    answer:
+      "Sí. Tomamos tu vehículo actual como parte de pago de cualquiera de los autos publicados, con una tasación sin cargo y en el momento. Si preferís, también podemos comprártelo de forma directa o dejarlo en consignación para venderlo por vos.",
+  },
+] as const;
+
+/**
  * Las cuatro salen del doc de SEO. Las dos primeras responden long tails que
  * aparecen en busquedas relacionadas (sin anticipo, con dni entrega inmediata);
  * las dos ultimas no las contesta ningun competidor de la SERP en formato de

@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const services = [
   {
     title: "Compraventa",
-    href: "/views/catalogo",
+    href: "/autos-usados",
     description: "Compramos y vendemos autos usados y 0km seleccionados en Córdoba, con precios publicados y papeles al día.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
@@ -58,7 +58,7 @@ const services = [
   },
   {
     title: "Entrega inmediata",
-    href: "/views/catalogo",
+    href: "/autos-usados",
     description: "Los vehículos publicados están en stock y disponibles para retirar, sin esperas ni listas.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>

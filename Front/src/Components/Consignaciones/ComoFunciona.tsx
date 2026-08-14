@@ -99,7 +99,7 @@ const ComoFunciona: React.FC = () => {
 
           <p className="mt-6 text-white/50 text-sm">
             ¿Preferís comprar en vez de vender? Mirá{" "}
-            <Link href="/views/catalogo" className="text-[#B62E30] hover:underline">
+            <Link href="/autos-usados" className="text-[#B62E30] hover:underline">
               los autos que tenemos en venta
             </Link>
             .

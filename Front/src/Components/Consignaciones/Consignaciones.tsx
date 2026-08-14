@@ -46,7 +46,7 @@ const infoBlocks: { title: string; text: React.ReactNode }[] = [
       <>
         Si lo que querés es cambiar de auto, tomamos el tuyo como parte de pago de cualquier
         vehículo de{" "}
-        <Link href="/views/catalogo" className="text-[#B62E30] hover:underline">
+        <Link href="/autos-usados" className="text-[#B62E30] hover:underline">
           nuestro catálogo
         </Link>
         . Tasamos el usado, lo descontamos del precio del que te llevás y, si queda diferencia,
