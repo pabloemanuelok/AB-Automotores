@@ -27,7 +27,7 @@ All routes live under `src/app/`:
 - `/views/details/[productId]` — Dynamic product detail route
 - `/views/admin` — Admin panel, wrapped with `ProtectedPage` HOC
 - `/views/login` — Authentication
-- `/views/contacto`, `/views/consignaciones`, `/views/financiacion` — Contact/inquiry forms
+- `/contacto`, `/consignaciones`, `/financiacion` — SEO landing pages for each service. Server Components that emit their own JSON-LD (`Service` / `ContactPage`, plus `FAQPage`) and reuse `Breadcrumb`, `Faq` and `CtaBanner`. The old `/views/*` paths 301 to these in `next.config.mjs`; `/views/catalogo` has not been migrated yet.
 
 The root layout (`src/app/layout.tsx`) wraps the entire app with `UserProvider`, `Navbar`, `Footer`, and `FloatingWhatsApp`.
 

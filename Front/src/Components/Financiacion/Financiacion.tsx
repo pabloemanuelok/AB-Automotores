@@ -8,6 +8,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { trackEvent } from "@/utils/analytics";
+import { ENTIDADES } from "@/lib/financiacion";
 
 const images = [
   { src: "https://ik.imagekit.io/automotoresab/public-source/Frente20081.svg", alt: "Frente del vehículo" },
@@ -16,18 +17,54 @@ const images = [
   { src: "https://ik.imagekit.io/automotoresab/public-source/pomoCompass.jpeg", alt: "Pomo Compass" },
 ];
 
-const infoBlocks: { title: string; text: string }[] = [
+// Las cifras de cada entidad salen de lib/financiacion.ts: la tarjeta muestra
+// solo los campos que esten cargados, asi la seccion no depende de tener los
+// numeros confirmados para publicarse.
+const Entidades = () => (
+  <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+    {ENTIDADES.map((entidad) => {
+      const datos = [
+        entidad.tipo,
+        entidad.requisito,
+        entidad.porcentaje,
+        entidad.monto,
+        entidad.cuotas,
+      ].filter(Boolean);
+
+      return (
+        <div
+          key={entidad.nombre}
+          className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-left"
+        >
+          <p className="text-gray-900 font-semibold text-sm md:text-base">{entidad.nombre}</p>
+          {datos.length > 0 && (
+            <ul className="mt-1 flex flex-col gap-0.5">
+              {datos.map((dato) => (
+                <li key={dato} className="text-gray-600 text-xs md:text-sm">
+                  {dato}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      );
+    })}
+  </div>
+);
+
+const infoBlocks: { title: string; text: string; extra?: React.ReactNode }[] = [
   {
-    title: "Si no llegás con el efectivo, ¡podés financiarlo!",
-    text: "Trabajamos con las mejores líneas de créditos, prendarios y personales, con demostración de ingresos o solo con DNI. Todos nuestros créditos son con entrega inmediata.",
+    title: "Si no llegás con el efectivo, podés financiarlo",
+    text: "Todas nuestras líneas arrancan con el DNI: los créditos prendarios se resuelven solo con eso, y los personales van con DNI o recibo de sueldo. Todos nuestros créditos son con entrega inmediata: el auto ya está en el salón y se retira apenas se aprueba la operación y se completan los papeles. También recibimos tarjetas de crédito.",
   },
   {
-    title: "Distintas entidades financieras",
-    text: "Financiamos a través de distintas entidades bancarias como Banco de Córdoba, Banco Nación, Banco Supervielle y Banco Galicia. También recibimos tarjetas de crédito.",
+    title: "Trabajamos con estas entidades",
+    text: "Los créditos prendarios los trabajamos con Banco Supervielle y Banco Galicia, y se resuelven solo con el DNI. Los créditos personales, con Banco de Córdoba y Banco Nación, van con DNI o recibo de sueldo. Cada entidad maneja sus propias condiciones de monto, plazo y porcentaje financiable, y todas las operaciones quedan sujetas a evaluación crediticia. Sobre el vehículo que elijas te confirmamos qué línea te sirve y cuánto queda de cuota.",
+    extra: <Entidades />,
   },
   {
-    title: "¿Querés averiguar tu crédito disponible?",
-    text: "Podés financiar hasta un 100% del vehículo que elijas. Contáctanos para brindarte toda la información y ayudarte a financiar tu próximo auto.",
+    title: "Averiguá tu crédito disponible",
+    text: "Podés financiar hasta el 100% del vehículo que elijas. Escribinos contándonos qué modelo te interesa y cómo estás de ingresos (si tenés recibo de sueldo, si sos monotributista, si vas a entregar un usado como parte de pago) y te decimos qué línea te conviene y cuánto te queda de cuota. La consulta es sin cargo y no te compromete a nada.",
   },
 ];
 
@@ -35,7 +72,9 @@ const Financiacion = () => {
   useEffect(() => { trackEvent("financiacion"); }, []);
 
   return (
-    <div className="bg-white">
+    // overflow-x-hidden: la columna de texto entra animada desde x:30 y hasta
+    // que dispara el whileInView asoma fuera del viewport en mobile.
+    <div className="bg-white overflow-x-hidden">
       <section className="py-10 md:py-20">
         <div className="page-container flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
 
@@ -98,33 +137,12 @@ const Financiacion = () => {
                 >
                   <h3 className="text-gray-900 font-bold text-lg md:text-xl mb-1">{block.title}</h3>
                   <p className="text-gray-600 text-sm md:text-base leading-relaxed">{block.text}</p>
+                  {block.extra}
                 </motion.div>
               ))}
             </div>
           </motion.div>
 
-        </div>
-      </section>
-
-      {/* Banner CTA */}
-      <section className="bg-[#1E1E1E] border-t border-[#2a2a2a] py-14">
-        <div className="page-container text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <p className="text-[#B62E30] text-sm font-semibold tracking-widest uppercase mb-2">
-              Consultá sin compromiso
-            </p>
-            <h2 className="text-white text-2xl md:text-3xl font-bold mb-4">
-              ¿Querés conocer tu crédito disponible?
-            </h2>
-            <p className="text-white/60 max-w-md mx-auto text-sm md:text-base">
-              Contactanos y te asesoramos para encontrar la mejor opción de financiamiento para vos.
-            </p>
-          </motion.div>
         </div>
       </section>
     </div>

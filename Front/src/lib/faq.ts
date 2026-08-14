@@ -79,3 +79,37 @@ export const consignacionesFaqs = [
       "Sí. Tomamos autos usados como parte de pago de cualquier vehículo de nuestro stock, sea usado o 0km. La tasación es sin cargo y te la damos en el momento, sin que te comprometa a nada. Si tu auto vale menos que el que querés llevarte, la diferencia se puede financiar con créditos prendarios o personales. Si preferís, también te lo compramos de forma directa aunque no te lleves otro vehículo.",
   },
 ] as const;
+
+/**
+ * Las cuatro salen del doc de SEO. Las dos primeras responden long tails que
+ * aparecen en busquedas relacionadas (sin anticipo, con dni entrega inmediata);
+ * las dos ultimas no las contesta ningun competidor de la SERP en formato de
+ * pregunta.
+ *
+ * Ojo con las tres primeras: describen como funcionan las lineas en general y
+ * remiten a la consulta para el caso concreto, sin comprometer porcentajes,
+ * montos ni plazos. En cuanto se carguen las cifras confirmadas en
+ * lib/financiacion.ts, revisar que estas respuestas no las contradigan.
+ */
+export const financiacionFaqs = [
+  {
+    question: "¿Se puede financiar un auto usado sin anticipo?",
+    answer:
+      "Sí, se puede. Existen líneas que financian hasta el 100% del valor del vehículo, así que no necesitás poner un anticipo en efectivo. Lo que conviene tener claro es que cuanto mayor es el porcentaje que financiás, más alta queda la cuota y más exigente es la evaluación que hace la entidad, porque el monto del crédito es mayor. Toda operación sin anticipo está sujeta a la aprobación del banco. En AB Automotores hay otra vuelta posible: si tenés un auto usado, lo tasamos sin cargo y ese valor funciona como anticipo, así financiás solo la diferencia y la cuota te queda más baja.",
+  },
+  {
+    question: "¿Puedo comprar un auto financiado solo con el DNI?",
+    answer:
+      "Sí, y es una de las opciones más fuertes que tenemos: todas las líneas que trabajamos arrancan con el DNI. Los créditos prendarios de Banco Supervielle y Banco Galicia se resuelven solo con el DNI, sin ninguna demostración de ingresos. El motivo es que en un prendario el propio auto queda como garantía del crédito, así que la entidad no necesita que acredites ingresos por otra vía. Los créditos personales de Banco de Córdoba y Banco Nación van con DNI o con recibo de sueldo, según el caso. En todas las operaciones la aprobación final queda sujeta a la evaluación crediticia del banco. Escribinos con el modelo que te interesa y te decimos en el momento qué línea te sirve y con qué papeles.",
+  },
+  {
+    question: "¿Cuántas cuotas puedo sacar para un auto usado?",
+    answer:
+      "Depende de la línea y de la entidad. Los créditos prendarios, que trabajamos con Banco Supervielle y Banco Galicia, son los que admiten plazos más largos, porque el propio vehículo queda como garantía del banco. Los créditos personales de Banco de Córdoba y Banco Nación manejan plazos más cortos. En los usados hay además un factor que no aparece cuando se compra un 0km: la antigüedad del vehículo. Cuanto más viejo es el auto, menos plazo acepta financiar la entidad, porque el crédito no puede extenderse más allá de la vida útil que le reconoce. Por eso el plazo máximo real se define sobre el auto concreto que elijas, y te lo decimos junto con el valor de la cuota en cada opción.",
+  },
+  {
+    question: "¿Qué pasa si estoy en el Veraz?",
+    answer:
+      "Depende de qué figure, y conviene ser honesto con esto. Estar en el Veraz no es una sola cosa: hay una escala de situación crediticia, y no todos los casos bloquean un crédito. Una demora leve, o una deuda que ya cancelaste y todavía aparece en el historial, muchas veces no impide financiar, aunque puede reducir el monto que la entidad aprueba. En cambio, una situación irregular vigente sí complica bastante y en general termina en rechazo. Cuando pasa eso hay caminos alternativos que sirven: sumar un garante o poner el crédito a nombre de un familiar, aumentar el anticipo para bajar el monto a financiar, o entregar un auto usado como parte de pago. Escribinos con confianza y revisamos tu caso sin cargo: te decimos de frente si hay línea disponible o no, antes de que pierdas tiempo.",
+  },
+] as const;

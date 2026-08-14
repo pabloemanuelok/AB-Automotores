@@ -51,7 +51,7 @@ const infoBlocks: { title: string; text: React.ReactNode }[] = [
         </Link>
         . Tasamos el usado, lo descontamos del precio del que te llevás y, si queda diferencia,
         la podés{" "}
-        <Link href="/views/financiacion" className="text-[#B62E30] hover:underline">
+        <Link href="/financiacion" className="text-[#B62E30] hover:underline">
           financiar
         </Link>
         .

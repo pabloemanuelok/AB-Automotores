@@ -18,7 +18,7 @@ const services = [
   },
   {
     title: "Financiación",
-    href: "/views/financiacion",
+    href: "/financiacion",
     description: "Financiamos hasta el 100% del vehículo con créditos prendarios y personales, solo con DNI o con demostración de ingresos.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>

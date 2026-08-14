@@ -5,7 +5,7 @@ import { CAMARA } from "@/lib/negocio";
 // href null = la pagina propia del servicio todavia no existe (ver /gestoria).
 const servicios = [
   { titulo: "Compraventa de usados y 0km", href: "/views/catalogo" },
-  { titulo: "Financiación hasta el 100%", href: "/views/financiacion" },
+  { titulo: "Financiación hasta el 100%", href: "/financiacion" },
   { titulo: "Permutas", href: "/consignaciones" },
   { titulo: "Consignaciones", href: "/consignaciones" },
   { titulo: "Gestoría y trámites", href: null },

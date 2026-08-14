@@ -26,6 +26,7 @@ const nextConfig = {
       // trata igual, pero el 301 es el que espera el doc y las herramientas de auditoria.
       { source: '/views/contacto', destination: '/contacto', statusCode: 301 },
       { source: '/views/consignaciones', destination: '/consignaciones', statusCode: 301 },
+      { source: '/views/financiacion', destination: '/financiacion', statusCode: 301 },
     ];
   },
 };

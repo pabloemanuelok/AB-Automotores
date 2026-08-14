@@ -11,7 +11,7 @@ import { UserContext } from "@/Context/contextUser";
 const navLinks = [
   { href: "/", label: "Inicio" },
   { href: "/views/catalogo", label: "Catálogo" },
-  { href: "/views/financiacion", label: "Financiación" },
+  { href: "/financiacion", label: "Financiación" },
   { href: "/consignaciones", label: "Consignaciones" },
   { href: "/contacto", label: "Contacto" },
 ];
