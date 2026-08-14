@@ -150,3 +150,45 @@ export const financiacionFaqs = [
       "Depende de qué figure, y conviene ser honesto con esto. Estar en el Veraz no es una sola cosa: hay una escala de situación crediticia, y no todos los casos bloquean un crédito. Una demora leve, o una deuda que ya cancelaste y todavía aparece en el historial, muchas veces no impide financiar, aunque puede reducir el monto que la entidad aprueba. En cambio, una situación irregular vigente sí complica bastante y en general termina en rechazo. Cuando pasa eso hay caminos alternativos que sirven: sumar un garante o poner el crédito a nombre de un familiar, aumentar el anticipo para bajar el monto a financiar, o entregar un auto usado como parte de pago. Escribinos con confianza y revisamos tu caso sin cargo: te decimos de frente si hay línea disponible o no, antes de que pierdas tiempo.",
   },
 ] as const;
+
+/**
+ * Las cinco salen del bloque de preguntas de Google para gestoria automotor
+ * en Cordoba.
+ *
+ * Ninguna publica honorarios ni aranceles, por el mismo motivo que la de la
+ * transferencia en consignacionesFaqs: los valores se actualizan y un numero
+ * hardcodeado obliga a volver a tocar la web. Se explican los conceptos, se
+ * nombra quien fija cada uno y el monto exacto se deriva al cotizador de la
+ * DNRPA.
+ *
+ * La tercera se solapa en tema con la de consignaciones, pero esa es a nivel
+ * pais y esta es especifica de Cordoba (sellos provinciales, Rentas). Si se
+ * reescribe alguna de las dos, cuidar que no terminen diciendo lo mismo.
+ */
+export const gestoriaFaqs = [
+  {
+    question: "¿Qué trámites hace un gestor del automotor?",
+    answer:
+      "Un gestor del automotor se ocupa de las presentaciones ante el Registro Seccional de la Propiedad del Automotor y ante los organismos provinciales, para que vos no tengas que ir de una oficina a otra. Los más habituales son la transferencia de titularidad con el formulario 08, los informes de dominio, la verificación policial, las altas y bajas de patente, los cambios de radicación, las denuncias de venta, la inscripción y la cancelación de prendas, y los duplicados de título o de cédula. La ventaja de delegarlo es que el gestor ya conoce los requisitos de cada trámite y se ocupa de los turnos, con lo cual se evitan las presentaciones incompletas, que son la causa más común de que un trámite se caiga y haya que empezarlo de nuevo.",
+  },
+  {
+    question: "¿Cuánto cuesta la gestoría de un automotor?",
+    answer:
+      "El costo se arma con dos partes distintas y conviene no mezclarlas. Por un lado están los aranceles oficiales, que no los fija la gestoría sino el Estado: el arancel del Registro Nacional, el impuesto de sellos que fija cada provincia, y los conceptos fijos como la verificación policial, el informe de dominio y la emisión de la cédula. Esos valores se actualizan periódicamente y se consultan en el cotizador oficial de la DNRPA. Por otro lado está el honorario por hacer el trabajo, que varía según de qué trámite se trate y de cuántas presentaciones requiera. En AB Automotores te armamos el presupuesto completo sin cargo antes de que arranques, con los dos conceptos separados y detallados, así sabés desde el principio qué vas a pagar y por qué.",
+  },
+  {
+    question: "¿Cuánto vale transferir un auto en Córdoba?",
+    answer:
+      "En Córdoba la transferencia se compone de conceptos nacionales y provinciales. Del lado nacional está el arancel del Registro, que se calcula como un porcentaje sobre el valor del vehículo según la tabla de valuaciones vigente y cambia si la unidad es de producción nacional o importada, más los conceptos fijos: verificación policial, informe de dominio y emisión de la cédula. Del lado provincial está el impuesto de sellos, que fija la provincia de Córdoba, y el libre deuda de patentes, que se tramita en Rentas Córdoba y tiene que estar al día para poder avanzar. Como todos esos valores se actualizan, el monto exacto conviene sacarlo del cotizador oficial de la DNRPA. Si preferís, lo calculamos nosotros para tu caso concreto, sin cargo y por escrito.",
+  },
+  {
+    question: "¿Cómo cambio la titularidad de un auto en Rentas Córdoba?",
+    answer:
+      "Conviene separar dos cosas que suelen confundirse. El cambio de titularidad del vehículo se hace en el Registro Seccional de la Propiedad del Automotor, que es de jurisdicción nacional, con el formulario 08 y las firmas certificadas. Lo que se resuelve en Rentas Córdoba es la parte impositiva: que el impuesto a la propiedad automotor, lo que todos llamamos la patente, quede a nombre del nuevo titular. Para eso hace falta el libre deuda, porque con deuda registrada el trámite no avanza. En la práctica los dos van encadenados: primero se regulariza la deuda y se obtiene el libre deuda, después se presenta la transferencia en el Registro, y con esa transferencia ya inscripta se actualiza el titular en Rentas. Nosotros hacemos las dos partes, así no tenés que ir coordinando entre un organismo y el otro.",
+  },
+  {
+    question: "¿Qué papeles necesito para comprar un auto usado?",
+    answer:
+      "Del lado del vendedor: el título del automotor, la cédula verde, el DNI y el libre deuda de patentes e infracciones. Si el vehículo tiene una prenda, hay que cancelarla antes de poder transferir. Del lado del comprador alcanza con el DNI. Después están los papeles que se generan durante el trámite: el formulario 08 con las firmas certificadas, la verificación policial del vehículo y el informe de dominio, que es el documento que confirma quién es el titular real y si el auto tiene prendas o embargos. Ese informe es el que conviene pedir siempre antes de pagar, porque ahí aparecen los problemas que no se ven mirando el auto. Si comprás una unidad de nuestro salón, todo eso ya está verificado antes de que la publiquemos.",
+  },
+] as const;

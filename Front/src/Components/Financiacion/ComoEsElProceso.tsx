@@ -23,7 +23,11 @@ const pasos = [
         Los créditos prendarios, con Banco Supervielle o Banco Galicia, se resuelven solo con el
         DNI: no hace falta que presentes recibo de sueldo ni ninguna otra demostración de
         ingresos. Los personales, con Banco de Córdoba o Banco Nación, van con DNI o con recibo de
-        sueldo según el caso. La documentación del vehículo la preparamos nosotros.
+        sueldo según el caso.{" "}
+        <Link href="/gestoria" className="text-[#B62E30] hover:underline">
+          La documentación del vehículo la preparamos nosotros
+        </Link>
+        .
       </>
     ),
   },

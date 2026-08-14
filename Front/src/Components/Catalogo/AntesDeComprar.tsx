@@ -36,8 +36,11 @@ const bloques = [
       <>
         Título del automotor, cédula verde vigente, verificación policial, libre deuda de patentes
         e infracciones, y el informe de dominio para confirmar que el vehículo no tiene prenda ni
-        embargos. En AB verificamos todo esto antes de publicar cada unidad, y de la transferencia
-        nos ocupamos nosotros. Si además tenés un auto para entregar,{" "}
+        embargos. En AB verificamos todo esto antes de publicar cada unidad, y{" "}
+        <Link href="/gestoria" className="text-[#B62E30] hover:underline">
+          de la transferencia y los trámites nos ocupamos nosotros
+        </Link>
+        . Si además tenés un auto para entregar,{" "}
         <Link href="/consignaciones" className="text-[#B62E30] hover:underline">
           lo tasamos sin cargo
         </Link>

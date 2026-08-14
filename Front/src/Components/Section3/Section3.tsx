@@ -4,7 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-// href null = todavia no existe la pagina propia del servicio (ver /gestoria).
+// Todos los servicios ya tienen pagina propia. El render sigue tolerando
+// href null por si se suma alguno que todavia no la tenga.
 const services = [
   {
     title: "Compraventa",
@@ -48,7 +49,7 @@ const services = [
   },
   {
     title: "Gestoría",
-    href: null,
+    href: "/gestoria",
     description: "Hacemos las transferencias, el formulario 08, las patentes y toda la documentación del vehículo.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>

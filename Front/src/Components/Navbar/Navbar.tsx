@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/autos-usados", label: "Catálogo" },
   { href: "/financiacion", label: "Financiación" },
   { href: "/consignaciones", label: "Consignaciones" },
+  { href: "/gestoria", label: "Gestoría" },
   { href: "/contacto", label: "Contacto" },
 ];
 

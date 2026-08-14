@@ -2,13 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { CAMARA } from "@/lib/negocio";
 
-// href null = la pagina propia del servicio todavia no existe (ver /gestoria).
+// Todos los servicios ya tienen pagina propia. El render sigue tolerando
+// href null por si se suma alguno que todavia no la tenga.
 const servicios = [
   { titulo: "Compraventa de usados y 0km", href: "/autos-usados" },
   { titulo: "Financiación hasta el 100%", href: "/financiacion" },
   { titulo: "Permutas", href: "/consignaciones" },
   { titulo: "Consignaciones", href: "/consignaciones" },
-  { titulo: "Gestoría y trámites", href: null },
+  { titulo: "Gestoría y trámites", href: "/gestoria" },
 ];
 
 // Server Component: este bloque absorbe el contenido de Quienes Somos, asi que
