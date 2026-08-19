@@ -8,9 +8,14 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import { FaLock, FaUser } from "react-icons/fa";
+import { getUserFromToken } from "@/utils/Auth/Auth";
+import { createMockToken } from "@/utils/mockAuth";
+import { UserRole } from "@/Interfaces/Interface";
+
+const IS_DEV = process.env.NODE_ENV === "development";
 
 const Login: React.FC = () => {
-  const { login } = useContext(UserContext);
+  const { login, setToken, setIsLogged, setUser } = useContext(UserContext);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -48,6 +53,18 @@ const Login: React.FC = () => {
       setIsLoading(false);
       showAlert("error", "Error", "Error al iniciar sesión. Por favor, intente de nuevo.");
     }
+  };
+
+  // Solo development: el backend real todavía no tiene rol ni endpoints de
+  // empleados/tareas, así que no hay forma de probar esas vistas con una
+  // cuenta real. Esto no existe en el build de producción (dead code).
+  const handleMockLogin = (role: UserRole) => {
+    const token = createMockToken(role);
+    localStorage.setItem("token", token);
+    setToken(token);
+    setIsLogged(true);
+    setUser(getUserFromToken(token));
+    router.push(role === "admin" ? "/views/admin" : "/views/tareas");
   };
 
   return (
@@ -148,6 +165,30 @@ const Login: React.FC = () => {
                 )}
               </motion.button>
             </form>
+
+            {IS_DEV && (
+              <div className="mt-6 pt-5 border-t border-[#505050]/50">
+                <p className="text-gray-500 text-[11px] font-semibold uppercase tracking-wide text-center mb-3">
+                  Solo desarrollo — login mock
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleMockLogin("admin")}
+                    className="py-2 text-xs font-medium text-yellow-300 border border-yellow-500/30 rounded-lg hover:bg-yellow-500/10 transition-colors"
+                  >
+                    Entrar como Admin
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleMockLogin("empleado")}
+                    className="py-2 text-xs font-medium text-blue-300 border border-blue-500/30 rounded-lg hover:bg-blue-500/10 transition-colors"
+                  >
+                    Entrar como Empleado
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </motion.div>

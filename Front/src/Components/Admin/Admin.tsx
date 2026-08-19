@@ -8,9 +8,11 @@ import Dashboard from "./tabs/Dashboard";
 import AddVehicle from "./tabs/AddVehicle";
 import CatalogoAdmin from "./tabs/CatalogoAdmin";
 import Destacados from "./tabs/Destacados";
+import Equipo from "./tabs/Equipo";
+import TareasAdmin from "./tabs/TareasAdmin";
 import ConsultasClient from "./ConsultasClient/ConsultasClient";
 
-type Tab = "dashboard" | "agregar" | "catalogo" | "destacados" | "consultas";
+type Tab = "dashboard" | "agregar" | "catalogo" | "destacados" | "equipo" | "tareas" | "consultas";
 
 const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
   {
@@ -55,6 +57,24 @@ const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+      </svg>
+    ),
+  },
+  {
+    id: "equipo",
+    label: "Equipo",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+      </svg>
+    ),
+  },
+  {
+    id: "tareas",
+    label: "Tareas",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
   },
@@ -157,6 +177,8 @@ const AdminAddVehicle: React.FC = () => {
               {activeTab === "agregar" && <AddVehicle />}
               {activeTab === "catalogo" && <CatalogoAdmin />}
               {activeTab === "destacados" && <Destacados />}
+              {activeTab === "equipo" && <Equipo />}
+              {activeTab === "tareas" && <TareasAdmin />}
               {activeTab === "consultas" && <ConsultasClient />}
             </motion.div>
           </AnimatePresence>

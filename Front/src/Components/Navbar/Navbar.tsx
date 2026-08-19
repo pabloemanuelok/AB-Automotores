@@ -22,7 +22,8 @@ const Navbar: FC = () => {
   const [bgOpacity, setBgOpacity] = useState(0.6);
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
-  const { isLogged } = useContext(UserContext);
+  const { isLogged, user } = useContext(UserContext);
+  const role = user?.role;
   const pathname = usePathname();
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
@@ -96,7 +97,7 @@ const Navbar: FC = () => {
                 {label}
               </Link>
             ))}
-            {isLogged && (
+            {isLogged && role === "admin" && (
               <Link
                 href="/views/admin"
                 className={`relative text-yellow-400 transition-colors duration-200 hover:text-yellow-300 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-yellow-400 after:transition-all after:duration-200 ${
@@ -104,6 +105,16 @@ const Navbar: FC = () => {
                 }`}
               >
                 Admin
+              </Link>
+            )}
+            {isLogged && role === "empleado" && (
+              <Link
+                href="/views/tareas"
+                className={`relative text-yellow-400 transition-colors duration-200 hover:text-yellow-300 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-yellow-400 after:transition-all after:duration-200 ${
+                  pathname === "/views/tareas" ? "after:w-full" : "after:w-0 hover:after:w-full"
+                }`}
+              >
+                Tareas
               </Link>
             )}
           </div>
@@ -162,7 +173,7 @@ const Navbar: FC = () => {
                   {label}
                 </Link>
               ))}
-              {isLogged && (
+              {isLogged && role === "admin" && (
                 <Link
                   href="/views/admin"
                   onClick={toggleMenu}
@@ -171,6 +182,17 @@ const Navbar: FC = () => {
                   }`}
                 >
                   Admin
+                </Link>
+              )}
+              {isLogged && role === "empleado" && (
+                <Link
+                  href="/views/tareas"
+                  onClick={toggleMenu}
+                  className={`text-lg font-medium transition-colors duration-200 ${
+                    pathname === "/views/tareas" ? "text-yellow-300" : "text-yellow-400 hover:text-yellow-300"
+                  }`}
+                >
+                  Tareas
                 </Link>
               )}
             </div>

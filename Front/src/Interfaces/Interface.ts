@@ -66,9 +66,12 @@ interface IProductUpdate {
   baul?: string;
 }
 
+type UserRole = "admin" | "empleado";
+
 interface IUser {
   id: string;
   name: string;
+  role: UserRole;
 }
 
 interface ILogin {
@@ -106,6 +109,55 @@ interface IConsultaInput {
   _honeyPot?: string;
 }
 
+interface IEmployee {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  createdAt: string;
+}
+
+interface IEmployeeInput {
+  name: string;
+  email: string;
+  password: string;
+}
+
+type TaskType = "puntual" | "rutina";
+type TaskStatus = "no_iniciada" | "en_proceso" | "terminada" | "no_completada";
+
+interface ITask {
+  id: string;
+  title: string;
+  description?: string | null;
+  assignedTo: string;
+  assignedToName?: string;
+  createdBy: string;
+  type: TaskType;
+  status: TaskStatus;
+  failureReason?: string | null;
+  daysOfWeek?: number[] | null;
+  scheduledTime?: string | null;
+  lastCompletedAt?: string | null;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface ITaskInput {
+  title: string;
+  description?: string;
+  assignedTo: string;
+  type: TaskType;
+  daysOfWeek?: number[];
+  scheduledTime?: string;
+}
+
+interface ITaskStatusInput {
+  status: TaskStatus;
+  failureReason?: string;
+}
+
 interface IUserContextType {
   user: Partial<IUser> | null;
   setUser: React.Dispatch<React.SetStateAction<Partial<IUser> | null>>;
@@ -114,9 +166,12 @@ interface IUserContextType {
   login: (credential: ILogin) => Promise<boolean>;
   logout: () => void;
   token: string | null;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
   sessionExpired: boolean;
   handleSessionExpired: () => void;
   authReady: boolean;
+  /** Socket del namespace /tasks, ver docs/backend-specs/03-realtime.md. Nulo mientras no haya sesión. */
+  socket: import("socket.io-client").Socket | null;
 }
 
 export type {
@@ -124,11 +179,19 @@ export type {
   IConsulta,
   IConsultaInput,
   IDetailsProps,
+  IEmployee,
+  IEmployeeInput,
   ILogin,
   IProduct,
   IProductCardProps,
   IProductUpdate,
+  ITask,
+  ITaskInput,
+  ITaskStatusInput,
   IUser,
   IUserContextType,
   IVehicleImage,
+  TaskStatus,
+  TaskType,
+  UserRole,
 };

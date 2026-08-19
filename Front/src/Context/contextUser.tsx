@@ -1,8 +1,10 @@
 "use client";
 import { IUserContextType, ILogin, IUser } from "@/Interfaces/Interface";
 import { postLogin } from "@/utils/FetchUsers/FetchUsers";
-import { isTokenExpired } from "@/utils/Auth/Auth";
+import { isTokenExpired, getUserFromToken } from "@/utils/Auth/Auth";
+import { API_URL } from "@/utils/apiClient";
 import { createContext, useCallback, useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
 
 export const UserContext = createContext<IUserContextType>({
   user: null,
@@ -12,9 +14,11 @@ export const UserContext = createContext<IUserContextType>({
   login: async () => false,
   logout: () => {},
   token: null,
+  setToken: () => {},
   sessionExpired: false,
   handleSessionExpired: () => {},
   authReady: false,
+  socket: null,
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -24,12 +28,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [sessionExpired, setSessionExpired] = useState(false);
   // Los guards no deben decidir antes de releer el token de localStorage.
   const [authReady, setAuthReady] = useState(false);
+  const [socket, setSocket] = useState<Socket | null>(null);
 
   const login = async (credentials: ILogin) => {
     try {
       const data = await postLogin(credentials);
       setToken(data.access_token); // Almacenar el token
       setIsLogged(true);
+      setUser(getUserFromToken(data.access_token));
       localStorage.setItem("token", data.access_token); // Guardar el token en localStorage
       return true;
     } catch (error) {
@@ -61,10 +67,30 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         setIsLogged(true);
         setToken(storedToken);
+        setUser(getUserFromToken(storedToken));
       }
     }
     setAuthReady(true);
   }, [handleSessionExpired]);
+
+  // Conexión centralizada al namespace /tasks: se abre una sola vez por sesión
+  // (no por cada tab del panel admin) y se cierra sola al deslogear o expirar.
+  useEffect(() => {
+    if (!authReady || !isLogged || !token) {
+      setSocket(null);
+      return;
+    }
+
+    const instance = io(`${API_URL}/tasks`, {
+      auth: { token },
+      transports: ["websocket"],
+    });
+    setSocket(instance);
+
+    return () => {
+      instance.disconnect();
+    };
+  }, [authReady, isLogged, token]);
 
   return (
     <UserContext.Provider
@@ -76,9 +102,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         login,
         logout,
         token,
+        setToken,
         sessionExpired,
         handleSessionExpired,
         authReady,
+        socket,
       }}
     >
       {children}

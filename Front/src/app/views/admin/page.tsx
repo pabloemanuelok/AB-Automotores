@@ -5,7 +5,7 @@ import FondoNav from "@/Components/FondoNav/FondoNav";
 
 const AdminPage: React.FC = () => {
   return (
-    <ProtectedPage>
+    <ProtectedPage allowedRoles={["admin"]}>
       <FondoNav />
       <AdminAddVehicle />
     </ProtectedPage>
