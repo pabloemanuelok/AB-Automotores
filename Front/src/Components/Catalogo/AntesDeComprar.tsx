@@ -11,22 +11,9 @@ const bloques = [
     titulo: "En qué conviene fijarse",
     contenido: (
       <>
-        Más allá del precio, hay cuatro cosas que definen si un usado es una buena compra: el
-        estado mecánico real, el kilometraje coherente con el año, que los papeles estén al día y
-        sin deudas, y que el vendedor se haga cargo de la transferencia. Un auto barato con una
-        deuda de patentes atrasada o con el título observado termina saliendo bastante más caro.
-      </>
-    ),
-  },
-  {
-    titulo: "Cuántos kilómetros son muchos",
-    contenido: (
-      <>
-        No hay un número mágico. Un auto con 15.000 kilómetros por año de antigüedad está dentro
-        de lo esperable en Argentina. Lo que más importa es la coherencia: un vehículo de 2018 con
-        40.000 kilómetros puede ser tan buena señal como sospechosa, según cómo haya sido usado y
-        qué mantenimiento tenga documentado. Un motor con 200.000 kilómetros bien mantenido suele
-        dar menos problemas que uno con 80.000 sin service al día.
+        Más allá del precio, hay dos cosas que definen si un usado es una buena compra: el estado
+        mecánico real, y que los papeles estén al día y sin deudas. Un auto barato con una deuda
+        de patentes atrasada o con el título observado termina saliendo bastante más caro.
       </>
     ),
   },
@@ -34,15 +21,12 @@ const bloques = [
     titulo: "Qué papeles revisar",
     contenido: (
       <>
-        Título del automotor, cédula verde vigente, verificación policial, libre deuda de patentes
-        e infracciones, y el informe de dominio para confirmar que el vehículo no tiene prenda ni
-        embargos. En AB verificamos todo esto antes de publicar cada unidad, y{" "}
-        <Link href="/gestoria" className="text-[#B62E30] hover:underline">
-          de la transferencia y los trámites nos ocupamos nosotros
-        </Link>
-        . Si además tenés un auto para entregar,{" "}
-        <Link href="/consignaciones" className="text-[#B62E30] hover:underline">
-          lo tasamos sin cargo
+        Título del automotor, cédula verde, verificación policial, libre deuda de patentes e
+        infracciones, y el informe de dominio para confirmar que el vehículo no tiene prenda ni
+        embargos. En AB verificamos todo esto antes de publicar cada unidad. Si además tenés un
+        auto para entregar,{" "}
+        <Link href="/consignaciones" className="font-bold text-white hover:underline">
+          lo tasamos en el acto
         </Link>
         .
       </>

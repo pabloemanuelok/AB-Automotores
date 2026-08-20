@@ -105,7 +105,7 @@ const HomeCounter: React.FC = React.memo(() => {
 
         {/* Encabezado */}
         <h2 className="text-xl md:text-2xl font-bold text-white text-center">
-          Lo que dicen nuestros clientes
+          Reseñas
         </h2>
         <div className="mt-2 mb-6 md:mb-8 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto" />
 

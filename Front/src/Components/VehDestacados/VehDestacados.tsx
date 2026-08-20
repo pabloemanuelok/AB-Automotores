@@ -52,8 +52,8 @@ const VehDestacados = () => {
         </h2>
         <div className="mt-2 w-12 h-[3px] bg-[#B62E30] rounded-full mx-auto" />
         <p className="mt-4 text-gray-500 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-          Estos son algunos de los autos disponibles en nuestro salón de Córdoba. Todos con precio
-          publicado, entrega inmediata y posibilidad de financiar o entregar tu usado como parte de pago.
+          Estos son algunos de los autos disponibles en nuestro salón de Córdoba. Todos con
+          entrega inmediata y posibilidad de financiar con las mejores líneas de crédito del mercado.
         </p>
         {label && (
           <p className="text-gray-500 text-sm mt-3">{label}</p>

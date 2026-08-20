@@ -7,13 +7,13 @@ import Faq from "@/Components/Faq/Faq";
 import { faqPageSchema, homeFaqs } from "@/lib/faq";
 import { SITE_URL } from "@/lib/seo";
 
-const title = "Concesionaria de autos usados en Córdoba | AB Automotores";
+const title = "Agencia de autos usados en Córdoba | AB Automotores";
 
 export const metadata: Metadata = {
   // absolute: el layout aplica el template "%s | AB Automotores" y duplicaria la marca.
   title: { absolute: title },
   description:
-    "Concesionaria de autos usados y 0km en Córdoba, sobre Av. Amadeo Sabattini 4260. Entrega inmediata, financiación hasta el 100%, permutas y consignaciones. Más de 20 años en el rubro.",
+    "Agencia de autos usados y 0km en Córdoba, sobre Av. Amadeo Sabattini 4260. Entrega inmediata, financiación hasta el 100%, permutas y consignaciones. Más de 20 años en el rubro.",
   alternates: { canonical: "/" },
   openGraph: {
     title,

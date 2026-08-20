@@ -35,8 +35,8 @@ const bloques = [
     contenido: (
       <>
         Todos los vehículos que ves en esta página están físicamente en nuestro salón de Av.
-        Amadeo Sabattini 4260, en el barrio Empalme de Córdoba Capital. No trabajamos con pedidos
-        a fábrica ni con reservas a plazo: el auto que elegís se puede retirar apenas se cierra la
+        Amadeo Sabattini 4260, en el barrio Empalme de Córdoba Capital. No trabajamos con
+        reservas a largo plazo: el auto que elegís se puede retirar apenas se cierra la
         operación y se completan los papeles.
       </>
     ),
@@ -46,11 +46,13 @@ const bloques = [
     contenido: (
       <>
         Podés{" "}
-        <Link href="/financiacion" className="text-[#B62E30] hover:underline">
+        <Link href="/financiacion" className="font-bold text-gray-900 hover:underline">
           financiar hasta el 100% del vehículo
         </Link>{" "}
-        con créditos prendarios o personales, entregar tu auto actual como parte de pago, o{" "}
-        <Link href="/consignaciones" className="text-[#B62E30] hover:underline">
+        con créditos prendarios o personales a través de{" "}
+        <strong>Bancor, Nación, Supervielle y Galicia</strong>, entregar tu auto actual como parte
+        de pago, o{" "}
+        <Link href="/consignaciones" className="font-bold text-gray-900 hover:underline">
           dejarlo en consignación para que lo vendamos por vos
         </Link>
         . Las tres cosas se pueden combinar en la misma operación.

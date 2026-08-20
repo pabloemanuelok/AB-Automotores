@@ -25,7 +25,7 @@ export const homeFaqs = [
   {
     question: "¿Qué es una concesionaria y cómo funciona?",
     answer:
-      "Una concesionaria es un salón de venta de vehículos que compra, vende y permuta autos con respaldo comercial y legal. A diferencia de una venta entre particulares, la concesionaria verifica el estado y la documentación de cada unidad antes de publicarla, se hace cargo de la transferencia y responde por la operación. En AB Automotores además financiamos la compra, tomamos tu usado como parte de pago y hacemos todos los trámites de gestoría.",
+      "Una concesionaria es un salón de venta de vehículos que compra, vende y permuta autos con respaldo comercial y legal. A diferencia de una venta entre particulares, la concesionaria verifica el estado y la documentación de cada unidad antes de publicarla y responde por la operación. En AB Automotores además trabajamos con las mejores líneas de crédito, tomamos tu usado como parte de pago y hacemos todos los trámites de gestoría.",
   },
   {
     question: "¿Cuál es la diferencia entre una concesionaria y una agencia de autos?",
@@ -35,12 +35,12 @@ export const homeFaqs = [
   {
     question: "¿Cuánto tarda la entrega de un auto?",
     answer:
-      "En AB Automotores la entrega es inmediata. Todos los vehículos que publicamos están físicamente en nuestro salón de Av. Sabattini 4260 y se pueden retirar apenas se cierra la operación y se completan los papeles. No trabajamos con pedidos a fábrica ni con listas de espera. Si la compra es financiada, el plazo depende de la aprobación del crédito, que suele resolverse en pocos días.",
+      "La entrega es inmediata. Todos los vehículos que publicamos están físicamente en nuestro salón de Av. Sabattini 4260 y se pueden retirar apenas se cierra la operación y se completan los papeles. Si la compra es financiada, el plazo depende de la aprobación del crédito, que suele resolverse en pocos días.",
   },
   {
     question: "¿Dónde comprar autos usados confiables en Córdoba?",
     answer:
-      "Al elegir dónde comprar conviene verificar tres cosas: que el vendedor esté habilitado y forme parte de la Cámara de Comercio Automotor de Córdoba, que publique el precio y el estado real de cada unidad, y que se haga cargo de la transferencia y los trámites. AB Automotores cumple con las tres: somos miembros de la Cámara, publicamos precio y kilometraje de cada auto, y hacemos la gestoría completa. Estamos en Av. Amadeo Sabattini 4260, barrio Empalme, con más de 20 años en el rubro.",
+      "Al elegir dónde comprar conviene verificar que el vendedor esté habilitado y forme parte de la Cámara de Comercio Automotor de Córdoba, y que los papeles de cada unidad estén en regla: verificados, sin deudas municipales ni multas, y con verificación policial vigente. AB Automotores cumple con todo esto: somos miembros de la Cámara y cada auto que publicamos pasa por esa verificación antes de la venta. Estamos en Av. Amadeo Sabattini 4260, barrio Empalme, con más de 20 años en el rubro.",
   },
 ] as const;
 
