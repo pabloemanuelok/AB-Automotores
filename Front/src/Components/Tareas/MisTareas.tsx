@@ -83,7 +83,7 @@ const MisTareas: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white px-4 sm:px-6 py-8 max-w-3xl mx-auto">
+    <div className="min-h-screen bg-[#0a0a0a] text-white px-4 sm:px-6 pt-28 pb-8 max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold text-white mb-0.5">Mis tareas</h1>

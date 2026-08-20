@@ -98,6 +98,8 @@ const AdminAddVehicle: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
+      {/* Espacio para que el navbar fijo del sitio no tape la barra del panel */}
+      <div className="h-28" />
       {/* Top header bar */}
       <div className="border-b border-[#1E1E1E] bg-[#0d0d0d] px-4 sm:px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -122,7 +124,7 @@ const AdminAddVehicle: React.FC = () => {
         </button>
       </div>
 
-      <div className="flex min-h-[calc(100vh-57px)]">
+      <div className="flex min-h-[calc(100vh-169px)]">
         {/* Sidebar — desktop */}
         <aside className="hidden md:flex flex-col w-56 border-r border-[#1E1E1E] bg-[#0d0d0d] py-4 flex-shrink-0">
           <nav className="flex flex-col gap-0.5 px-2 flex-1">
