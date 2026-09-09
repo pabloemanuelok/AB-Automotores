@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "AB Automotores",
     short_name: "AB Automotores",
-    description: "Agencia de autos usados en Argentina",
+    description: "Concesionaria de autos usados en Argentina",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

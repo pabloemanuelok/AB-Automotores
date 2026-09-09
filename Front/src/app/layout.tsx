@@ -17,7 +17,7 @@ const titillium = Titillium_Web({
 });
 
 const description =
-  "Agencia de autos usados en Argentina. Encontrá tu próximo auto en AB Automotores.";
+  "Concesionaria de autos usados en Argentina. Encontrá tu próximo auto en AB Automotores.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -57,7 +57,7 @@ const dealerSchema = {
   "@id": `${SITE_URL}/#autodealer`,
   name: NOMBRE,
   description:
-    "Agencia de autos usados y 0km en Córdoba. Compraventa, financiación, permutas, consignaciones y gestoría integral. Más de 20 años en el rubro automotor.",
+    "Concesionaria de autos usados y 0km en Córdoba. Compraventa, financiación, permutas, consignaciones y gestoría integral. Más de 20 años en el rubro automotor.",
   url: SITE_URL,
   logo: "https://ik.imagekit.io/automotoresab/src-assets/LogoRojo.png",
   image: "https://ik.imagekit.io/automotoresab/src-assets/LogoRojo.png",
